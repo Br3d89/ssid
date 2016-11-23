@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Popular</title>
+</head>
+<body>
+<ul>
+{% for i in popular %}
+    <li><a href="{{i.get_absolute_url}}"><img src="{{i.img.url}}"></a></li>
+{% endfor %}
+</ul>
+</body>
+</html>

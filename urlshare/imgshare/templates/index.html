@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Image Uploader</title>
+ </head>
+ <body>
+     <form enctype="multipart/form-data" method="post" action="">
+         {{ form.as_p }}
+         {% csrf_token %}
+         {{o}}
+         <input type='submit' value="Upload">
+     </form>
+<ul>
+{% for i in latest %}
+    <li><a href="{{i.get_absolute_url}}"><img src="{{i.img_medium.url}}"></a></li>
+{% endfor %}
+</ul>
+ </body>
+</html>

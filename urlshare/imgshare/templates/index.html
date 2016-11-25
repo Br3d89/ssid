@@ -1,19 +1,51 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
  <head>
   <title>Image Uploader</title>
+     <link rel="stylesheet" type="text/css" href="{% static "css/foundation.css"%}">
+ <!--    <style>
+  div {
+    padding: 10px;
+    color: #fff;
+    background-color: #dee8f7;
+   }
+   img {
+   display: inline-block;
+   }
+   form {
+    height: 120px;
+    width: 220px;
+   }
+  </style> -->
  </head>
  <body>
-     <form enctype="multipart/form-data" method="post" action="">
+ <div class="top-bar">
+ <section class="right">
+  <ul class="right">
+    {% if username %}
+       <li><a href="/auth/logout/">Выйти ({{ username }})</a></li>
+	{% else %}
+	    <li><a href="/auth/login/">Войти</a></li>
+	{% endif %}
+   </ul>
+  </section>
+</div>
+     <form class="row" enctype="multipart/form-data" method="post" action="">
          {{ form.as_p }}
          {% csrf_token %}
-         {{o}}
          <input type='submit' value="Upload">
      </form>
-<ul>
+
+
+     <div class="row">
 {% for i in latest %}
-    <li><a href="{{i.get_absolute_url}}"><img src="{{i.img_medium.url}}"></a></li>
+    <a href="{{i.get_absolute_url}}"><img class="row" src="{{i.img_medium.url}}"></a>
 {% endfor %}
-</ul>
+         </div>
+     <div class="row"><a href="/popular">To Popular</a></div>
+    <div class="row"><a href="/toplikes">To TopLikes</a></div>
+ {% block login %}{% endblock %}
  </body>
 </html>
+

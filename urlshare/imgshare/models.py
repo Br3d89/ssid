@@ -2,20 +2,37 @@ from django.db import models
 from datetime import datetime
 from imagekit.models.fields import ImageSpecField
 from imagekit.processors import ResizeToFit, Adjust,ResizeToFill
+from django.db.models import F
+from django.utils.baseconv import base56
+from random import randint
 
 
 class Img(models.Model):
     img=models.ImageField(upload_to='images')
-    img_medium=ImageSpecField([Adjust(contrast=1.2, sharpness=1.1),ResizeToFit(300, 200)],source='img',format='JPEG', options={'quality': 90})
+    img_medium= ImageSpecField(source='img',
+                                      processors=[ResizeToFill(300, 150)],
+                                      format='JPEG',
+                                      options={'quality': 90})
+    img_big=ImageSpecField(source='img',
+                                      processors=[ResizeToFill(640, 480)],
+                                      format='JPEG',
+                                      options={'quality': 90})
     desc=models.CharField(max_length=120,blank=True)
     key=models.SlugField(unique=True,max_length=10)
     upload_date=models.DateTimeField()
     view_date=models.DateTimeField()
     view_count=models.PositiveIntegerField(default=0)
+    like_count=models.PositiveIntegerField(default=0)
 
     def get_absolute_url(self):
-        from django.urls import reverse
         return "/{}".format(self.key)
-        #return reverse('imgshare.views.details', args=[str(self.key)])
     def __str__(self):
         return 'Key:{} Image name:{}'.format(self.key,self.img.name)
+    @classmethod
+    def create(cls,img,desc):
+        key=base56.encode(randint(0, 0x7fffff))
+        obj, _=cls.objects.get_or_create(img=img,
+                                         defaults={'key':key,'desc':desc,'upload_date':datetime.now(),'view_date':datetime.now()})
+        return obj
+
+

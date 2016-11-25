@@ -5,10 +5,11 @@
     <title>Popular</title>
 </head>
 <body>
-<ul>
+ <div><a href="/">To Main</a></div>
+<div>
 {% for i in popular %}
-    <li><a href="{{i.get_absolute_url}}"><img src="{{i.img.url}}"></a></li>
+    <a href="{{i.get_absolute_url}}"><img src="{{i.img_medium.url}}"></a>
 {% endfor %}
-</ul>
+</div>
 </body>
 </html>

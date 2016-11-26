@@ -1,0 +1,27 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Uploaded image</title>
+    <link rel="stylesheet" type="text/css" href="{% static "foundation.css" %}">
+</head>
+    <body>
+    <div><a href="/">To Main</a></div>
+    <div><a href="/popular">To Popular</a></div>
+    <div><a href="/toplikes">To TopLikes</a></div>
+<div style="text-align: center"><img src="{{instance.img_big.url}}"></div>
+    <div style="text-align: center">
+            <div class=".text-center">Description: {{instance.desc}}</div>
+            <div class=".text-capitalize">Upload date: {{instance.upload_date.now}}</div>
+            <div class=".text-capitalize">Size: {{instance.img.size}} Bytes</div>
+            <div class=".text-capitalize">Dimensions: {{instance.img.width}} x {{instance.img.height}} pixels</div>
+             <div class=".text-capitalize">View count: {{instance.view_count}}</div>
+             <div class=".text-capitalize">Like count: {{instance.like_count}}</div>
+        <form action="" method="POST">
+               {% csrf_token %}
+   <p><input type='submit' value="Like"></p>
+  </form>
+        </div>
+    </body>
+</html>

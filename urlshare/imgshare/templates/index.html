@@ -1,26 +1,12 @@
-{% load static %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
  <head>
   <title>Image Uploader</title>
-     <link rel="stylesheet" type="text/css" href="{% static "css/foundation.css"%}">
- <!--    <style>
-  div {
-    padding: 10px;
-    color: #fff;
-    background-color: #dee8f7;
-   }
-   img {
-   display: inline-block;
-   }
-   form {
-    height: 120px;
-    width: 220px;
-   }
-  </style> -->
+   <link rel="stylesheet" type="text/css" href="{% static "css/foundation.css" %}">
  </head>
  <body>
- <div class="top-bar">
+<div class=".top-bar-right">
  <section class="right">
   <ul class="right">
     {% if username %}
@@ -31,20 +17,28 @@
    </ul>
   </section>
 </div>
-     <form class="row" enctype="multipart/form-data" method="post" action="">
+<div style="text-align: center">
+<!-- <form enctype="multipart/form-data" method="post" action="">
          {{ form.as_p }}
          {% csrf_token %}
-         <input type='submit' value="Upload">
-     </form>
+         <input class="button" type='submit' value="Upload">
+     </form> -->
 
+<form style="text-align: center" enctype="multipart/form-data" method="post" action="">
+         <p style="text-align: center"><label for="id_img">Выберите изображение:</label>
+         <input style="text-align: center" id="id_img" name="img" type="file" required /></p>
+         <p style="text-align: center"><label for="id_desc">Описание:</label> <input id="id_desc" maxlength="120" name="desc" type="text" /></p>
+         <input style="text-align: center" class="button" type='submit' value="Загрузить">
+</form>
+</div>
 
-     <div class="row">
+    <div style="text-align: center">
 {% for i in latest %}
-    <a href="{{i.get_absolute_url}}"><img class="row" src="{{i.img_medium.url}}"></a>
+    <a class="link" href="{{i.get_absolute_url}}"><img src="{{i.img_medium.url}}"></a>
 {% endfor %}
-         </div>
-     <div class="row"><a href="/popular">To Popular</a></div>
-    <div class="row"><a href="/toplikes">To TopLikes</a></div>
+        </div>
+     <div class=".row"><a href="/popular">To Popular</a></div>
+    <div class=".row"><a href="/toplikes">To TopLikes</a></div>
  {% block login %}{% endblock %}
  </body>
 </html>

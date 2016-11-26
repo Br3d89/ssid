@@ -2,22 +2,217 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b74ee86f-937c-4df4-a470-4e1925729b57" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imgshare/templates/uploaded.html" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/fonts/glyphicons-halflings-regular.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/fonts/glyphicons-halflings-regular.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/fonts/glyphicons-halflings-regular.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/fonts/glyphicons-halflings-regular.woff2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/1277145359_krasivaya-priroda-oboi-07_7A005TY/36f3d6292ddd57a3e814b6d74229c84a.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/1277145359_krasivaya-priroda-oboi-07_7A005TY/4695766b9369c9ef797b9272ac00d6c0.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/1277145359_krasivaya-priroda-oboi-07_YyJqd4l/777317c5ef3b39dfec181a9be2421424.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/1277145359_krasivaya-priroda-oboi-07_YyJqd4l/c53d9d6243616b7a8810c3ac6e218a86.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/14358655_528258044032761_5712498384852784408_n/91dc9f1cbc5ff02ebcf6bbf08ef87e98.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/14358655_528258044032761_5712498384852784408_n/d871b2a85fd557ba302787701469f02f.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/14492615_10209087697903162_2622354148749517449_n/052324fe6010f073f8def97195b5cbe8.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/14492615_10209087697903162_2622354148749517449_n/4bb2e97c27a2745772386a2ba2530b19.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/14492615_10209087697903162_2622354148749517449_n_o0VP544/240c0e9b821340d343c951dbf7efe523.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/14492615_10209087697903162_2622354148749517449_n_o0VP544/6f9911a5c1168dcc446d0de72f40fc8d.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/580823-1920x1080-hd-wallpaper/e3b068b867624d3f84959b6a6cfcd873.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/580823-1920x1080-hd-wallpaper/f1b81c4027f6641032b313bbabc8a144.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/580823-1920x1080-hd-wallpaper_YPocLDQ/e7843f3473985aa607dccfc2879830a9.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/580823-1920x1080-hd-wallpaper_YPocLDQ/f73e558f06f56b6c25bd66a561a5bb0b.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/81_main/32406c18962247872282882a38078ede.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/81_main/a081f81c530373c80ad145d9a992a32f.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/81_main_o6INStU/7d66bf929eee9fbbde0b4e5671ad7b63.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/81_main_o6INStU/be4c39262c13d0e009d90160989b27fb.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/86351314_krasivaya_priroda__3_/38885a1d6c88f4a6c144ffbefa3f71f4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/86351314_krasivaya_priroda__3_/5084f40edc5363687ae17858a2324674.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/86351314_krasivaya_priroda__3__EB8ZzuA/63a3e5f3b546ab7b0860c1b237f83ca9.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/86351314_krasivaya_priroda__3__EB8ZzuA/e282784bc99de20f7207bb9f349922bc.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/86351314_krasivaya_priroda__3__Ug7man5/209bd44fd582c05db76ab6dc7d143448.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/86351314_krasivaya_priroda__3__Ug7man5/3acc13a8fe43ff53a15b7870f4e5d49a.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/86351314_krasivaya_priroda__3__f2vgURn/59cb3690e84f8f2499a7c94616bb0955.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/86351314_krasivaya_priroda__3__f2vgURn/6a1d633ba6b819b2b37dafb241ed0a98.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/87357/b29f88ae8f087a062a9faa58b2de793f.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/87357/f0e5ef09b3e665f401f4339829069afd.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/87357_CEuyLl9/3963f161be65de3734e4d00222326da3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/87357_CEuyLl9/d5a34668a238e78a544cfbabd0c0d083.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/87357_LDxBRwi/09a647fab0d95006c6c45f8680311e6a.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/87357_LDxBRwi/d5bc4d697d4121f7212746e52deb7fb0.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/Krasivaya-priroda/201ef774d35639d3db9238b5b0c95195.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/Krasivaya-priroda/2298a916629349aed049dbdd80f28e47.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/UDEVITELNO-KRASIVAYa-PRIRODA/0cce4d3b0cb9ae21afa98da143f48e39.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/UDEVITELNO-KRASIVAYa-PRIRODA/f7fc56d77b008be53821b0de58fddb92.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/UDEVITELNO-KRASIVAYa-PRIRODA_6dqgtJf/92a6d34a2821b54e7d2459770d32924e.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/UDEVITELNO-KRASIVAYa-PRIRODA_6dqgtJf/cbf33938e2689ba9acdf0b0f46e017e0.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/UDEVITELNO-KRASIVAYa-PRIRODA_nLxpQfX/5190498235b7fd7dca8d7433416e65ab.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/UDEVITELNO-KRASIVAYa-PRIRODA_nLxpQfX/9e75554f2348e60a674f4e753bb5ce45.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/download/34e26c2f83acaba19d17d86814d1651c.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/download/64f0e8f9a48c7251229143e006227314.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/download_cPdSITf/239cc4726b5540dd5228418910f9a72d.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/download_cPdSITf/a5d2b40ecb1bc1baa4fd9df3354ba372.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/download_cPdSITf/fee6c9f4d62f65d0ae3e5fc13bbe7d13.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images/2d7f52a5f62f1cc19035acda4b3e7cb9.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_1/125baf2276de058d8ce5de0e92432da4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_1/8a04754e73aaff07c0f00420d98378ad.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_1_FfwV0nV/ef43ca91e80480a250c76de40c9d28b7.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_1_FfwV0nV/f337dd55859802ba8b218253a220173e.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_1_GwNd2of/062f71dc1e389e1c13ad384fa1f1ce2d.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_1_GwNd2of/ee4fc2de9ae654383d410a6e7c4cd85e.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_1_oKKhmkh/ce968fe0f8adf475f34ecd63b7faaf1a.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_1_oKKhmkh/fbfc3230f859d24bf23a9e3f7c45dfba.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_2/b2beeeabbd34c9f13425ea1e3f33f7e5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_2_5nH9Tu2/b3eb21ad7abf0e7d48c8f8aeeec73228.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_2_5nH9Tu2/ef8c6da2ac3940b449b2998e97fdaf57.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_2_IxVnqv0/817bfdefd3f7527a7e485775ca2c6faa.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_2_IxVnqv0/e5b733ed0795823b13ad2d5d0abd407a.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_3/611664e5a21b1bf7be55b5aff985c7ab.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_3_Jmi1BpD/8b8f0420a6b41d457a553b36e880ebfe.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_3_Jmi1BpD/b8f55200b58c568fb789d01664673944.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_3_LllpUe4/83dc9fc9b8ce5c60e97c9039a2ed9a77.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_3_LllpUe4/f03429578a41e455c0ebff580cce2cc1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_3_dZQBh4I/003e5a638141d4a27edeef63d1d5ac33.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_3_dZQBh4I/42d54f42ca0412cc725e168f2f375441.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_3_j3G0TFf/1d132dbe5904983b28b718f1f365aa15.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_3_j3G0TFf/c5e6a210ab75189cfbfff93c68267d9e.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_3_ylHozDX/4c88f357033fa7d7d46b0d47c65f19f6.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_3_ylHozDX/98b61cdfa8ec7f1c51f391905bc91f30.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_4/168dd1a79ab203aea0c29ab9e598a16d.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_4/f6db5a7147725d9217412234029a262e.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_4_RjOcPOL/b67bf28c2bc950af6fc05ec1b9ccc7c1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_4_RjOcPOL/e9f3039f22b7b6828ced5e019f6784a4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_5/bc2da07765700601732d6e536f0136b2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_5_ZO8Ih16/569c9416fa3327cdc02e36314fd9029b.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_5_ZO8Ih16/bcc50faf319c7d0a8ad33417db45bb50.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_6/e9b3fd0335d7e44b52acb935d465c657.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_6_8vh7rfF/0f1206253b0a32e50d4d8cac9b3f617a.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_6_8vh7rfF/7969dcd680db3a1222005ac72dc6e875.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_KCvQYx4/d3a62f4dc4aba94d687c1e6e5819ea56.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_VrGc6Zn/2d09e97b0e1bb50bbd96ef4f1c5b0275.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_VrGc6Zn/f0e186e11b5001698826b58c9d59cbb7.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_cdsk1am/9dd632c932706e2202be03a2f4102302.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/images_cdsk1am/e19ab491088a4c14b30e06c16166bc8d.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/krasivaya-priroda-1/b40f3ba689e0c8de244238e0e157dcd8.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/krasivaya-priroda-1/f10102576f3d953818edd17c6f345ceb.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/krasivaya-priroda-1_61HvmjF/00d3405bb20d44fff001f2d29ecd6fef.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/krasivaya-priroda-1_61HvmjF/c7e508535c8573c59ac48d7c1e743c9a.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/priroda_kartinki_foto_05/263874dce70023c8446afe374327d219.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/priroda_kartinki_foto_05/69334cd973b597ac91e700f4aab4961c.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/priroda_kartinki_foto_05_6loSaEQ/18f934b4ae90b3ae2de2ed9689b98f82.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/priroda_kartinki_foto_05_6loSaEQ/314c6c23e8eeee81ee9dcd7392555975.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/w1/18d6c6bdcba95bf37a42934fe696e0ff.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/w1/3fd4bf9fd87554c143dd428623cc3072.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/w1_8Amh6lg/5de88b524c95804737875231d99fc467.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/w1_8Amh6lg/6eca86df337399c3536c484ba0f1f788.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/w1_8FK5sKT/d6cc8ad5bcd7d1659dd26f6fba2fcf03.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/w1_8FK5sKT/f1b199ed92fe1eb4474028f995db55c4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/w1_IOh5lVO/00d8a3e1029f84deb4df43548dfcd873.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/w1_IOh5lVO/ede215eed04057c168a2dcda9d45b924.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/w1_abVWT04/396e06d245710f0ee6f9d09a3fba8451.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/CACHE/images/images/w1_abVWT04/4e8c90a8ccce2f41cf8c301a18a6bc63.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/1277145359_krasivaya-priroda-oboi-07.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/1277145359_krasivaya-priroda-oboi-07_7A005TY.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/1277145359_krasivaya-priroda-oboi-07_YyJqd4l.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/14358655_528258044032761_5712498384852784408_n.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/14492615_10209087697903162_2622354148749517449_n.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/14492615_10209087697903162_2622354148749517449_n_o0VP544.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/580823-1920x1080-hd-wallpaper.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/580823-1920x1080-hd-wallpaper_YPocLDQ.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/81_main.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/81_main_o6INStU.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/86351314_krasivaya_priroda__3_.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/86351314_krasivaya_priroda__3__EB8ZzuA.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/86351314_krasivaya_priroda__3__Ug7man5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/86351314_krasivaya_priroda__3__f2vgURn.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/87357.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/87357_CEuyLl9.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/87357_LDxBRwi.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/COL9-6_ZHZ4yo8.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/Krasivaya-priroda.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/UDEVITELNO-KRASIVAYa-PRIRODA.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/UDEVITELNO-KRASIVAYa-PRIRODA_6dqgtJf.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/UDEVITELNO-KRASIVAYa-PRIRODA_nLxpQfX.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/download.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/download_cPdSITf.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_1_FfwV0nV.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_1_GwNd2of.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_1_ZBB45Ql.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_1_oKKhmkh.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_2_5nH9Tu2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_2_IxVnqv0.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_3_Jmi1BpD.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_3_LllpUe4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_3_dZQBh4I.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_3_j3G0TFf.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_3_ylHozDX.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_4_RjOcPOL.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_5_ZO8Ih16.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_6_8vh7rfF.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_KCvQYx4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_VrGc6Zn.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/images_cdsk1am.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/krasivaya-priroda-1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/krasivaya-priroda-1_61HvmjF.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/priroda_kartinki_foto_05.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/priroda_kartinki_foto_05_6loSaEQ.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/w1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/w1_8Amh6lg.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/w1_8FK5sKT.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/w1_IOh5lVO.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/w1_abVWT04.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/media/images/w1_wvZqNbZ.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/migrations/0012_img_like.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/migrations/0013_auto_20161124_1151.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/migrations/0014_auto_20161124_1157.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/migrations/0015_auto_20161124_1259.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/css/app.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/css/bootstrap-theme.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/css/bootstrap-theme.css.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/css/bootstrap-theme.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/css/bootstrap-theme.min.css.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/css/bootstrap.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/css/bootstrap.css.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/css/bootstrap.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/css/bootstrap.min.css.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/css/foundation.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/css/foundation.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/css/imgshare.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/fonts/glyphicons-halflings-regular.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/js/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/js/bootstrap.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/js/bootstrap.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/js/npm.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/js/vendor/foundation.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/js/vendor/foundation.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/js/vendor/jquery.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/static/js/vendor/what-input.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/templates/detail.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgshare/urls.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/loginsys/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/loginsys/admin.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/loginsys/apps.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/loginsys/migrations/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/loginsys/models.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/loginsys/templates/login.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/loginsys/templates/register.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/loginsys/tests.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/loginsys/urls.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/loginsys/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../django_start/db.sqlite3" afterPath="$PROJECT_DIR$/../django_start/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../django_start/courses/templates/index.html" afterPath="$PROJECT_DIR$/../django_start/courses/templates/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../django_start/courses/views.py" afterPath="$PROJECT_DIR$/../django_start/courses/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imgshare/admin.py" afterPath="$PROJECT_DIR$/imgshare/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imgshare/models.py" afterPath="$PROJECT_DIR$/imgshare/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imgshare/templates/index.html" afterPath="$PROJECT_DIR$/imgshare/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imgshare/templates/popular.html" afterPath="$PROJECT_DIR$/imgshare/templates/popular.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imgshare/views.py" afterPath="$PROJECT_DIR$/imgshare/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/urlshare/settings.py" afterPath="$PROJECT_DIR$/urlshare/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/urlshare/urls.py" afterPath="$PROJECT_DIR$/urlshare/urls.py" />
     </list>
     <ignored path="urlshare.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,30 +233,10 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imgshare/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/loginsys/templates/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/loginsys/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
+            <state relative-caret-position="204">
+              <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
               <folding>
-                <element signature="e#0#63#0" expanded="true" />
+                <element signature="e#0#44#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -70,18 +245,26 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imgshare/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="85">
+              <caret line="5" column="73" selection-start-line="5" selection-start-column="73" selection-end-line="5" selection-end-column="73" />
+              <folding>
+                <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#p#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#1;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tests.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imgshare/tests.py">
+      <file leaf-file-name="register.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/loginsys/templates/register.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="306">
+              <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="19" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -90,19 +273,34 @@
       <file leaf-file-name="detail.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imgshare/templates/detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="204">
+              <caret line="12" column="31" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="31" />
+              <folding>
+                <element signature="n#style#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/loginsys/templates/login.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imgshare/models.py">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/loginsys/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
-              <folding />
+            <state relative-caret-position="289">
+              <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+              <folding>
+                <element signature="e#0#44#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -110,29 +308,31 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/urlshare/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+            <state relative-caret-position="179">
+              <caret line="34" column="24" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apps.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imgshare/apps.py">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/urlshare/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imgshare/admin.py">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/loginsys/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="425">
+              <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+              <folding>
+                <element signature="e#642#682#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -158,12 +358,14 @@
         <option value="$PROJECT_DIR$/imgshare/models.py" />
         <option value="$PROJECT_DIR$/imgshare/urls.py" />
         <option value="$PROJECT_DIR$/urlshare/urls.py" />
-        <option value="$PROJECT_DIR$/loginsys/urls.py" />
-        <option value="$PROJECT_DIR$/imgshare/templates/detail.html" />
-        <option value="$PROJECT_DIR$/imgshare/views.py" />
-        <option value="$PROJECT_DIR$/loginsys/views.py" />
         <option value="$PROJECT_DIR$/urlshare/settings.py" />
+        <option value="$PROJECT_DIR$/imgshare/static/css/test.html" />
+        <option value="$PROJECT_DIR$/loginsys/urls.py" />
+        <option value="$PROJECT_DIR$/loginsys/views.py" />
+        <option value="$PROJECT_DIR$/imgshare/views.py" />
+        <option value="$PROJECT_DIR$/loginsys/templates/register.html" />
         <option value="$PROJECT_DIR$/loginsys/templates/login.html" />
+        <option value="$PROJECT_DIR$/imgshare/templates/detail.html" />
         <option value="$PROJECT_DIR$/imgshare/templates/index.html" />
       </list>
     </option>
@@ -186,7 +388,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="1" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -204,8 +406,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -214,8 +414,98 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="loginsys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="loginsys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="imgshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="urlshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="imgshare" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -307,6 +597,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -441,16 +737,24 @@
       <option name="presentableId" value="Default" />
       <updated>1479748325541</updated>
     </task>
+    <task id="LOCAL-00001" summary="urlshare">
+      <created>1480087528613</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1480087528613</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25416037" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2579425" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -478,11 +782,89 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="urlshare" />
+    <option name="LAST_COMMIT_MESSAGE" value="urlshare" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/imgshare/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loginsys/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loginsys/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imgshare/templates/detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imgshare/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/urlshare/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2244">
+          <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imgshare/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imgshare/apps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imgshare/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/imgshare/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -504,7 +886,7 @@
         <state relative-caret-position="323">
           <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
           <folding>
-            <element signature="e#0#63#0" expanded="true" />
+            <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -521,7 +903,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -576,6 +957,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2040">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -583,6 +965,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -590,20 +973,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/urlshare/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loginsys/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="29" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -618,7 +987,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -646,53 +1014,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imgshare/views.py">
+    <entry file="file://$PROJECT_DIR$/imgshare/static/css/test.html" />
+    <entry file="file://$PROJECT_DIR$/urlshare/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
+        <state relative-caret-position="179">
+          <caret line="34" column="24" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="24" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/urlshare/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loginsys/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+          <folding>
+            <element signature="e#642#682#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/loginsys/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
+        <state relative-caret-position="289">
+          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
           <folding>
-            <element signature="e#0#63#0" expanded="true" />
+            <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/urlshare/settings.py">
+    <entry file="file://$PROJECT_DIR$/loginsys/templates/register.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imgshare/templates/detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="306">
+          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="19" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/loginsys/templates/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+        <state relative-caret-position="442">
+          <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imgshare/templates/detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="31" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="31" />
+          <folding>
+            <element signature="n#style#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imgshare/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imgshare/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="85">
+          <caret line="5" column="73" selection-start-line="5" selection-start-column="73" selection-end-line="5" selection-end-column="73" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#p#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#1;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#form#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

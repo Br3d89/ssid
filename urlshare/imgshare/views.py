@@ -18,19 +18,22 @@ class ImgForm(forms.ModelForm):
 
 
 def index(request):
-    if request.method=='POST':
+    args={}
+    args['form'] = ImgForm()
+    args['latest'] =Img.objects.order_by('-upload_date')[:12]
+    args['username']= auth.get_user(request).username
+    if request.POST:
         form=ImgForm(request.POST, request.FILES)
         if form.is_valid():
-            img=request.FILES['img']
-            desc=request.POST['desc']
+            img=form.cleaned_data['img']
+            desc=form.cleaned_data['desc']
+            #img=request.FILES['img']
+            #desc=request.POST['desc']
             instance=Img.create(img,desc)
             return redirect(instance)
         else:
-            return render(request, 'index.html',
-                          {'form': ImgForm(), 'latest': Img.objects.order_by('-upload_date')[:12],
-                           'username': auth.get_user(request).username})
-    return render(request, 'index.html', {'form': ImgForm(), 'latest': Img.objects.order_by('-upload_date')[:12],
-                                          'username': auth.get_user(request).username})
+            args['form']=form
+    return render(request, 'index.html', args)
 
 def popular(request):
     return render(request, 'popular.html',{'popular':Img.objects.order_by('view_count')[:12],

@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Popular</title>
-</head>
-<body>
- <div><a href="/">To Main</a></div>
-<div>
-{% for i in popular %}
-    <a href="{{i.get_absolute_url}}"><img src="{{i.img_medium.url}}"></a>
-{% endfor %}
-</div>
-</body>
-</html>
+{% extends 'index.html' %}
+
+{% block upload %}{% endblock %}

@@ -1,45 +1,76 @@
-{% load staticfiles %}
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
+
  <head>
-  <title>Image Uploader</title>
-   <link rel="stylesheet" type="text/css" href="{% static "css/foundation.css" %}">
+     <title>{% block title %}Image Uploader{% endblock %}</title>
+     <link rel="stylesheet" type="text/css" href="{% static 'css/bred.css' %}">
  </head>
+
  <body>
-<div class=".top-bar-right">
- <section class="right">
-  <ul class="right">
-    {% if username %}
-       <li><a href="/auth/logout/">Выйти ({{ username }})</a></li>
-	{% else %}
-	    <li><a href="/auth/login/">Войти</a></li>
-	{% endif %}
-   </ul>
-  </section>
-</div>
-<div style="text-align: center">
-<!-- <form enctype="multipart/form-data" method="post" action="">
-         {{ form.as_p }}
-         {% csrf_token %}
-         <input class="button" type='submit' value="Upload">
-     </form> -->
+ <div id="header">
+     <div class="form">
+    <form enctype="multipart/form-data" method="post" action="/" >
+    {% csrf_token %}
+      <!--   {{ form.as_p}} -->
+    <input id="id_img" name="img" type="file" title="hello" multiple required accept="image/jpeg,image/png,image/gif" />
+    <label for="id_desc"></label>
+    <input id="id_desc" maxlength="120" value="Описание" name="desc" type="text" />
+    <input type='submit' value="Загрузить">
+    </form>
+    </div>
+     <div>
+       {% if username %}
+           <a href="/auth/profile">Профиль ({{ username }})</a>
+           <a href="/auth/logout/">Выйти</a>
+      </div>
+       {% else %}
 
-<form style="text-align: center" enctype="multipart/form-data" method="post" action="">
-         <p style="text-align: center"><label for="id_img">Выберите изображение:</label>
-         <input style="text-align: center" id="id_img" name="img" type="file" required /></p>
-         <p style="text-align: center"><label for="id_desc">Описание:</label> <input id="id_desc" maxlength="120" name="desc" type="text" /></p>
-         <input style="text-align: center" class="button" type='submit' value="Загрузить">
-</form>
+     <form action="/auth/login/" method="POST">
+          {% csrf_token %}
+         <label for="username">Логин:</label>
+         <input type="text" name="username" id="username">
+         <label for="password">Пароль:</label>
+         <input type="password" name="password" id="password">
+         {% if login_error %}
+           <label class="error">{{login_error}}</label>
+         {% endif %}
+         <input type="submit" value="Войти">
+         <a href="/auth/register/">Регистрация</a>
+         </form>
+
+       {% endif %}
+     </div>
+
+ </div>
+
+<div class="links">
+ <a href="/">Главная</a><br>
+ <a href="/popular">Популярные</a><br>
+ <a href="/toplikes">ТОП Лайк</a><br>
 </div>
 
-    <div style="text-align: center">
-{% for i in latest %}
-    <a class="link" href="{{i.get_absolute_url}}"><img src="{{i.img_medium.url}}"></a>
-{% endfor %}
-        </div>
-     <div class=".row"><a href="/popular">To Popular</a></div>
-    <div class=".row"><a href="/toplikes">To TopLikes</a></div>
- {% block login %}{% endblock %}
+<br>
+
+ {% block content %}
+
+  <div class="content">
+
+    {% for i in latest %}
+         <a href="{{i.get_absolute_url}}">
+         <img class="img" src="{{i.img_medium.url}}">
+         </a>
+    {% endfor %}
+
+  </div>
+
+{% endblock %}
+
+ {% block footer %}
+  <div class="footer"><i>Powered by br3d with python/Django</i></div>
+ {% endblock %}
+
  </body>
 </html>
+
 

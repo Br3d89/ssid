@@ -18,10 +18,11 @@ from django.contrib import admin
 from imgshare.views import index,details,popular,toplikes
 from urlshare import settings
 from django.conf.urls.static import static
-from loginsys.views import login,logout,register
+from loginsys.views import login,logout,register,profile
 
 urlpatterns = [
     url(r'^login/', login),
     url(r'^logout/',logout),
     url(r'^register/',register),
+    url(r'^profile/',profile)
 ]

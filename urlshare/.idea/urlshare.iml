@@ -5,4 +5,7 @@
     <orderEntry type="jdk" jdkName="Python 3.5.2 virtualenv at C:\Users\br3d\Envs\bred-django" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_CONFIGURATION" value="Django" />
+  </component>
 </module>

@@ -14,6 +14,7 @@ def is_valid_email(val):
 #    email=forms.EmailField(validators=[is_valid_email])
 
 class StudentForm(forms.ModelForm):
+    email = forms.EmailField(validators=[is_valid_email])
     class Meta:
         model=Student
         fields=('name','birthdate','email')

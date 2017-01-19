@@ -4,50 +4,52 @@
 
  <head>
      <title>{% block title %}Image Uploader{% endblock %}</title>
-     <link rel="stylesheet" type="text/css" href="{% static 'css/bred.css' %}">
+     <link href="{% static 'css/bred.css' %}" rel="stylesheet" type="text/css" >
+     <link href="https://fonts.googleapis.com/css?family=Arima+Madurai" rel="stylesheet">
  </head>
 
  <body>
  <div id="header">
-     <div class="form">
-    <form enctype="multipart/form-data" method="post" action="/" >
-    {% csrf_token %}
-      <!--   {{ form.as_p}} -->
-    <input id="id_img" name="img" type="file" title="hello" multiple required accept="image/jpeg,image/png,image/gif" />
-    <label for="id_desc"></label>
-    <input id="id_desc" maxlength="120" value="Описание" name="desc" type="text" />
-    <input type='submit' value="Загрузить">
-    </form>
+     <div class="inline upload">
+        <form enctype="multipart/form-data" method="post" action="/" >
+        {% csrf_token %}
+        <input id="id_img" name="img" type="file" title="hello" multiple required accept="image/jpeg,image/png,image/gif" />
+        <input id="id_desc" maxlength="120" placeholder="Описание" name="desc" type="text"/>
+        <input type='submit' value="Загрузить">
+        </form>
     </div>
-     <div>
+
+
+     <div class="inline login">
        {% if username %}
            <a href="/auth/profile">Профиль ({{ username }})</a>
            <a href="/auth/logout/">Выйти</a>
-      </div>
        {% else %}
-
-     <form action="/auth/login/" method="POST">
+       <form style="display:inline-block;" action="/auth/login/" method="POST">
           {% csrf_token %}
-         <label for="username">Логин:</label>
-         <input type="text" name="username" id="username">
-         <label for="password">Пароль:</label>
-         <input type="password" name="password" id="password">
+         <input type="text" name="username" id="username" placeholder="Логин">
+         <input type="password" name="password" id="password" placeholder="Пароль">
          {% if login_error %}
-           <label class="error">{{login_error}}</label>
+         <label class="error">{{login_error}}</label>
          {% endif %}
          <input type="submit" value="Войти">
-         <a href="/auth/register/">Регистрация</a>
          </form>
-
        {% endif %}
-     </div>
+     <ul class="register">
+       <li><span><a href="/auth/register/">Регистрация</a></span></li>
+     </ul>
+      </div>
+
 
  </div>
 
+
 <div class="links">
- <a href="/">Главная</a><br>
- <a href="/popular">Популярные</a><br>
- <a href="/toplikes">ТОП Лайк</a><br>
+    <ul class="main-menu">
+ <li><a href="/"><span>Главная</span></a></li>
+ <li><a href="/popular"><span>Популярные</span></a></li>
+ <li><a href="/toplikes"><span>ТОП Лайк</span></a></li>
+    </ul>
 </div>
 
 <br>

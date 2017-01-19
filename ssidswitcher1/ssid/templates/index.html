@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <title>SSID SWITCHER</title>
+    <meta charset="utf-8">
+    <link href="{% static 'stylesheet.css' %}" rel="stylesheet" type="text/css" >
+    <script src="{% static 'jquery-3.1.1.min.js'%}"></script>
+   <!-- <script src="{% static 'main.js' %}"></script> -->
+
+</head>
+
+<body>
+
+
+    {% for i in latest %}
+        {% if i.status %}
+        <input type="checkbox" id="{{ i.name }}" name='ssid' value="{{ i.name }}" checked>{{ i.name }}<br>
+        {% else %}
+         <input type="checkbox" id="{{ i.name }}" name='ssid' value="{{ i.name }}">{{ i.name }}<br>
+        {% endif %}
+    {% endfor %}
+
+<script>
+$(document).ready(function(){
+{% for i in latest %}
+    $('#{{ i.name }}').change(function() {
+            if($(this).is(':checked')){
+            console.log("CCCCheckeddddddd");
+            up('{{ i.name }}');
+       }
+        else
+            {
+                console.log("UNCheckeddddddd");
+                down('{{ i.name }}');
+}
+    })
+{% endfor %}
+});
+
+        function up(name) {
+            //console.log($('#wcm_prod_cisco').val())
+            console.log("Disable " +name+ " SSID: Sending POST by ajax");
+            $.ajax({
+            url : "/",
+            type : "POST",
+            data : { ssid : name, status:'up' }, // data sent with the post request
+
+        // handle a successful response
+            success : function(json) {
+            console.log(json); // log the returned json to the console
+            console.log("success"); // another sanity check
+        },
+
+        // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    })};
+
+
+function down(name) {
+
+            //console.log($('#wcm_prod_cisco').val())
+            console.log("Enable " +name+ " SSID: Sending POST by ajax");
+            $.ajax({
+            url : "/",
+            type : "POST",
+            data : { ssid : name, status:'down' }, // data sent with the post request
+
+        // handle a successful response
+            success : function(json) {
+           console.log(json); // log the returned json to the console
+            console.log("Frontend: SSID switched successfully!"); // another sanity check
+       },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    })};
+
+
+    </script>
+    <!--
+<div>POST-DATA: {{ data }}</div>
+<div>ALL-LIST: {{ all_list }}</div>
+<div>CROSS-LIST: {{ cross_list }}</div> -->
+</body>
+</html>

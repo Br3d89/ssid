@@ -1,11 +1,11 @@
-from django.shortcuts import render,redirect
-from django.utils.baseconv import base56
-from random import randint
-from .models import Img
-from django import forms
-from django.db.models import F
-from datetime import datetime
-from django.contrib import auth
+    from django.shortcuts import render,redirect
+    from django.utils.baseconv import base56
+    from random import randint
+    from .models import Img
+    from django import forms
+    from django.db.models import F
+    from datetime import datetime
+    from django.contrib import auth
 
 
 def random_key():

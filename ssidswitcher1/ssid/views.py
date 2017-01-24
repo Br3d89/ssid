@@ -5,7 +5,7 @@ from django import forms
 from django.views.decorators.csrf import csrf_exempt
 from netmiko import ConnectHandler
 import copy
-import paramiko,time
+import paramiko,time,pexpect
 
 
 class ssidForm(forms.ModelForm):
@@ -56,8 +56,8 @@ def change(ssid,device_ip,vendor,state):
     remote_conn_pre = paramiko.SSHClient()
     remote_conn_pre.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     remote_conn_pre.connect(device_ip, username=username, password=password, look_for_keys=False, allow_agent=False)
-    remote_conn = remote_conn_pre.invoke_shell()
     if vendor == 'cisco':
+        remote_conn = remote_conn_pre.invoke_shell()
         remote_conn.send("mgmt\n")
         time.sleep(1)
         remote_conn.send("Ve7petrU\n")
@@ -75,8 +75,10 @@ def change(ssid,device_ip,vendor,state):
         if state==1:
             remote_conn.send('config wlan enable {}\n'.format(int(wlan_id)))
         time.sleep(2)
+        remote_conn.close()
     elif vendor=='aruba':
         time.sleep(1)
+        remote_conn = remote_conn_pre.invoke_shell()
         remote_conn.send("conf t\n")
         time.sleep(1)
         remote_conn.send("wlan ssid-profile wcm_prod_aruba\n")
@@ -93,6 +95,67 @@ def change(ssid,device_ip,vendor,state):
         time.sleep(1)
         remote_conn.send("logout\n")
         time.sleep(1)
-    remote_conn.close()
+        remote_conn.close()
+    elif vendor=="mikrotik":
+        if state == 0:
+            remote_conn_pre.exec_command("/interface wireless disable {}".format(ssid))
+            time.sleep(1)
+        else:
+            remote_conn_pre.exec_command("/interface wireless enable {}".format(ssid))
+            time.sleep(1)
+        remote_conn_pre.close()
+    elif vendor=="ruckus":
+        #child = pexpect.spawn('telnet ' +device_ip)
+        #child.expect('Please login: ')
+        #child.sendline(username)
+        #child.expect("Password: ")
+        #child.sendline(password)
+        #child.expect("ruckus> ")
+        #child.sendline('enable force')
+        #child.expect("ruckus# ")
+        #child.sendline('conf')
+        #child.expect(".*config.*")
+        #child.sendline("wlan {}".format(ssid))
+        #child.expect(".*config-wlan.*")
+        #if state == 0:
+        #    child.sendline("hide-ssid")
+        #    child.expect(".*config-wlan.*")
+        #else:
+        #    child.sendline("no hide-ssid")
+        #    child.expect(".*config-wlan.*")
+        #child.sendline("end\n")
+        remote_conn = remote_conn_pre.invoke_shell()
+        remote_conn.send("\n")
+        time.sleep(1)
+        remote_conn.send("{}\n".format(username))
+        remote_conn.send("{}\n".format(password))
+        time.sleep(1)
+        remote_conn.send("enable force\n")
+        remote_conn.send("conf\n")
+        time.sleep(1)
+        remote_conn.send("wlan {}\n".format(ssid))
+        time.sleep(1)
+        if state == 0:
+            remote_conn.send("hide-ssid\n")
+            time.sleep(1)
+        else:
+            remote_conn.send("no hide-ssid\n")
+            time.sleep(1)
+        remote_conn.send("end\n")
+        time.sleep(1)
+        remote_conn.close()
+    elif vendor=="openwrt":
+        remote_conn = remote_conn_pre.invoke_shell()
+        remote_conn.send("sudo -s\n")
+        time.sleep(1)
+        remote_conn.send('{}\n'.format(password))
+        time.sleep(1)
+        if state == 0:
+            remote_conn.send('uci set wireless.@wifi-device[0].disabled=1; uci commit wireless; wifi\n')
+            time.sleep(1)
+        else:
+            remote_conn.send('uci set wireless.@wifi-device[0].disabled=0; uci commit wireless; wifi\n')
+            time.sleep(1)
+        remote_conn.close()
 
 

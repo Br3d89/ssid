@@ -40,7 +40,7 @@ $(document).ready(function(){
 
         function up(name) {
             //console.log($('#wcm_prod_cisco').val())
-            console.log("Disable " +name+ " SSID: Sending POST by ajax");
+            console.log("Enable " +name+ " SSID: Sending POST by ajax");
             $.ajax({
             url : "/",
             type : "POST",
@@ -64,7 +64,7 @@ $(document).ready(function(){
 function down(name) {
 
             //console.log($('#wcm_prod_cisco').val())
-            console.log("Enable " +name+ " SSID: Sending POST by ajax");
+            console.log("Disable " +name+ " SSID: Sending POST by ajax");
             $.ajax({
             url : "/",
             type : "POST",

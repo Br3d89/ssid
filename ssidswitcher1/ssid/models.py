@@ -11,6 +11,7 @@ class ssid(models.Model):
     radius=models.CharField(max_length=120)
     web=models.CharField(max_length=120)
     acl=models.CharField(max_length=120)
+    wlan_id=models.CharField(max_length=120,default="")
 
     def __str__(self):
         return 'Name:{} Status:{}'.format(self.name, self.status)

@@ -181,6 +181,7 @@ def change(ssid,device_ip,vendor,state):
             putdata = {'enabled': True}
         dashboard = requests.put(murl, data=json.dumps(putdata), headers=headers)
         print(dashboard.text)
+    elif vendor=="bred":
 
 
 def sshp_shell(device_ip):

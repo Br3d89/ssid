@@ -20,6 +20,35 @@
          <input type="checkbox" id="{{ i.name }}" name='ssid' value="{{ i.name }}">{{ i.name }}<br>
         {% endif %}
     {% endfor %}
+    <hr>
+
+{% for k,i in servers %}
+ <div style="color:red">{{ i }}</div>
+<input type="checkbox" onClick="ch_{{ k }}(this)" /> Select all<br/>
+     {% for j in latest %}
+        {% if j.web == i %}
+           {% if i.status %}
+                 <input type="checkbox" id="{{ j.name }}" name='{{ i }}' value="{{ j.name }}" checked>{{ j.name }}<br>
+            {% else %}
+                 <input type="checkbox" id="{{ j.name }}" name='{{ i }}' value="{{ j.name }}">{{ j.name }}<br>
+           {% endif %}
+        {% endif %}
+     {% endfor %}
+               <br>
+ <script language="JavaScript">
+   function ch_{{ k }}(source) {
+  checkboxes = document.getElementsByName('{{ i }}');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+}
+</script>
+{% endfor %}
+
+
+<input type="button" onClick="" value="Done">
+
+{{ servers1 }}
 
 <script>
 $(document).ready(function(){

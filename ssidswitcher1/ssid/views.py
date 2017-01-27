@@ -29,6 +29,7 @@ for i in ssid.objects.all():
 def index(request):
     ctx = {}
     ctx['latest'] = ssid.objects.order_by('-vendor')
+    ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
     if request.method == 'POST':
         ssid_name = request.POST.get('ssid')
         ssid_status=request.POST.get('status')

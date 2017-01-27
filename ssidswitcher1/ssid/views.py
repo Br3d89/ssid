@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from .models import ssid
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
-from netmiko import ConnectHandler
 import copy
 import paramiko,time,pexpect,requests,json,logging
 from datetime import datetime

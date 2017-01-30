@@ -12,7 +12,7 @@
 
 <body>
 
-
+<!--
     {% for i in latest %}
         {% if i.status %}
         <input type="checkbox" id="{{ i.name }}" name='ssid' value="{{ i.name }}" checked>{{ i.name }}<br>
@@ -21,13 +21,13 @@
         {% endif %}
     {% endfor %}
     <hr>
-
+-->
 {% for k,i in servers %}
  <div style="color:red">{{ i }}</div>
 <input type="checkbox" onClick="ch_{{ k }}(this)" /> Select all<br/>
      {% for j in latest %}
         {% if j.web == i %}
-           {% if i.status %}
+           {% if j.status %}
                  <input type="checkbox" id="{{ j.name }}" name='{{ i }}' value="{{ j.name }}" checked>{{ j.name }}<br>
             {% else %}
                  <input type="checkbox" id="{{ j.name }}" name='{{ i }}' value="{{ j.name }}">{{ j.name }}<br>
@@ -48,10 +48,10 @@
 
 <input type="button" onClick="" value="Done">
 
-{{ servers1 }}
-
+<!--
 <script>
-$(document).ready(function(){
+
+    $(document).ready(function(){
 {% for i in latest %}
     $('#{{ i.name }}').change(function() {
             if($(this).is(':checked')){
@@ -62,11 +62,25 @@ $(document).ready(function(){
             {
                 console.log("UNCheckeddddddd");
                 down('{{ i.name }}');
-}
-    })
+}})
 {% endfor %}
-});
 
+
+    </script>
+-->
+
+<script>
+    $(document).ready(function(){
+    $(".checkbox").change(function() {
+   if($(this).is(':checked')){
+            console.log("CCCCheckeddddddd");
+            up('{{ i.name }}');
+       }
+})});
+
+</script>
+
+<!--
         function up(name) {
             //console.log($('#wcm_prod_cisco').val())
             console.log("Enable " +name+ " SSID: Sending POST by ajax");

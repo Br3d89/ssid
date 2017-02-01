@@ -45,9 +45,9 @@ def index(request):
             child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
             for m in ssid_objects:
                 if vendor == 'cisco':
-                    child.expect('User')
+                    child.expect(':')
                     child.sendline(ssh_username)
-                    child.expect('Password')
+                    child.expect(':')
                     child.sendline(ssh_password)
                     child.expect('>')
                     if m.name in up_new:

@@ -74,6 +74,10 @@
 
 <script language="JavaScript">
 
+$("input[name='ssid']" ).hover(function() {
+  $( this ).fadeOut( 100 );
+  $( this ).fadeIn( 500 );
+});
 
 {% autoescape off %}
 ssidlist={{ all_up_ssids }}
@@ -134,9 +138,9 @@ function run() {
             $("input[name='ssid']" ).attr('disabled', false);
              $('span').css({color:'black',opacity: 1});
             //$("#success").css('display','inline-block');
-             $("#Run").css('color','green').attr('value','Success').fadeIn("slow").delay( 800 ).fadeOut("slow");//.fadeIn("slow").delay( 800 ).fadeOut("slow").fadeIn("slow").attr('value','Run');
-             $("#Run").css('color','red').attr('value','Run').fadeIn("slow");
-                //$("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
+             $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
+             $("#Run").fadeIn("slow");//.fadeIn("slow").delay( 800 ).fadeOut("slow").fadeIn("slow").attr('value','Run');
+
               //  $("#success").css('display','inline-block');
                 console.log("success");
 

@@ -81,6 +81,7 @@ def index(request):
         response_data['up_new']=up_new
         response_data['down_new']=down_new
         return JsonResponse(response_data)'''
+        all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
         return JsonResponse({'all_up_ssids':all_up_ssids})
     else:
         return render(request, 'index.html', ctx)

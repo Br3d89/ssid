@@ -78,7 +78,7 @@ ssidlist=[]
 
 {% for i in all_up_ssids1 %}
     {% autoescape off %}
-    ssidlist.push(i.name)
+    ssidlist.push({{ i.name }})
     {% endautoescape %}
 {% endfor %}
 

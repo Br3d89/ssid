@@ -109,6 +109,7 @@ ip=[]
             console.log(ssid.id+' already UP '+ssidlist)}
 }
      else {
+        console.log('Unchecked, ssidlist= '+ssidlist)
         if (ssidlist.includes(ssid.id)) {
             $('span.'+ssid.id).css({color:'red',opacity: 0.2}).animate({opacity: 1}, 700 );
             down_new.push(ssid.id)}

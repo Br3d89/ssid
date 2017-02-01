@@ -129,15 +129,16 @@ function run() {
         // handle a successful response
             success : function(json) {
             console.log(json); // log the returned json to the console
-            console.log("success"); // another sanity check
+             // another sanity check
             $("#loading").css('display','none');
-            $("input[value='ssid']" ).attr('disabled', false);
+            $("input[name='ssid']" ).attr('disabled', false);
 
             //$("#success").css('display','inline-block');
              $("#Run").attr('value','Success').fadeIn("slow").delay( 800 ).fadeOut("slow");
                 //$("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
-                $("#Run").attr('value','Run').fadeIn("slow")
+                $("#Run").attr('value','Run').fadeIn("slow");
               //  $("#success").css('display','inline-block');
+                console.log("success");
 
         },
 

@@ -131,7 +131,6 @@ ip=[]
 
 
 function run() {
-            //console.log($('#wcm_prod_cisco').val())
            if (up_new || down_new) {
            $("input[name='ssid']" ).attr('disabled', true);
            $("#Run").css('display','none') ;
@@ -145,27 +144,16 @@ function run() {
 
         // handle a successful response
             success : function(json) {
-            //console.log(json); // log the returned json to the console
-            //ssidlist = Object.values(json);
-            //ssidlist=JSON.stringify(json)['all_up_ssids']
-                up_new=[]
+            ssidlist=JSON.stringify(json.all_up_ssids)
+            up_new=[]
             down_new=[]
             ip=[]
-             // another sanity check
             $("#loading").css('display','none');
             $("input[name='ssid']" ).attr('disabled', false);
-             $('span').css({color:'black',opacity: 1});
-            //$("#success").css('display','inline-block');
-             $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
-             $("#Run").fadeIn("slow");//.fadeIn("slow").delay( 800 ).fadeOut("slow").fadeIn("slow").attr('value','Run');
-
-              //  $("#success").css('display','inline-block');
-                console.log("success");
-                console.log(JSON.stringify(json.all_up_ssids),typeof JSON.stringify(json.all_up_ssids))
-                //console.log('ajax SSID list='+ssidlist+typeof ssidlist)
-                //console.log(json.all_up_ssids.toString()+typeof json.all_up_ssids.toString()+JSON.all_up_ssids.stringify(json)+typeof JSON.all_up_ssids.stringify(json));
-                //console.log(JSON.all_up_ssids.stringify(json)+typeof JSON.all_up_ssids.stringify(json));
-                //console.log(ssidlist);
+            $('span').css({color:'black',opacity: 1});
+            $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
+            $("#Run").fadeIn("slow");//.fadeIn("slow").delay( 800 ).fadeOut("slow").fadeIn("slow").attr('value','Run');
+            console.log("success");
         },
 
         // handle a non-successful response

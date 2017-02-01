@@ -73,7 +73,7 @@
 
 
 <script language="JavaScript">
-console.log('Initial SSIDLIST: '+ssidlist)
+
 $(document).ready(function(){
  $('span').mouseenter(function(){
         $(this).fadeTo('fast', 0.5);
@@ -85,6 +85,7 @@ $('span').mouseleave(function(){
 {% autoescape off %}
 ssidlist={{ all_up_ssids }}
 {% endautoescape %}
+console.log('Initial SSIDLIST: '+ssidlist)
 //console.log(up_new)
 //console.log(down_new)
 //console.log("SSID LIST= "+ssidlist)

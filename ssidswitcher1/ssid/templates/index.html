@@ -82,7 +82,13 @@ $('#Run').mouseenter(function(){
 $('#Run').mouseleave(function(){
         $('#Run').fadeTo('fast', 0.5);
     });
+ $('span').mouseenter(function(){
+        $('span').fadeTo('fast', 0.5);
    });
+$('span').mouseleave(function(){
+        $('span').fadeTo('fast', 1);
+    });
+
 {% autoescape off %}
 ssidlist={{ all_up_ssids }}
 {% endautoescape %}

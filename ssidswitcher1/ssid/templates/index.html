@@ -93,7 +93,7 @@ up_new=[];
 down_new=[];
 ip=[]
     function update_ssidlist(ssid) {
-        console.log('UPDATE_SSID func started, ssidlist= '+ssidlist+' SSID id='+ssid.id+' up_new='+up_new+' down_new= '+down_new)
+        console.log('UPDATE_SSID func started, ssidlist='+ssidlist+' SSID id='+ssid.id+' up_new='+up_new+' down_new= '+down_new)
     //$('span.'+ssid.id).animate({opacity: 1}, 700 );
     ip.push(ssid.name)
     if (ssid.checked) {
@@ -110,7 +110,7 @@ ip=[]
             console.log(ssid.id+' already UP '+ssidlist)}
 }
      else {
-        console.log('Unchecked, ssidlist= '+ssidlist+' ssid id='+ssid.id+' Type of ssid.id='+typeof ssid.id+' ssid.id includes in ssidlist '+ssidlist.includes(ssid.id))
+        console.log('Unchecked, ssidlist='+ssidlist+' ssid id='+ssid.id+' Type of ssid.id='+typeof ssid.id+' ssid.id includes in ssidlist '+ssidlist.includes(ssid.id))
         if (ssidlist.includes(ssid.id)) {
             $('span.'+ssid.id).css({color:'red',opacity: 0.2}).animate({opacity: 1}, 700 );
             down_new.push(ssid.id)}
@@ -131,6 +131,7 @@ ip=[]
 
 function run() {
             //console.log($('#wcm_prod_cisco').val())
+           if (up_new || down_new) {
            $("input[name='ssid']" ).attr('disabled', true);
            $("#Run").css('display','none') ;
            $("#loading").css('display','inline-block');
@@ -169,7 +170,11 @@ function run() {
                 " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
-    })};
+    })}
+else {
+               console.log('No one ssid was chosen')
+           }
+};
 
 
 </script>

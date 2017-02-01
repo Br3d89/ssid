@@ -112,10 +112,10 @@ def cisco(up_new,down_new,ssid_objects,i):
     child.sendline('logout')
     child.expect('(y/N)')
     child.sendline('y')
-    return JsonResponse({'Hello': cisco})
+    return JsonResponse({'Hello': 'cisco'})
 
 def aruba():
-    return JsonResponse({'Hello': cisco})
+    return JsonResponse({'Hello': 'aruba'})
 
 '''
 def change(ssid,device_ip,vendor,state):

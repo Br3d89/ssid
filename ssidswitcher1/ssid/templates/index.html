@@ -28,9 +28,9 @@
      {% for j in latest %}
         {% if j.web == i %}
            {% if j.status %}
-                 <input type="checkbox" id="{{ j.name }}" name='{{ j.ip }}' value="{{ j.name }}" checked onclick="update_ssidlist(this)"/>{{ j.name }}<br>
+                 <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" checked onclick="update_ssidlist(this)"/>{{ j.name }}<br>
                          {% else %}
-                 <input type="checkbox" id="{{ j.name }}" name='{{ j.ip }}' value="{{ j.name }}" onclick="update_ssidlist(this)"/>{{ j.name }}<br>
+                 <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" onclick="update_ssidlist(this)"/>{{ j.name }}<br>
            {% endif %}
         {% endif %}
      {% endfor %}
@@ -49,7 +49,7 @@
 
 {% endfor %}
 <input type="button" id="Run" onClick="run()" value="Run"/> <br>
-<div id="loading" style="display: none;color:yellow">Loading</div>
+<img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none">
 <div id="success" style="display: none;color:green">Success</div>
 
 
@@ -74,17 +74,10 @@
 
 <script language="JavaScript">
 
-ssidlist=[]
 
-{% for i in all_up_ssids1 %}
-    {% autoescape off %}
-    ssidlist.push('{{ i.name }}')
-    {% endautoescape %}
-{% endfor %}
-
- //{% autoescape off %}
-//ssidlist={{ all_up_ssids }}
-//{% endautoescape %}
+{% autoescape off %}
+ssidlist={{ all_up_ssids }}
+{% endautoescape %}
 //console.log(up_new)
 //console.log(down_new)
 //console.log("SSID LIST= "+ssidlist)
@@ -121,7 +114,10 @@ ip=[]
 
 function run() {
             //console.log($('#wcm_prod_cisco').val())
-            $("#loading").css('display','inline-block');
+           $( "input[value='ssid']" ).attr('disabled', true);
+           $("#Run").css('display','none') ;
+           $("#loading").css('display','inline-block');
+
     console.log("Sending POST by ajax");
             $.ajax({
             url : "/",
@@ -133,7 +129,10 @@ function run() {
             console.log(json); // log the returned json to the console
             console.log("success"); // another sanity check
             $("#loading").css('display','none');
-            $("#success").css('display','inline-block');
+            $("input[value='ssid']" ).attr('disabled', false);
+            $("#Run").css('display','inline-block') ;
+            $("#success").css('display','inline-block').fadeIn('slow').animate({opacity: 1.0}, 1500).effect("pulsate", { times: 2 }, 800).fadeOut('slow');
+              //  $("#success").css('display','inline-block');
 
         },
 

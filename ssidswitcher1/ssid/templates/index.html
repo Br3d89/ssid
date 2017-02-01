@@ -85,7 +85,7 @@ $('span').mouseleave(function(){
 {% autoescape off %}
 ssidlist={{ all_up_ssids }}
 {% endautoescape %}
-console.log('Initial SSIDLIST: '+ssidlist)
+console.log('Initial SSIDLIST='+ssidlist)
 //console.log(up_new)
 //console.log(down_new)
 //console.log("SSID LIST= "+ssidlist)
@@ -111,7 +111,7 @@ ip=[]
 }
      else {
         console.log('Unchecked, ssidlist='+ssidlist+' ssid id='+ssid.id+' Type of ssid.id='+typeof ssid.id+' ssid.id includes in ssidlist '+ssidlist.includes(ssid.id))
-        if (ssidlist.includes(ssid.id)) {
+        if (ssidlist.includes(ssid.id.toString())) {
             $('span.'+ssid.id).css({color:'red',opacity: 0.2}).animate({opacity: 1}, 700 );
             down_new.push(ssid.id)}
         else {

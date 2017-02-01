@@ -45,7 +45,7 @@ def index(request):
             #child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
             #for m in ssid_objects:
             if vendor == 'cisco':
-                cisco(up_new,down_new,ssid_objects)
+                cisco(up_new,down_new,ssid_objects,i)
                 '''for m in ssid_objects:
                 child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
                 child.expect(':')
@@ -92,7 +92,7 @@ def index(request):
     else:
         return render(request, 'index.html', ctx)
 
-def cisco(up_new,down_new,ssid_objects):
+def cisco(up_new,down_new,ssid_objects,i):
     for m in ssid_objects:
         child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
         child.expect(':')

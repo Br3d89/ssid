@@ -85,7 +85,7 @@ up_new=[];
 down_new=[];
 ip=[]
     function update_ssidlist(ssid) {
-    $('span.'+ssid.id).css({color:'green',opacity: 0}).animate({opacity: 1}, 700 );
+    $('span.'+ssid.id).css({color:'green',opacity: 0.2}).animate({opacity: 1}, 700 );
     //$('span.'+ssid.id).animate({opacity: 1}, 700 );
     ip.push(ssid.name)
     if (ssid.checked) {

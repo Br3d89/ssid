@@ -114,7 +114,7 @@ ip=[]
 
 function run() {
             //console.log($('#wcm_prod_cisco').val())
-           $( "input[value='ssid']" ).attr('disabled', true);
+           $("input[name='ssid']" ).attr('disabled', true);
            $("#Run").css('display','none') ;
            $("#loading").css('display','inline-block');
 
@@ -131,7 +131,8 @@ function run() {
             $("#loading").css('display','none');
             $("input[value='ssid']" ).attr('disabled', false);
             $("#Run").css('display','inline-block') ;
-            $("#success").css('display','inline-block').fadeIn('slow').animate({opacity: 1.0}, 1500).effect("pulsate", { times: 2 }, 800).fadeOut('slow');
+            $("#success").css('display','inline-block');
+            $("#success").fadeIn('slow').animate({opacity: 1.0}, 1500).effect("pulsate", { times: 2 }, 800).fadeOut('slow');
               //  $("#success").css('display','inline-block');
 
         },

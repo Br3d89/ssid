@@ -19,6 +19,8 @@ class ssidForm(forms.ModelForm):
        }
 
 
+ssh_username = 'mgmt'
+ssh_password = 'Ve7petrU'
 
 
 @csrf_exempt
@@ -34,34 +36,38 @@ def index(request):
         up_new=json.loads(request.POST.get('up'))
         down_new=json.loads(request.POST.get('down'))
         rcv_ssids=up_new+down_new
-        ssh_username = 'mgmt'
-        ssh_password = 'Ve7petrU'
         ip_list=set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
         for i in ip_list:
             vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
             #up_objects=ssid.objects.values_list('name', flat=True).filter(ip=i, name__in=up_new)
             #down_objects = ssid.objects.values_list('name', flat=True).filter(ip=i, name__in=down_new)
-            ssid_objects=ssid.objects.filter(ip=i, name__in=rcv_ssids)
-            child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
-            for m in ssid_objects:
-                if vendor == 'cisco':
-                    child.expect(':')
-                    child.sendline(ssh_username)
-                    child.expect(':')
-                    child.sendline(ssh_password)
-                    child.expect(">")
-                    if m.name in up_new:
-                        child.sendline('config wlan enable {}'.format(m.wlan_id))
-                        m.status=1
-                        m.save()
-                    else:
-                        child.sendline('config wlan disable {}'.format(m.wlan_id))
-                        m.status = 0
-                        m.save()
+            ssid_objects=ssid.objects.filter(ip=i, name__in=rcv_ssids) #all ssids within device
+            #child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
+            #for m in ssid_objects:
+            if vendor == 'cisco':
+                cisco(up_new,down_new,ssid_objects)
+                '''for m in ssid_objects:
+                child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
+                child.expect(':')
+                child.sendline(ssh_username)
+                child.expect(':')
+                child.sendline(ssh_password)
+                child.expect(">")
+                if m.name in up_new:
+                    child.sendline('config wlan enable {}'.format(m.wlan_id))
                     child.expect('>')
-                    child.sendline('logout')
-                    child.expect('(y/N)')
-                    child.sendline('y')
+                    m.status=1
+                    m.save()
+                else:
+                    child.sendline('config wlan disable {}'.format(m.wlan_id))
+                    child.expect('>')
+                    m.status = 0
+                    m.save()
+                child.sendline('logout')
+                child.expect('(y/N)')
+                child.sendline('y')
+            elif vendor=='aruba':pass
+            elif vendor=='ruckus':pass '''
         '''response_data = {}
         ssid_name = request.POST.get('ssid')
         ssid_status=request.POST.get('status')
@@ -85,6 +91,31 @@ def index(request):
         return JsonResponse({'all_up_ssids':all_up_ssids})
     else:
         return render(request, 'index.html', ctx)
+
+def cisco(up_new,down_new,ssid_objects):
+    for m in ssid_objects:
+        child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
+        child.expect(':')
+        child.sendline(ssh_username)
+        child.expect(':')
+        child.sendline(ssh_password)
+        child.expect(">")
+        if m.name in up_new:
+            child.sendline('config wlan enable {}'.format(m.wlan_id))
+            m.status = 1
+            m.save()
+        else:
+            child.sendline('config wlan disable {}'.format(m.wlan_id))
+            m.status = 0
+            m.save()
+    child.expect('>')
+    child.sendline('logout')
+    child.expect('(y/N)')
+    child.sendline('y')
+    return JsonResponse({'Hello': cisco})
+
+def aruba():
+    return JsonResponse({'Hello': cisco})
 
 '''
 def change(ssid,device_ip,vendor,state):

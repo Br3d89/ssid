@@ -142,7 +142,7 @@ function run() {
         // handle a successful response
             success : function(json) {
             console.log(json); // log the returned json to the console
-            ssidlist=json;
+            ssidlist = Object.values(json);
              // another sanity check
             $("#loading").css('display','none');
             $("input[name='ssid']" ).attr('disabled', false);

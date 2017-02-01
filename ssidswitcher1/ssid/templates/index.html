@@ -95,23 +95,25 @@ ip=[]
     //$('span.'+ssid.id).animate({opacity: 1}, 700 );
     ip.push(ssid.name)
     if (ssid.checked) {
-        $('span.'+ssid.id).css({color:'green',opacity: 0.2}).animate({opacity: 1}, 700 );
         if (!ssidlist.includes(ssid.id)) {
+            $('span.'+ssid.id).css({color:'green',opacity: 0.2}).animate({opacity: 1}, 700 );
             up_new.push(ssid.id)
             ip.push(ssid.ip)
         }
         else {
             index = down_new.indexOf(String(ssid.id));
             down_new.splice(index, 1);
+            $('span.'+ssid.id).append( "<strong>Already ENABLED</strong>" );
             console.log(ssid.id+' already UP')}
 }
      else {
-        $('span.'+ssid.id).css({color:'red',opacity: 0.2}).animate({opacity: 1}, 700 );
         if (ssidlist.includes(ssid.id)) {
+            $('span.'+ssid.id).css({color:'red',opacity: 0.2}).animate({opacity: 1}, 700 );
             down_new.push(ssid.id)}
         else {
             index = up_new.indexOf(ssid.id);
             up_new.splice(index,1)
+            $('span.'+ssid.id).append( "<strong>Already Disabled</strong>" );
             console.log(ssid.id+ " already DOWN")}
 
 

@@ -81,7 +81,7 @@ def index(request):
         response_data['up_new']=up_new
         response_data['down_new']=down_new
         return JsonResponse(response_data)'''
-        return JsonResponse(ctx)
+        return JsonResponse({'all_up_ssids':all_up_ssids})
     else:
         return render(request, 'index.html', ctx)
 

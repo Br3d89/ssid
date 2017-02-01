@@ -21,11 +21,13 @@ class ssidForm(forms.ModelForm):
 
 all_list= list(ssid.objects.values_list('name', flat=True))
 all_up_ssids=list(ssid.objects.values_list('name', flat=True).filter(status='1'))
+all_up_ssids1=ssid.objects.filter(status='1')
 
 @csrf_exempt
 def index(request):
     ctx = {}
     ctx['all_up_ssids']=all_up_ssids
+    ctx['all_up_ssids1'] = all_up_ssids1
     ctx['latest'] = ssid.objects.order_by('-vendor')
     ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
     ctx['ok']='Run'

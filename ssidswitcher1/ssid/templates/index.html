@@ -69,15 +69,22 @@
 }
 </script>
 -->
- {% autoescape off %}
-ssidlist1={{ all_up_ssids }}
-{% endautoescape %}
+
+
 
 <script language="JavaScript">
 
- {% autoescape off %}
-ssidlist={{ all_up_ssids }}
-{% endautoescape %}
+ssidlist1=[]
+
+{% for i in all_up_ssids1 %}
+    {% autoescape off %}
+    ssidlist.push(i.name)
+    {% endautoescape %}
+{% endfor %}
+
+ //{% autoescape off %}
+//ssidlist={{ all_up_ssids }}
+//{% endautoescape %}
 //console.log(up_new)
 //console.log(down_new)
 //console.log("SSID LIST= "+ssidlist)

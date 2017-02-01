@@ -23,7 +23,7 @@
     <hr>
 -->
 {% for k,i in servers %}
- <div style="color:red">{{ i }}</div>
+ <div style="color:red;font-size: 14px;text-decoration: underline">{{ i }}</div>
   <!--  <input type="checkbox" name='{{ i }}' onClick="select_all(this)" /> Select all<br/> -->
      {% for j in latest %}
         {% if j.web == i %}
@@ -92,10 +92,10 @@ up_new=[];
 down_new=[];
 ip=[]
     function update_ssidlist(ssid) {
-    $('span.'+ssid.id).css({color:'green',opacity: 0.2}).animate({opacity: 1}, 700 );
     //$('span.'+ssid.id).animate({opacity: 1}, 700 );
     ip.push(ssid.name)
     if (ssid.checked) {
+        $('span.'+ssid.id).css({color:'green',opacity: 0.2}).animate({opacity: 1}, 700 );
         if (!ssidlist.includes(ssid.id)) {
             up_new.push(ssid.id)
             ip.push(ssid.ip)
@@ -106,6 +106,7 @@ ip=[]
             console.log(ssid.id+' already UP')}
 }
      else {
+        $('span.'+ssid.id).css({color:'red',opacity: 0.2}).animate({opacity: 1}, 700 );
         if (ssidlist.includes(ssid.id)) {
             down_new.push(ssid.id)}
         else {

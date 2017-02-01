@@ -49,7 +49,7 @@ def index(request):
                     child.sendline(ssh_username)
                     child.expect(':')
                     child.sendline(ssh_password)
-                    child.expect('>')
+                    child.expect(">")
                     if m.name in up_new:
                         child.sendline('config wlan enable {}'.format(m.wlan_id))
                         m.status=1

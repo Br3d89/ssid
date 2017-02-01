@@ -147,7 +147,7 @@ function run() {
             success : function(json) {
             //console.log(json); // log the returned json to the console
             //ssidlist = Object.values(json);
-            ssidlist=JSON.stringify(json)
+            ssidlist=JSON.stringify(json)['all_up_ssids']
                 up_new=[]
             down_new=[]
             ip=[]

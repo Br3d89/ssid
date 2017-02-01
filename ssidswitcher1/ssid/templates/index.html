@@ -75,8 +75,11 @@
 <script language="JavaScript">
 
 $("span" ).hover(function() {
-  $( this ).fadeOut( 100 );
-  $( this ).fadeIn( 100 );
+  $( this ).css('color','gray');
+});
+
+$("#Run" ).hover(function() {
+  $( this ).css('background-color','light-green');
 });
 
 {% autoescape off %}

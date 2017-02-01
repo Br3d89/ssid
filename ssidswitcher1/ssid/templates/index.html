@@ -75,12 +75,11 @@
 <script language="JavaScript">
 
 $("span" ).hover(function() {
-  $( this ).css('color','gray');
+  $( this ).fadeOut( 100 );
+  $( this ).fadeIn( 100 );
 });
 
-$("#Run" ).hover(function() {
-  $( this ).css('background-color','light-green');
-});
+
 
 {% autoescape off %}
 ssidlist={{ all_up_ssids }}

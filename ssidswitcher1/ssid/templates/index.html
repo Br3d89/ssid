@@ -103,7 +103,7 @@ ip=[]
         else {
             index = down_new.indexOf(String(ssid.id));
             down_new.splice(index, 1);
-            $('span.'+ssid.id).append( "<strong>Already ENABLED</strong>" );
+            $('span.'+ssid.id).append( "<strong style='color:red'>    Already ENABLED</strong>" );
             console.log(ssid.id+' already UP')}
 }
      else {
@@ -113,7 +113,7 @@ ip=[]
         else {
             index = up_new.indexOf(ssid.id);
             up_new.splice(index,1)
-            $('span.'+ssid.id).append( "<strong>Already Disabled</strong>" );
+            $('span.'+ssid.id).append( "<strong style='color:red'>    Already Disabled</strong>" );
             console.log(ssid.id+ " already DOWN")}
 
 

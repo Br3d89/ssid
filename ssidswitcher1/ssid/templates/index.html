@@ -28,9 +28,9 @@
      {% for j in latest %}
         {% if j.web == i %}
            {% if j.status %}
-                 <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" checked onclick="update_ssidlist(this)"/>{{ j.name }}<br>
+                 <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" checked onclick="update_ssidlist(this)"/><span class="{{ j.name }}">{{ j.name }}</span><br>
                          {% else %}
-                 <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" onclick="update_ssidlist(this)"/>{{ j.name }}<br>
+                 <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" onclick="update_ssidlist(this)"/><span class="{{ j.name }}">{{ j.name }}</span><br>
            {% endif %}
         {% endif %}
      {% endfor %}
@@ -48,7 +48,7 @@
 
 
 {% endfor %}
-<input type="button" id="Run" onClick="run()" value="Run"/> <br>
+<input style="width:100px;color:red;font-size:18px;font-weight:bold;" type="button" id="Run" onClick="run()" value="Run"/> <br>
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none">
 <div id="success" style="display: none;color:green">Success</div>
 
@@ -85,6 +85,8 @@ up_new=[];
 down_new=[];
 ip=[]
     function update_ssidlist(ssid) {
+    $('span.'+ssid.id).css({color:'green',opacity: 0}).animate({opacity: 1}, 700 );
+    //$('span.'+ssid.id).animate({opacity: 1}, 700 );
     ip.push(ssid.name)
     if (ssid.checked) {
         if (!ssidlist.includes(ssid.id)) {
@@ -130,9 +132,10 @@ function run() {
             console.log("success"); // another sanity check
             $("#loading").css('display','none');
             $("input[value='ssid']" ).attr('disabled', false);
-            $("#Run").css('display','inline-block') ;
+
             //$("#success").css('display','inline-block');
              $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
+                $("#Run").fadeIn("slow")
               //  $("#success").css('display','inline-block');
 
         },

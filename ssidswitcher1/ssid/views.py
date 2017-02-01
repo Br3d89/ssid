@@ -81,7 +81,7 @@ def index(request):
         response_data['up_new']=up_new
         response_data['down_new']=down_new
         return JsonResponse(response_data)'''
-        return JsonResponse({'Returned from view': 'OK'})
+        return JsonResponse(ctx)
     else:
         return render(request, 'index.html', ctx)
 

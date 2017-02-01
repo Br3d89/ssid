@@ -74,13 +74,15 @@
 
 <script language="JavaScript">
 
-$("span" ).hover(function() {
-  $( this ).fadeOut( 100 );
-  $( this ).fadeIn( 100 );
-});
+$(document).ready(function(){
 
-
-
+$('#Run').mouseenter(function(){
+        $('#Run').fadeTo('fast', 1);
+    });
+$('#Run').mouseleave(function(){
+        $('#Run').fadeTo('fast', 0.5);
+    });
+   });
 {% autoescape off %}
 ssidlist={{ all_up_ssids }}
 {% endautoescape %}

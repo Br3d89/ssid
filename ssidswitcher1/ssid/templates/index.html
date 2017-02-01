@@ -146,8 +146,9 @@ function run() {
         // handle a successful response
             success : function(json) {
             //console.log(json); // log the returned json to the console
-            ssidlist = Object.values(json);
-            up_new=[]
+            //ssidlist = Object.values(json);
+            ssidlist=JSON.stringify(json)
+                up_new=[]
             down_new=[]
             ip=[]
              // another sanity check
@@ -160,7 +161,7 @@ function run() {
 
               //  $("#success").css('display','inline-block');
                 console.log("success");
-                console.log('ajax SSID list='+ssidlist)
+                console.log('ajax SSID list='+ssidlist+typeof ssidlist)
                 //console.log(ssidlist);
 
         },

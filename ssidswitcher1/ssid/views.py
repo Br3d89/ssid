@@ -38,9 +38,9 @@ def index(request):
         ip_list=set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
         for i in ip_list:
             vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
-            up_objects=ssid.objects.values_list('name', flat=True).filter(ip=i, name__in=up_new)
-            down_objects = ssid.objects.values_list('name', flat=True).filter(ip=i, name__in=down_new)
-            ssid_objects=ssid.objects.values_list('name', flat=True).filter(ip=i, name__in=rcv_ssids)
+            #up_objects=ssid.objects.values_list('name', flat=True).filter(ip=i, name__in=up_new)
+            #down_objects = ssid.objects.values_list('name', flat=True).filter(ip=i, name__in=down_new)
+            ssid_objects=ssid.objects.filter(ip=i, name__in=rcv_ssids)
             child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
             for m in ssid_objects:
                 if vendor == 'cisco':

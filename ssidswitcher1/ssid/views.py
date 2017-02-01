@@ -19,22 +19,52 @@ class ssidForm(forms.ModelForm):
        }
 
 
-all_list= []
-for i in ssid.objects.all():
-    all_list.append(i.name)
-
+all_list= list(ssid.objects.values_list('name', flat=True))
+all_up_ssids=list(ssid.objects.values_list('name', flat=True).filter(status='1'))
 
 @csrf_exempt
 def index(request):
     ctx = {}
+    ctx['all_up_ssids']=all_up_ssids
     ctx['latest'] = ssid.objects.order_by('-vendor')
     ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
+    ctx['ok']='Run'
     if request.method == 'POST':
+        up_new=json.loads(request.POST.get('up'))
+        down_new=json.loads(request.POST.get('down'))
+        rcv_ssids=up_new+down_new
+        ssh_username = 'mgmt'
+        ssh_password = 'Ve7petrU'
+        ip_list=set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
+        for i in ip_list:
+            vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
+            up_objects=ssid.objects.values_list('name', flat=True).filter(ip=i, name__in=up_new)
+            down_objects = ssid.objects.values_list('name', flat=True).filter(ip=i, name__in=down_new)
+            ssid_objects=ssid.objects.values_list('name', flat=True).filter(ip=i, name__in=rcv_ssids)
+            child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
+            for m in ssid_objects:
+                if vendor == 'cisco':
+                    child.expect('User')
+                    child.sendline(ssh_username)
+                    child.expect('Password')
+                    child.sendline(ssh_password)
+                    child.expect('>')
+                    if m.name in up_new:
+                        child.sendline('config wlan enable {}'.format(m.wlan_id))
+                        m.status=1
+                        m.save()
+                    else:
+                        child.sendline('config wlan disable {}'.format(m.wlan_id))
+                        m.status = 0
+                        m.save()
+                    child.expect('>')
+                    child.sendline('logout')
+                    child.expect('(y/N)')
+                    child.sendline('y')
+        '''response_data = {}
         ssid_name = request.POST.get('ssid')
         ssid_status=request.POST.get('status')
-        response_data = {}
         a = ssid.objects.get(name=ssid_name)
-        #print('View received POST from Ajax',ssid_name)
         if ssid_status=='up':
             a.status=1
             a.save()
@@ -47,11 +77,14 @@ def index(request):
         response_data['pk'] = a.pk
         response_data['name'] = ssid_name
         response_data['status'] = a.status
-
-        return JsonResponse(response_data)
+        response_data['up_new']=up_new
+        response_data['down_new']=down_new
+        return JsonResponse(response_data)'''
+        return JsonResponse({'Returned from view': 'OK'})
     else:
         return render(request, 'index.html', ctx)
 
+'''
 def change(ssid,device_ip,vendor,state):
     #username = 'mgmt'
     #password = 'Ve7petrU'
@@ -202,3 +235,4 @@ def sshp_rcmd(device_ip):
     remote_conn_pre.connect(device_ip, username=username, password=password, look_for_keys=False, allow_agent=False)
     remote_conn_pre.keep_this = remote_conn_pre
     return remote_conn_pre
+'''

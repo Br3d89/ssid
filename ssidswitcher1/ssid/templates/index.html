@@ -24,29 +24,121 @@
 -->
 {% for k,i in servers %}
  <div style="color:red">{{ i }}</div>
-<input type="checkbox" onClick="ch_{{ k }}(this)" /> Select all<br/>
+  <!--  <input type="checkbox" name='{{ i }}' onClick="select_all(this)" /> Select all<br/> -->
      {% for j in latest %}
         {% if j.web == i %}
            {% if j.status %}
-                 <input type="checkbox" id="{{ j.name }}" name='{{ i }}' value="{{ j.name }}" checked>{{ j.name }}<br>
-            {% else %}
-                 <input type="checkbox" id="{{ j.name }}" name='{{ i }}' value="{{ j.name }}">{{ j.name }}<br>
+                 <input type="checkbox" id="{{ j.name }}" name='{{ j.ip }}' value="{{ j.name }}" checked onclick="update_ssidlist(this)"/>{{ j.name }}<br>
+                         {% else %}
+                 <input type="checkbox" id="{{ j.name }}" name='{{ j.ip }}' value="{{ j.name }}" onclick="update_ssidlist(this)"/>{{ j.name }}<br>
            {% endif %}
         {% endif %}
      {% endfor %}
                <br>
- <script language="JavaScript">
+<!--
+<script language="JavaScript">
    function ch_{{ k }}(source) {
-  checkboxes = document.getElementsByName('{{ i }}');
-  for(var i=0, n=checkboxes.length;i<n;i++) {
+   checkboxes = document.getElementsByName('{{ i }}');
+   for(var i=0, n=checkboxes.length;i<n;i++) {
     checkboxes[i].checked = source.checked;
+    update_ssidlist(source.id)
+  }
+}
+</script> -->
+
+
+{% endfor %}
+<input type="button" id="Run" onClick="run()" value="Run"/> <br>
+<div id="loading" style="display: none;color:yellow">Loading</div>
+<div id="success" style="display: none;color:green">Success</div>
+
+
+<!-- Select all checkbox
+
+<script language="JavaScript">
+    function select_all(source) {
+   checkboxes = document.getElementsByName(source.name);
+   for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+    if (checkboxes[i].checked) {
+        console.log('ON: '+checkboxes[i].id)
+    }
+       else {console.log('OFF')}
+       //update_ssidlist1(checkboxes[i])
   }
 }
 </script>
-{% endfor %}
+-->
+
+<script language="JavaScript">
+    {% autoescape off %}
+ssidlist={{ all_up_ssids }}
+        {% endautoescape %}
+
+//console.log(up_new)
+//console.log(down_new)
+//console.log("SSID LIST= "+ssidlist)
+up_new=[];
+down_new=[];
+ip=[]
+    function update_ssidlist(ssid) {
+    ip.push(ssid.name)
+    if (ssid.checked) {
+        if (!ssidlist.includes(ssid.id)) {
+            up_new.push(ssid.id)
+            ip.push(ssid.ip)
+        }
+        else {
+            index = down_new.indexOf(String(ssid.id));
+            down_new.splice(index, 1);
+            console.log(ssid.id+' already UP')}
+}
+     else {
+        if (ssidlist.includes(ssid.id)) {
+            down_new.push(ssid.id)}
+        else {
+            index = up_new.indexOf(ssid.id);
+            up_new.splice(index,1)
+            console.log(ssid.id+ " already DOWN")}
 
 
-<input type="button" onClick="" value="Done">
+    }
+  set= new Set(ip)
+  console.log("New Down: "+down_new+" New Up: "+up_new+'IP LIST= '+set);
+  }
+
+
+
+function run() {
+            //console.log($('#wcm_prod_cisco').val())
+            $("#loading").css('display','inline-block');
+    console.log("Sending POST by ajax");
+            $.ajax({
+            url : "/",
+            type : "POST",
+            data : { up : JSON.stringify(up_new), down:JSON.stringify(down_new) }, // data sent with the post request
+
+        // handle a successful response
+            success : function(json) {
+            console.log(json); // log the returned json to the console
+            console.log("success"); // another sanity check
+            $("#loading").css('display','none');
+            $("#success").css('display','inline-block');
+
+        },
+
+        // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    })};
+
+
+</script>
+
+
 
 <!--
 <script>
@@ -69,16 +161,6 @@
     </script>
 -->
 
-<script>
-    $(document).ready(function(){
-    $(".checkbox").change(function() {
-   if($(this).is(':checked')){
-            console.log("CCCCheckeddddddd");
-            up('{{ i.name }}');
-       }
-})});
-
-</script>
 
 <!--
         function up(name) {

@@ -177,7 +177,7 @@ function run() {
                 data=JSON.stringify(data.ssid_status)
                 if (data[0] != null){
                    for(var i=0, n=data.length;i<n;i++) {
-                   $("span."+data[i]).html(" ok ");}}
+                   $(data[i]).html("<span> ok  </span>");}}
                 else {console.log('Not ready')}
             });
  } , interval)

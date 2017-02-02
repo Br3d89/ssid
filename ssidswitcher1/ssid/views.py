@@ -93,8 +93,8 @@ def index(request):
         return render(request, 'index.html', ctx)
 
 def cisco(up_new,down_new,ssid_objects,i):
+    child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
     for m in ssid_objects:
-        child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
         child.expect(':')
         child.sendline(ssh_username)
         child.expect(':')
@@ -269,3 +269,10 @@ def sshp_rcmd(device_ip):
     remote_conn_pre.keep_this = remote_conn_pre
     return remote_conn_pre
 '''
+
+
+def detail(request,name):
+    print(name)
+    a = ssid.objects.get(name=name)
+    print(a)
+    return render(request, 'ssid/detail.html', {'instance': a})

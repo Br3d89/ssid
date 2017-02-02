@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from ssid.views import index
+from ssid.views import index,detail
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^ssid/(.*)', detail),
     url(r'^', index)
 ]

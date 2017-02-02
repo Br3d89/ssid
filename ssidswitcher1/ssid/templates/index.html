@@ -148,11 +148,11 @@ function run() {
             success : function(json) {
             interval = null
             //$("#loading")
-            //ssidlist=JSON.stringify(json.all_up_ssids)
-                a=json.all_up_ssids
-            for (var i=0, n=a.length;i<n;i++) {
-                console.log('ssid list after succes'+a[i])
-            }
+            ssidlist=JSON.stringify(json.all_up_ssids)   //all this array is one string element
+                //a=json.all_up_ssids
+            //for (var i=0, n=a.length;i<n;i++) {
+            //    console.log('ssid list after succes'+a[i])
+            //}
             up_new=[]
             down_new=[]
             all_new=[]
@@ -172,11 +172,12 @@ function run() {
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
     })
-             /*  setInterval( function(){
+               setInterval( function(){
                $.get("/ssid_status/", function(data) {
                  console.log('typeof received data'+typeof data+'data element='+data.ssid_status)
                    // Замінюємо текст тегу з id="target" на отримані дані
-                data=JSON.stringify(data.ssid_status)
+                //data=JSON.stringify(data.ssid_status)
+                   data=data.ssid_status
                 console.log('Jquery data='+data+'data length='+data.length+'data[0]='+data[0])
                 if (data.length > null){
                    for(var i=0, n=data.length;i<n;i++) {
@@ -184,7 +185,7 @@ function run() {
                        //$(data[i]).html("<span> ok  </span>");}}
                 else {console.log('Not ready')}
             });
- } , interval) */
+ } , interval)
                console.log('Next one1')}
 
 else {

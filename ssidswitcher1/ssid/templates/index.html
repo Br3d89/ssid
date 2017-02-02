@@ -173,8 +173,8 @@ function run() {
 
                    // Замінюємо текст тегу з id="target" на отримані дані
                 data=JSON.stringify(data.ssid_status)
-                console.log('Jquery data='+data, typeof  data+data.length+'data[0]='+data[0])
-                if (data[0] != null){
+                console.log('Jquery data='+data+'data length='+data.length+'data[0]='+data[0])
+                if (data.length > null){
                    for(var i=0, n=data.length;i<n;i++) {
                    console.log('Data inside dor='+data[i])}}
                        //$(data[i]).html("<span> ok  </span>");}}

@@ -76,6 +76,7 @@ def cisco(up_new,down_new,ssid_objects,i,ssid_status):
     child.sendline('logout')
     child.expect('(y/N)')
     child.sendline('y')
+    time.sleep(10)
 
 
 def aruba():

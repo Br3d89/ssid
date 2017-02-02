@@ -92,7 +92,6 @@ console.log('Initial SSIDLIST='+ssidlist+'ssidlist[0]'+ssidlist[0]+'type of ssid
 //console.log("SSID LIST= "+ssidlist)
 up_new=[];
 down_new=[];
-all_new=up_new+down_new
 ip=[]
     function update_ssidlist(ssid) {
         console.log('UPDATE_SSID func started, ssidlist='+ssidlist+' SSID id='+ssid.id+' up_new='+up_new+' down_new= '+down_new)
@@ -132,7 +131,8 @@ ip=[]
 
 
 function run() {
-           console.log('All new list='+all_new)
+    all_new=up_new+down_new
+    console.log('All new list='+all_new)
            if (all_new[0] != null) {
            interval=1000
            $("input[name='ssid']" ).attr('disabled', true);

@@ -243,4 +243,5 @@ def detail(request,name):
 
 def status(request):
     print('Status request')
+    print(ssid_status)
     return JsonResponse({'ssid_status': ssid_status})

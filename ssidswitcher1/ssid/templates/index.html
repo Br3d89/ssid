@@ -85,7 +85,7 @@ $('span').mouseleave(function(){
 {% autoescape off %}
 ssidlist={{ all_up_ssids }}
 {% endautoescape %}
-console.log('Initial SSIDLIST='+ssidlist+'ssidlist[0]'+ssidlist[0]+'type of ssidlist[0]'+typeof ssidlist[0])
+
 
 //console.log(up_new)
 //console.log(down_new)
@@ -95,7 +95,6 @@ down_new=[];
 ip=[]
 interval = null
     function update_ssidlist(ssid) {
-        console.log('UPDATE_SSID func started, ssidlist='+ssidlist+' SSID id='+ssid.id+' up_new='+up_new+' down_new= '+down_new)
     //$('span.'+ssid.id).animate({opacity: 1}, 700 );
     ip.push(ssid.name)
     if (ssid.checked) {
@@ -133,7 +132,6 @@ interval = null
 
 function run() {
     all_new=up_new+down_new
-    console.log('All new list='+all_new)
            if (all_new[0] != null) {
            interval=1000
            $("input[name='ssid']" ).attr('disabled', true);
@@ -162,7 +160,6 @@ function run() {
             $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
             $("#Run").fadeIn("slow");//.fadeIn("slow").delay( 800 ).fadeOut("slow").fadeIn("slow").attr('value','Run');
             console.log("success");
-            console.log(json);
         },
 
         // handle a non-successful response
@@ -174,9 +171,10 @@ function run() {
     })
                setInterval( function(){
                $.get("/ssid_status/", function(data) {
-                console.log('Jquery data='+data)
+
                    // Замінюємо текст тегу з id="target" на отримані дані
                 data=JSON.stringify(data.ssid_status)
+                console.log('Jquery data='+data)
                 if (data[0] != null){
                    for(var i=0, n=data.length;i<n;i++) {
                    console.log(data[i])}}

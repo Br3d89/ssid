@@ -111,7 +111,6 @@ interval = null
             console.log(ssid.id+' already UP '+ssidlist)}
 }
      else {
-        console.log('Unchecked, ssidlist='+ssidlist+' ssid id='+ssid.id+' Type of ssid.id='+typeof ssid.id+'type of ssidlist[0]='+typeof ssidlist[0]+'ssidlist[0]='+ssidlist[0]+' ssid.id includes in ssidlist '+ssidlist.includes(ssid.id))
         if (ssidlist.includes(ssid.id.toString())) {
             $('span.'+ssid.id).css({color:'red',opacity: 0.2}).animate({opacity: 1}, 700 );
             down_new.push(ssid.id)}
@@ -125,7 +124,7 @@ interval = null
 
     }
   //set= new Set(ip)
-  console.log("New Down: "+down_new+" New Up: "+up_new);
+  //console.log("New Down: "+down_new+" New Up: "+up_new);
   }
 
 
@@ -174,7 +173,7 @@ function run() {
 
                    // Замінюємо текст тегу з id="target" на отримані дані
                 data=JSON.stringify(data.ssid_status)
-                console.log('Jquery data='+data)
+                console.log('Jquery data='+data, typeof  data)
                 if (data[0] != null){
                    for(var i=0, n=data.length;i<n;i++) {
                    console.log(data[i])}}

@@ -93,6 +93,7 @@ console.log('Initial SSIDLIST='+ssidlist+'ssidlist[0]'+ssidlist[0]+'type of ssid
 up_new=[];
 down_new=[];
 ip=[]
+interval = null
     function update_ssidlist(ssid) {
         console.log('UPDATE_SSID func started, ssidlist='+ssidlist+' SSID id='+ssid.id+' up_new='+up_new+' down_new= '+down_new)
     //$('span.'+ssid.id).animate({opacity: 1}, 700 );
@@ -173,7 +174,8 @@ function run() {
     })
                setInterval( function(){
                $.get("/ssid_status/", function(data) {
-                // Замінюємо текст тегу з id="target" на отримані дані
+                console.log('Jquery data='+data)
+                   // Замінюємо текст тегу з id="target" на отримані дані
                 data=JSON.stringify(data.ssid_status)
                 if (data[0] != null){
                    for(var i=0, n=data.length;i<n;i++) {

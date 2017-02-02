@@ -21,12 +21,14 @@ class ssidForm(forms.ModelForm):
 
 ssh_username = 'mgmt'
 ssh_password = 'Ve7petrU'
-
+ssid_status=[]
 
 @csrf_exempt
 def index(request):
     all_list = list(ssid.objects.values_list('name', flat=True))
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
+    global ssid_status
+    ssid_status=[]
     ctx = {}
     ctx['all_up_ssids']=all_up_ssids
     ctx['latest'] = ssid.objects.order_by('-vendor')
@@ -45,54 +47,15 @@ def index(request):
             #child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
             #for m in ssid_objects:
             if vendor == 'cisco':
-                cisco(up_new,down_new,ssid_objects,i)
-                '''for m in ssid_objects:
-                child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
-                child.expect(':')
-                child.sendline(ssh_username)
-                child.expect(':')
-                child.sendline(ssh_password)
-                child.expect(">")
-                if m.name in up_new:
-                    child.sendline('config wlan enable {}'.format(m.wlan_id))
-                    child.expect('>')
-                    m.status=1
-                    m.save()
-                else:
-                    child.sendline('config wlan disable {}'.format(m.wlan_id))
-                    child.expect('>')
-                    m.status = 0
-                    m.save()
-                child.sendline('logout')
-                child.expect('(y/N)')
-                child.sendline('y')
-            elif vendor=='aruba':pass
-            elif vendor=='ruckus':pass '''
-        '''response_data = {}
-        ssid_name = request.POST.get('ssid')
-        ssid_status=request.POST.get('status')
-        a = ssid.objects.get(name=ssid_name)
-        if ssid_status=='up':
-            a.status=1
-            a.save()
-            change(a.name,a.ip,a.vendor,a.status)
-        if ssid_status=="down":
-            a.status = 0
-            a.save()
-            change(a.name,a.ip, a.vendor,a.status)
-        response_data['result'] = 'Backend: SSID switched successfully!'
-        response_data['pk'] = a.pk
-        response_data['name'] = ssid_name
-        response_data['status'] = a.status
-        response_data['up_new']=up_new
-        response_data['down_new']=down_new
-        return JsonResponse(response_data)'''
+                cisco(up_new,down_new,ssid_objects,i,ssid_status)
+            elif vendor == 'aruba':pass
+            elif vendor == 'ruckus':pass
         all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
         return JsonResponse({'all_up_ssids':all_up_ssids})
     else:
         return render(request, 'index.html', ctx)
 
-def cisco(up_new,down_new,ssid_objects,i):
+def cisco(up_new,down_new,ssid_objects,i,ssid_status):
     child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
     child.expect(':')
     child.sendline(ssh_username)
@@ -108,10 +71,12 @@ def cisco(up_new,down_new,ssid_objects,i):
             child.sendline('config wlan disable {}'.format(m.wlan_id))
             m.status = 0
             m.save()
+        ssid_status.append(m.name)
     child.expect('>')
     child.sendline('logout')
     child.expect('(y/N)')
     child.sendline('y')
+
 
 def aruba():
     return JsonResponse({'Hello': 'aruba'})
@@ -273,3 +238,7 @@ def sshp_rcmd(device_ip):
 def detail(request,name):
     a = ssid.objects.get(name=name)
     return render(request, 'ssid/detail.html', {'instance': a})
+
+
+def status(request):
+    return JsonResponse({'ssid_status': ssid_status})

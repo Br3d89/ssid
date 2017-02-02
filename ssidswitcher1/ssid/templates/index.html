@@ -50,8 +50,8 @@
 {% endfor %}
 <input style="width:100px;color:red;font-size:18px;font-weight:bold;" type="button" id="Run" onClick="run()" value="Run"/> <br>
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none">
-<div id="success" style="display: none;color:green">Success</div>
-
+<div id="success" style="display: none;color:green"><span id="status_message">Success</span></div>
+<span style="display: none;color: red" id="no_one_chosen">Please, choose at least one ssid</span>
 
 <!-- Select all checkbox
 
@@ -92,6 +92,7 @@ console.log('Initial SSIDLIST='+ssidlist+'ssidlist[0]'+ssidlist[0]+'type of ssid
 //console.log("SSID LIST= "+ssidlist)
 up_new=[];
 down_new=[];
+all_new=up_new+down_new
 ip=[]
     function update_ssidlist(ssid) {
         console.log('UPDATE_SSID func started, ssidlist='+ssidlist+' SSID id='+ssid.id+' up_new='+up_new+' down_new= '+down_new)
@@ -131,7 +132,9 @@ ip=[]
 
 
 function run() {
-           if (up_new || down_new) {
+
+           if (all_new[0] != null) {
+           interval=1000
            $("input[name='ssid']" ).attr('disabled', true);
            $("#Run").css('display','none') ;
            $("#loading").css('display','inline-block');
@@ -143,10 +146,14 @@ function run() {
             data : { up : JSON.stringify(up_new), down:JSON.stringify(down_new) }, // data sent with the post request
 
         // handle a successful response
+
             success : function(json) {
+            interval = null
+            $("#loading")
             ssidlist=JSON.stringify(json.all_up_ssids)
             up_new=[]
             down_new=[]
+            all_new=[]
             ip=[]
             $("#loading").css('display','none');
             $("input[name='ssid']" ).attr('disabled', false);
@@ -163,12 +170,24 @@ function run() {
                 " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
-    })}
-else {
-               console.log('No one ssid was chosen')
-           }
-};
+    })
+               setInterval( function(){
+               $.get("/ssid_status/", function(data) {
+                // Замінюємо текст тегу з id="target" на отримані дані
+                data=JSON.stringify(data.ssid_status)
+                if (data[0] != null){
+                   for(var i=0, n=data.length;i<n;i++) {
+                   $("span."+data[i]).html(" ok ");}}
+                else {console.log('Not ready')}
+            });
+ } , interval)
+               console.log('Next one1')}
 
+else {
+           $('#no_one_chosen').fadeIn("slow").delay( 1500 ).fadeOut("slow");
+            console.log('No one ssid was chosen')
+           }
+}
 
 </script>
 

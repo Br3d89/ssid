@@ -148,9 +148,10 @@ function run() {
             success : function(json) {
             interval = null
             //$("#loading")
-            ssidlist=JSON.stringify(json.all_up_ssids)
-            for (var i=0, n=ssidlist.length;i<n;i++) {
-                console.log('ssid list after succes'+ssidlist[i])
+            //ssidlist=JSON.stringify(json.all_up_ssids)
+                a=json.all_up_ssids
+            for (var i=0, n=a.length;i<n;i++) {
+                console.log('ssid list after succes'+a[i])
             }
             up_new=[]
             down_new=[]

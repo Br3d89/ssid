@@ -170,7 +170,7 @@ function run() {
     })
                setInterval( function(){
                $.get("/ssid_status/", function(data) {
-                 console.log('typeof received data'+typeof data)
+                 console.log('typeof received data'+typeof data+'data element='+data.ssid_status)
                    // Замінюємо текст тегу з id="target" на отримані дані
                 data=JSON.stringify(data.ssid_status)
                 console.log('Jquery data='+data+'data length='+data.length+'data[0]='+data[0])

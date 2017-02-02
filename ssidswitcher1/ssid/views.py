@@ -94,11 +94,11 @@ def index(request):
 
 def cisco(up_new,down_new,ssid_objects,i):
     child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
+    child.expect(':')
+    child.sendline(ssh_username)
+    child.expect(':')
+    child.sendline(ssh_password)
     for m in ssid_objects:
-        child.expect(':')
-        child.sendline(ssh_username)
-        child.expect(':')
-        child.sendline(ssh_password)
         child.expect(">")
         if m.name in up_new:
             child.sendline('config wlan enable {}'.format(m.wlan_id))
@@ -112,7 +112,6 @@ def cisco(up_new,down_new,ssid_objects,i):
     child.sendline('logout')
     child.expect('(y/N)')
     child.sendline('y')
-    return JsonResponse({'Hello': 'cisco'})
 
 def aruba():
     return JsonResponse({'Hello': 'aruba'})
@@ -272,7 +271,5 @@ def sshp_rcmd(device_ip):
 
 
 def detail(request,name):
-    print(name)
     a = ssid.objects.get(name=name)
-    print(a)
     return render(request, 'ssid/detail.html', {'instance': a})

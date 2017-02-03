@@ -194,7 +194,7 @@ function run() {
                    //$('#'+data[i]).html("<span> ok  </span>");}}
                    //$( "span."+data[i] ).css( "color", "blue" );}}
                        //$( "span."+data[i] ).append("<span style='color:red'>    ok  </span>").fadeIn("slow").delay( 1500 ).fadeOut("slow");
-                       $( "span."+data[i] ).append("  ok  ").fadeIn("slow");
+                       $( "span."+data[i] ).html(data[i]+"<span style='color:blue'>  ok  </span>").fadeIn("slow");
                        ssid_status.push(data[i])
                        }
                    else {console.log('Status already set')}

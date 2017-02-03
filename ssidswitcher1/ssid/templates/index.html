@@ -149,7 +149,7 @@ function run() {
             success : function(json) {
             clearInterval(check_status)
             ssidlist=JSON.stringify(json.all_up_ssids)   //all this array is one string element
-            for (var i=0, n=a.length;i<n;i++) {
+            for (var i=0, n=ssid_status.length;i<n;i++) {
                 $( "span."+data[i] ).html(data[i]);
             }
             ssid_status=[]

@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 import copy
 import paramiko,time,pexpect,requests,json,logging
 from datetime import datetime
+from multiprocessing import Process
 
 
 class ssidForm(forms.ModelForm):
@@ -39,17 +40,19 @@ def index(request):
         down_new=json.loads(request.POST.get('down'))
         rcv_ssids=up_new+down_new
         ip_list=set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
+        process_list=[]
         for i in ip_list:
             vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
-            #up_objects=ssid.objects.values_list('name', flat=True).filter(ip=i, name__in=up_new)
-            #down_objects = ssid.objects.values_list('name', flat=True).filter(ip=i, name__in=down_new)
             ssid_objects=ssid.objects.filter(ip=i, name__in=rcv_ssids) #all ssids within device
-            #child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
-            #for m in ssid_objects:
-            if vendor == 'cisco':
-                cisco(up_new,down_new,ssid_objects,i,ssid_status)
-            elif vendor == 'aruba':pass
-            elif vendor == 'ruckus':pass
+            p = Process(target=locals()['{}'.format(vendor)], args=(up_new, down_new, ssid_objects, i, ssid_status))
+            process_list.append(p)
+        for i in process_list:
+            i.start()
+            #if vendor == 'cisco':
+            #    cisco(up_new,down_new,ssid_objects,i,ssid_status)
+            #elif vendor == 'aruba':
+            #    aruba(up_new, down_new, ssid_objects, i, ssid_status)
+            #elif vendor == 'ruckus':pass
         all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
         return JsonResponse({'all_up_ssids':all_up_ssids})
     else:
@@ -67,23 +70,45 @@ def cisco(up_new,down_new,ssid_objects,i,ssid_status):
         if m.name in up_new:
             child.sendline('config wlan enable {}'.format(m.wlan_id))
             m.status = 1
-            m.save()
         else:
             child.sendline('config wlan disable {}'.format(m.wlan_id))
             m.status = 0
-            m.save()
+        m.save()
         ssid_status.append(m.name)
-        #time.sleep(1)
-        #ssid_status.remove(m.name)
     child.expect('>')
     child.sendline('logout')
     child.expect('(y/N)')
     child.sendline('y')
-    time.sleep(10)
 
 
-def aruba():
-    return JsonResponse({'Hello': 'aruba'})
+def aruba(up_new,down_new,ssid_objects,i,ssid_status):
+    child = pexpect.spawn('telnet {}'.format(i))
+    child.expect(":")
+    child.sendline("{} + \r".format(ssh_username))
+    child.expect(":")
+    child.sendline("{} + \r".format(ssh_password))
+    child.expect("#")
+    child.sendline('conf' + '\r')
+    child.expect('#')
+    for m in ssid_objects:
+        child.sendline('wlan ssid-profile {} \r'.format(m.wlan_id))
+        child.expect('#')
+        if m.name in up_new:
+            child.sendline('enable \r')
+            child.expect('#')
+            m.status = 1
+        else:
+            child.sendline('disable \r')
+            child.expect('#')
+            m.status = 0
+        m.save()
+        ssid_status.append(m.name)
+    child.sendline('end' + '\r')
+    child.expect('#')
+    child.sendline('commit apply' + '\r')
+    child.expect('#')
+    child.sendline('logout')
+
 
 '''
 def change(ssid,device_ip,vendor,state):

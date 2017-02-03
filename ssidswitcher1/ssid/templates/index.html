@@ -146,7 +146,8 @@ function run() {
         // handle a successful response
 
             success : function(json) {
-            interval = null
+            clearInterval(check_status)
+            // /interval = null
             //$("#loading")
             ssidlist=JSON.stringify(json.all_up_ssids)   //all this array is one string element
                 //a=json.all_up_ssids
@@ -172,7 +173,8 @@ function run() {
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
     })
-               setInterval( function(){
+
+               check_status =  setInterval( function(){
                $.get("/ssid_status/", function(data) {
                  console.log('typeof received data'+typeof data+'data element='+data.ssid_status)
                    // Замінюємо текст тегу з id="target" на отримані дані
@@ -185,7 +187,7 @@ function run() {
                        //$(data[i]).html("<span> ok  </span>");}}
                 else {console.log('Not ready')}
             });
- } , interval)
+ } , 1000)
                console.log('Next one1')}
 
 else {

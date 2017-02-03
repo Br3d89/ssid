@@ -89,6 +89,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status):
 def aruba(up_new, down_new, ssid_objects, i, ssid_status):
     child = pexpect.spawn('ssh -l {} {}'.format(ssh_username,i))
     child.expect(":")
+    #child.sendline("{}\r".format(ssh_password))
     child.sendline("{}\r".format(ssh_password))
     child.expect("#")
     child.sendline('conf\r')

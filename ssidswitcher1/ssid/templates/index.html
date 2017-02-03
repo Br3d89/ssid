@@ -181,12 +181,12 @@ function run() {
                        $( "span."+data[i] ).html(data[i]+"<span style='color:blue'>  ok  </span>").fadeIn("slow");
                        ssid_status.push(data[i])
                        }
-                   //else {console.log('Status already set')}
+                   else {console.log('Status already set')}
                    }}
-                //else {console.log('Not ready')}
+                else {console.log('Not ready')}
             });
  } , 1000)
-               //console.log('Next one1')}
+               console.log('Next one1')}
 
 else {
            $('#no_one_chosen').fadeIn("slow").delay( 1500 ).fadeOut("slow");

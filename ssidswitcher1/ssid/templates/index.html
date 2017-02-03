@@ -148,27 +148,20 @@ function run() {
 
             success : function(json) {
             clearInterval(check_status)
-            // /interval = null
-            //$("#loading")
             ssidlist=JSON.stringify(json.all_up_ssids)   //all this array is one string element
-                //a=json.all_up_ssids
-            //for (var i=0, n=a.length;i<n;i++) {
-            //    console.log('ssid list after succes'+a[i])
-            //}
+            for (var i=0, n=a.length;i<n;i++) {
+                $( "span."+data[i] ).html(data[i]);
+            }
+            ssid_status=[]
             up_new=[]
             down_new=[]
             all_new=[]
             ip=[]
-            //for(var i=0, n=ssid_status.length;i<n;i++) {
-            //    $( "span."+data[i] ).append("<span style='color:red'>    ok  </span>").fadeIn("slow").delay( 1500 ).fadeOut("slow");
-            //}
-                ssid_status=[]
             $("#loading").css('display','none');
             $("input[name='ssid']" ).attr('disabled', false);
             $('span').css({color:'black',opacity: 1});
             $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
-            $("#Run").fadeIn("slow");//.fadeIn("slow").delay( 800 ).fadeOut("slow").fadeIn("slow").attr('value','Run');
-            console.log("success");
+            $("#Run").fadeIn("slow");
         },
 
         // handle a non-successful response
@@ -181,28 +174,19 @@ function run() {
 
                check_status =  setInterval( function(){
                $.get("/ssid_status/", function(data) {
-                 //console.log('typeof received data'+typeof data+'data element='+data.ssid_status)
-                   // Замінюємо текст тегу з id="target" на отримані дані
-                //data=JSON.stringify(data.ssid_status)
                    data=data.ssid_status
-                //console.log('Jquery data='+data+'data length='+data.length+'data[0]='+data[0])
                 if (data.length > null){
                    for(var i=0, n=data.length;i<n;i++) {
                        if (!ssid_status.includes(data[i])) {
-                   console.log(data[i]+' ready, changing span color')
-                       //console.log('Data inside for='+data[i])}}
-                   //$('#'+data[i]).html("<span> ok  </span>");}}
-                   //$( "span."+data[i] ).css( "color", "blue" );}}
-                       //$( "span."+data[i] ).append("<span style='color:red'>    ok  </span>").fadeIn("slow").delay( 1500 ).fadeOut("slow");
                        $( "span."+data[i] ).html(data[i]+"<span style='color:blue'>  ok  </span>").fadeIn("slow");
                        ssid_status.push(data[i])
                        }
-                   else {console.log('Status already set')}
+                   //else {console.log('Status already set')}
                    }}
-                else {console.log('Not ready')}
+                //else {console.log('Not ready')}
             });
  } , 1000)
-               console.log('Next one1')}
+               //console.log('Next one1')}
 
 else {
            $('#no_one_chosen').fadeIn("slow").delay( 1500 ).fadeOut("slow");

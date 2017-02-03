@@ -71,7 +71,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status):
     child.expect(':')
     child.sendline(ssh_password)
     for m in ssid_objects:
-        child.expect(">")
+        child.expect(">" ,timeout=60)
         if m.name in up_new:
             child.sendline('config wlan enable {}'.format(m.wlan_id))
             m.status = 1
@@ -80,7 +80,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status):
             m.status = 0
         m.save()
         ssid_status.append(m.name)
-    child.expect('>')
+    child.expect('>',timeout=60)
     child.sendline('logout')
     child.expect('(y/N)')
     child.sendline('y')

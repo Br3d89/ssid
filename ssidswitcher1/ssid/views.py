@@ -24,6 +24,10 @@ ssh_username = 'mgmt'
 ssh_password = 'Ve7petrU'
 ssid_status=[]
 
+
+
+
+
 @csrf_exempt
 def index(request):
     all_list = list(ssid.objects.values_list('name', flat=True))
@@ -35,6 +39,55 @@ def index(request):
     ctx['latest'] = ssid.objects.order_by('-vendor')
     ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
     ctx['ok']='Run'
+    def cisco(up_new, down_new, ssid_objects, i, ssid_status):
+        # child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
+        child = pexpect.spawn('telnet {}'.format(i))
+        child.expect(':')
+        child.sendline(ssh_username)
+        child.expect(':')
+        child.sendline(ssh_password)
+        for m in ssid_objects:
+            child.expect(">")
+            if m.name in up_new:
+                child.sendline('config wlan enable {}'.format(m.wlan_id))
+                m.status = 1
+            else:
+                child.sendline('config wlan disable {}'.format(m.wlan_id))
+                m.status = 0
+            m.save()
+            ssid_status.append(m.name)
+        child.expect('>')
+        child.sendline('logout')
+        child.expect('(y/N)')
+        child.sendline('y')
+
+    def aruba(up_new, down_new, ssid_objects, i, ssid_status):
+        child = pexpect.spawn('telnet {}'.format(i))
+        child.expect(":")
+        child.sendline("{} + \r".format(ssh_username))
+        child.expect(":")
+        child.sendline("{} + \r".format(ssh_password))
+        child.expect("#")
+        child.sendline('conf' + '\r')
+        child.expect('#')
+        for m in ssid_objects:
+            child.sendline('wlan ssid-profile {} \r'.format(m.wlan_id))
+            child.expect('#')
+            if m.name in up_new:
+                child.sendline('enable \r')
+                child.expect('#')
+                m.status = 1
+            else:
+                child.sendline('disable \r')
+                child.expect('#')
+                m.status = 0
+            m.save()
+            ssid_status.append(m.name)
+        child.sendline('end' + '\r')
+        child.expect('#')
+        child.sendline('commit apply' + '\r')
+        child.expect('#')
+        child.sendline('logout')
     if request.method == 'POST':
         up_new=json.loads(request.POST.get('up'))
         down_new=json.loads(request.POST.get('down'))
@@ -57,7 +110,7 @@ def index(request):
         return JsonResponse({'all_up_ssids':all_up_ssids})
     else:
         return render(request, 'index.html', ctx)
-
+'''
 def cisco(up_new,down_new,ssid_objects,i,ssid_status):
     #child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
     child = pexpect.spawn('telnet {}'.format(i))
@@ -110,7 +163,7 @@ def aruba(up_new,down_new,ssid_objects,i,ssid_status):
     child.sendline('logout')
 
 
-'''
+
 def change(ssid,device_ip,vendor,state):
     #username = 'mgmt'
     #password = 'Ve7petrU'

@@ -159,7 +159,10 @@ function run() {
             down_new=[]
             all_new=[]
             ip=[]
-            ssid_status=[]
+            //for(var i=0, n=ssid_status.length;i<n;i++) {
+            //    $( "span."+data[i] ).append("<span style='color:red'>    ok  </span>").fadeIn("slow").delay( 1500 ).fadeOut("slow");
+            //}
+                ssid_status=[]
             $("#loading").css('display','none');
             $("input[name='ssid']" ).attr('disabled', false);
             $('span').css({color:'black',opacity: 1});
@@ -190,7 +193,8 @@ function run() {
                        //console.log('Data inside for='+data[i])}}
                    //$('#'+data[i]).html("<span> ok  </span>");}}
                    //$( "span."+data[i] ).css( "color", "blue" );}}
-                       $( "span."+data[i] ).append("<span style='color:green'> ok  </span>");
+                       //$( "span."+data[i] ).append("<span style='color:red'>    ok  </span>").fadeIn("slow").delay( 1500 ).fadeOut("slow");
+                       $( "span."+data[i] ).html("  ok  ").fadeIn("slow");
                        ssid_status.push(data[i])
                        }
                    else {console.log('Status already set')}

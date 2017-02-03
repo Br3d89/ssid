@@ -93,7 +93,8 @@ ssidlist={{ all_up_ssids }}
 up_new=[];
 down_new=[];
 ip=[]
-interval = null
+ssid_status=[]
+
     function update_ssidlist(ssid) {
     //$('span.'+ssid.id).animate({opacity: 1}, 700 );
     ip.push(ssid.name)
@@ -158,6 +159,7 @@ function run() {
             down_new=[]
             all_new=[]
             ip=[]
+            ssid_status=[]
             $("#loading").css('display','none');
             $("input[name='ssid']" ).attr('disabled', false);
             $('span').css({color:'black',opacity: 1});
@@ -183,11 +185,16 @@ function run() {
                 //console.log('Jquery data='+data+'data length='+data.length+'data[0]='+data[0])
                 if (data.length > null){
                    for(var i=0, n=data.length;i<n;i++) {
+                       if (!ssid_status.includes(data[i])) {
                    console.log(data[i]+' ready, changing span color')
                        //console.log('Data inside for='+data[i])}}
                    //$('#'+data[i]).html("<span> ok  </span>");}}
                    //$( "span."+data[i] ).css( "color", "blue" );}}
-                       $( "span."+data[i] ).append("<span style='color:green'> ok  </span>");}}
+                       $( "span."+data[i] ).append("<span style='color:green'> ok  </span>");
+                       ssid_status.push(data[i])
+                       }
+                   else {console.log('Status already set')}
+                   }}
                 else {console.log('Not ready')}
             });
  } , 1000)
@@ -221,62 +228,6 @@ else {
 {% endfor %}
 
 
-    </script>
--->
 
-
-<!--
-        function up(name) {
-            //console.log($('#wcm_prod_cisco').val())
-            console.log("Enable " +name+ " SSID: Sending POST by ajax");
-            $.ajax({
-            url : "/",
-            type : "POST",
-            data : { ssid : name, status:'up' }, // data sent with the post request
-
-        // handle a successful response
-            success : function(json) {
-            console.log(json); // log the returned json to the console
-            console.log("success"); // another sanity check
-        },
-
-        // handle a non-successful response
-            error : function(xhr,errmsg,err) {
-            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-        }
-    })};
-
-
-function down(name) {
-
-            //console.log($('#wcm_prod_cisco').val())
-            console.log("Disable " +name+ " SSID: Sending POST by ajax");
-            $.ajax({
-            url : "/",
-            type : "POST",
-            data : { ssid : name, status:'down' }, // data sent with the post request
-
-        // handle a successful response
-            success : function(json) {
-           console.log(json); // log the returned json to the console
-            console.log("Frontend: SSID switched successfully!"); // another sanity check
-       },
-
-        // handle a non-successful response
-        error : function(xhr,errmsg,err) {
-            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-        }
-    })};
-
-
-    </script>
-    <!--
-<div>POST-DATA: {{ data }}</div>
-<div>ALL-LIST: {{ all_list }}</div>
-<div>CROSS-LIST: {{ cross_list }}</div> -->
 </body>
 </html>

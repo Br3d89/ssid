@@ -44,7 +44,8 @@ def index(request):
         down_new=json.loads(request.POST.get('down'))
         rcv_ssids=up_new+down_new
         ip_list=set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
-        process_list=[]
+        #process_list=[]
+        process_list = []
         for i in ip_list:
             vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
             ssid_objects=ssid.objects.filter(ip=i, name__in=rcv_ssids) #all ssids within device

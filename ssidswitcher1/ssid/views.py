@@ -89,26 +89,26 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status):
 def aruba(up_new, down_new, ssid_objects, i, ssid_status):
     child = pexpect.spawn('ssh -l {} {}'.format(ssh_username,i))
     child.expect(":")
-    child.sendline("{} + \r".format(ssh_password))
+    child.sendline("{}\r".format(ssh_password))
     child.expect("#")
-    child.sendline('conf' + '\r')
+    child.sendline('conf\r')
     child.expect('#')
     for m in ssid_objects:
-        child.sendline('wlan ssid-profile {} \r'.format(m.wlan_id))
+        child.sendline('wlan ssid-profile {}\r'.format(m.wlan_id))
         child.expect('#')
         if m.name in up_new:
-            child.sendline('enable \r')
+            child.sendline('enable\r')
             child.expect('#')
             m.status = 1
         else:
-            child.sendline('disable \r')
+            child.sendline('disable\r')
             child.expect('#')
             m.status = 0
         m.save()
         ssid_status.append(m.name)
-    child.sendline('end' + '\r')
+    child.sendline('end\r')
     child.expect('#')
-    child.sendline('commit apply' + '\r')
+    child.sendline('commit apply\r')
     child.expect('#')
     child.sendline('logout')
 '''

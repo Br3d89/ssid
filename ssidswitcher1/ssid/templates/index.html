@@ -186,7 +186,7 @@ function run() {
                    console.log(data[i]+' ready, changing span color')
                        //console.log('Data inside for='+data[i])}}
                    //$('#'+data[i]).html("<span> ok  </span>");}}
-                   $( "span.wcm_prod_cisco" ).css( "color", "blue" );}}
+                   $( "span."+data[i] ).css( "color", "blue" );}}
                 else {console.log('Not ready')}
             });
  } , 1000)

@@ -4,7 +4,7 @@ from .models import ssid
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
 import copy
-import paramiko,time,pexpect,requests,json,logging
+import paramiko,time,pexpect,requests,json,logging,threading
 from datetime import datetime
 from multiprocessing import Process
 
@@ -44,17 +44,18 @@ def index(request):
         down_new=json.loads(request.POST.get('down'))
         rcv_ssids=up_new+down_new
         ip_list=set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
-        #process_list=[]
-        process_list = []
+        process_list=[]
         for i in ip_list:
             vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
             ssid_objects=ssid.objects.filter(ip=i, name__in=rcv_ssids) #all ssids within device
-            p = Process(target=globals()['{}'.format(vendor)], args=(up_new, down_new, ssid_objects, i, ssid_status))
+            p=(threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status)))
+            #p = Process(target=globals()['{}'.format(vendor)], args=(up_new, down_new, ssid_objects, i, ssid_status))
+            p.start()
             process_list.append(p)
         for i in process_list:
-            i.start()
+            #i.start()
+            i.join()
             print('Starting ',i)
-        process_list = []
             #if vendor == 'cisco':
             #    cisco(up_new,down_new,ssid_objects,i,ssid_status)
             #elif vendor == 'aruba':

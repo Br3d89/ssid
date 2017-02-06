@@ -177,12 +177,13 @@ function run() {
                    data=data.ssid_status
                 if (data.length > null){
                    for(var i=0, n=data.length;i<n;i++) {
+                       console.log('SSID_STATUS='+ssid_status)
                        if (!ssid_status.includes(data[i])) {
                        $( "span."+data[i] ).html(data[i]+"<span style='color:blue'>  ok  </span>").fadeIn("slow");
                        ssid_status.push(data[i])
                        }
-                   else {console.log('Status already set')}
-                   }}
+                       else {console.log('Status already set')}
+                       }}
                 else {console.log('Not ready')}
             });
  } , 1000)

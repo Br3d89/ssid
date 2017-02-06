@@ -79,7 +79,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status):
     child.sendline(ssh_password+"\n")
     print('Starting for loop and waiting for >')
     for m in ssid_objects:
-        child.expect(">" ,timeout=30)
+        child.expect("WLC" ,timeout=30)
         if m.name in up_new:
             child.sendline('config wlan enable {}'.format(m.wlan_id))
             m.status = 1

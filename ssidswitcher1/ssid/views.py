@@ -70,10 +70,10 @@ def index(request):
 def cisco(up_new, down_new, ssid_objects, i, ssid_status):
     #child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
     child = pexpect.spawn('telnet {}'.format(i))
-    child.expect(':')
-    child.sendline(ssh_username,timeout=30)
-    child.expect(':')
-    child.sendline(ssh_password,timeout=30)
+    child.expect(':', timeout=30)
+    child.sendline(ssh_username)
+    child.expect(':', timeout=30)
+    child.sendline(ssh_password)
     for m in ssid_objects:
         child.expect(">" ,timeout=30)
         if m.name in up_new:

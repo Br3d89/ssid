@@ -71,15 +71,15 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status):
     #child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
     print('Executing Telnet command')
     child = pexpect.spawn('telnet {}'.format(i))
-    print('Waiting for Username:', child.before())
+    print('Waiting for Username:', child.before)
     child.expect(':', timeout=30)
     child.sendline(ssh_username+"\n")
-    print('Waiting for Password:', child.before())
+    print('Waiting for Password:', child.before)
     child.expect(':', timeout=30)
     child.sendline(ssh_password+"\n")
-    print('Starting for loop and waiting for >',child.before())
+    print('Starting for loop and waiting for >',child.before)
     for m in ssid_objects:
-        child.expect("WLC" ,timeout=30)
+        child.expect(">" ,timeout=30)
         if m.name in up_new:
             child.sendline('config wlan enable {}'.format(m.wlan_id))
             m.status = 1

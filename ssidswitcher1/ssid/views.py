@@ -68,10 +68,10 @@ def index(request):
 
 
 def cisco(up_new, down_new, ssid_objects, i, ssid_status):
-    child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
-    #child = pexpect.spawn('telnet {}'.format(i))
-    #child.expect(':')
-    #child.sendline(ssh_username)
+    #child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
+    child = pexpect.spawn('telnet {}'.format(i))
+    child.expect(':')
+    child.sendline(ssh_username)
     child.expect(':')
     child.sendline(ssh_password)
     for m in ssid_objects:

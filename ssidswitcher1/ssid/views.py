@@ -52,10 +52,10 @@ def index(request):
             #p = Process(target=globals()['{}'.format(vendor)], args=(up_new, down_new, ssid_objects, i, ssid_status))
             p.start()
             process_list.append(p)
-        for i in process_list:
-            print('Starting ', i)
-            #i.start()
-            i.join()
+        #for i in process_list:
+        #    print('Starting ', i)
+        #    #i.start()
+        #    i.join()
             #if vendor == 'cisco':
             #    cisco(up_new,down_new,ssid_objects,i,ssid_status)
             #elif vendor == 'aruba':

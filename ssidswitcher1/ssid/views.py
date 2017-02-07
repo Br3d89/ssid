@@ -68,8 +68,8 @@ def index(request):
 
 
 def cisco(up_new, down_new, ssid_objects, i, ssid_status):
+    print('Executing SSH command cisco')
     child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
-    print('Executing SSH command')
     #child = pexpect.spawn('telnet {}'.format(i))
     print('Waiting for Username:', child.before, child.after)
     child.expect('User:')
@@ -97,6 +97,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status):
 
 
 def aruba(up_new, down_new, ssid_objects, i, ssid_status):
+    print('Eceuting ssh command aruba')
     child = pexpect.spawn('ssh -l {} {}'.format(ssh_username,i))
     child.expect(":")
     child.sendline("{}\r".format(ssh_password))

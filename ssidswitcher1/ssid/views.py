@@ -79,6 +79,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status):
     child.sendline(ssh_password)
     print('Starting for loop and waiting for >',child.before,child.after)
     #child.expect(">")
+    # child.expect(">")
     for m in ssid_objects:
         child.expect(">")
         if m.name in up_new:

@@ -99,7 +99,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors):
         child.sendline('y')
     except pexpect.exceptions.TIMEOUT as err:
         errors.append(err)
-        print(err)
+        print('Error Br3d',err)
 
 
 def aruba(up_new, down_new, ssid_objects, i, ssid_status,errors):

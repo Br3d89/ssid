@@ -54,7 +54,8 @@ def index(request):
             p=(threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status,errors)))
             #p = Process(target=globals()['{}'.format(vendor)], args=(up_new, down_new, ssid_objects, i, ssid_status))
             p.start()
-            threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status, errors,1)).start()
+            if (len(down_new)==0):
+                threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status, errors,1)).start()
             process_list.append(p)
         for i in process_list:
             print('Starting ', i)
@@ -72,7 +73,7 @@ def index(request):
 
 
 def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors,t=0):
-    print('Executing SSH command cisco')
+    print('Executing SSH command cisco t=',t)
     try:
         child = pexpect.spawn('ssh -l {} -oStrictHostKeyChecking=no {}'.format(ssh_username, i))
     #except pexpect.exceptions.TIMEOUT as err:

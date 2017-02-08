@@ -76,15 +76,16 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors):
     #    errors.append(err)
     #    print(err)
     #child = pexpect.spawn('telnet {}'.format(i))
-        print('Waiting for Username:', child.before, child.after)
+        print('Waiting for Username:','Before:', child.before,'After:', child.after)
         child.expect('User:')
         child.sendline(ssh_username)
-        print('Waiting for Password:', child.before,child.after)
+        print('Waiting for Password:', 'Before:', child.before, 'After:', child.after)
         child.expect('Password:', timeout=30)
         child.sendline(ssh_password)
-        print('Starting for loop and waiting for >',child.before,child.after)
+        print('Starting for loop and waiting for >', 'Before:', child.before, 'After:', child.after)
         for m in ssid_objects:
             child.expect(">")
+            print('Received expected >')
             if m.name in up_new:
                 child.sendline('config wlan enable {}'.format(m.wlan_id))
                 m.status = 1

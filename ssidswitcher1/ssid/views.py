@@ -71,7 +71,7 @@ def index(request):
 def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors):
     print('Executing SSH command cisco')
     try:
-        child = pexpect.spawn('ssh -l -oStrictHostKeyChecking=no {} {}'.format(ssh_username, i))
+        child = pexpect.spawn('ssh -l {} -oStrictHostKeyChecking=no {}'.format(ssh_username, i))
     #except pexpect.exceptions.TIMEOUT as err:
     #    errors.append(err)
     #    print(err)

@@ -92,7 +92,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors,t=0):
             child.expect(">")
             print('Received expected >', 'Before:', child.before, 'After:', child.after)
             #if t==0:
-            if m.name in up_new:
+            if ((m.name in up_new) and t==0):
                 child.sendline('config wlan enable {}'.format(m.wlan_id))
                 m.status = 1
             else:

@@ -89,8 +89,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors,t=0):
         child.sendline(ssh_password)
         print('Starting for loop and waiting for >', 'Before:', child.before, 'After:', child.after)
         for m in ssid_objects:
-            print('Started for loop, waiting for WLC symbols', 'Before:', child.before, 'After:', child.after)
-            child.expect("(WLC - 2504 - DEV) >")
+            child.expect(">")
             print('Received expected >', 'Before:', child.before, 'After:', child.after)
             #if t==0:
             if m.name in up_new:

@@ -111,6 +111,7 @@ ssid_status=[]
             //$('span.'+ssid.id).append( "<strong style='color:red'>  <--Already ENABLED</strong>" );
             $('span.'+ssid.id).css({color:'black',opacity: 0.2}).animate({opacity: 1}, 700 );
             console.log(ssid.id+' already UP '+ssidlist)
+            console.log(up_new,down_new)
             if (up_new[0]=== null && down_new[0]=== null) {
             $('#Run').css('display','none');
      }
@@ -128,6 +129,7 @@ ssid_status=[]
             //$('span.'+ssid.id).append( "<strong style='color:red'>  <--Already Disabled</strong>" );
             $('span.'+ssid.id).css({color:'black',opacity: 0.2}).animate({opacity: 1}, 700 );
             console.log(ssid.id+ " already DOWN "+ssidlist)
+            console.log(up_new,down_new)
         if (up_new[0]=== null && down_new[0]=== null) {
             $('#Run').css('display','none');
      }

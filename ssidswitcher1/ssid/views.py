@@ -80,12 +80,12 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors):
         child.expect('User:')
         child.sendline(ssh_username)
         print('Waiting for Password:', 'Before:', child.before, 'After:', child.after)
-        child.expect('Password:', timeout=30)
+        child.expect('Password:')
         child.sendline(ssh_password)
         print('Starting for loop and waiting for >', 'Before:', child.before, 'After:', child.after)
-        child.expect("(WLC-2504-DEV) >")
         for m in ssid_objects:
-            child.expect(">")
+            print('Started for loop, waiting for WLC symbols')
+            child.expect("WLC")
             print('Received expected >')
             if m.name in up_new:
                 child.sendline('config wlan enable {}'.format(m.wlan_id))

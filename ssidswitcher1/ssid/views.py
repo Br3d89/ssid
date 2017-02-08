@@ -83,6 +83,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors):
         child.expect('Password:', timeout=30)
         child.sendline(ssh_password)
         print('Starting for loop and waiting for >', 'Before:', child.before, 'After:', child.after)
+        child.expect("(WLC-2504-DEV) >")
         for m in ssid_objects:
             child.expect(">")
             print('Received expected >')

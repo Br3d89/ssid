@@ -142,7 +142,6 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
     child.sendline('commit apply\r')
     child.expect('#')
     child.sendline('logout')
-    time.sleep(10)
 
 
 

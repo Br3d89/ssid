@@ -116,7 +116,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors,t=0):
         print('Br3d pexpect time error')
 
 
-def aruba(up_new, down_new, ssid_objects, i, ssid_status,errors):
+def aruba(up_new, down_new, ssid_objects, i, ssid_status,errors,t=0):
     print('Eceuting ssh command aruba')
     child = pexpect.spawn('ssh -l {} {}'.format(ssh_username,i))
     child.expect(":")
@@ -127,7 +127,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status,errors):
     for m in ssid_objects:
         child.sendline('wlan ssid-profile {}\r'.format(m.wlan_id))
         child.expect('#')
-        if m.name in up_new:
+        if ((m.name in up_new) and t == 0):
             child.sendline('enable\r')
             child.expect('#')
             m.status = 1

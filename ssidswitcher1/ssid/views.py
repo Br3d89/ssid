@@ -34,6 +34,7 @@ def index(request):
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
     global ssid_status
     ssid_status=[]
+    errors=[]
     ctx = {}
     ctx['all_up_ssids']=all_up_ssids
     ctx['latest'] = ssid.objects.order_by('-vendor')
@@ -48,7 +49,7 @@ def index(request):
         for i in ip_list:
             vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
             ssid_objects=ssid.objects.filter(ip=i, name__in=rcv_ssids) #all ssids within device
-            p=(threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status)))
+            p=(threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status,errors)))
             #p = Process(target=globals()['{}'.format(vendor)], args=(up_new, down_new, ssid_objects, i, ssid_status))
             p.start()
             process_list.append(p)
@@ -62,41 +63,46 @@ def index(request):
             #    aruba(up_new, down_new, ssid_objects, i, ssid_status)
             #elif vendor == 'ruckus':pass
         all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
-        return JsonResponse({'all_up_ssids':all_up_ssids})
+        return JsonResponse({'all_up_ssids':all_up_ssids,'errors':errors})
     else:
         return render(request, 'index.html', ctx)
 
 
-def cisco(up_new, down_new, ssid_objects, i, ssid_status):
+def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors):
     print('Executing SSH command cisco')
-    child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
+    try:
+        child = pexpect.spawn('ssh -l -oStrictHostKeyChecking=no {} {}'.format(ssh_username, i))
+    #except pexpect.exceptions.TIMEOUT as err:
+    #    errors.append(err)
+    #    print(err)
     #child = pexpect.spawn('telnet {}'.format(i))
-    print('Waiting for Username:', child.before, child.after)
-    child.expect('User:')
-    child.sendline(ssh_username)
-    print('Waiting for Password:', child.before,child.after)
-    child.expect('Password:', timeout=30)
-    child.sendline(ssh_password)
-    print('Starting for loop and waiting for >',child.before,child.after)
-    #child.expect(">")
-    # child.expect(">")
-    for m in ssid_objects:
-        child.expect(">")
-        if m.name in up_new:
-            child.sendline('config wlan enable {}'.format(m.wlan_id))
-            m.status = 1
-        else:
-            child.sendline('config wlan disable {}'.format(m.wlan_id))
-            m.status = 0
-        m.save()
-        ssid_status.append(m.name)
-    child.expect('>',timeout=60)
-    child.sendline('logout')
-    child.expect('(y/N)')
-    child.sendline('y')
+        print('Waiting for Username:', child.before, child.after)
+        child.expect('User:')
+        child.sendline(ssh_username)
+        print('Waiting for Password:', child.before,child.after)
+        child.expect('Password:', timeout=30)
+        child.sendline(ssh_password)
+        print('Starting for loop and waiting for >',child.before,child.after)
+        for m in ssid_objects:
+            child.expect(">")
+            if m.name in up_new:
+                child.sendline('config wlan enable {}'.format(m.wlan_id))
+                m.status = 1
+            else:
+                child.sendline('config wlan disable {}'.format(m.wlan_id))
+                m.status = 0
+            m.save()
+            ssid_status.append(m.name)
+        child.expect('>',timeout=60)
+        child.sendline('logout')
+        child.expect('(y/N)')
+        child.sendline('y')
+    except pexpect.exceptions.TIMEOUT as err:
+        errors.append(err)
+        print(err)
 
 
-def aruba(up_new, down_new, ssid_objects, i, ssid_status):
+def aruba(up_new, down_new, ssid_objects, i, ssid_status,errors):
     print('Eceuting ssh command aruba')
     child = pexpect.spawn('ssh -l {} {}'.format(ssh_username,i))
     child.expect(":")

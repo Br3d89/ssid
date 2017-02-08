@@ -43,6 +43,8 @@ def index(request):
     if request.method == 'POST':
         up_new=json.loads(request.POST.get('up'))
         down_new=json.loads(request.POST.get('down'))
+        timeout_value= json.loads(request.POST.get('timer'))
+        print(timeout_value)
         rcv_ssids=up_new+down_new
         ip_list=set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
         process_list=[]
@@ -52,7 +54,7 @@ def index(request):
             p=(threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status,errors)))
             #p = Process(target=globals()['{}'.format(vendor)], args=(up_new, down_new, ssid_objects, i, ssid_status))
             p.start()
-            threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status, errors,1)).start()
+            #threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status, errors,1)).start()
             process_list.append(p)
         for i in process_list:
             print('Starting ', i)

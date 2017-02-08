@@ -48,6 +48,7 @@
 
 
 {% endfor %}
+<input typ="text" id="timer" placeholder="default 30 minutes" name="timer" pattern="[0-9]{4}">
 <input style="width:100px;color:red;font-size:18px;font-weight:bold;display:none;" type="button" id="Run" onClick="run()" value="Run"/> <br>
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none">
 <div id="success" style="display: none;color:green"><span id="status_message">Success</span></div>
@@ -81,6 +82,11 @@ $(document).ready(function(){
 $('span').mouseleave(function(){
         $(this).fadeTo('fast', 1);
     })});
+
+timer=1800
+$( "#timer" ).keyup(function() {
+    timer = $( this ).val();}
+
 
 {% autoescape off %}
 ssidlist={{ all_up_ssids }}
@@ -154,7 +160,7 @@ function run() {
             $.ajax({
             url : "/",
             type : "POST",
-            data : { up : JSON.stringify(up_new), down:JSON.stringify(down_new) }, // data sent with the post request
+            data : { up : JSON.stringify(up_new), down:JSON.stringify(down_new),timer:timer }, // data sent with the post request
 
         // handle a successful response
 
@@ -164,6 +170,7 @@ function run() {
             for (var i=0, n=ssid_status.length;i<n;i++) {
                 $( "span."+ssid_status[i] ).html(ssid_status[i]);
             }
+            timer=1800
             ssid_status=[]
             up_new=[]
             down_new=[]

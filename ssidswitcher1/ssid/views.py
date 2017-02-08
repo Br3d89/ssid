@@ -95,7 +95,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors):
                 m.status = 0
             m.save()
             ssid_status.append(m.name)
-        child.expect('>',timeout=60)
+        child.expect('>')
         child.sendline('logout')
         child.expect('(y/N)')
         child.sendline('y')

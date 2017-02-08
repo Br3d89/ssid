@@ -52,6 +52,7 @@ def index(request):
             p=(threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status,errors)))
             #p = Process(target=globals()['{}'.format(vendor)], args=(up_new, down_new, ssid_objects, i, ssid_status))
             p.start()
+            threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status, errors,1)).start()
             process_list.append(p)
         for i in process_list:
             print('Starting ', i)
@@ -68,7 +69,7 @@ def index(request):
         return render(request, 'index.html', ctx)
 
 
-def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors):
+def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors,t=0):
     print('Executing SSH command cisco')
     try:
         child = pexpect.spawn('ssh -l {} -oStrictHostKeyChecking=no {}'.format(ssh_username, i))
@@ -87,7 +88,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors):
             print('Started for loop, waiting for WLC symbols', 'Before:', child.before, 'After:', child.after)
             #child.expect("*")
             #print('Received expected >')
-            if m.name in up_new:
+            if ((m.name in up_new) and t==0):
                 child.sendline('config wlan enable {}'.format(m.wlan_id))
                 m.status = 1
             else:

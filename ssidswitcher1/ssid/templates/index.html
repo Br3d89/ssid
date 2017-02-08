@@ -48,7 +48,7 @@
 
 
 {% endfor %}
-<input style="width:100px;color:red;font-size:18px;font-weight:bold;" type="button" id="Run" onClick="run()" value="Run"/> <br>
+<input style="width:100px;color:red;font-size:18px;font-weight:bold;display:none;" type="button" id="Run" onClick="run()" value="Run"/> <br>
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none">
 <div id="success" style="display: none;color:green"><span id="status_message">Success</span></div>
 <span style="display: none;color: red" id="no_one_chosen">Please, choose at least one ssid</span>
@@ -103,6 +103,7 @@ ssid_status=[]
             $('span.'+ssid.id).css({color:'green',opacity: 0.2}).animate({opacity: 1}, 700 );
             up_new.push(ssid.id)
             ip.push(ssid.ip)
+            $('#Run').css('display','block');
         }
         else {
             index = down_new.indexOf(String(ssid.id));
@@ -114,14 +115,18 @@ ssid_status=[]
      else {
         if (ssidlist.includes(ssid.id.toString())) {
             $('span.'+ssid.id).css({color:'red',opacity: 0.2}).animate({opacity: 1}, 700 );
-            down_new.push(ssid.id)}
+            down_new.push(ssid.id)
+            $('#Run').css('display','block');}
+
         else {
             index = up_new.indexOf(ssid.id);
             up_new.splice(index,1)
             //$('span.'+ssid.id).append( "<strong style='color:red'>  <--Already Disabled</strong>" );
             $('span.'+ssid.id).css({color:'black',opacity: 0.2}).animate({opacity: 1}, 700 );
             console.log(ssid.id+ " already DOWN "+ssidlist)}
-
+     if (up_new[0]=== null && down_new[0]=== null) {
+            $('#Run').css('display','none');
+     }
 
     }
   //set= new Set(ip)

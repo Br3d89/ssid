@@ -54,7 +54,7 @@ def index(request):
             p=(threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status,errors)))
             #p = Process(target=globals()['{}'.format(vendor)], args=(up_new, down_new, ssid_objects, i, ssid_status))
             p.start()
-            #threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status, errors,1)).start()
+            threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status, errors,1)).start()
             process_list.append(p)
         for i in process_list:
             print('Starting ', i)

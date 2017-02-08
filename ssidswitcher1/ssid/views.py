@@ -23,6 +23,7 @@ class ssidForm(forms.ModelForm):
 ssh_username = 'mgmt'
 ssh_password = 'Ve7petrU'
 ssid_status=[]
+down_status=[]
 
 
 
@@ -89,14 +90,20 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status,errors,t=0):
         print('Starting for loop and waiting for >', 'Before:', child.before, 'After:', child.after)
         for m in ssid_objects:
             print('Started for loop, waiting for WLC symbols', 'Before:', child.before, 'After:', child.after)
-            #child.expect("*")
-            #print('Received expected >')
-            if ((m.name in up_new) and t==0):
+            child.expect("(WLC - 2504 - DEV) >")
+            print('Received expected >', 'Before:', child.before, 'After:', child.after)
+            #if t==0:
+            if m.name in up_new:
                 child.sendline('config wlan enable {}'.format(m.wlan_id))
                 m.status = 1
             else:
                 child.sendline('config wlan disable {}'.format(m.wlan_id))
                 m.status = 0
+            #else:
+            #    child.sendline('config wlan disable {}'.format(m.wlan_id))
+            #    m.status = 0
+            #    global down_status
+            #    down_status.append(m.name)
             m.save()
             ssid_status.append(m.name)
         child.expect('>')

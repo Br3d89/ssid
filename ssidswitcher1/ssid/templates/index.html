@@ -110,7 +110,11 @@ ssid_status=[]
             down_new.splice(index, 1);
             //$('span.'+ssid.id).append( "<strong style='color:red'>  <--Already ENABLED</strong>" );
             $('span.'+ssid.id).css({color:'black',opacity: 0.2}).animate({opacity: 1}, 700 );
-            console.log(ssid.id+' already UP '+ssidlist)}
+            console.log(ssid.id+' already UP '+ssidlist)
+            if (up_new[0]=== null && down_new[0]=== null) {
+            $('#Run').css('display','none');
+     }
+        }
 }
      else {
         if (ssidlist.includes(ssid.id.toString())) {
@@ -123,10 +127,11 @@ ssid_status=[]
             up_new.splice(index,1)
             //$('span.'+ssid.id).append( "<strong style='color:red'>  <--Already Disabled</strong>" );
             $('span.'+ssid.id).css({color:'black',opacity: 0.2}).animate({opacity: 1}, 700 );
-            console.log(ssid.id+ " already DOWN "+ssidlist)}
-     if (up_new[0]=== null && down_new[0]=== null) {
+            console.log(ssid.id+ " already DOWN "+ssidlist)
+        if (up_new[0]=== null && down_new[0]=== null) {
             $('#Run').css('display','none');
      }
+        }
 
     }
   //set= new Set(ip)

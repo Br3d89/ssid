@@ -142,6 +142,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status,errors,t=0):
     child.sendline('commit apply\r')
     child.expect('#')
     child.sendline('logout')
+    time.sleep(10)
 '''
 def cisco(up_new,down_new,ssid_objects,i,ssid_status):
     #child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
@@ -356,5 +357,5 @@ def detail(request,name):
 
 def status(request):
     print('Status request')
-    print(ssid_status)
+    print('Backend ssid status ',ssid_status)
     return JsonResponse({'ssid_status': ssid_status})

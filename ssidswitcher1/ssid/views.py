@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .models import ssid
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
@@ -26,6 +26,125 @@ ssid_status=[]
 down_status=[]
 
 
+@csrf_exempt
+def ssid_update(request):
+    #all_list = list(ssid.objects.values_list('name', flat=True))
+    all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
+    global ssid_status
+    ssid_status = []
+    errors = []
+    #ctx = {}
+    #ctx['all_up_ssids'] = all_up_ssids
+    #ctx['latest'] = ssid.objects.order_by('-vendor')
+    #ctx['servers'] = enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
+    #ctx['ok'] = 'Run'
+    if request.method == 'POST':
+        up_new = json.loads(request.POST.get('up'))
+        down_new = json.loads(request.POST.get('down'))
+        timeout_value = json.loads(request.POST.get('timer'))
+        print(timeout_value)
+        rcv_ssids = up_new + down_new
+        ip_list = set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
+        process_list = []
+        for i in ip_list:
+            vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
+            ssid_objects = ssid.objects.filter(ip=i, name__in=rcv_ssids)  # all ssids within device
+            p = (threading.Thread(target=globals()['{}'.format(vendor)],
+                                  args=(up_new, down_new, ssid_objects, i, ssid_status, errors)))
+            # p = Process(target=globals()['{}'.format(vendor)], args=(up_new, down_new, ssid_objects, i, ssid_status))
+            p.start()
+            if (len(down_new) == 0):
+                threading.Timer(timeout_value, globals()['{}'.format(vendor)],
+                                args=(up_new, down_new, ssid_objects, i, ssid_status, errors, 1)).start()
+            process_list.append(p)
+        for i in process_list:
+            print('Starting ', i)
+            # i.start()
+            i.join()
+            # if vendor == 'cisco':
+            #    cisco(up_new,down_new,ssid_objects,i,ssid_status)
+            # elif vendor == 'aruba':
+            #    aruba(up_new, down_new, ssid_objects, i, ssid_status)
+            # elif vendor == 'ruckus':pass
+        all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
+        return JsonResponse({'all_up_ssids': all_up_ssids, 'errors': errors})
+    else:
+        index(request)
+        #return render(request, 'index.html', ctx)
+
+
+def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
+    print('Executing SSH command cisco t=', t)
+    try:
+        child = pexpect.spawn('ssh -l {} -oStrictHostKeyChecking=no {}'.format(ssh_username, i))
+        # except pexpect.exceptions.TIMEOUT as err:
+        #    errors.append(err)
+        #    print(err)
+        # child = pexpect.spawn('telnet {}'.format(i))
+        print('Waiting for Username:', 'Before:', child.before, 'After:', child.after)
+        child.expect('User:')
+        child.sendline(ssh_username)
+        print('Waiting for Password:', 'Before:', child.before, 'After:', child.after)
+        child.expect('Password:')
+        child.sendline(ssh_password)
+        print('Starting for loop and waiting for >', 'Before:', child.before, 'After:', child.after)
+        for m in ssid_objects:
+            child.expect(">")
+            print('Received expected >', 'Before:', child.before, 'After:', child.after)
+            # if t==0:
+            if ((m.name in up_new) and t == 0):
+                child.sendline('config wlan enable {}'.format(m.wlan_id))
+                m.status = 1
+            else:
+                child.sendline('config wlan disable {}'.format(m.wlan_id))
+                m.status = 0
+            # else:
+            #    child.sendline('config wlan disable {}'.format(m.wlan_id))
+            #    m.status = 0
+            #    global down_status
+            #    down_status.append(m.name)
+            m.save()
+            ssid_status.append(m.name)
+        child.expect('>')
+        child.sendline('logout')
+        child.expect('(y/N)')
+        child.sendline('y')
+        print('Backend success')
+    except pexpect.exceptions.TIMEOUT as err:
+        errors.append(err)
+        # print('Error Br3d',err)
+        print('Br3d pexpect time error')
+
+
+def aruba(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
+    print('Eceuting ssh command aruba')
+    child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
+    child.expect(":")
+    child.sendline("{}\r".format(ssh_password))
+    child.expect("#")
+    child.sendline('conf\r')
+    child.expect('#')
+    for m in ssid_objects:
+        child.sendline('wlan ssid-profile {}\r'.format(m.wlan_id))
+        child.expect('#')
+        if ((m.name in up_new) and t == 0):
+            child.sendline('enable\r')
+            child.expect('#')
+            m.status = 1
+        else:
+            child.sendline('disable\r')
+            child.expect('#')
+            m.status = 0
+        m.save()
+        ssid_status.append(m.name)
+    child.sendline('end\r')
+    child.expect('#')
+    child.sendline('commit apply\r')
+    child.expect('#')
+    child.sendline('logout')
+    time.sleep(10)
+
+
 
 
 
@@ -33,8 +152,8 @@ down_status=[]
 def index(request):
     all_list = list(ssid.objects.values_list('name', flat=True))
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
-    global ssid_status
-    ssid_status=[]
+    #global ssid_status
+    #ssid_status=[]
     errors=[]
     ctx = {}
     ctx['all_up_ssids']=all_up_ssids
@@ -42,8 +161,13 @@ def index(request):
     ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
     ctx['ok']='Run'
     if request.method == 'POST':
-        up_new=json.loads(request.POST.get('up'))
-        down_new=json.loads(request.POST.get('down'))
+        return HttpResponse('Index not for POSTs')
+        #all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
+        #return JsonResponse({'all_up_ssids': all_up_ssids, 'errors': errors})
+    else:
+        return render(request, 'index.html', ctx)
+     #up_new=json.loads(request.POST.get("up"))
+        '''down_new=json.loads(request.POST.get('down'))
         timeout_value= json.loads(request.POST.get('timer'))
         print(timeout_value)
         rcv_ssids=up_new+down_new
@@ -67,8 +191,8 @@ def index(request):
             #elif vendor == 'aruba':
             #    aruba(up_new, down_new, ssid_objects, i, ssid_status)
             #elif vendor == 'ruckus':pass
-        all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
-        return JsonResponse({'all_up_ssids':all_up_ssids,'errors':errors})
+         all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
+         return JsonResponse({'all_up_ssids':all_up_ssids,'errors':errors})
     else:
         return render(request, 'index.html', ctx)
 
@@ -143,7 +267,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status,errors,t=0):
     child.expect('#')
     child.sendline('logout')
     time.sleep(10)
-'''
+
 def cisco(up_new,down_new,ssid_objects,i,ssid_status):
     #child = pexpect.spawn('ssh -l {} {}'.format(ssh_username, i))
     child = pexpect.spawn('telnet {}'.format(i))

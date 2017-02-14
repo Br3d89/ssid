@@ -189,7 +189,7 @@ function run() {
             $('span').css({color:'black',opacity: 1});
             $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
             $("#Run,#timer,#time_label").fadeOut("slow");
-            console.log(json.errors)
+            console.log('Connection timeout: '+json.errors)
             console.log('Success')
         },
 

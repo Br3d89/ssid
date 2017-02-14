@@ -74,7 +74,7 @@ def ssid_update(request):
 
 
 def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
-    print('Executing SSH command cisco t=', t)
+    #while True:
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
         child.expect('User:')
@@ -97,31 +97,30 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.sendline('y')
         print('Backend success')
     except pexpect.exceptions.TIMEOUT as err:
-        errors.append(err)
+        errors.append(i)
+        #continue
         # print('Error Br3d',err)
         print('Br3d pexpect time error')
 
 
 def aruba(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
-    print('Eceuting ssh command aruba')
     child = pexpect.spawn('ssh -l {} {} -o StrictHostKeyChecking=no'.format(ssh_username, i))
     child.expect(":")
     child.sendline("{}\r".format(ssh_password))
     child.expect("#")
     child.sendline('conf\r')
-    child.expect('#')
     for m in ssid_objects:
+        child.expect('#')
         child.sendline('wlan ssid-profile {}\r'.format(m.wlan_id))
         child.expect('#')
         if (m.name in up_new) and t == 0:
             child.sendline('enable\r')
-            child.expect('#')
             m.status = 1
         else:
             child.sendline('disable\r')
-            child.expect('#')
             m.status = 0
         m.save()
+        child.sendline('exit\r')
         ssid_status.append(m.name)
     child.sendline('end\r')
     child.expect('#')
@@ -207,11 +206,39 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         else:
             child.sendline('uci set wireless.@wifi-device[0].disabled=1; uci commit wireless; wifi\n')
             m.status = 0
-        child.expect('#')
         m.save()
         ssid_status.append(m.name)
     child.expect('#')
     child.sendline('exit')
+
+def huawei(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
+    child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
+    child.expect('password:')
+    child.sendline(ssh_password)
+    child.expect('>')
+    child.sendline('system-view')
+    child.expect(']')
+    child.sendline('wlan')
+    for m in ssid_objects:
+        child.expect(']')
+        child.sendline('vap-profile name {}'.format(m.wlan_id))
+        child.expect(']')
+        if (m.name in up_new) and t == 0:
+            child.sendline('undo service-mode disable')
+            m.status = 1
+        else:
+            child.sendline('service-mode disable')
+            m.status = 0
+        m.save()
+        ssid_status.append(m.name)
+    child.expect(']')
+    child.sendline('\x1A')   #CTRL+Z command
+    child.expect('>')
+    child.sendline('save')
+    child.expect(':')
+    child.sendline('y')
+    child.expect('>')
+    child.sendline('quit')
 
 
 def meraki(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):

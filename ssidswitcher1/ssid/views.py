@@ -97,7 +97,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.sendline('y')
         print('Backend success')
     except pexpect.exceptions.TIMEOUT as err:
-        errors.append(i)
+        errors.append(ssid_objects)
         #continue
         # print('Error Br3d',err)
         print('Br3d pexpect time error')

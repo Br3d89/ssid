@@ -55,6 +55,7 @@
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none">
 <div id="success" style="display: none;color:green"><span id="status_message">Success</span></div>
 <span style="display: none;color: red" id="no_one_chosen">Please, choose at least one ssid</span>
+<div id="errors" style="display: none"></div>
 
 <!-- Select all checkbox
 
@@ -189,6 +190,7 @@ function run() {
             $('span').css({color:'black',opacity: 1});
             $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
             $("#Run,#timer,#time_label").fadeOut("slow");
+            $('#errors').fadeIn("slow").text('Connection timeout: '+json.errors)
             console.log('Connection timeout: '+json.errors)
             console.log('Success')
         },

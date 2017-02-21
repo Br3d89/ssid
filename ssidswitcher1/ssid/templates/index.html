@@ -24,18 +24,20 @@
     <hr>
 -->
 {% for k,i in servers %}
+    <div style="display: inline-block">
  <div style="color:red;font-size: 14px;text-decoration: underline"><a style="color:red;" href="http://{{ i }}">{{ i }}</a></div>
   <!--  <input type="checkbox" name='{{ i }}' onClick="select_all(this)" /> Select all<br/> -->
      {% for j in latest %}
         {% if j.web == i %}
            {% if j.status %}
-                 <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" checked onclick="update_ssidlist(this)"/><a style="display:inline-block;text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br>
+                 <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br>
                          {% else %}
-                 <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" onclick="update_ssidlist(this)"/><a style="display:inline-block;text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br>
+                 <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br>
            {% endif %}
         {% endif %}
+         </div>
      {% endfor %}
-               <br>
+
 <!--
 <script language="JavaScript">
    function ch_{{ k }}(source) {

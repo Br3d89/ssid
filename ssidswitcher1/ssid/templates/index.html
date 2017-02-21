@@ -14,7 +14,7 @@
 <body>
 
 {% for k,i in servers %}
-    <div style="border:1px solid gray;display: inline-block">
+    <div style="border:1px solid gray;display: inline-block;margin:10px;">
  <div style="color:red;font-size: 14px;text-decoration: underline"><a style="color:red;" href="http://{{ i }}">{{ i }}</a></div>
   <!--  <input type="checkbox" name='{{ i }}' onClick="select_all(this)" /> Select all<br/> -->
      {% for j in latest %}

@@ -13,16 +13,6 @@
 
 <body>
 
-<!--
-    {% for i in latest %}
-        {% if i.status %}
-        <input type="checkbox" id="{{ i.name }}" name='ssid' value="{{ i.name }}" checked>{{ i.name }}<br>
-        {% else %}
-         <input type="checkbox" id="{{ i.name }}" name='ssid' value="{{ i.name }}">{{ i.name }}<br>
-        {% endif %}
-    {% endfor %}
-    <hr>
--->
 {% for k,i in servers %}
     <div style="border:1px solid gray;display: inline-block">
  <div style="color:red;font-size: 14px;text-decoration: underline"><a style="color:red;" href="http://{{ i }}">{{ i }}</a></div>
@@ -35,21 +25,8 @@
                  <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br>
            {% endif %}
         {% endif %}
-         </div>
      {% endfor %}
-
-<!--
-<script language="JavaScript">
-   function ch_{{ k }}(source) {
-   checkboxes = document.getElementsByName('{{ i }}');
-   for(var i=0, n=checkboxes.length;i<n;i++) {
-    checkboxes[i].checked = source.checked;
-    update_ssidlist(source.id)
-  }
-}
-</script> -->
-
-
+    </div>
 {% endfor %}
 <label style="display: none;" id="time_label" for="timer">Timer(in seconds):</label>
 <input style="display: none" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}">
@@ -58,23 +35,6 @@
 <div id="success" style="display: none;color:green"><span id="status_message">Success</span></div>
 <span style="display: none;color: red" id="no_one_chosen">Please, choose at least one ssid</span>
 <div id="errors" style="display: none"></div>
-
-<!-- Select all checkbox
-
-<script language="JavaScript">
-    function select_all(source) {
-   checkboxes = document.getElementsByName(source.name);
-   for(var i=0, n=checkboxes.length;i<n;i++) {
-    checkboxes[i].checked = source.checked;
-    if (checkboxes[i].checked) {
-        console.log('ON: '+checkboxes[i].id)
-    }
-       else {console.log('OFF')}
-       //update_ssidlist1(checkboxes[i])
-  }
-}
-</script>
--->
 
 
 

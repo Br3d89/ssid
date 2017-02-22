@@ -20,8 +20,7 @@ button.accordion {
     transition: 0.4s;
     display: block;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 5px;
     border-radius: 15px;
 }
 
@@ -37,7 +36,9 @@ button.accordion.active, button.accordion:hover {
     margin-right: auto;
     width: 200px;}
 
-
+.inside {
+    margin-left: 5px;
+}
 
 </style>
 </head>
@@ -45,9 +46,9 @@ button.accordion.active, button.accordion:hover {
 <body>
 <h2 style="text-align: center">Select server</h2>
 {% for k,i in servers %}
+ <div class="panel">
 <button class="accordion">{{ i }}</button>
-    <div class="panel">
-        <ul style="list-style-type: none;margin-left: auto;margin-right: auto; ">
+        <ul class="inside">
         <a style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">{{ i }}</a>
         {% for j in latest %}
         {% if j.web == i %}

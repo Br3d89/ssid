@@ -82,7 +82,6 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.sendline('logout')
         child.expect('(y/N)')
         child.sendline('y')
-        print('Backend success')
     except pexpect.exceptions.TIMEOUT as err:
         errors.append(list(ssid_objects.values_list('name', flat=True)))
 
@@ -141,6 +140,7 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
 
 def mikrotik(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
     try:
+        print('Running mikrotik')
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
         child.expect(':', timeout=pexp_timeout)
         child.sendline('{}\n\r'.format(ssh_password))
@@ -156,6 +156,7 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
             ssid_status.append(m.name)
         child.expect('>')
         child.sendline('/quit\n\r')
+        print('Mikrotik done')
     except pexpect.exceptions.TIMEOUT as err:
         errors.append(list(ssid_objects.values_list('name', flat=True)))
 

@@ -37,7 +37,6 @@ button.accordion.active, button.accordion:hover {
 border: 1px solid darkgrey;}
 
 .inside {
-    margin-left: 5px;
     display: none;
     list-style-type: none;
 }
@@ -47,22 +46,23 @@ border: 1px solid darkgrey;}
 
 <body>
 <h2 style="text-align: center">Select server</h2>
+
 {% for k,i in servers %}
  <div class="panel">
-<button class="accordion">{{ i }}</button>
-        <ul class="inside">
-        <a style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">{{ i }}</a>
-        {% for j in latest %}
-        {% if j.web == i %}
-           {% if j.status %}
-                 <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a></li>
-                         {% else %}
-                 <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
-           {% endif %}
-        {% endif %}
-     {% endfor %}
-        </ul>
-    </div>
+       <button class="accordion">{{ i }}</button>
+       <ul class="inside">
+              <li><a style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">{{ i }}</a></li>
+              {% for j in latest %}
+                  {% if j.web == i %}
+                      {% if j.status %}
+                       <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a></li>
+                               {% else %}
+                       <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
+                       {% endif %}
+                 {% endif %}
+              {% endfor %}
+       </ul>
+ </div>
 {% endfor %}
 
 

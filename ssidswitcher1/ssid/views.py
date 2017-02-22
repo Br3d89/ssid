@@ -88,6 +88,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
 
 
 def aruba(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
+    print('Aruba started')
     try:
         child = pexpect.spawn('ssh -l {} {} -o StrictHostKeyChecking=no'.format(ssh_username, i))
         fout = open('test.log', 'wb')

@@ -68,9 +68,6 @@ ul.inside {
        </ul>
  </div>
 {% endfor %}
-
-</div>
-
 <label style="display: none;" id="time_label" for="timer">Timer(in seconds):</label>
 <input style="display: none" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}">
 <input style="width:100px;color:red;font-size:18px;font-weight:bold;display:none;" type="button" id="Run" onClick="run()" value="Run"/> <br>
@@ -78,6 +75,9 @@ ul.inside {
 <div id="success" style="display: none;color:green"><span id="status_message">Success</span></div>
 <span style="display: none;color: red" id="no_one_chosen">Please, choose at least one ssid</span>
 <div id="errors" style="display: none"></div>
+</div>
+
+
 
 
 

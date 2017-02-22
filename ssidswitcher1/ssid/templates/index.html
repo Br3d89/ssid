@@ -77,6 +77,7 @@ ul.inside {
 <input type="checkbox" name="Timer" id="timercheckbox" onclick="update_timer(this)">Timer(in seconds)
 <!--<label style="display: none;" id="time_label" for="timer">Timer(in seconds):</label> -->
 <input style="display: none" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}">
+
 <input style="width:100px;color:red;font-size:18px;font-weight:bold;display:none;" type="button" id="Run" onClick="run()" value="Run"/> <br>
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none">
 <div id="success" style="display: none;color:green"><span id="status_message">Success</span></div>
@@ -111,12 +112,13 @@ for (i = 0; i < acc.length; i++) {
 
 
 function update_timer(timer) {
-    console.log('Update is working')
     if (timer.checked){
-        $("#time").css("display","block")
+        console.log('Timer is checked')
+        $("#timer").css('display','block');
     }
     else {
-        $("#time").css("display","none")
+        console.log('Timer is unchecked')
+        $("#timer").css("display","none")
     }
 }
 

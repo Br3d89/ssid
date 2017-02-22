@@ -8,6 +8,9 @@
     <script src="{% static 'jquery-3.1.1.min.js'%}"></script>
     <meta http-equiv="refresh" content="120">
 <style>
+    body {
+        text-align: center;
+    }
 button.accordion {
     background-color: #eee;
     border-bottom: 1px solid darkgrey;
@@ -44,13 +47,10 @@ ul.inside {
     margin-right: auto;  }
 
 .footer {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: left;
+    margin: 0 auto;
     width:170px;
     border:1px solid red;
-    padding-left: auto;
-    padding-right: auto;
     }
 
 </style>
@@ -79,8 +79,9 @@ ul.inside {
 {% endfor %}
 
 
-<br>
+</div>
 
+<div class="footer">
 <input type="checkbox" name="Timer" style= "margin-left:auto;margin-right:auto;display: none;text-align: center" id="timercheckbox" onclick="update_timer(this)">
 <label style="margin-left:auto;margin-right:auto;display: none;text-align: center" id="time_label" for="timercheckbox">Timer(in seconds):</label><br>
 <input style="margin-left:auto;margin-right:auto;display: none;text-align: center" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}">

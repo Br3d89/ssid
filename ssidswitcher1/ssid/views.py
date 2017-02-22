@@ -148,6 +148,7 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.sendline('\n\r')
         for m in ssid_objects:
             child.expect('>')
+            time.sleep(2)
             if (m.name in up_new) and t == 0:
                 child.sendline("/interface wireless enable {}\n\r".format(m.wlan_id))
                 m.status = 1

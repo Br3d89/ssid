@@ -46,8 +46,7 @@ ul.inside {
 .footer {
     border:1px solid red;
     position: relative;
-    padding-left: auto;
-    padding-right: auto;
+   text-align: center;
     }
 
 </style>
@@ -77,9 +76,9 @@ ul.inside {
 
 
 <div class="footer">
-<label style="display: none;" id="time_label" for="timercheckbox">Timer(in seconds):</label>
-<input type="checkbox" name="Timer" style= "display: none" id="timercheckbox" onclick="update_timer(this)">
 
+<input type="checkbox" name="Timer" style= "display: none" id="timercheckbox" onclick="update_timer(this)">
+<label style="display: none;" id="time_label" for="timercheckbox">Timer(in seconds):</label>
 <input style="display: none" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}">
 
 <input style="width:100px;color:red;font-size:18px;font-weight:bold;display:none;" type="button" id="Run" onClick="run()" value="Run"/> <br>

@@ -142,6 +142,8 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
     try:
         print('Running mikrotik')
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
+        fout = open('test.log', 'wb')
+        child.logfile = fout
         child.expect(':', timeout=pexp_timeout)
         child.sendline('{}\n\r'.format(ssh_password))
         child.expect('>')

@@ -44,7 +44,7 @@ div.panel {
 <button class="accordion">{{ i }}</button>
     <div class="panel">
         <div style="color:red;font-size: 14px;text-decoration: underline"><a style="color:red;" href="http://{{ i }}">{{ i }}</a></div>
-        <ul style="position:absolute">
+        <ul style="position: inherit">
         {% for j in latest %}
         {% if j.web == i %}
            {% if j.status %}

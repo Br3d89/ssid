@@ -31,18 +31,19 @@ button.accordion.active, button.accordion:hover {
 div.panel {
     padding: 0 18px;
     display: none;
-    background-color: white;
-}
+    background-color: white;}
+
+
 </style>
 </head>
 
 <body>
-<h2>Select server</h2>
+<h2 style="text-align: center">Select server</h2>
 {% for k,i in servers %}
 <button class="accordion">{{ i }}</button>
     <div class="panel">
         <div style="color:red;font-size: 14px;text-decoration: underline"><a style="color:red;" href="http://{{ i }}">{{ i }}</a></div>
-        <ul>
+        <ul style="position: relative">
         {% for j in latest %}
         {% if j.web == i %}
            {% if j.status %}

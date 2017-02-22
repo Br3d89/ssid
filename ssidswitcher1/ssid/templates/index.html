@@ -43,7 +43,7 @@ div.panel {
 {% for k,i in servers %}
 <button class="accordion">{{ i }}</button>
     <div class="panel">
-        <div style="color:red;font-size: 14px;text-decoration: underline"><a style="color:red;" href="http://{{ i }}">{{ i }}</a></div>
+        <a style="color:red;font-size: 14px;text-decoration: underline;position: inherit" href="http://{{ i }}">{{ i }}</a>
         <ul style="position: inherit">
         {% for j in latest %}
         {% if j.web == i %}

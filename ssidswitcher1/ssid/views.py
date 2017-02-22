@@ -82,6 +82,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.sendline('logout')
         child.expect('(y/N)')
         child.sendline('y')
+        print('Cisco done')
     except pexpect.exceptions.TIMEOUT as err:
         errors.append(list(ssid_objects.values_list('name', flat=True)))
 
@@ -89,6 +90,8 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
 def aruba(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
     try:
         child = pexpect.spawn('ssh -l {} {} -o StrictHostKeyChecking=no'.format(ssh_username, i))
+        fout = open('test.log', 'wb')
+        child.logfile = fout
         child.expect(':', timeout=pexp_timeout)
         child.sendline("{}\r".format(ssh_password))
         child.expect("#")
@@ -111,6 +114,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.sendline('commit apply\r')
         child.expect('#')
         child.sendline('logout')
+        print('Aruba done')
     except pexpect.exceptions.TIMEOUT as err:
         errors.append(list(ssid_objects.values_list('name', flat=True)))
 
@@ -134,6 +138,7 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
                 m.status = 0
             m.save()
             ssid_status.append(m.name)
+        print('Unifi done')
     except pexpect.exceptions.TIMEOUT as err:
         errors.append(list(ssid_objects.values_list('name', flat=True)))
 
@@ -162,6 +167,7 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
             ssid_status.append(m.name)
         child.expect('>')
         child.sendline('/quit\n\r')
+        print('Mikrotik done')
     except pexpect.exceptions.TIMEOUT as err:
         errors.append(list(ssid_objects.values_list('name', flat=True)))
 
@@ -195,6 +201,7 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.sendline('end')
         child.expect('#')
         child.sendline('exit')
+        print('Ruckus done')
     except pexpect.exceptions.TIMEOUT as err:
         errors.append(list(ssid_objects.values_list('name', flat=True)))
 
@@ -216,6 +223,7 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
             ssid_status.append(m.name)
         child.expect('#')
         child.sendline('exit')
+        print('Openwrt done')
     except pexpect.exceptions.TIMEOUT as err:
         errors.append(list(ssid_objects.values_list('name', flat=True)))
 
@@ -249,6 +257,7 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.sendline('y')
         child.expect('>')
         child.sendline('quit')
+        print('Huawei done')
     except pexpect.exceptions.TIMEOUT as err:
         errors.append(list(ssid_objects.values_list('name', flat=True)))
 
@@ -267,6 +276,7 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         dashboard = requests.put(url, data=json.dumps(putdata), headers=headers)
         m.save()
         ssid_status.append(m.name)
+    print('Meraki done')
 
 
 

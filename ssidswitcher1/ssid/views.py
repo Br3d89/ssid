@@ -144,17 +144,21 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
         child.expect(':', timeout=pexp_timeout)
         child.sendline('{}\n\r'.format(ssh_password))
+        print('Logged in', child.before, child.after)
         for m in ssid_objects:
             child.expect('>')
             if (m.name in up_new) and t == 0:
                 child.sendline("/interface wireless enable {}\n\r".format(m.wlan_id))
+                print('Enabled', child.before, child.after)
                 m.status = 1
             else:
                 child.sendline("/interface wireless disable {}\n\r".format(m.wlan_id))
+                print('Disabled', child.before, child.after)
                 m.status = 0
             m.save()
             ssid_status.append(m.name)
         child.expect('>')
+        print('Finished', child.before, child.after)
         child.sendline('/quit\n\r')
         print('Mikrotik done')
     except pexpect.exceptions.TIMEOUT as err:

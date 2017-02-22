@@ -43,6 +43,9 @@ ul.inside {
     margin-left: auto;
     margin-right: auto;  }
 
+.footer {
+        position: relative;
+    }
 
 </style>
 </head>
@@ -70,14 +73,16 @@ ul.inside {
 {% endfor %}
 
 
-<input type="checkbox" name="Timer" id="timercheckbox">Timer(in seconds)
-<!--<label style="display: none;" id="time_label" for="timer">Timer(in seconds):</label>
-<input style="display: none" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}"> -->
+<div class="footer">
+<input type="checkbox" name="Timer" id="timercheckbox" onclick="update_timer(this)">Timer(in seconds)
+<!--<label style="display: none;" id="time_label" for="timer">Timer(in seconds):</label> -->
+<input style="display: none" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}">
 <input style="width:100px;color:red;font-size:18px;font-weight:bold;display:none;" type="button" id="Run" onClick="run()" value="Run"/> <br>
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none">
 <div id="success" style="display: none;color:green"><span id="status_message">Success</span></div>
 <span style="display: none;color: red" id="no_one_chosen">Please, choose at least one ssid</span>
 <div id="errors" style="display: none"></div>
+    </div>
 </div>
 
 
@@ -103,7 +108,16 @@ for (i = 0; i < acc.length; i++) {
 }
 
 
-$("#timercheckbox:checked").append('<input style="display: none" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}">')
+
+
+function update_timer(timer) {
+    if (timer.checked){
+        $("#time").css("display","block")
+    }
+    else {
+        $("#time").css("display","none")
+    }
+}
 
 $(document).ready(function(){
  $('span').mouseenter(function(){

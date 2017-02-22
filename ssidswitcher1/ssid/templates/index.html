@@ -84,8 +84,8 @@ ul.inside {
 <input type="checkbox" name="Timer" style= "display: none;text-align: center" id="timercheckbox" onclick="update_timer(this)">
 <label style="display: none;text-align: center" id="time_label" for="timercheckbox">Timer(in seconds):</label><br>
 <input style="display: none;text-align: center" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}">
+<input style="width:100px;color:red;font-size:18px;font-weight:bold;display:none;border-radius: 30px;text-align: center" type="button" id="Run" onClick="run()" value="Run"/> <br>
 
-<input style="width:100px;color:red;font-size:18px;font-weight:bold;display:none;border-radius: 30px;" type="button" id="Run" onClick="run()" value="Run"/> <br>
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none">
 <div id="success" style="display: none;color:green"><span id="status_message">Success</span></div>
 <span style="display: none;color: red" id="no_one_chosen">Please, choose at least one ssid</span>

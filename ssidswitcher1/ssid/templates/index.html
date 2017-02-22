@@ -32,7 +32,9 @@ button.accordion.active, button.accordion:hover {
 div.panel {
     padding: 0 18px;
     display: none;
-    background-color: white;}
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;}
 
 
 </style>
@@ -43,8 +45,8 @@ div.panel {
 {% for k,i in servers %}
 <button class="accordion">{{ i }}</button>
     <div class="panel">
-        <ul style="margin-left: auto;margin-right: auto">
-        <a style="color:red;font-size: 14px;text-decoration: underline;margin-left: auto;margin-right: auto" href="http://{{ i }}">{{ i }}</a>
+        <ul>
+        <a style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">{{ i }}</a>
         {% for j in latest %}
         {% if j.web == i %}
            {% if j.status %}

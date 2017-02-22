@@ -39,12 +39,18 @@ border: 1px solid darkgrey;}
 .inside {
     display: none;
     list-style-type: none;
+    padding-left: 1px;
 }
+.big {
+    border:2px solid red;
+}
+
 
 </style>
 </head>
 
 <body>
+<div class="big">
 <h2 style="text-align: center">Select server</h2>
 
 {% for k,i in servers %}
@@ -65,6 +71,7 @@ border: 1px solid darkgrey;}
  </div>
 {% endfor %}
 
+</div>
 
 <label style="display: none;" id="time_label" for="timer">Timer(in seconds):</label>
 <input style="display: none" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}">

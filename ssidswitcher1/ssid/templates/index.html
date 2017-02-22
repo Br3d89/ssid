@@ -29,7 +29,8 @@ button.accordion.active, button.accordion:hover {
 
 .panel {
     background-color: white;
-    border: 1px solid darkgrey;}
+    border: 1px solid darkgrey;
+    display: inline-block;}
 
 ul.inside {
     display: none;
@@ -53,9 +54,8 @@ ul.inside {
 <h2 style="text-align: center">Select server</h2>
 
 {% for k,i in servers %}
-
+ <div class="panel">
        <button class="accordion">{{ i }}</button>
-     <div class="panel">
        <ul class="inside">
               <li><a style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">{{ i }}</a></li>
               {% for j in latest %}

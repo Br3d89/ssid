@@ -22,6 +22,7 @@ button.accordion {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 15px;
 }
 
 button.accordion.active, button.accordion:hover {
@@ -43,7 +44,7 @@ div.panel {
 <button class="accordion">{{ i }}</button>
     <div class="panel">
         <div style="color:red;font-size: 14px;text-decoration: underline"><a style="color:red;" href="http://{{ i }}">{{ i }}</a></div>
-        <ul style="position: relative">
+        <ul style="position:absolute">
         {% for j in latest %}
         {% if j.web == i %}
            {% if j.status %}

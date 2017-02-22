@@ -34,23 +34,6 @@ div.panel {
 </head>
 
 <body>
-<!--
-{% for k,i in servers %}
-    <div style="border:1px solid gray;display: inline-block;margin:10px;padding:5px;">
- <div style="color:red;font-size: 14px;text-decoration: underline"><a style="color:red;" href="http://{{ i }}">{{ i }}</a></div>
-  <!--  <input type="checkbox" name='{{ i }}' onClick="select_all(this)" /> Select all<br/> -->
-     {% for j in latest %}
-        {% if j.web == i %}
-           {% if j.status %}
-                 <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br>
-                         {% else %}
-                 <input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br>
-           {% endif %}
-        {% endif %}
-     {% endfor %}
-    </div>
-{% endfor %}
--->
 <h2>Select server</h2>
 {% for k,i in servers %}
 <button class="accordion">{{ i }}</button>

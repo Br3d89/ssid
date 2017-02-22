@@ -74,7 +74,7 @@ ul.inside {
 
 
 <div class="footer">
-<input type="checkbox" name="Timer" id="timercheckbox" onclick="update_timer(this)">Timer(in seconds)
+<input type="checkbox" name="Timer" style= "display: none" id="timercheckbox" onclick="update_timer(this)">Timer(in seconds)
 <!--<label style="display: none;" id="time_label" for="timer">Timer(in seconds):</label> -->
 <input style="display: none" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}">
 
@@ -155,7 +155,7 @@ ssid_status=[]
             up_new.push(ssid.id)
             ip.push(ssid.ip)
             $('#Run').css('display','block');
-            $('#timer,#time_label').css('display','inline-block');
+            $('#timer,#time_label,#timercheckbox').css('display','inline-block');
         }
         else {
             index = down_new.indexOf(String(ssid.id));

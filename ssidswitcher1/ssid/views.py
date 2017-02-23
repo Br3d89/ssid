@@ -159,8 +159,8 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.logfile = fout
         child.expect(':', timeout=pexp_timeout)
         child.sendline('{}\n\r'.format(ssh_password))
-        child.expect('>')
-        child.sendline('\n\r')
+        #child.expect('>')
+        #child.sendline('\n\r')
         for m in ssid_objects:
             child.expect('>')
             if (m.name in up_new) and t == 0:

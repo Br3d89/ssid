@@ -249,9 +249,9 @@ function run() {
             if (json.errors.length >null) {
                 $('#errors').fadeIn("slow").html('Connection timeout: ' + json.errors+'<br>ask NOC for details.')
                 console.log('Fading out after 5 seconds')
-                $('#errors').fadeOut(5000)
                 console.log('Connection timeout: ' + JSON.stringify(json.errors))
-                //setTimeout(location.reload(), 5000);
+                setTimeout($('#errors').fadeOut("slow"), 5000);
+                console.log('Faded out')
             }
         },
 

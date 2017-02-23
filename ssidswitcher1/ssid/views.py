@@ -39,7 +39,7 @@ def ssid_update(request):
     if request.method == 'POST':
         up_new = json.loads(request.POST.get('up'))
         down_new = json.loads(request.POST.get('down'))
-        timeout_value = json.loads(request.POST.get('timer'))
+        timeout_value = int(json.loads(request.POST.get('timer')))*60
         print(timeout_value)
         rcv_ssids = up_new + down_new
         ip_list = set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))

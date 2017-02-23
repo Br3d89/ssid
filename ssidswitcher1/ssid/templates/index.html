@@ -79,8 +79,8 @@ ul.inside {
 <br>
 <div class="footer">
 <input type="checkbox" name="Timer" style= "margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px; " id="timercheckbox" onclick="update_timer(this)">
-<label style="margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px;" id="time_label" for="timercheckbox">Timer(in seconds):</label>
-<input style="margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px;" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}">
+<label style="margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px;" id="time_label" for="timercheckbox">Timer(in minutes):</label>
+<input style="margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px;" type="text" id="timer" placeholder="default 30 minutes" name="timer" pattern="[0-9]{4}">
 <input style="margin-left:auto;margin-right:auto;width:100px;color:red;font-size:18px;font-weight:bold;display:none;border-radius: 30px;text-align: center;" type="button" id="Run" onClick="run()" value="Run"/>
 
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none;">

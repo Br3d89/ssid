@@ -227,6 +227,9 @@ function run() {
             for (var i=0, n=ssid_status.length;i<n;i++) {
                 $( "span."+ssid_status[i] ).html(ssid_status[i]);
             }
+            for (var i=0, n=ssid_error.length;i<n;i++) {
+                $( "span."+ssid_error[i] ).html(ssid_error[i]);
+            }
             timer=1800
             ssid_status=[]
             ssid_error=[]

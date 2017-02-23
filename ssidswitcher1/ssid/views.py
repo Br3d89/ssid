@@ -47,12 +47,13 @@ def ssid_update(request):
         for i in ip_list:
             vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
             ssid_objects = ssid.objects.filter(ip=i, name__in=rcv_ssids)  # all ssids within device
+            ssid_objects_up=ssid.objects.filter(ip=i, name__in=up_new)
             p = (threading.Thread(target=globals()['{}'.format(vendor)],
                                   args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors)))
             p.start()
-            if (len(down_new) == 0):
-                threading.Timer(timeout_value, globals()['{}'.format(vendor)],
-                                args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors, 1)).start()
+            #if (len(down_new) == 0):
+            threading.Timer(timeout_value, globals()['{}'.format(vendor)],
+                                args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors, 1)).start()
             process_list.append(p)
         for i in process_list:
             print('Starting ', i)

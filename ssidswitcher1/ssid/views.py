@@ -69,7 +69,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
         fout = open('test.log', 'wb')
         child.logfile = fout
-        child.expect('1234',timeout=pexp_timeout)
+        child.expect(':',timeout=pexp_timeout)
         child.sendline(ssh_username)
         time.sleep(1)
         child.expect(':')

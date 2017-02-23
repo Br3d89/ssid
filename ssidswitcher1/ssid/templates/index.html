@@ -134,7 +134,7 @@ $('span').mouseleave(function(){
         $(this).fadeTo('fast', 1);
     })});
 
-timer=1800
+timer=30
 $( "#timer" ).keyup(function() {
     timer = $( this ).val()})
 
@@ -230,7 +230,7 @@ function run() {
             for (var i=0, n=ssid_error.length;i<n;i++) {
                 $( "span."+ssid_error[i] ).html(ssid_error[i]);
             }
-            timer=1800
+            timer=30
             if (ssid_error.length === 0) {
             $("#success").fadeIn("slow").delay( 2000 ).fadeOut("slow");
             window.setTimeout(function(){location.reload()},5000)

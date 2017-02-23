@@ -231,6 +231,10 @@ function run() {
                 $( "span."+ssid_error[i] ).html(ssid_error[i]);
             }
             timer=1800
+            if (!ssid_error) {
+                $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
+                console.log('Success')
+            }
             ssid_status=[]
             ssid_error=[]
             up_new=[]
@@ -241,13 +245,11 @@ function run() {
             $("#loading").css('display','none');
             $("input[name='ssid']" ).attr('disabled', false);
             $('span').css({color:'black',opacity: 1});
-            $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
             $("#Run,#timer,#time_label,#timercheckbox").fadeOut("slow");
             if (json.errors.length >null) {
                 $('#errors').fadeIn("slow").text('Connection timeout: ' + json.errors)
                 console.log('Connection timeout: ' + JSON.stringify(json.errors))
             }
-            console.log('Success')
         },
 
         // handle a non-successful response

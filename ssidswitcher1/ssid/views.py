@@ -165,7 +165,6 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
 
 def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
     print('mikrotik started', datetime.now())
-    print('MIkrotik t=',t)
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
         child.expect(':', timeout=pexp_timeout)

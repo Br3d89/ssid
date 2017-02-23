@@ -231,10 +231,9 @@ function run() {
                 $( "span."+ssid_error[i] ).html(ssid_error[i]);
             }
             timer=1800
-                if (ssid_error.length === 0) {
-                $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
-                console.log('Success')
-                 else {$("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");}
+            if (ssid_error.length === 0) {
+            $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
+            console.log('Success')
             }
             ssid_status=[]
             ssid_error=[]

@@ -209,7 +209,7 @@ function run() {
            if (all_new[0] != null) {
            interval=1000
            $("input[name='ssid']" ).attr('disabled', true);
-           $("#Run,#timercheckbox").css('display','none') ;
+           $("#Run,#timercheckbox,#time_label").css('display','none') ;
            $("#loading").css('display','inline-block');
 
     console.log("Sending POST by ajax");
@@ -247,7 +247,7 @@ function run() {
             $('span').css({color:'black',opacity: 1});
             $("#Run,#timer,#time_label,#timercheckbox").fadeOut("slow");
             if (json.errors.length >null) {
-                $('#errors').fadeIn("slow").text('Connection timeout: ' + json.errors+' ask NOC for details.')
+                $('#errors').fadeIn("slow").html('Connection timeout: ' + json.errors+'<br>ask NOC for details.')
                 console.log('Connection timeout: ' + JSON.stringify(json.errors))
             }
         },

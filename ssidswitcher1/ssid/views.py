@@ -25,7 +25,7 @@ ssh_password = 'Ve7petrU'
 ssid_status_list=[]
 ssid_error_list=[]
 down_status=[]
-pexp_timeout=10
+pexp_timeout=6
 
 
 @csrf_exempt
@@ -95,6 +95,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
+        time.sleep(2)
         print(err)
 
 

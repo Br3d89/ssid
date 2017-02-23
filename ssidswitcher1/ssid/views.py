@@ -163,8 +163,9 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
         print(err)
 
 
-def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
+def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
     print('mikrotik started', datetime.now())
+    print('MIkrotik t=',t)
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
         child.expect(':', timeout=pexp_timeout)
@@ -192,7 +193,7 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
         print(err)
 
 
-def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
+def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
     print('ruckus started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
@@ -231,7 +232,7 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
         print(err)
 
 
-def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
+def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
     print('openwrt started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format('root', i))
@@ -258,7 +259,7 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
         print(err)
 
 
-def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
+def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
     print('huawei started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
@@ -297,7 +298,7 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
         print(err)
 
 
-def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
+def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
     print('meraki started', datetime.now())
     try:
         murl = 'https://n150.meraki.com/api/v0/organizations/616518/networks/N_647392446434529213/ssids/'

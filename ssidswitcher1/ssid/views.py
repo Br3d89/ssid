@@ -69,8 +69,10 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.logfile = fout
         child.expect(':',timeout=pexp_timeout)
         child.sendline(ssh_username)
+        time.sleep(1)
         child.expect(':')
         child.sendline(ssh_password)
+        time.sleep(1)
         for m in ssid_objects:
             child.expect(">")
             if (m.name in up_new) and t == 0:

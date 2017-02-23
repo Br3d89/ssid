@@ -81,12 +81,12 @@ ul.inside {
 <input type="checkbox" name="Timer" style= "margin-left:auto;margin-right:auto;display: none;text-align: center" id="timercheckbox" onclick="update_timer(this)">
 <label style="margin-left:auto;margin-right:auto;display: none;text-align: center" id="time_label" for="timercheckbox">Timer(in seconds):</label>
 <input style="margin-left:auto;margin-right:auto;display: none;text-align: center" type="text" id="timer" placeholder="default 1800 seconds (30m)" name="timer" pattern="[0-9]{4}">
-<input style="margin-left:auto;margin-right:auto;width:100px;color:red;font-size:18px;font-weight:bold;display:none;border-radius: 30px;text-align: center;position: absolute;" type="button" id="Run" onClick="run()" value="Run"/>
+<input style="margin-left:auto;margin-right:auto;width:100px;color:red;font-size:18px;font-weight:bold;display:none;border-radius: 30px;text-align: center;" type="button" id="Run" onClick="run()" value="Run"/>
 
-<img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none;position: absolute">
-<div id="success" style="display: none;color:green; position: absolute"><span id="status_message">Success</span></div>
-<span style="display: none;color: red;font-size: 16px;position: absolute" id="no_one_chosen">Please, choose at least one ssid</span>
-<div id="errors" style="display: none;color:red;font-size: 16px;position: absolute"></div>
+<img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none;">
+<div id="success" style="display: none;color:green; "><span id="status_message">Success</span></div>
+<span style="display: none;color: red;font-size: 16px;" id="no_one_chosen">Please, choose at least one ssid</span>
+<div id="errors" style="display: none;color:red;font-size: 16px;"></div>
 
 </div>
 

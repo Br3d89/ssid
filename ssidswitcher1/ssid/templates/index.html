@@ -233,6 +233,7 @@ function run() {
             timer=1800
             if (ssid_error.length === 0) {
             $("#success").fadeIn("slow").delay( 2000 ).fadeOut("slow");
+            window.setTimeout(function(){location.reload()},5000)
             console.log('Success')
             }
             ssid_status=[]

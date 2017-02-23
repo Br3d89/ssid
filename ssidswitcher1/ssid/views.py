@@ -86,6 +86,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.expect('(y/N)')
         child.sendline('y')
         print('Cisco done')
+        time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         print(err)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
@@ -120,6 +121,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.expect('#')
         child.sendline('logout')
         print('Aruba done')
+        time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         print(err)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
@@ -146,6 +148,7 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
             m.save()
             ssid_status.append(m.name)
         print('Unifi done')
+        time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         print(err)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
@@ -176,6 +179,7 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.expect('>')
         child.sendline('/quit\n\r')
         print('Mikrotik done')
+        time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         print(err)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
@@ -212,6 +216,7 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.expect('#')
         child.sendline('exit')
         print('Ruckus done')
+        time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         print(err)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
@@ -236,6 +241,7 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.expect('#')
         child.sendline('exit')
         print('Openwrt done')
+        time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         print(err)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
@@ -272,6 +278,7 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         child.expect('>')
         child.sendline('quit')
         print('Huawei done')
+        time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         print(err)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
@@ -293,6 +300,7 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         m.save()
         ssid_status.append(m.name)
     print('Meraki done')
+    time.sleep(1)
 
 
 

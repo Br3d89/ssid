@@ -231,7 +231,7 @@ function run() {
                 $( "span."+ssid_error[i] ).html(ssid_error[i]);
             }
             timer=1800
-            if (!ssid_error) {
+            if (ssid_error.length === null) {
                 $("#success").fadeIn("slow").delay( 800 ).fadeOut("slow");
                 console.log('Success')
             }

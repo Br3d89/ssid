@@ -249,6 +249,7 @@ function run() {
             if (json.errors.length >null) {
                 $('#errors').fadeIn("slow").html('Connection timeout: ' + json.errors+'<br>ask NOC for details.')
                 console.log('Connection timeout: ' + JSON.stringify(json.errors))
+                setTimeout(location.reload(), 5000);
             }
         },
 

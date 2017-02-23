@@ -247,9 +247,9 @@ function run() {
             $('span').css({color:'black',opacity: 1});
             $("#Run,#timer,#time_label,#timercheckbox").fadeOut("slow");
             if (json.errors.length >null) {
-                $('#errors').fadeIn("slow").html('Connection timeout: ' + json.errors+'<br>ask NOC for details.').delay(5000).fadeOut("slow")
+                $('#errors').fadeIn("slow").html('Connection timeout: ' + json.errors+'<br><span style="color:black">ask NOC for details.</span>').delay(5000).fadeOut("slow")
                 console.log('Connection timeout: ' + JSON.stringify(json.errors))
-                window.setTimeout(function(){location.reload()},6000)
+                window.setTimeout(function(){location.reload()},7000)
             }
         },
 

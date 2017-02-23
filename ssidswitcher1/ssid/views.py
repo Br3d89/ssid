@@ -103,8 +103,6 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
     print('aruba started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
-        fout = open('test.log', 'wb')
-        child.logfile = fout
         child.expect(':', timeout=pexp_timeout)
         child.sendline("{}\r".format(ssh_password))
         child.expect("#")
@@ -169,12 +167,8 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
     print('mikrotik started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
-        fout = open('test.log', 'wb')
-        child.logfile = fout
         child.expect(':', timeout=pexp_timeout)
         child.sendline('{}\n\r'.format(ssh_password))
-        #child.expect('>')
-        #child.sendline('\n\r')
         for m in ssid_objects:
             child.expect('>')
             if (m.name in up_new) and t == 0:
@@ -301,7 +295,6 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
             ssid_error_list.append(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
-
 
 
 def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):

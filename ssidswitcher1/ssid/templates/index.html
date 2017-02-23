@@ -86,7 +86,7 @@ ul.inside {
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none">
 <div id="success" style="display: none;color:green"><span id="status_message">Success</span></div>
 <span style="display: none;color: red" id="no_one_chosen">Please, choose at least one ssid</span>
-<div id="errors" style="display: none"></div>
+<div id="errors" style="display: none;color:red;"></div>
 
 
 </div>
@@ -150,6 +150,7 @@ up_new=[];
 down_new=[];
 ip=[]
 ssid_status=[]
+ssid_error=[]
 
     function update_ssidlist(ssid) {
     //$('span.'+ssid.id).animate({opacity: 1}, 700 );
@@ -221,12 +222,14 @@ function run() {
 
             success : function(json) {
             clearInterval(check_status)
+            clearInterval(check_error)
             ssidlist=JSON.stringify(json.all_up_ssids)   //all this array is one string element
             for (var i=0, n=ssid_status.length;i<n;i++) {
                 $( "span."+ssid_status[i] ).html(ssid_status[i]);
             }
             timer=1800
             ssid_status=[]
+            ssid_error=[]
             up_new=[]
             down_new=[]
             all_new=[]
@@ -254,21 +257,38 @@ function run() {
 
                check_status =  setInterval( function(){
                $.get("/ssid_status/", function(data) {
-                   data=data.ssid_status
+                   data=data.ssid_status_list
                 if (data.length > null){
                    for(var i=0, n=data.length;i<n;i++) {
-                       console.log('SSID_STATUS='+ssid_status)
-                       console.log(data[data.length-1]+' changed')
+                       //console.log(data[data.length-1]+' changed')
                        if (!ssid_status.includes(data[i])) {
                        $( "span."+data[i] ).html(data[i]+"<span style='color:blue'>  ok  </span>").fadeIn("slow");
                        ssid_status.push(data[i])
+                       //console.log('SSID_STATUS='+ssid_status)
                        }
-                       else {console.log('Status already set')}
+                       //else {console.log('Status already set')}
                        }}
-                else {console.log('Not ready')}
+                //else {console.log('Not ready')}
             });
  } , 1000)
-               console.log('Next one1')}
+
+               check_error =  setInterval( function(){
+               $.get("/ssid_error/", function(data) {
+                   data=data.ssid_error_list
+                if (data.length > null){
+                   for(var i=0, n=data.length;i<n;i++) {
+                       if (!ssid_error.includes(data[i])) {
+                       $( "span."+data[i] ).html(data[i]+"<span style='color:red'>  fail  </span>").fadeIn("slow");
+                       ssid_error.push(data[i])
+                       }
+                       //else {console.log('Status already set')}
+                       }}
+                //else {console.log('No errors')}
+            });
+ } , 1000)
+
+               //console.log('Next one')
+           }
 
 else {
            $('#no_one_chosen').fadeIn("slow").delay( 1500 ).fadeOut("slow");

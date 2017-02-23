@@ -22,7 +22,8 @@ class ssidForm(forms.ModelForm):
 
 ssh_username = 'mgmt'
 ssh_password = 'Ve7petrU'
-ssid_status=[]
+ssid_status_list=[]
+ssid_error_list=[]
 down_status=[]
 pexp_timeout=10
 
@@ -30,8 +31,10 @@ pexp_timeout=10
 @csrf_exempt
 def ssid_update(request):
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
-    global ssid_status
-    ssid_status = []
+    global ssid_status_list
+    global ssid_error_list
+    ssid_status_list = []
+    ssid_error_list = []
     errors = []
     if request.method == 'POST':
         up_new = json.loads(request.POST.get('up'))
@@ -45,12 +48,11 @@ def ssid_update(request):
             vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
             ssid_objects = ssid.objects.filter(ip=i, name__in=rcv_ssids)  # all ssids within device
             p = (threading.Thread(target=globals()['{}'.format(vendor)],
-                                  args=(up_new, down_new, ssid_objects, i, ssid_status, errors)))
-            # p = Process(target=globals()['{}'.format(vendor)], args=(up_new, down_new, ssid_objects, i, ssid_status))
+                                  args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors)))
             p.start()
             if (len(down_new) == 0):
                 threading.Timer(timeout_value, globals()['{}'.format(vendor)],
-                                args=(up_new, down_new, ssid_objects, i, ssid_status, errors, 1)).start()
+                                args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors, 1)).start()
             process_list.append(p)
         for i in process_list:
             print('Starting ', i)
@@ -61,7 +63,7 @@ def ssid_update(request):
         index(request)
 
 
-def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
+def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
     print('cisco started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
@@ -82,7 +84,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
                 child.sendline('config wlan disable {}'.format(m.wlan_id))
                 m.status = 0
             m.save()
-            ssid_status.append(m.name)
+            ssid_status_list.append(m.name)
         child.expect('>')
         child.sendline('logout')
         child.expect('(y/N)')
@@ -90,11 +92,13 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         print('Cisco done')
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
-        print(err)
+        for i in list(ssid_objects.values_list('name', flat=True)):
+            ssid_error_list.append(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
+        print(err)
 
 
-def aruba(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
+def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors, t=0):
     print('aruba started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
@@ -116,7 +120,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
                 m.status = 0
             m.save()
             child.sendline('exit\r')
-            ssid_status.append(m.name)
+            ssid_status_list.append(m.name)
         child.sendline('end\r')
         child.expect('#')
         child.sendline('commit apply\r')
@@ -125,11 +129,13 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         print('Aruba done')
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
-        print(err)
+        for i in list(ssid_objects.values_list('name', flat=True)):
+            ssid_error_list.append(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
+        print(err)
 
 
-def unifi(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
+def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
     print('unifi started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
@@ -148,15 +154,17 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
                 child.sendline('exit')
                 m.status = 0
             m.save()
-            ssid_status.append(m.name)
+            ssid_status_list.append(m.name)
         print('Unifi done')
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
-        print(err)
+        for i in list(ssid_objects.values_list('name', flat=True)):
+            ssid_error_list.append(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
+        print(err)
 
 
-def mikrotik(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
+def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
     print('mikrotik started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
@@ -177,17 +185,19 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
                 time.sleep(1)
                 m.status = 0
             m.save()
-            ssid_status.append(m.name)
+            ssid_status_list.append(m.name)
         child.expect('>')
         child.sendline('/quit\n\r')
         print('Mikrotik done')
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
-        print(err)
+        for i in list(ssid_objects.values_list('name', flat=True)):
+            ssid_error_list.append(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
+        print(err)
 
 
-def ruckus(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
+def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
     print('ruckus started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
@@ -213,18 +223,20 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
             child.sendline('end')
             child.expect('#')
             m.save()
-            ssid_status.append(m.name)
+            ssid_status_list.append(m.name)
         child.sendline('end')
         child.expect('#')
         child.sendline('exit')
         print('Ruckus done')
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
-        print(err)
+        for i in list(ssid_objects.values_list('name', flat=True)):
+            ssid_error_list.append(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
+        print(err)
 
 
-def openwrt(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
+def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
     print('openwrt started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format('root', i))
@@ -239,17 +251,19 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
                 child.sendline('uci set wireless.@wifi-device[0].disabled=1; uci commit wireless; wifi\n')
                 m.status = 0
             m.save()
-            ssid_status.append(m.name)
+            ssid_status_list.append(m.name)
         child.expect('#')
         child.sendline('exit')
         print('Openwrt done')
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
-        print(err)
+        for i in list(ssid_objects.values_list('name', flat=True)):
+            ssid_error_list.append(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
+        print(err)
 
 
-def huawei(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
+def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
     print('huawei started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
@@ -270,7 +284,7 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
                 child.sendline('service-mode disable')
                 m.status = 0
             m.save()
-            ssid_status.append(m.name)
+            ssid_status_list.append(m.name)
         child.expect(']')
         child.sendline('\x1A')   #CTRL+Z command
         child.expect('>')
@@ -282,27 +296,36 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
         print('Huawei done')
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
-        print(err)
+        for i in list(ssid_objects.values_list('name', flat=True)):
+            ssid_error_list.append(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
+        print(err)
 
 
-def meraki(up_new, down_new, ssid_objects, i, ssid_status, errors, t=0):
+
+def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, errors, t=0):
     print('meraki started', datetime.now())
-    murl = 'https://n150.meraki.com/api/v0/organizations/616518/networks/N_647392446434529213/ssids/'
-    headers = {'X-Cisco-Meraki-API-Key': 'b21b5c3bfa37f5d920831f11775a321c077e71d1','Content-Type': 'application/json'}
-    for m in ssid_objects:
-        url = murl + m.wlan_id
-        if (m.name in up_new) and t == 0:
-            putdata = {'enabled': True}
-            m.status = 1
-        else:
-            putdata = {'enabled': False}
-            m.status = 0
-        dashboard = requests.put(url, data=json.dumps(putdata), headers=headers)
-        m.save()
-        ssid_status.append(m.name)
-    print('Meraki done')
-    time.sleep(1)
+    try:
+        murl = 'https://n150.meraki.com/api/v0/organizations/616518/networks/N_647392446434529213/ssids/'
+        headers = {'X-Cisco-Meraki-API-Key': 'b21b5c3bfa37f5d920831f11775a321c077e71d1','Content-Type': 'application/json'}
+        for m in ssid_objects:
+            url = murl + m.wlan_id
+            if (m.name in up_new) and t == 0:
+                putdata = {'enabled': True}
+                m.status = 1
+            else:
+                putdata = {'enabled': False}
+                m.status = 0
+            dashboard = requests.put(url, data=json.dumps(putdata), headers=headers)
+            m.save()
+            ssid_status_list.append(m.name)
+        print('Meraki done')
+        time.sleep(1)
+    except requests.exceptions.ConnectionError as err:
+        for i in list(ssid_objects.values_list('name', flat=True)):
+            ssid_error_list.append(i)
+        errors.append(list(ssid_objects.values_list('name', flat=True)))
+        print(err)
 
 
 
@@ -329,7 +352,14 @@ def detail(request,name):
     return render(request, 'ssid/detail.html', {'instance': a})
 
 
-def status(request):
+def ssid_status(request):
     print('Status request')
-    print('Backend ssid status ',ssid_status)
-    return JsonResponse({'ssid_status': ssid_status})
+    print('Backend ssid status ',ssid_status_list)
+    return JsonResponse({'ssid_status_list': ssid_status_list})
+
+
+def ssid_error(request):
+    print('Error request')
+    print('Backend ssid error ', ssid_error_list)
+    return JsonResponse({'ssid_error_list': ssid_error_list})
+

@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from ssid.views import index,detail,status,ssid_update
+from ssid.views import index,detail,ssid_status,ssid_update,ssid_error
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'ssid_update/',ssid_update),
     url(r'^ssid/(.*)', detail),
-    url(r'^ssid_status/', status),
+    url(r'^ssid_status/', ssid_status),
+    url(r'^ssid_error/', ssid_error),
     url(r'^', index)
 ]

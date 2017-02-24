@@ -353,13 +353,13 @@ def detail(request,name):
 
 
 def ssid_status(request):
-    print('Status request')
-    print('Backend ssid status ',ssid_status_list)
+    #print('Status request')
+    #print('Backend ssid status ',ssid_status_list)
     return JsonResponse({'ssid_status_list': ssid_status_list})
 
 
 def ssid_error(request):
-    print('Error request')
-    print('Backend ssid error ', ssid_error_list)
+    #print('Error request')
+    #print('Backend ssid error ', ssid_error_list)
     return JsonResponse({'ssid_error_list': ssid_error_list})
 

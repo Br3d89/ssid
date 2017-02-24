@@ -40,7 +40,7 @@ def ssid_update(request):
         up_new = json.loads(request.POST.get('up'))
         down_new = json.loads(request.POST.get('down'))
         timeout_value = int(json.loads(request.POST.get('timer')))*60
-        print('Timeout value=', timeout_value)
+        #print('Timeout value=', timeout_value)
         rcv_ssids = up_new + down_new
         ip_list = set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
         process_list = []
@@ -68,8 +68,8 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
     print('cisco started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
-        fout = open('test.log', 'wb')
-        child.logfile = fout
+        #fout = open('test.log', 'wb')
+        #child.logfile = fout
         child.expect(':',timeout=pexp_timeout)
         child.sendline(ssh_username)
         child.expect(':')

@@ -264,6 +264,37 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list
         print(err)
 
 
+def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+    #print('openwrt started', datetime.now())
+    try:
+        child = pexpect.spawn('telnet {}'.format(i))
+        child.expect(':', timeout=pexp_timeout)
+        child.sendline('root')
+        child.expect(':')
+        child.sendline('AQ!SW@de3?')
+        for m in ssid_objects:
+            child.expect('#')
+            if (m.name in up_new) and t == 0:
+                child.sendline('ifconfig ath0 up\n')
+                child.expect('#')
+                child.sendline('reboot\n')
+                m.status = 1
+            else:
+                child.sendline('ifconfig ath0 down\n')
+                m.status = 0
+            m.save()
+            ssid_status_list.append(m.name)
+        child.expect('#')
+        child.sendline('exit')
+        print('ddwrt done')
+        time.sleep(1)
+    except pexpect.exceptions.TIMEOUT as err:
+        for i in list(ssid_objects.values_list('name', flat=True)):
+            ssid_error_list.append(i)
+        errors.append(list(ssid_objects.values_list('name', flat=True)))
+        print(err)
+
+
 def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
     #print('huawei started', datetime.now())
     try:

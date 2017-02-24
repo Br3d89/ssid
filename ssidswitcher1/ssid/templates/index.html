@@ -115,16 +115,7 @@ for (i = 0; i < acc.length; i++) {
 
 
 
-function update_timer(timer) {
-    if (timer.checked){
-        console.log('Timer is checked')
-        $("#timer").css('display','block');
-    }
-    else {
-        console.log('Timer is unchecked')
-        $("#timer").css("display","none")
-    }
-}
+
 
 $(document).ready(function(){
  $('span').mouseenter(function(){
@@ -134,12 +125,26 @@ $('span').mouseleave(function(){
         $(this).fadeTo('fast', 1);
     })});
 
+
+//Timer settings
+
+function update_timer(timer) {
+    if (timer.checked){
+        //console.log('Timer is checked')
+        $("#timer").css('display','block');
+    }
+    else {
+        //console.log('Timer is unchecked')
+        $("#timer").css("display","none")
+    }
+}
+
 timer=30
 
 $('#timer').keyup(function () {
     if (this.value.match(/[0-9]{1,3} }}/)) {
         timer = this.value
-        console.log(timer)}
+        console.log('Timer inside function='+timer)}
     else {
         this.value = this.value.replace(/[^0-9]/g, '')
         }
@@ -147,6 +152,8 @@ $('#timer').keyup(function () {
 
 //$( "#timer" ).keyup(function() {
 //    timer = $( this ).val()})
+
+
 
 
 {% autoescape off %}
@@ -223,7 +230,7 @@ function run() {
 
 
     console.log("Sending POST by ajax");
-               console.log('Timer='+timer)
+               //console.log('Timer='+timer)
             $.ajax({
             url : "ssid_update/",
             type : "POST",

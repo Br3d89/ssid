@@ -139,7 +139,9 @@ timer=30
 $('#timer').keyup(function () {
     if (!this.value.match(/[0-9]{1,3} }}/)) {
         this.value = this.value.replace(/[^0-9]/g, '')}
-    else {timer = $( this ).val()}
+    else {
+        timer = $( this ).val()
+        console.log(timer)}
 });
 
 //$( "#timer" ).keyup(function() {

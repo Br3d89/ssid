@@ -74,7 +74,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
         child.sendline(ssh_username)
         child.expect(':')
         child.sendline(ssh_password)
-        k=child.expect(">",":")
+        k=child.expect([">",":"])
         if k==1:
             child.sendline(ssh_username)
             child.expect(':')

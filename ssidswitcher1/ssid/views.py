@@ -357,4 +357,3 @@ def ssid_error(request):
     print('Error request')
     print('Backend ssid error ', ssid_error_list)
     return JsonResponse({'ssid_error_list': ssid_error_list})
-

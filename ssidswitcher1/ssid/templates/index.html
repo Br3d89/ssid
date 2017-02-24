@@ -229,7 +229,7 @@ function run() {
            $("#loading").css('display','inline-block');
 
 
-    console.log("Sending POST by ajax");
+    //console.log("Sending POST by ajax");
                //console.log('Timer='+timer)
             $.ajax({
             url : "ssid_update/",
@@ -250,10 +250,10 @@ function run() {
             }
             timer=30
             if (ssid_error.length === 0) {
-                console.log('SSID_ERROR '+ssid_error)
+                //console.log('SSID_ERROR '+ssid_error)
             $("#success").fadeIn("slow").delay( 2000 ).fadeOut("slow");
             window.setTimeout(function(){location.reload()},5000)
-            console.log('Success')
+            //console.log('Success')
             }
             ssid_status=[]
             ssid_error=[]

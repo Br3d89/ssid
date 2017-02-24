@@ -65,7 +65,7 @@ def ssid_update(request):
 
 
 def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
-    print('cisco started', datetime.now())
+    #print('cisco started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
         #fout = open('test.log', 'wb')
@@ -106,7 +106,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
 
 
 def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors, t=0):
-    print('aruba started', datetime.now())
+    #print('aruba started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
         child.expect(':', timeout=pexp_timeout)
@@ -141,7 +141,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
 
 
 def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
-    print('unifi started', datetime.now())
+    #print('unifi started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
         child.expect(':', timeout=pexp_timeout)
@@ -170,7 +170,7 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
 
 
 def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
-    print('mikrotik started', datetime.now())
+    #print('mikrotik started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
         child.expect(':', timeout=pexp_timeout)
@@ -199,7 +199,7 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list
 
 
 def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
-    print('ruckus started', datetime.now())
+    #print('ruckus started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
         child.expect(':', timeout=pexp_timeout)
@@ -238,7 +238,7 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
 
 
 def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
-    print('openwrt started', datetime.now())
+    #print('openwrt started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format('root', i))
         child.expect(':', timeout=pexp_timeout)
@@ -265,7 +265,7 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list
 
 
 def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
-    print('huawei started', datetime.now())
+    #print('huawei started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
         child.expect(':', timeout=pexp_timeout)
@@ -304,7 +304,7 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
 
 
 def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
-    print('meraki started', datetime.now())
+    #print('meraki started', datetime.now())
     try:
         murl = 'https://n150.meraki.com/api/v0/organizations/616518/networks/N_647392446434529213/ssids/'
         headers = {'X-Cisco-Meraki-API-Key': 'b21b5c3bfa37f5d920831f11775a321c077e71d1','Content-Type': 'application/json'}

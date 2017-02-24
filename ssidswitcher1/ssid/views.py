@@ -301,6 +301,7 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
             ssid_error_list.append(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
+        time.sleep(1)
 
 
 def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):

@@ -76,9 +76,11 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
         child.sendline(ssh_password)
         k=child.expect([">",":"])
         if k==1:
+            print('Wrong login/password')
             child.sendline(ssh_username)
             child.expect(':')
             child.sendline(ssh_password)
+        child.sendline('')
         for m in ssid_objects:
             child.expect(">")
             if (m.name in up_new) and t == 0:

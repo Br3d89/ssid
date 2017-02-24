@@ -56,7 +56,7 @@ def ssid_update(request):
                                 args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors, 1)).start()
             process_list.append(p)
         for i in process_list:
-            print('Starting ', i)
+            #print('Starting ', i)
             i.join()
         all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
         return JsonResponse({'all_up_ssids': all_up_ssids, 'errors': errors})

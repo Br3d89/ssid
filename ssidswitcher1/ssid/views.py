@@ -25,7 +25,7 @@ ssh_password = 'Ve7petrU'
 ssid_status_list=[]
 ssid_error_list=[]
 down_status=[]
-pexp_timeout=5
+pexp_timeout=6
 
 
 @csrf_exempt

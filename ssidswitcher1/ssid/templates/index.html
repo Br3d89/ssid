@@ -60,7 +60,7 @@ ul.inside {
  <div class="panel">
        <button class="accordion">{{ i }}</button>
        <ul class="inside">
-              <li><a style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">http://{{ i }}</a></li>
+              <li><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">http://{{ i }}</a></li>
               {% for j in latest %}
                   {% if j.web == i %}
                       {% if j.status %}

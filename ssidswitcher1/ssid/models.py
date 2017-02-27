@@ -10,7 +10,7 @@ class ssid(models.Model):
     ip=models.CharField(max_length=120)
     radius=models.CharField(max_length=120)
     web=models.CharField(max_length=120)
-    acl=models.CharField(max_length=120)
+    acl=models.CharField(max_length=120,blank=True)
     wlan_id=models.CharField(max_length=120,default="")
 
     def __str__(self):

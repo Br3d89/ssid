@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>SSID SWITCHER</title>
+    <meta charset="utf-8">
+    <link href="stylesheet.css" rel="stylesheet" type="text/css" >
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+<div>
+<form id="post-form" action="">
+        <input type="checkbox" id="wcm_prod_mikrotik" name="wcm_prod_mikrotik" value="up">wcm_prod_mikrotik<br>
+        <input type="checkbox" id="wcm_prod_cisco" name="wcm_prod_cisco" value="up" checked>wcm_prod_cisco<br>
+        <input type="checkbox" id="wcm_prod_aruba" name="wcm_prod_aruba" value="up" checked>wcm_prod_aruba<br>
+        <input type="submit" value="submit">
+</form>
+</div>
+</body>
+</html>

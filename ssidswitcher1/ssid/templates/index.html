@@ -22,6 +22,7 @@ button.accordion {
     font-size: 15px;
     transition: 0.4s;
     border-radius: 15px;
+    margin-bottom: 5px;
 }
 
 button.accordion.active, button.accordion:hover {
@@ -53,6 +54,7 @@ ul.inside {
 </head>
 
 <body>
+<!--Header part-->
 <div class="big">
 <h2 style="color:dimgrey">Select server...</h2>
 
@@ -77,6 +79,7 @@ ul.inside {
 
 </div>
 <br>
+<!--Footer part -->
 <div class="footer">
 <input type="checkbox" name="Timer" style= "margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px; " id="timercheckbox" onclick="update_timer(this)">
 <label style="margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px;" id="time_label" for="timercheckbox">Timer (in minutes):</label>
@@ -90,13 +93,9 @@ ul.inside {
 
 </div>
 
-
-
-
-
 <script language="JavaScript">
 
-
+//dropdown buttons
 var acc = document.getElementsByClassName("accordion");
 var i;
 
@@ -115,7 +114,7 @@ for (i = 0; i < acc.length; i++) {
 
 
 
-
+//mouseleave
 
 $(document).ready(function(){
  $('span').mouseenter(function(){
@@ -127,7 +126,6 @@ $('span').mouseleave(function(){
 
 
 //Timer settings
-
 function update_timer(timer) {
     if (timer.checked){
         //console.log('Timer is checked')
@@ -140,7 +138,7 @@ function update_timer(timer) {
 }
 
 timer=30
-
+//timer value
 $('#timer').keyup(function () {
     if (this.value.match(/[0-9]{1,3}/)) {
         timer = this.value
@@ -168,6 +166,7 @@ ip=[]
 ssid_status=[]
 ssid_error=[]
 
+//update ssid_list
     function update_ssidlist(ssid) {
     //$('span.'+ssid.id).animate({opacity: 1}, 700 );
     ip.push(ssid.name)
@@ -219,7 +218,7 @@ ssid_error=[]
   }
 
 
-
+//send data to backend
 function run() {
     all_new=up_new+down_new
            if (all_new[0] != null) {

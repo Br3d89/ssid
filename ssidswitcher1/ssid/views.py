@@ -30,7 +30,7 @@ down_status=[]
 pexp_timeout=6
 
 
-@csrf_exempt
+#@csrf_exempt
 def ssid_update(request):
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
     global ssid_status_list

@@ -62,13 +62,13 @@ background-color: lightgray;
 border: 1px solid darkgray;
 border-radius: 15px;
 padding-left:15px;
-width:100px;
-text-align: center;
+width:80px;
 
 }
 input[type=submit] {
     border-radius: 15px;
     color:red;
+    font-weight: bold;
 }
 input[type=file] {
     cursor: pointer;

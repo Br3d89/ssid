@@ -365,7 +365,7 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
 
 
 
-@csrf_exempt
+#@csrf_exempt
 def index(request):
     print('Index is triggered')
     all_list = list(ssid.objects.values_list('name', flat=True))

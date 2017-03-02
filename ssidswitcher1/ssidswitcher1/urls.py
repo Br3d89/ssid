@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^ssid/(.*)', detail),
     url(r'^ssid_status/', ssid_status),
     url(r'^ssid_error/', ssid_error),
-    url(r'^login',login),
-    url(r'^logout', logout),
+    url(r'^auth/login/',login),
+    url(r'^auth/logout/', logout),
     url(r'^', index)
 ]

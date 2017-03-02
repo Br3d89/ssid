@@ -75,3 +75,19 @@ ul.inside {
         opacity: 0.5;
     }
 }
+
+
+.inline {
+    display: inline-block;
+    margin-top:5px;
+    margin-bottom:5px;
+    padding:5px 8px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.login {
+ float:right;
+ margin-right:10px;
+}
+

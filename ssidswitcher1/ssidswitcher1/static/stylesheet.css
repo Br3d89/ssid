@@ -91,3 +91,22 @@ ul.inside {
  margin-right:10px;
 }
 
+
+input[type=text],input[type=password] {
+background-color: lightgray;
+border: none;
+border-radius: 15px;
+padding-left:15px;
+width:100px;
+
+}
+input[type=submit] {
+    border-radius: 15px;
+    border-color: darkgreen;
+    background-color: rgba(50, 200, 0, 0.7);
+}
+
+.login {
+ float:right;
+ margin-right:10px;
+}

@@ -375,7 +375,7 @@ def index(request):
     ctx['latest'] = ssid.objects.order_by('-vendor')
     ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
     ctx['ok']='Run'
-    ctx['username']=auth.get_user(request)
+    ctx['username']=auth.get_user(request).username
     if request.method == 'POST':
         return HttpResponse('Index not for POSTs')
     else:

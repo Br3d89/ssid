@@ -24,9 +24,9 @@
 </div>
  {% block login %}{% endblock %}
 <!--Header part-->
+{% block content %}
 <div class="big">
 <p class="pulsate">Select server...</p>
-test test test {{ servers }}
 {% for k,i in servers %}
  <div class="panel">
        <button class="accordion">{{ i }}</button>
@@ -61,6 +61,7 @@ test test test {{ servers }}
 <div id="errors" style="display: none;color: red;font-size: 18px"></div>
 
 </div>
+
 
 <script language="JavaScript">
 
@@ -291,6 +292,6 @@ else {
 }
 
 </script>
-
+{% endblock %}
 </body>
 </html>

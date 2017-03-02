@@ -87,6 +87,11 @@ ul.inside {
     margin-right:10px;
 }
 
+
+.logout_btn {
+    color:red;
+    font-weight: bold;
+}
 /*
 .inline {
     display: inline-block;

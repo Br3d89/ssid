@@ -18,7 +18,7 @@
            <a href="/auth/profile">Профиль ({{ username }})</a>
            <a href="/auth/logout/">Выйти</a>
        {% else %}
-       <form style="display:inline-block; border:1px solid darkgrey" action="/auth/login/" method="POST">
+       <form class="login_form" action="/auth/login/" method="POST">
           {% csrf_token %}
          <input type="text" name="username" id="username" placeholder="Логин">
          <input type="password" name="password" id="password" placeholder="Пароль">

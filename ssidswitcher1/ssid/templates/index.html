@@ -12,7 +12,6 @@
 
 <body>
 <!--Login part-->
- <body>
  <div id="header">
   <div class="login_form">
        {% if username %}
@@ -87,6 +86,7 @@
 <label style="margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px;" id="time_label" for="timercheckbox">Timer (in minutes):</label>
 <input style="width:120px;margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px;" type="text" id="timer" placeholder="default 30 minutes" name="timer" maxlength="3" required>
 <input style="margin-left:auto;margin-right:auto;width:100px;color:red;font-size:18px;font-weight:bold;display:none;border-radius: 30px;text-align: center;" type="button" id="Run" onClick="run()" value="Run"/>
+{% csrf_token %}
 
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none;">
 <div id="success" style="display: none;color:green;font-size: 26px; ">Success</div>
@@ -241,6 +241,7 @@ function run() {
     all_new=up_new+down_new
            if (all_new[0] != null) {
            interval=1000
+           var token = $('input[name="csrfmiddlewaretoken"]').prop('value');
            $("input[name='ssid']" ).attr('disabled', true);
            $("#Run,#timercheckbox,#time_label,#timer").css('display','none') ;
            $("#loading").css('display','inline-block');
@@ -251,7 +252,7 @@ function run() {
             $.ajax({
             url : "ssid_update/",
             type : "POST",
-            data : { up : JSON.stringify(up_new), down:JSON.stringify(down_new),timer:timer }, // data sent with the post request
+            data : { up : JSON.stringify(up_new), down:JSON.stringify(down_new),'csrfmiddlewaretoken': token,timer:timer }, // data sent with the post request
 
         // handle a successful response
 

@@ -53,11 +53,11 @@ ul.inside {
 
 /* Title pulsation */
 .pulsate {
-    -webkit-animation: pulsate 3s ease-out;
+    -webkit-animation: pulsate 5s ease-out;
     -webkit-animation-iteration-count: infinite;
     opacity: 0.5;
     color:dimgrey;
-    font-size: 1.5em;
+    font-size: 2em;
     font-weight: bold;
 }
 @-webkit-keyframes pulsate {

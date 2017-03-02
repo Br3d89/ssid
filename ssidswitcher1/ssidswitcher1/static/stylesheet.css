@@ -61,7 +61,7 @@ ul.inside {
     -webkit-animation: pulsate 5s ease-out;
     -webkit-animation-iteration-count: infinite;
     opacity: 0.5;
-    color:dimgrey;
+    color:black;
     font-size: 2em;
     font-weight: bold;
 }

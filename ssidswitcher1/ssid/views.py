@@ -416,5 +416,6 @@ def login(request):
 
 def logout(request):
     print('Logout is triggered')
+    print('Logout is triggered')
     auth.logout(request)
     return redirect('/')

@@ -202,7 +202,7 @@ ssid_error=[]
          $.ajax({
              type: "POST",
              url: "/auth/login/",
-             data : { username : JSON.stringify(username), password:JSON.stringify(password)},
+             data : { username : JSON.stringify(username), password:JSON.stringify(password),CSRF: {% csrf_token %}},
              success: function (html) {
                  window.location = "index.html"
              },

@@ -404,8 +404,10 @@ def login(request):
     args={}
     args['servers'] = enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
     if request.POST:
-        username=request.POST.get('username')
-        password=request.POST.get('password')
+        username = json.loads(request.POST.get('username'))
+        password = json.loads(request.POST.get('password'))
+        #username=request.POST.get('username')
+        #password=request.POST.get('password')
         user=auth.authenticate(username=username,password=password)
         if user is not None:
             auth.login(request,user)

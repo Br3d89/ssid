@@ -15,18 +15,32 @@
     <section class="media-object-section">
     <ul class="ul-auth">
     {% if username %}
-    <li><a href="/auth/logout/">Выйти ({{ username }})</a></li>
-    {% else %}
-    <li><a href="/auth/login/">Войти</a></li>
-    {% endif %}
+    <li><a id="logout" href="/auth/logout/" onClick="Logout()">Выйти ({{ username }})</a></li>
     </ul>
+    {% else %}
+    <div class="inline login">
+       {% if username %}
+           <a href="/auth/profile">Профиль ({{ username }})</a>
+           <a href="/auth/logout/">Выйти</a>
+       {% else %}
+       <form style="display:inline-block;" action="/auth/login/" >
+         <input type="text" name="username" id="username" placeholder="Логин">
+         <input type="password" name="password" id="password" placeholder="Пароль">
+         {% if login_error %}
+         <label class="error">{{login_error}}</label>
+         {% endif %}
+         <input id="login" type="submit" value="Войти">
+         </form>
+       {% endif %}
+
+      </div>
+    {% endif %}
     </section>
 </div>
  {% block login %}{% endblock %}
 <!--Header part-->
 <div class="big">
 <p class="pulsate">Select server...</p>
-{{ servers }}
 {% for k,i in servers %}
  <div class="panel">
        <button class="accordion">{{ i }}</button>
@@ -81,11 +95,7 @@ for (i = 0; i < acc.length; i++) {
     }
 }
 
-
-
-
 //mouseleave
-
 $(document).ready(function(){
  $('span').mouseenter(function(){
         $(this).fadeTo('fast', 0.5);
@@ -120,8 +130,6 @@ $('#timer').keyup(function () {
 
 //$( "#timer" ).keyup(function() {
 //    timer = $( this ).val()})
-
-
 
 
 {% autoescape off %}
@@ -187,6 +195,25 @@ ssid_error=[]
   //console.log("New Down: "+down_new+" New Up: "+up_new);
   }
 
+//Login
+	 $("#login").click(function() {
+         username = $("#username").val();
+         password = $("#password").val();
+         $.ajax({
+             type: "POST",
+             url: "/auth/login/",
+             data : { username : JSON.stringify(username), password:JSON.stringify(password)},
+             success: function (html) {
+                 window.location = "index.html"
+             },
+             error: function (xhr, errmsg, err) {
+                 $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
+                         " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+             }
+
+         });
+     })
 
 //send data to backend
 function run() {

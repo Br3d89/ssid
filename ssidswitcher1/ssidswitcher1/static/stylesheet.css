@@ -43,6 +43,9 @@ ul.inside {
 .ul-auth {
    list-style-type: none;
     text-align: right;
+}
+
+.ul-auth li {
     color:black;
 }
 

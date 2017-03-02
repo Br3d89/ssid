@@ -378,7 +378,16 @@ def index(request):
     ctx['ok']='Run'
     ctx['username']=auth.get_user(request).username
     if request.method == 'POST':
-        return HttpResponse('Index not for POSTs')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = auth.authenticate(username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/')
+        else:
+            ctx['login_error'] = 'Пользователь не найден'
+            return render(request, 'index.html', ctx)
+        #return HttpResponse('Index not for POSTs')
     else:
         return render(request, 'index.html', ctx)
 

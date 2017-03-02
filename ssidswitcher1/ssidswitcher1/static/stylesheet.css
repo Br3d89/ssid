@@ -91,6 +91,7 @@ ul.inside {
 .logout_btn {
     color:red;
     font-weight: bold;
+    border-radius: 15px;
 }
 /*
 .inline {

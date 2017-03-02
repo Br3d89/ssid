@@ -24,9 +24,9 @@
 </div>
  {% block login %}{% endblock %}
 <!--Header part-->
-{% block content %}
 <div class="big">
 <p class="pulsate">Select server...</p>
+{{ servers }}
 {% for k,i in servers %}
  <div class="panel">
        <button class="accordion">{{ i }}</button>
@@ -292,6 +292,5 @@ else {
 }
 
 </script>
-{% endblock %}
 </body>
 </html>

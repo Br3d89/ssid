@@ -402,6 +402,7 @@ def ssid_error(request):
 def login(request):
     print('Login is triggered')
     args={}
+    args['servers'] = enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
     if request.POST:
         username=request.POST.get('username')
         password=request.POST.get('password')

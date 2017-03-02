@@ -39,3 +39,16 @@ ul.inside {
     margin: 0 auto;
     width:170px;
     }
+
+.position-right {
+   list-style-type: none;
+    text-align: right;
+}
+
+.top-bar {
+    background-color: lightgray;
+}
+
+.media-object-section {
+    background-color: lightgray;
+}

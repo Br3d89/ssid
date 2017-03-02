@@ -80,12 +80,9 @@ ul.inside {
 
 .login_form {
     display:inline-block;
-    border:1px solid darkgrey;
     margin-top:5px;
     margin-bottom:5px;
     padding:5px 8px;
-    border-radius: 15px;
-    background-color: white;
     float:right;
     margin-right:10px;
 }

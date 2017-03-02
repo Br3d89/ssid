@@ -59,10 +59,11 @@ float:left;
 
 input[type=text],input[type=password] {
 background-color: lightgray;
-border: none;
+border: 1px solid darkgray;
 border-radius: 15px;
 padding-left:15px;
 width:100px;
+text-align: center;
 
 }
 input[type=submit] {

@@ -5,7 +5,7 @@
     <title>SSID SWITCHER</title>
     <meta charset="utf-8">
     <link href="{% static 'stylesheet.css' %}" rel="stylesheet" type="text/css" >
-    <link href="{% static 'css/foundation.css' %}" rel="stylesheet" type="text/css" >
+  <!--  <link href="{% static 'css/foundation.css' %}" rel="stylesheet" type="text/css" > -->
     <script src="{% static 'jquery-3.1.1.min.js'%}"></script>
     <meta http-equiv="refresh" content="120">
 </head>
@@ -16,9 +16,9 @@
     <section class="media-object-section">
     <ul class="position-right">
     {% if username %}
-    <li><a href="/admin/logout/">Выйти ({{ username }})</a></li>
+    <li><a href="/auth/logout/">Выйти ({{ username }})</a></li>
     {% else %}
-    <li><a href="/admin/login/">Войти</a></li>
+    <li><a href="/auth/login/">Войти</a></li>
     {% endif %}
     </ul>
     </section>

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from ssid.views import index,detail,ssid_status,ssid_update,ssid_error
+from ssid.views import index,detail,ssid_status,ssid_update,ssid_error,login,logout
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -23,5 +23,7 @@ urlpatterns = [
     url(r'^ssid/(.*)', detail),
     url(r'^ssid_status/', ssid_status),
     url(r'^ssid_error/', ssid_error),
+    url(r'^login',login),
+    url(r'^logout', logout),
     url(r'^', index)
 ]

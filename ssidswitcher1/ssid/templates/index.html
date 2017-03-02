@@ -5,40 +5,39 @@
     <title>SSID SWITCHER</title>
     <meta charset="utf-8">
     <link href="{% static 'stylesheet.css' %}" rel="stylesheet" type="text/css" >
+    <link href="{% static 'bred.css' %}" rel="stylesheet" type="text/css" >
     <script src="{% static 'jquery-3.1.1.min.js'%}"></script>
     <meta http-equiv="refresh" content="120">
 </head>
 
 <body>
 <!--Login part-->
-<div class="top-bar">
-    <section class="media-object-section">
-    <ul class="ul-auth">
-    {% if username %}
-    <li><a id="logout" href="/auth/logout/">Выйти ({{ username }})</a></li>
-    </ul>
-    {% else %}
-    <div class="inline login">
+ <body>
+ <div id="header">
+     <div class="inline login">
        {% if username %}
            <a href="/auth/profile">Профиль ({{ username }})</a>
            <a href="/auth/logout/">Выйти</a>
        {% else %}
-       <form action="/" method="POST" >
+       <form style="display:inline-block;" action="/auth/login/" method="POST">
+          {% csrf_token %}
          <input type="text" name="username" id="username" placeholder="Логин">
          <input type="password" name="password" id="password" placeholder="Пароль">
-          {% csrf_token %}
          {% if login_error %}
-         <label>{{login_error}}</label>
+         <label class="error">{{login_error}}</label>
          {% endif %}
-         <input id="login" type="submit" value="Войти">
+         <input type="submit" value="Войти">
          </form>
        {% endif %}
-
+     <ul class="register">
+       <li><span><a href="/auth/register/">Регистрация</a></span></li>
+     </ul>
       </div>
-    {% endif %}
-    </section>
-</div>
- {% block login %}{% endblock %}
+
+
+ </div>
+
+
 <!--Header part-->
 <div class="big">
 <p class="pulsate">Select server...</p>

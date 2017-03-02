@@ -40,9 +40,10 @@ ul.inside {
     width:170px;
     }
 
-.position-right {
+.ul-auth {
    list-style-type: none;
     text-align: right;
+    color:black;
 }
 
 .top-bar {

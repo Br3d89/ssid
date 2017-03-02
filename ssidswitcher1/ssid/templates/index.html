@@ -14,6 +14,7 @@
 <!--Login part-->
  <body>
  <div id="header">
+  <div class="inline login">
        {% if username %}
            <a href="/auth/profile">Профиль ({{ username }})</a>
            <a href="/auth/logout/">Выйти</a>
@@ -28,6 +29,7 @@
          <input type="submit" value="Войти">
          </form>
        {% endif %}
+ </div>
  </div>
 
 
@@ -60,7 +62,7 @@
 <input type="checkbox" name="Timer" style= "margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px; " id="timercheckbox" onclick="update_timer(this)">
 <label style="margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px;" id="time_label" for="timercheckbox">Timer (in minutes):</label>
 <input style="width:120px;margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px;" type="text" id="timer" placeholder="default 30 minutes" name="timer" maxlength="3" required>
-<input style="margin-left:auto;margin-right:auto;width:100px;color:red;font-size:18px;font-weight:bold;display:none;border-radius: 30px;text-align: center;" type="button" id="Run" onClick="run()" value="Run"/>
+    <input style="margin-left:auto;margin-right:auto;width:100px;color:red;font-size:18px;font-weight:bold;display:none;border-radius: 30px;text-align: center;" type="button" id="Run" onClick="run()" value="Run"/>
 
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none;">
 <div id="success" style="display: none;color:green;font-size: 26px; ">Success</div>

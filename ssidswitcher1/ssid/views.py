@@ -21,6 +21,7 @@ class ssidForm(forms.ModelForm):
        }
 
 
+
 ssh_username = 'mgmt'
 ssh_password = 'Ve7petrU'
 ssid_status_list=[]
@@ -404,19 +405,19 @@ def login(request):
     args={}
     args['servers'] = enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
     if request.POST:
-        username = json.loads(request.POST.get('username'))
-        password = json.loads(request.POST.get('password'))
-        #username=request.POST.get('username')
-        #password=request.POST.get('password')
+        #username = json.loads(request.POST.get('username'))
+        #password = json.loads(request.POST.get('password'))
+        username=request.POST.get('username')
+        password=request.POST.get('password')
         user=auth.authenticate(username=username,password=password)
         if user is not None:
             auth.login(request,user)
             return redirect('/')
         else:
             args['login_error']='Пользователь не найден'
-            return render(request,'login.html', args)
+            return render(request,'index.html', args)
     else:
-        return render(request, 'login.html', args)
+        return render(request, 'index.html', args)
 
 
 def logout(request):

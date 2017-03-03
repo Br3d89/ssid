@@ -8,7 +8,7 @@ import paramiko,time,pexpect,requests,json,logging,threading
 from datetime import datetime
 from multiprocessing import Process
 from django.contrib import auth
-
+import sys
 
 class ssidForm(forms.ModelForm):
    class Meta:
@@ -242,6 +242,8 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
     #print('ruckus started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l admin -o StrictHostKeyChecking=no {}'.format(i))
+        #fout = open('/home/bred/ssid/ssid/test.log', 'wb')
+        #child.logfile = fout
         child.expect('password:',timeout=pexp_timeout)
         child.sendline('AQ!SW@de3?')
         child.expect('>')
@@ -252,20 +254,18 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
         child.sendline('config')
         for m in ssid_objects:
             child.expect('#')
+            child.sendline('wlan {}'.format(m.wlan_id))
+            child.expect('#')
             if (m.name in up_new) and t == 0:
-                child.sendline('wlan {}'.format(m.wlan_id))
-                child.expect('#')
-                child.sendline('enable-type Always-On {}'.format(m.wlan_id))
+                child.sendline('enable-type Always-On')
                 m.status = 1
             else:
-                
-                child.sendline('no wlan {}'.format(m.wlan_id))
+                child.sendline('enable-type Always-Off')
                 m.status = 0
             child.expect('#')
             child.sendline('exit')
             child.expect(']')
             child.sendline('yes')            
-            child.expect('#')
             m.save()
             ssid_status_list.append(m.name)
         child.sendline('end')

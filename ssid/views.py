@@ -238,6 +238,49 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
+def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+    #print('ruckus started', datetime.now())
+    try:
+        child = pexpect.spawn('ssh -l admin -o StrictHostKeyChecking=no {}'.format(i))
+        child.expect('password:',timeout=pexp_timeout)
+        child.sendline('AQ!SW@de3?')
+        child.expect('>')
+        child.sendline('enable')
+        child.expect('Password:')
+        child.sendline('AQ!SW@de3?')
+        child.expect('#')
+        child.sendline('config')
+        for m in ssid_objects:
+            child.expect('#')
+            if (m.name in up_new) and t == 0:
+                child.sendline('wlan {}'.format(m.wlan_id))
+                child.expect('#')
+                child.sendline('enable-type Always-On {}'.format(m.wlan_id))
+                m.status = 1
+            else:
+                
+                child.sendline('no wlan {}'.format(m.wlan_id))
+                m.status = 0
+            child.expect('#')
+            child.sendline('exit')
+            child.expect(']')
+            child.sendline('yes')            
+            child.expect('#')
+            m.save()
+            ssid_status_list.append(m.name)
+        child.sendline('end')
+        child.expect('#')
+        child.sendline('logout')
+        print('Ruckusvsz done')
+        time.sleep(1)
+    except pexpect.exceptions.TIMEOUT as err:
+        for i in list(ssid_objects.values_list('name', flat=True)):
+            ssid_error_list.append(i)
+        errors.append(list(ssid_objects.values_list('name', flat=True)))
+        print(err)
+
+
+
 
 def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
     #print('openwrt started', datetime.now())

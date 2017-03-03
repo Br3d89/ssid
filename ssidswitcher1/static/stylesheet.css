@@ -1,0 +1,143 @@
+body {
+        text-align: center;
+    }
+button.accordion {
+    background-color: #eee;
+    border-bottom: 1px solid darkgrey;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 220px;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+.panel {
+    background-color: white;
+    display: inline-block;}
+
+ul.inside {
+    display: none;
+    list-style-type: none;
+    padding-left: 40px;
+    text-align: left;
+}
+
+.big {
+    width: 690px;
+    margin-left: auto;
+    margin-right: auto;
+ }
+
+.footer {
+    margin: 0 auto;
+    width:170px;
+    }
+
+.ul-auth {
+   list-style-type: none;
+    text-align: right;
+}
+
+.ul-auth a {
+    color:black;
+}
+
+.top-bar {
+}
+
+.media-object-section {
+}
+
+/* Title pulsation */
+.pulsate {
+    -webkit-animation: pulsate 5s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 0.1;
+    color:black;
+    font-size: 2em;
+    font-weight: bold;
+}
+@-webkit-keyframes pulsate {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1.0;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+
+
+.login_form {
+    display:inline-block;
+    margin-top:5px;
+    margin-bottom:5px;
+    padding:5px 8px;
+    float:right;
+    margin-right:10px;
+}
+
+
+.logout_btn {
+    color:red;
+    font-weight: bold;
+    border-radius: 15px;
+}
+/*
+.inline {
+    display: inline-block;
+    margin-top:5px;
+    margin-bottom:5px;
+    padding:5px 8px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.login {
+ float:right;
+ margin-right:10px;
+}
+
+
+input[type=text],input[type=password] {
+background-color: lightgray;
+border: none;
+border-radius: 15px;
+padding-left:15px;
+width:100px;
+
+}
+input[type=submit] {
+    background-color: #eee;
+    border-bottom: 1px solid darkgrey;
+    color: #444;
+    cursor: pointer;
+    padding: 2px;
+    width: 80px;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    border-radius: 15px;
+
+}
+
+input[type=submit].active, input[type=submit]:hover {
+    background-color: #ddd;
+}
+
+.login {
+ float:right;
+ margin-right:10px;
+}
+
+

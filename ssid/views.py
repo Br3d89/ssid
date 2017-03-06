@@ -27,6 +27,7 @@ ssh_password = 'Ve7petrU'
 ssid_status_list=[]
 ssid_error_list=[]
 down_status=[]
+ssids_busy=[]
 pexp_timeout=6
 
 
@@ -44,6 +45,7 @@ def ssid_update(request):
         timeout_value = int(json.loads(request.POST.get('timer')))*60
         #print('Timeout value=', timeout_value)
         rcv_ssids = up_new + down_new
+        [ssids_busy.append(i) for i in rcv_ssids]
         ip_list = set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
         process_list = []
         for i in ip_list:
@@ -92,7 +94,9 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
                 child.sendline('config wlan disable {}'.format(m.wlan_id))
                 m.status = 0
             m.save()
+            rcv_ssids
             ssid_status_list.append(m.name)
+            ssids_busy.remove(m.name)
         child.expect('>')
         child.sendline('logout')
         child.expect('(y/N)')
@@ -238,6 +242,7 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
+
 def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
     #print('ruckus started', datetime.now())
     try:
@@ -278,8 +283,6 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
             ssid_error_list.append(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
-
-test
 
 
 def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
@@ -405,9 +408,6 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         print(err)
 
 
-
-
-
 #@csrf_exempt
 def index(request):
     print('Index is triggered')
@@ -415,6 +415,7 @@ def index(request):
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
     errors=[]
     ctx = {}
+    ctx['ssids_busy']=ssids_busy
     ctx['all_up_ssids']=all_up_ssids
     ctx['latest'] = ssid.objects.order_by('-vendor')
     ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))

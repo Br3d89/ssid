@@ -94,7 +94,6 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
                 child.sendline('config wlan disable {}'.format(m.wlan_id))
                 m.status = 0
             m.save()
-            rcv_ssids
             ssid_status_list.append(m.name)
             ssids_busy.remove(m.name)
         child.expect('>')
@@ -131,6 +130,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
                 m.status = 0
             m.save()
             child.sendline('exit\r')
+            ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.sendline('end\r')
         child.expect('#')
@@ -165,6 +165,7 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
                 child.sendline('exit')
                 m.status = 0
             m.save()
+            ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         print('Unifi done')
         time.sleep(1)
@@ -192,6 +193,7 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list
                 time.sleep(1)
                 m.status = 0
             m.save()
+            ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.expect('>')
         child.sendline('/quit\n\r')
@@ -230,6 +232,7 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
             child.sendline('end')
             child.expect('#')
             m.save()
+            ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.sendline('end')
         child.expect('#')
@@ -272,6 +275,7 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
             child.expect(']')
             child.sendline('yes')            
             m.save()
+            ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.sendline('end')
         child.expect('#')
@@ -300,6 +304,7 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list
                 child.sendline('uci set wireless.@wifi-device[0].disabled=1; uci commit wireless; wifi\n')
                 m.status = 0
             m.save()
+            ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.expect('#')
         child.sendline('exit')
@@ -331,6 +336,7 @@ def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,e
                 child.sendline('ifconfig ath0 down\n')
                 m.status = 0
             m.save()
+            ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.expect('#')
         child.sendline('exit')
@@ -364,6 +370,7 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
                 child.sendline('service-mode disable')
                 m.status = 0
             m.save()
+            ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.expect(']')
         child.sendline('\x1A')   #CTRL+Z command
@@ -398,6 +405,7 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
                 m.status = 0
             dashboard = requests.put(url, data=json.dumps(putdata), headers=headers)
             m.save()
+            ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         print('Meraki done')
         time.sleep(1)

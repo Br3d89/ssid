@@ -45,18 +45,25 @@
               <li><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">http://{{ i }}</a></li>
               {% for j in latest %}
                   {% if j.web == i %}
-                      {% if j.status %}
-                       <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a></li>
-                               {% else %}
-                       <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
-                       {% endif %}
+                      {% if j.name in ssids_busy %}
+                          {% if j.status %}
+                           <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a></li>
+                           {% else %}
+                           <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
+                          {% endif %}
+                      {% else %}
+                          {% if j.status %}
+                           <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a></li>
+                           {% else %}
+                           <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
+                          {% endif %}
+                      {% endif %}
                  {% endif %}
               {% endfor %}
        </ul>
  </div>
 {% endfor %}
 </div>
-
  {% else %}
 
      <div class="big">

@@ -424,6 +424,7 @@ def index(request):
     errors=[]
     ctx = {}
     ctx['ssids_busy']=ssids_busy
+    ctx['ssid_status_list']=ssid_status_list
     ctx['all_up_ssids']=all_up_ssids
     ctx['latest'] = ssid.objects.order_by('-vendor')
     ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
@@ -453,6 +454,10 @@ def ssid_status(request):
     #print('Status request')
     #print('Backend ssid status ',ssid_status_list)
     return JsonResponse({'ssid_status_list': ssid_status_list})
+
+
+def ssid_busy(request):
+    return JsonResponse({'ssid_busy_list': ssids_busy})
 
 
 def ssid_error(request):

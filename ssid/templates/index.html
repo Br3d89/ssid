@@ -63,6 +63,7 @@
  </div>
 {% endfor %}
 </div>
+
  {% else %}
 
      <div class="big">
@@ -169,6 +170,26 @@ down_new=[];
 ip=[]
 ssid_status=[]
 ssid_error=[]
+
+//Check if ssid is busy
+$(document).ready(function(){
+    c={{ ssids_busy }}
+    console.log(c,type(c))
+    check_busy =  setInterval( function(){
+               $.get("/ssid_busy/", function(data) {
+                   console.log('Check busy is working')
+                   data=data.ssid_busy_list
+                   for (var i=0,n=c.length;i<n;i++) {
+                        if (!data.includes(c[i])) {
+                        $( "span."+data[i] ).html(data[i]+"<span style='color:blue'>  ok  </span>").fadeIn("slow");
+                        $('#'+data[i]).prop("disabled", false);
+                        }
+                       /*else {
+                        $( "span."+data[i] ).html(data[i]+"<span style='color:red'>  Busy  </span>").fadeIn("slow");
+                        }   */
+                   }
+                   },1000)})
+
 
 //update ssid_list
     function update_ssidlist(ssid) {

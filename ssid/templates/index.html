@@ -174,8 +174,8 @@ ssid_error=[]
 //Check if ssid is busy
 $(document).ready(function(){
     c={{ ssids_busy }}
-    if (c){
     console.log(c,typeof(c))
+/*    if (c){
     check_busy =  setInterval( function(){
                $.get("/ssid_busy/", function(data) {
                    console.log('Check busy is working')
@@ -186,13 +186,13 @@ $(document).ready(function(){
                         $( "span."+data[i] ).html(data[i]+"<span style='color:blue'>  ok  </span>").fadeIn("slow");
                         $('#'+data[i]).prop("disabled", false);
                         }
-                       /*else {
-                        $( "span."+data[i] ).html(data[i]+"<span style='color:red'>  Busy  </span>").fadeIn("slow");
-                        }   */
+                       //else {
+                       // $( "span."+data[i] ).html(data[i]+"<span style='color:red'>  Busy  </span>").fadeIn("slow");
+                       // }
                    }
                    }
                    else {console.log('There is no busy ssids now!')}
-               },1000)})}})
+               },1000)})}})   */
 
 
 //update ssid_list

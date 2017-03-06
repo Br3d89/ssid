@@ -183,13 +183,12 @@ $(document).ready(function(){
                    console.log('Check busy is working')
                    data = data.ssid_busy_list
                    console.log(data, typeof(data), data.length)
-                   })},1000)}})
-      /*
                    if (data.length > null){
                    for (var i=0,n=c.length;i<n;i++) {
                         if (!data.includes(c[i])) {
-                        $( "span."+data[i] ).html(data[i]+"<span style='color:blue'>  ok  </span>").fadeIn("slow");
-                        $('#'+data[i]).prop("disabled", false);
+                        //$( "span."+data[i] ).html(data[i]+"<span style='color:blue'>  ok  </span>").fadeIn("slow");
+                        //$('#'+data[i]).prop("disabled", false);
+                        console.log('Changed status '+c[i])
                         }
                        //else {
                        // $( "span."+data[i] ).html(data[i]+"<span style='color:red'>  Busy  </span>").fadeIn("slow");
@@ -197,7 +196,7 @@ $(document).ready(function(){
                    }
                    }
                    else {console.log('There is no busy ssids now!')}
-               },1000)})}})   */
+               })},1000)}})
 
 
 //update ssid_list

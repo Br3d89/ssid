@@ -186,8 +186,8 @@ $(document).ready(function(){
                    if (data.length > null){
                    for (var i=0,n=c.length;i<n;i++) {
                         if (!data.includes(c[i])) {
-                        $( "span."+data[i] ).html(data[i]+"<span style='color:blue'>  ok  </span>").fadeIn("slow");
-                        $('#'+data[i]).prop("disabled", false);
+                        //$( "span."+data[i] ).html(data[i]+"<span style='color:blue'>  ok  </span>").fadeIn("slow");
+                        $('#'+c[i]).prop("disabled", false);
                         console.log('Changed status '+c[i])
                         }
                        //else {

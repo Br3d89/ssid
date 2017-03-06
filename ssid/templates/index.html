@@ -182,20 +182,21 @@ $(document).ready(function(){
                $.get("/ssid_busy/", function(data) {
                    console.log('Check busy is working')
                    data = data.ssid_busy_list
-                   console.log(data, typeof(data), data.length)
-                   if (data.length > null){
+                   //console.log(data, typeof(data), data.length)
+                   if (data.length === 0){
                    for (var i=0,n=c.length;i<n;i++) {
-                        if (!data.includes(c[i])) {
+                       $('#'+c[i]).prop("disabled", false);
+                       //if (!data.includes(c[i])) {
                         //$( "span."+data[i] ).html(data[i]+"<span style='color:blue'>  ok  </span>").fadeIn("slow");
-                        $('#'+c[i]).prop("disabled", false);
-                        console.log('Changed status '+c[i])
-                        }
+                        //$('#'+c[i]).prop("disabled", false);
+                        //console.log('Changed status '+c[i])
+                        //}
                        //else {
                        // $( "span."+data[i] ).html(data[i]+"<span style='color:red'>  Busy  </span>").fadeIn("slow");
                        // }
                    }
-                   }
-                   else {console.log('There is no busy ssids now!')}
+                   console.log('Ready')}
+                   //else {console.log('There is no busy ssids now!')}
                })},1000)}})
 
 

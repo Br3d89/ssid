@@ -178,13 +178,16 @@ $(document).ready(function(){
     {% endautoescape %}
   if (c.length > null){
     console.log(c,typeof(c),c.length)
-    check_busy =  setInterval( function(){
+      check_busy =  setInterval( function(){
                $.get("/ssid_busy/", function(data) {
                    console.log('Check busy is working')
                    data = data.ssid_busy_list
                    //console.log(data, typeof(data), data.length)
                    if (data.length === 0){
-                   location.reload()
+                       console.log('All SSIDs are free')
+                       clearInterval(check_busy)
+                       location.reload()
+                   }
                    //for (var i=0,n=c.length;i<n;i++) {
                    //    $('#'+c[i]).prop("disabled", false);
                        //if (!data.includes(c[i])) {
@@ -195,7 +198,7 @@ $(document).ready(function(){
                        //else {
                        // $( "span."+data[i] ).html(data[i]+"<span style='color:red'>  Busy  </span>").fadeIn("slow");
                        // }
-                   }
+
                    //console.log('Ready')}
                    //else {console.log('There is no busy ssids now!')}
                })},1000)}})

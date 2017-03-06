@@ -173,7 +173,9 @@ ssid_error=[]
 
 //Check if ssid is busy
 $(document).ready(function(){
+    {% autoescape off %}
     c={{ ssids_busy }}
+    {% endautoescape %}
     console.log(c,typeof(c)) })
 /*    if (c){
     check_busy =  setInterval( function(){

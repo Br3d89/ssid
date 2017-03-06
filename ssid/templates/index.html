@@ -196,7 +196,7 @@ $(document).ready(function(){
                    }
                    }
                    else {console.log('There is no busy ssids now!')}
-               })},2000)}})
+               })},1000)}})
 
 
 //update ssid_list
@@ -306,7 +306,7 @@ function run() {
             if (ssid_error.length === 0) {
                 //console.log('SSID_ERROR '+ssid_error)
             $("#success").fadeIn("slow").delay( 2000 ).fadeOut("slow");
-            window.setTimeout(function(){location.reload()},5000)
+            //window.setTimeout(function(){location.reload()},5000)
             //console.log('Success')
             }
             ssid_status=[]

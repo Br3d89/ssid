@@ -279,7 +279,7 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
-
+test
 
 
 def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):

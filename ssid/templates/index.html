@@ -129,7 +129,11 @@ $(document).ready(function(){
    });
 $('span').mouseleave(function(){
         $(this).fadeTo('fast', 1);
-    })});
+    })
+$( "form input:checkbox" ).mouseenter(function(){
+        $(this).css('cursor', 'pointer');
+   });
+});
 
 
 //Timer settings

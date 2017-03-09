@@ -150,6 +150,7 @@ timer=30
 $('#timer').keyup(function () {
     if (this.value.match(/[0-9]{1,3}/)) {
         timer = this.value
+        if (timer > 360) {timer = 360}
         console.log('Timer inside function='+timer)}
     else {
         this.value = this.value.replace(/[^0-9]/g, '')

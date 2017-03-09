@@ -43,7 +43,6 @@ def ssid_update(request):
         up_new = json.loads(request.POST.get('up'))
         down_new = json.loads(request.POST.get('down'))
         timeout_value = int(json.loads(request.POST.get('timer')))*60
-        #print('Timeout value=', timeout_value)
         rcv_ssids = up_new + down_new
         [ssids_busy.append(i) for i in rcv_ssids]
         ip_list = set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
@@ -52,15 +51,13 @@ def ssid_update(request):
             vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
             ssid_objects = ssid.objects.filter(ip=i, name__in=rcv_ssids)  # all ssids within device
             ssid_objects_up=ssid.objects.filter(ip=i, name__in=up_new)
-            p = (threading.Thread(target=globals()['{}'.format(vendor)],
-                                  args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors)))
+            p = (threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors)))
             p.start()
-            #if (len(down_new) == 0):
-            threading.Timer(timeout_value, globals()['{}'.format(vendor)],
-                                args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors, 1)).start()
             process_list.append(p)
+            if ssid_objects_up:     #run disable thread only for ssid_objects_up
+                d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors, 1))
+                d.start()
         for i in process_list:
-            #print('Starting ', i)
             i.join()
         all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
         return JsonResponse({'all_up_ssids': all_up_ssids, 'errors': errors})
@@ -90,12 +87,15 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
             if (m.name in up_new) and t == 0:
                 child.sendline('config wlan enable {}'.format(m.wlan_id))
                 m.status = 1
+                print(m.name,' enabled')
             else:
                 child.sendline('config wlan disable {}'.format(m.wlan_id))
                 m.status = 0
+                print(m.name,' disabled')
             m.save()
+            if t==0:
+                ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
-            ssids_busy.remove(m.name)
         child.expect('>')
         child.sendline('logout')
         child.expect('(y/N)')
@@ -110,10 +110,13 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
         print(err)
 
 
+
 def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors, t=0):
     #print('aruba started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
+        #fout = open('/home/bred/ssid/ssid/test.log', 'wb')
+        #child.logfile = fout
         child.expect(':', timeout=pexp_timeout)
         child.sendline("{}\r".format(ssh_password))
         child.expect("#")
@@ -125,12 +128,15 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
             if (m.name in up_new) and t == 0:
                 child.sendline('enable\r')
                 m.status = 1
+                print(m.name,' enabled')
             else:
                 child.sendline('disable\r')
                 m.status = 0
+                print(m.name,' disabled')
             m.save()
             child.sendline('exit\r')
-            ssids_busy.remove(m.name)
+            if t==0:
+                ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.sendline('end\r')
         child.expect('#')
@@ -159,13 +165,16 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
                 child.expect('#')
                 child.sendline('reboot')
                 m.status = 1
+                print(m.name,' enabled')
             else:
                 child.sendline('ifconfig wifi0 down')
                 child.expect('#')
                 child.sendline('exit')
                 m.status = 0
+                print(m.name,' disabled')
             m.save()
-            ssids_busy.remove(m.name)
+            if t==0:
+                ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         print('Unifi done')
         time.sleep(1)
@@ -188,12 +197,15 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list
                 child.sendline("/interface wireless enable {}\n\r".format(m.wlan_id))
                 time.sleep(1)
                 m.status = 1
+                print(m.name,' enabled')
             else:
                 child.sendline("/interface wireless disable {}\n\r".format(m.wlan_id))
                 time.sleep(1)
                 m.status = 0
+                print(m.name,' disabled') 
             m.save()
-            ssids_busy.remove(m.name)
+            if t==0:
+                ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.expect('>')
         child.sendline('/quit\n\r')
@@ -225,14 +237,17 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
                 child.expect('#')
                 child.sendline('type hotspot {}'.format(m.wlan_id))
                 m.status = 1
+                print(m.name,' enabled')
             else:
                 child.sendline('no wlan {}'.format(m.wlan_id))
                 m.status = 0
+                print(m.name,' disabled')
             child.expect('#')
             child.sendline('end')
             child.expect('#')
             m.save()
-            ssids_busy.remove(m.name)
+            if t==0:
+                ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.sendline('end')
         child.expect('#')
@@ -267,15 +282,18 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
             if (m.name in up_new) and t == 0:
                 child.sendline('enable-type Always-On')
                 m.status = 1
+                print(m.name,' enabled')
             else:
                 child.sendline('enable-type Always-Off')
                 m.status = 0
+                print(m.name,' disabled')
             child.expect('#')
             child.sendline('exit')
             child.expect(']')
             child.sendline('yes')            
             m.save()
-            ssids_busy.remove(m.name)
+            if t==0:
+                ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.sendline('end')
         child.expect('#')
@@ -300,11 +318,14 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list
             if (m.name in up_new) and t == 0:
                 child.sendline('uci set wireless.@wifi-device[0].disabled=0; uci commit wireless; wifi\n')
                 m.status = 1
+                print(m.name,' enabled')
             else:
                 child.sendline('uci set wireless.@wifi-device[0].disabled=1; uci commit wireless; wifi\n')
                 m.status = 0
+                print(m.name,' disabled')
             m.save()
-            ssids_busy.remove(m.name)
+            if t==0:
+                ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.expect('#')
         child.sendline('exit')
@@ -332,11 +353,14 @@ def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,e
                 child.expect('#')
                 child.sendline('reboot\n')
                 m.status = 1
+                print(m.name,' enabled')
             else:
                 child.sendline('ifconfig ath0 down\n')
                 m.status = 0
+                print(m.name,' disabled')
             m.save()
-            ssids_busy.remove(m.name)
+            if t==0:
+                ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.expect('#')
         child.sendline('exit')
@@ -366,11 +390,14 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
             if (m.name in up_new) and t == 0:
                 child.sendline('undo service-mode disable')
                 m.status = 1
+                print(m.name,' enabled')
             else:
                 child.sendline('service-mode disable')
                 m.status = 0
+                print(m.name,' disabled')
             m.save()
-            ssids_busy.remove(m.name)
+            if t==0:
+                ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         child.expect(']')
         child.sendline('\x1A')   #CTRL+Z command
@@ -400,12 +427,15 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
             if (m.name in up_new) and t == 0:
                 putdata = {'enabled': True}
                 m.status = 1
+                print(m.name,' enabled')
             else:
                 putdata = {'enabled': False}
                 m.status = 0
+                print(m.name,' disabled')
             dashboard = requests.put(url, data=json.dumps(putdata), headers=headers)
             m.save()
-            ssids_busy.remove(m.name)
+            if t==0:
+                ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
         print('Meraki done')
         time.sleep(1)
@@ -418,7 +448,6 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
 
 #@csrf_exempt
 def index(request):
-    print('Index is triggered')
     all_list = list(ssid.objects.values_list('name', flat=True))
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
     errors=[]

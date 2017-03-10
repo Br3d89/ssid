@@ -75,9 +75,13 @@ i:
 
      <div class="big">
 <p class="pulsate">Select server...</p>
-{% for k,i in servers %}
+{% for i in servers %}
  <div class="panel">
+  {% if i in servers_with_up_ssids %}
+       <button class="accordion active">{{ i }}</button>
+       {% else %}
        <button class="accordion">{{ i }}</button>
+       {% endif %}
        <ul class="inside">
               <li><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">http://{{ i }}</a></li>
               {% for j in latest %}

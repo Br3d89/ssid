@@ -7,6 +7,7 @@
     <link href="{% static 'stylesheet.css' %}" rel="stylesheet" type="text/css" >
     <link href="{% static 'bred.css' %}" rel="stylesheet" type="text/css" >
     <script src="{% static 'jquery-3.1.1.min.js'%}"></script>
+ <!--   <script src="{% static 'main.js'%}"></script> -->
     <meta http-equiv="refresh" content="120">
 </head>
 
@@ -39,7 +40,12 @@
 <p class="pulsate">Select server...</p>
 {% for k,i in servers %}
  <div class="panel">
-       <button class="accordion">{{ i }}</button>
+       {% if i in servers_with_up_ssids %}
+       <button class="accordion active">{{ i }}</button>
+       {% endif %}
+       {% else %}
+       <button class="accordion inactive">{{ i }}</button>
+       {% endif %}
        <ul class="inside">
               <li><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">http://{{ i }}</a></li>
               {% for j in latest %}
@@ -106,7 +112,7 @@
 
 <script language="JavaScript">
 
-//dropdown buttons
+//accordeon popup buttons
 var acc = document.getElementsByClassName("accordion");
 var i;
 
@@ -217,6 +223,8 @@ $(document).ready(function(){
             ip.push(ssid.ip)
             $('#Run').css('display','block');
             $('#time_label,#timercheckbox').css('display','inline-block');
+            //web_server=ssid.
+            //$("button:contains(ssid.web)").css('color','lightgreen');
         }
         else {
             index = down_new.indexOf(String(ssid.id));

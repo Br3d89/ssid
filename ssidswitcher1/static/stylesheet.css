@@ -4,7 +4,6 @@ body {
 button.accordion {
     background-color: #eee;
     border-bottom: 1px solid darkgrey;
-    color: #444;
     cursor: pointer;
     padding: 18px;
     width: 250px;
@@ -17,6 +16,14 @@ button.accordion {
 
 button.accordion.active, button.accordion:hover {
     background-color: #ddd;
+}
+
+.inactive {
+    color:#444;
+}
+
+.active {
+    color:lightgreen;
 }
 
 .panel {

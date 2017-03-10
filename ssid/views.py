@@ -450,14 +450,17 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
 def index(request,args={}):
     all_list = list(ssid.objects.values_list('name', flat=True))
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
+    servers_with_up_ssids=list(ssid.objects.values_list('web', flat=True).filter(status='1'))
     errors=[]
     ctx = {}
     ctx.update(args)
     ctx['ssids_busy']=ssids_busy
     ctx['ssid_status_list']=ssid_status_list
     ctx['all_up_ssids']=all_up_ssids
+    ctx['servers_with_up_ssids']=servers_with_up_ssids
     ctx['latest'] = ssid.objects.order_by('-vendor')
     ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
+    #ctx['servers'] = ssid.objects.values_list('web', flat=True).distinct().order_by('web')
     ctx['ok']='Run'
     ctx['username']=auth.get_user(request).username
     if request.method == 'POST':

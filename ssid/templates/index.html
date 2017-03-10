@@ -39,8 +39,7 @@
 <div class="big">
 <p class="pulsate">Select server...</p>
 {% for i in servers %}
-Servers with up ssids:{{ servers_with_up_ssids }}
-i:
+{{ servers_with_up_ssids }}
  <div class="panel">
        {% if i in servers_with_up_ssids %}
        <button class="accordion active">{{ i }}</button>

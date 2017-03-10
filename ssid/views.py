@@ -447,11 +447,12 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
 
 
 #@csrf_exempt
-def index(request):
+def index(request,args={}):
     all_list = list(ssid.objects.values_list('name', flat=True))
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
     errors=[]
     ctx = {}
+    ctx.update(args)
     ctx['ssids_busy']=ssids_busy
     ctx['ssid_status_list']=ssid_status_list
     ctx['all_up_ssids']=all_up_ssids
@@ -510,7 +511,8 @@ def login(request):
             return redirect('/')
         else:
             args['login_error']='Пользователь не найден'
-            return render(request,'index.html', args)
+            #return render(request,'index.html', args)
+            return index(request,args)
     else:
         return render(request, 'index.html', args)
 

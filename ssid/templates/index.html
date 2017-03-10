@@ -46,7 +46,7 @@
        <button class="accordion pasv">{{ i }}</button>
        {% endif %}
        <ul class="inside">
-              <li><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline; padding-bottom: 10px;" href="http://{{ i }}">http://{{ i }}</a></li>
+              <li style="margin-bottom: 5px;"><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">http://{{ i }}</a></li>
               {% for j in latest %}
                   {% if j.web == i %}
                       {% if j.name in ssids_busy %}

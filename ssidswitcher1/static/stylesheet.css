@@ -4,7 +4,7 @@ body {
 button.accordion {
     border-bottom: 1px solid darkgrey;
     cursor: pointer;
-    padding: 18px;
+    padding: 10px;
     color:#444;
     width: 250px;
     outline: none;

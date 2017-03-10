@@ -1,7 +1,7 @@
 body {
         text-align: center;
     }
-button.accordion {
+.accordion {
     border-bottom: 1px solid darkgrey;
     cursor: pointer;
     padding: 18px;
@@ -14,16 +14,16 @@ button.accordion {
     margin-bottom: 5px;
 }
 
-button.accordion.active, button.accordion:hover {
+.accordion.active, .accordion:hover {
     background-color: #ddd;
 }
 
 /* Server with active ssid pulsation */
-.active {
-    background-color:lightgoldenrodyellow;
+.act {
+    background-color:green;
 }
 
-.passive {
+.pasv {
   background-color: #eee;
 }
 

@@ -20,7 +20,7 @@ button.accordion.active, button.accordion:hover {
 
 /* Server with active ssid pulsation */
 .act {
-    background-color:lightgoldenrodyellow;
+    background-color:ghostwhite;
 }
 
 .pasv {

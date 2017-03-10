@@ -451,12 +451,12 @@ def index(request,args={}):
     all_list = list(ssid.objects.values_list('name', flat=True))
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
     servers_with_up_ssids=list(ssid.objects.values_list('web', flat=True).distinct().filter(status='1'))
-    servers_with_down_ssids = list(ssid.objects.values_list('web', flat=True).distinct().filter(status='0'))
-    servers_ssids_sorted=list(ssid.objects.values_list('web', flat=True).distinct().filter(status='1'))
-    for i in servers_ssids_sorted:
-        if i not in servers_with_down_ssids:
-            servers_ssids_sorted.append(i)
-    print(servers_ssids_sorted)
+    #servers_with_down_ssids = list(ssid.objects.values_list('web', flat=True).distinct().filter(status='0'))
+    #servers_ssids_sorted=list(ssid.objects.values_list('web', flat=True).distinct().filter(status='1'))
+    #for i in servers_ssids_sorted:
+    #    if i not in servers_with_down_ssids:
+    #        servers_ssids_sorted.append(i)
+    #print(servers_ssids_sorted)
     errors=[]
     ctx = {}
     ctx.update(args)

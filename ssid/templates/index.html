@@ -123,10 +123,10 @@ for (i = 0; i < acc.length; i++) {
     acc[i].onclick = function(){
         this.classList.toggle("active");
         var panel = this.nextElementSibling;
-        if (panel.style.display === "table") {
+        if (panel.style.display === "table-cell") {
             panel.style.display = "none";
         } else {
-            panel.style.display = "table";
+            panel.style.display = "table-cell";
         }
     }
 }

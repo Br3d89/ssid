@@ -36,6 +36,7 @@ ul.inside {
     padding-left: 30px;
     text-align: left;
     border:1px solid black;
+    width:250px;
 }
 
 .big {

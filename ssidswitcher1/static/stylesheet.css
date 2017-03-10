@@ -2,7 +2,6 @@ body {
         text-align: center;
     }
 button.accordion {
-    background-color: #eee;
     border-bottom: 1px solid darkgrey;
     cursor: pointer;
     padding: 18px;
@@ -24,7 +23,9 @@ button.accordion.active, button.accordion:hover {
     background-color:lightgoldenrodyellow;
 }
 
-
+.passive {
+  background-color: #eee;
+}
 
 .panel {
     background-color: white;

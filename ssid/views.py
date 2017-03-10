@@ -456,7 +456,6 @@ def index(request,args={}):
     for i in servers_with_down_ssids:
         if i not in servers_with_up_ssids:
             servers_ssids_sorted.append(i)
-    print(servers_ssids_sorted)
     errors=[]
     ctx = {}
     ctx.update(args)
@@ -466,7 +465,8 @@ def index(request,args={}):
     ctx['servers_with_up_ssids']=servers_with_up_ssids
     ctx['latest'] = ssid.objects.order_by('-vendor')
     #ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
-    ctx['servers'] = list(ssid.objects.values_list('web', flat=True).distinct().order_by('web'))
+    #ctx['servers'] = list(ssid.objects.values_list('web', flat=True).distinct().order_by('web'))
+    ctx['servers']=servers_ssids_sorted
     ctx['ok']='Run'
     ctx['username']=auth.get_user(request).username
     if request.method == 'POST':

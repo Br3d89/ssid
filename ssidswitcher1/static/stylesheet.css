@@ -18,7 +18,6 @@ button.accordion.active, button.accordion:hover {
     background-color: #ddd;
 }
 
-/* Server with active ssid pulsation */
 .act {
     background-color:lightgray;
 }

@@ -33,10 +33,15 @@ button.accordion.active, button.accordion:hover {
 ul.inside {
     display: none;
     list-style-type: none;
-    padding-left: 30px;
+    /*padding-left: 30px; */
     text-align: left;
     border:1px solid black;
-    width:250px;
+    width:210px;
+}
+
+ul.inside li {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .big {

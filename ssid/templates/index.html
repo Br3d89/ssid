@@ -117,7 +117,12 @@
 
 
 function SelectAll(ssid_list) {
-    $('inside').find(':checkbox').not(':checked').prop("checked");
+    if (ssid.checked) {
+    $('ul').find(':checkbox').not(':checked').prop("checked");
+}
+else {
+    $('ul').find(':checkbox').(':checked').prop( "checked", false );
+    }
 }
 
 

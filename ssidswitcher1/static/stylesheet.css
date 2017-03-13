@@ -69,6 +69,13 @@ ul.inside {
 .media-object-section {
 }
 
+
+.title {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
 /* Title pulsation */
 .pulsate {
     -webkit-animation: pulsate 5s ease-out;
@@ -77,8 +84,7 @@ ul.inside {
     color:black;
     font-size: 2em;
     font-weight: bold;
-    margin-right: auto;
-    margin-left: auto;
+
 }
 @-webkit-keyframes pulsate {
     0% {

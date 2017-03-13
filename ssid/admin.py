@@ -7,5 +7,5 @@ class SsidAdmin(admin.ModelAdmin):
     fields = ('name', 'status', 'vendor', 'ip','web')
 
 
-admin.site.register(ssid)
+admin.site.register(ssid, SsidAdmin)
 

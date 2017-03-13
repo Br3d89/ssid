@@ -5,6 +5,7 @@ from .models import ssid
 
 class SsidAdmin(admin.ModelAdmin):
     fields = ('name', 'status', 'vendor', 'ip','web')
+    list_display = ('name', 'web')
 
 
 admin.site.register(ssid, SsidAdmin)

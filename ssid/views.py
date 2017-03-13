@@ -242,6 +242,7 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
                 child.sendline('wlan {}'.format(m.wlan_id))
                 child.expect('#')
                 child.sendline('type hotspot {}'.format(m.wlan_id))
+                child.sendline('end')
                 m.status = 1
                 print(m.name,' enabled')
             else:
@@ -249,7 +250,6 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
                 m.status = 0
                 print(m.name,' disabled')
             child.expect('#')
-            child.sendline('end')
             m.save()
             if t==0:
                 ssids_busy.remove(m.name)

@@ -237,8 +237,8 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         child.sendline('enable')
         child.expect('#')
         child.sendline('config')
+        child.expect('#')
         for m in ssid_objects:
-            child.expect('#')
             if (m.name in up_new) and t == 0:
                 child.sendline('wlan {}'.format(m.wlan_id))
                 child.expect('#')

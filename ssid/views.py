@@ -101,7 +101,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
         child.sendline('logout')
         child.expect('(y/N)')
         child.sendline('y')
-        print('Cisco done')
+        print('Cisco {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
@@ -145,7 +145,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
         child.sendline('commit apply\r')
         child.expect('#')
         child.sendline('logout')
-        print('Aruba done')
+        print('Aruba {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
@@ -179,7 +179,7 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
             if t==0:
                 ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
-        print('Unifi done')
+            print('Unifi {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
@@ -213,7 +213,7 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list
             ssid_status_list.append(m.name)
         child.expect('>')
         child.sendline('/quit\n\r')
-        print('Mikrotik done')
+        print('Mikrotik {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
@@ -258,7 +258,7 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         child.sendline('end')
         child.expect('#')
         child.sendline('exit')
-        print('Ruckus done')
+        print('Rukcus {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
@@ -305,7 +305,7 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
         child.sendline('end')
         child.expect('#')
         child.sendline('logout')
-        print('Ruckusvsz done')
+        print('RuckusVSZ {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
@@ -337,7 +337,7 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list
             ssid_status_list.append(m.name)
         child.expect('#')
         child.sendline('exit')
-        print('Openwrt done')
+        print('OpenWRT {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
@@ -373,7 +373,7 @@ def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,e
             ssid_status_list.append(m.name)
         child.expect('#')
         child.sendline('exit')
-        print('ddwrt done')
+        print('DDWRT {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
@@ -417,7 +417,7 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         child.sendline('y')
         child.expect('>')
         child.sendline('quit')
-        print('Huawei done')
+        print('Huawei {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
@@ -448,7 +448,7 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
             if t==0:
                 ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
-        print('Meraki done')
+        print('Meraki {} done'.format(i))
         time.sleep(1)
     except requests.exceptions.ConnectionError as err:
         for i in list(ssid_objects.values_list('name', flat=True)):

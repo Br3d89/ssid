@@ -56,6 +56,7 @@
                            <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:red" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }} - Busy </span></a><br></li>
                           {% endif %}
                       {% else %}
+                          <li><input type="checkbox" onclick="SelectAll(this)"/>Select all</li>
                           {% if j.status %}
                            <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a></li>
                            {% else %}
@@ -113,6 +114,12 @@
 
 
 <script language="JavaScript">
+
+
+function SelectAll(ssid_list) {
+    $('inside').find(':checkbox').not(':checked').prop("checked", True);
+}
+
 
 //accordeon popup buttons
 var acc = document.getElementsByClassName("accordion");

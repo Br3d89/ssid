@@ -105,6 +105,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         time.sleep(2)
         print(err)
@@ -148,6 +149,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -181,6 +183,7 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -214,6 +217,7 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -259,6 +263,7 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -305,6 +310,7 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -336,6 +342,7 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -371,6 +378,7 @@ def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,e
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -414,6 +422,7 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
         time.sleep(1)
@@ -444,6 +453,7 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
     except requests.exceptions.ConnectionError as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 

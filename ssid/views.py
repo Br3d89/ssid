@@ -250,7 +250,6 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
                 print(m.name,' disabled')
             child.expect('#')
             child.sendline('end')
-            child.expect('#')
             m.save()
             if t==0:
                 ssids_busy.remove(m.name)

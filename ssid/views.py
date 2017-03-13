@@ -55,6 +55,7 @@ def ssid_update(request):
             p.start()
             process_list.append(p)
             if ssid_objects_up:     #run disable thread only for ssid_objects_up
+                print('Creating disable thread')
                 d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors, 1))
                 d.start()
         for i in process_list:

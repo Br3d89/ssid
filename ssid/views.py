@@ -463,7 +463,7 @@ def index(request,args={}):
     all_list = list(ssid.objects.values_list('name', flat=True))
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
     servers_with_up_ssids=list(ssid.objects.values_list('web', flat=True).distinct().filter(status='1'))
-    servers_with_down_ssids = list(ssid.objects.values_list('web', flat=True).distinct().filter(status='0'))
+    servers_with_down_ssids = list(ssid.objects.values_list('web', flat=True).distinct().filter(status='0').order_by('web'))
     servers_ssids_sorted=[]+servers_with_up_ssids
     for i in servers_with_down_ssids:
         if i not in servers_with_up_ssids:

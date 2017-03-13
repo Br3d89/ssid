@@ -36,7 +36,7 @@
 
 <!--Header part-->
  {% if username %}
-<div class="big">
+    <div class="big">
 <p class="pulsate">Select server...</p>
 {% for i in servers %}
  <div class="panel">
@@ -123,13 +123,17 @@ for (i = 0; i < acc.length; i++) {
     acc[i].onclick = function(){
         this.classList.toggle("active");
         var panel = this.nextElementSibling;
-        if (panel.style.display === "table-row") {
+        if (panel.style.display === "table") {
             panel.style.display = "none";
         } else {
-            panel.style.display = "table-row";
+            panel.style.display = "table";
         }
     }
 }
+
+
+
+
 
 //mouseleave
 $(document).ready(function(){

@@ -222,6 +222,8 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
     #print('ruckus started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
+        fout = open('/home/bred/ssid/ssid/test.log', 'wb')
+        child.logfile = fout
         child.expect(':', timeout=pexp_timeout)
         child.sendline(ssh_username)
         child.expect('Password:')

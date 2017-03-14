@@ -119,12 +119,14 @@
 function SelectAll(ssid_list) {
     if (ssid_list.checked) {
     //$('ul').find(':checkbox').not(':checked').prop("checked");
-    $('ul').find(':checkbox:not(checked)').prop('checked',true)
+    //$(ssid_list).find(':checkbox:not(checked)').prop('checked',true)
+    $(ssid_list).closest('.panel').find(':checkbox:not(checked)').prop('checked',true).click()
 
 }
 else {
     //$('ul').find(':checkbox').(':checked').prop( "checked", false );
-   $('ul').find(':checkbox:checked').prop('checked',false)
+   //$('ul').find(':checkbox:checked').prop('checked',false)
+    $(ssid_list).closest('.panel').find(':checkbox:checked').prop('checked',true).click()
     }
 }
 

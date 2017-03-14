@@ -121,14 +121,14 @@ function SelectAll(ssid_list) {
     //$('ul').find(':checkbox').not(':checked').prop("checked");
     //$(ssid_list).find(':checkbox:not(checked)').prop('checked',true)
     $(ssid_list).closest('.panel').find(':checkbox:not(checked)').click().prop('checked',true)
-        console.log('UP_NEW: ',up_new,'DOWN NEW: ',down_new)
+        //console.log('UP_NEW: ',up_new,'DOWN NEW: ',down_new)
 
 }
 else {
     //$('ul').find(':checkbox').(':checked').prop( "checked", false );
    //$('ul').find(':checkbox:checked').prop('checked',false)
     $(ssid_list).closest('.panel').find(':checkbox:checked').prop('checked',true).click()
-    console.log('UP_NEW: ',up_new,'DOWN NEW: ',down_new)
+    //console.log('UP_NEW: ',up_new,'DOWN NEW: ',down_new)
     }
 }
 

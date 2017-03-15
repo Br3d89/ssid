@@ -9,6 +9,7 @@ from datetime import datetime
 from multiprocessing import Process
 from django.contrib import auth
 import sys
+import itertools
 
 class ssidForm(forms.ModelForm):
    class Meta:
@@ -358,7 +359,7 @@ def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,e
         for m in ssid_objects:
             child.expect('#')
             if (m.name in up_new) and t == 0:
-                child.sendline('ifconfig ath0 up\n')
+                child.sendline('ifconfig ath0 up\n')   #wifi up
                 child.expect('#')
                 child.sendline('reboot\n')
                 m.status = 1
@@ -471,6 +472,18 @@ def index(request,args={}):
     errors=[]
     ctx = {}
     ctx.update(args)
+
+    #Index button position logic
+    div_1 = []
+    div_2 = []
+    div_3 = []
+    div=[div_1,div_2,div_3]
+    div_cycle = itertools.cycle([0,1,2])
+    for i in servers_ssids_sorted:
+        div[next(div_cycle)].append(i)
+    div_enum=enumerate(div)
+    # End of Index button position logic
+
     ctx['ssids_busy']=ssids_busy
     ctx['ssid_status_list']=ssid_status_list
     ctx['all_up_ssids']=all_up_ssids
@@ -479,6 +492,12 @@ def index(request,args={}):
     #ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
     #ctx['servers'] = list(ssid.objects.values_list('web', flat=True).distinct().order_by('web'))
     ctx['servers']=servers_ssids_sorted
+    ctx['servers_len']=len(servers_ssids_sorted)
+    ctx['servers_divide']=len(servers_ssids_sorted) % 3
+    ctx['servers_ipp']=len(servers_ssids_sorted) // 3
+    ctx['servers_ipp_range']=range(len(servers_ssids_sorted) // 3)
+    ctx['column_range']=range(3)
+    ctx['servers_enum']=div_enum
     ctx['ok']='Run'
     ctx['username']=auth.get_user(request).username
     if request.method == 'POST':

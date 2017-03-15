@@ -359,7 +359,7 @@ def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,e
         for m in ssid_objects:
             child.expect('#')
             if (m.name in up_new) and t == 0:
-                child.sendline('ifconfig ath0 up\n')   #wifi up
+                child.sendline('ifconfig ath0 up\n')
                 child.expect('#')
                 child.sendline('reboot\n')
                 m.status = 1

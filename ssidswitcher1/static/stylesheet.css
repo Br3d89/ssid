@@ -52,7 +52,6 @@ ul.inside {
 .server_column {
     width:250px;
     display: inline-block;
-    border:1px solid red;
     vertical-align: top;
 }
 

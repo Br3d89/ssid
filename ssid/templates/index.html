@@ -7,7 +7,8 @@
     <link href="{% static 'stylesheet.css' %}" rel="stylesheet" type="text/css" >
     <link href="{% static 'bred.css' %}" rel="stylesheet" type="text/css" >
     <script src="{% static 'jquery-3.1.1.min.js'%}"></script>
-    <meta http-equiv="refresh" content="120">
+ <!--   <script src="{% static 'main.js'%}"></script> -->
+   <!-- <meta http-equiv="refresh" content="120"> -->
 </head>
 
 <body>
@@ -32,61 +33,77 @@
  </div>
  </div>
 
-
 <!--Header part-->
- {% if username %}
+ <div class="title"><p class="pulsate">Select server...</p></div>
+
+<!--Test-->
 <div class="big">
-<p class="pulsate">Select server...</p>
-{% for k,i in servers %}
- <div class="panel">
-       <button class="accordion">{{ i }}</button>
-       <ul class="inside">
-              <li><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">http://{{ i }}</a></li>
-              {% for j in latest %}
-                  {% if j.web == i %}
-                      {% if j.name in ssids_busy %}
-                          {% if j.status %}
-                           <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:red" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }} - Busy </span></a></li>
-                           {% else %}
-                           <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:red" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }} - Busy </span></a><br></li>
-                          {% endif %}
+ {% if username %}
+     {% for i,k in servers_enum %}
+          <div class="server_column">
+              {% for n in k %}
+                  <div class="panel">
+                      {% if n in servers_with_up_ssids %}
+                      <button class="accordion act">{{ n }}</button>
                       {% else %}
-                          {% if j.status %}
-                           <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a></li>
-                           {% else %}
-                           <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
-                          {% endif %}
+                      <button class="accordion pasv">{{ n }}</button>
                       {% endif %}
-                 {% endif %}
+                      <ul class="inside">
+                            <li style="margin-bottom: 5px;"><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ n }}">http://{{ n }}</a></li>
+                            <li><input type="checkbox" onclick="SelectAll(this)"/>Select all</li>
+                            {% for j in latest %}
+                                {% if j.web == n %}
+                                    {% if j.name in ssids_busy %}
+                                        {% if j.status %}
+                                            <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:red" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }} - Busy </span></a></li>
+                                        {% else %}
+                                            <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:red" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }} - Busy </span></a><br></li>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if j.status %}
+                                            <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a></li>
+                                        {% else %}
+                                        <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                     </ul>
+               </div>
               {% endfor %}
-       </ul>
- </div>
-{% endfor %}
-</div>
+          </div>
+     {% endfor %}
 
- {% else %}
-
-     <div class="big">
-<p class="pulsate">Select server...</p>
-{% for k,i in servers %}
- <div class="panel">
-       <button class="accordion">{{ i }}</button>
-       <ul class="inside">
-              <li><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ i }}">http://{{ i }}</a></li>
-              {% for j in latest %}
-                  {% if j.web == i %}
-                      {% if j.status %}
-                       <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled="true" checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a></li>
-                               {% else %}
-                       <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled="true" onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
-                       {% endif %}
-                 {% endif %}
+{% else %}
+   {% for i,k in servers_enum %}
+          <div class="server_column">
+              {% for n in k %}
+                  <div class="panel">
+                      {% if n in servers_with_up_ssids %}
+                      <button class="accordion act">{{ n }}</button>
+                      {% else %}
+                      <button class="accordion pasv">{{ n }}</button>
+                      {% endif %}
+                      <ul class="inside">
+                            <li style="margin-bottom: 5px;"><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ n }}">http://{{ n }}</a></li>
+                            <li><input type="checkbox" onclick="SelectAll(this)"/>Select all</li>
+                            {% for j in latest %}
+                                {% if j.web == n %}
+                                    {% if j.status %}
+                                        <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled="true" checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a></li>
+                                    {% else %}
+                                        <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled="true" onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                     </ul>
+               </div>
               {% endfor %}
-       </ul>
- </div>
-{% endfor %}
-</div>
-  {% endif %}
+          </div>
+     {% endfor %}
+   {% endif %}
+<!--Test-->
+
 <br>
 <!--Footer part -->
 <div class="footer">
@@ -106,7 +123,25 @@
 
 <script language="JavaScript">
 
-//dropdown buttons
+
+function SelectAll(ssid_list) {
+    if (ssid_list.checked) {
+    //$('ul').find(':checkbox').not(':checked').prop("checked");
+    //$(ssid_list).find(':checkbox:not(checked)').prop('checked',true)
+    $(ssid_list).closest('.panel').find(':checkbox:not(checked)').click().prop('checked',true)
+        //console.log('UP_NEW: ',up_new,'DOWN NEW: ',down_new)
+
+}
+else {
+    //$('ul').find(':checkbox').(':checked').prop( "checked", false );
+   //$('ul').find(':checkbox:checked').prop('checked',false)
+    $(ssid_list).closest('.panel').find(':checkbox:checked').prop('checked',true).click()
+    //console.log('UP_NEW: ',up_new,'DOWN NEW: ',down_new)
+    }
+}
+
+
+//accordeon popup buttons
 var acc = document.getElementsByClassName("accordion");
 var i;
 
@@ -121,6 +156,10 @@ for (i = 0; i < acc.length; i++) {
         }
     }
 }
+
+
+
+
 
 //mouseleave
 $(document).ready(function(){
@@ -209,6 +248,7 @@ $(document).ready(function(){
 //update ssid_list
     function update_ssidlist(ssid) {
     //$('span.'+ssid.id).animate({opacity: 1}, 700 );
+    console.log('Working')
     ip.push(ssid.name)
     if (ssid.checked) {
         if (!ssidlist.includes(ssid.id)) {
@@ -217,6 +257,8 @@ $(document).ready(function(){
             ip.push(ssid.ip)
             $('#Run').css('display','block');
             $('#time_label,#timercheckbox').css('display','inline-block');
+            //web_server=ssid.
+            //$("button:contains(ssid.web)").css('color','lightgreen');
         }
         else {
             index = down_new.indexOf(String(ssid.id));

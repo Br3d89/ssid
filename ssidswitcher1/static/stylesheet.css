@@ -2,21 +2,29 @@ body {
         text-align: center;
     }
 button.accordion {
-    background-color: #eee;
     border-bottom: 1px solid darkgrey;
-    color: #444;
     cursor: pointer;
     padding: 18px;
+    color:#444;
     width: 250px;
     outline: none;
     font-size: 18px;
     transition: 0.4s;
     border-radius: 15px;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
 }
 
 button.accordion.active, button.accordion:hover {
     background-color: #ddd;
+    color:red;
+}
+
+.act {
+    background-color:lightgray;
+}
+
+.pasv {
+    background-color: #eee;
 }
 
 .panel {
@@ -26,15 +34,27 @@ button.accordion.active, button.accordion:hover {
 ul.inside {
     display: none;
     list-style-type: none;
-    padding-left: 30px;
+    padding-left: 35px;
     text-align: left;
+    margin-top:0px;
 }
+
 
 .big {
     width: 780px;
     margin-left: auto;
     margin-right: auto;
+  /*  -webkit-column-count: 3; /* Chrome, Safari, Opera */
+/*   -moz-column-count: 3; /* Firefox */
+ /*  column-count: 3; */
  }
+
+.server_column {
+    width:250px;
+    display: inline-block;
+    vertical-align: top;
+}
+
 
 .footer {
     margin: 0 auto;
@@ -56,6 +76,13 @@ ul.inside {
 .media-object-section {
 }
 
+
+.title {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
 /* Title pulsation */
 .pulsate {
     -webkit-animation: pulsate 5s ease-out;
@@ -64,6 +91,7 @@ ul.inside {
     color:black;
     font-size: 2em;
     font-weight: bold;
+
 }
 @-webkit-keyframes pulsate {
     0% {
@@ -93,51 +121,4 @@ ul.inside {
     font-weight: bold;
     border-radius: 15px;
 }
-/*
-.inline {
-    display: inline-block;
-    margin-top:5px;
-    margin-bottom:5px;
-    padding:5px 8px;
-    border-radius: 15px;
-    background-color: white;
-}
-
-.login {
- float:right;
- margin-right:10px;
-}
-
-
-input[type=text],input[type=password] {
-background-color: lightgray;
-border: none;
-border-radius: 15px;
-padding-left:15px;
-width:100px;
-
-}
-input[type=submit] {
-    background-color: #eee;
-    border-bottom: 1px solid darkgrey;
-    color: #444;
-    cursor: pointer;
-    padding: 2px;
-    width: 80px;
-    outline: none;
-    font-size: 15px;
-    transition: 0.4s;
-    border-radius: 15px;
-
-}
-
-input[type=submit].active, input[type=submit]:hover {
-    background-color: #ddd;
-}
-
-.login {
- float:right;
- margin-right:10px;
-}
-
 

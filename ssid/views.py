@@ -9,6 +9,7 @@ from datetime import datetime
 from multiprocessing import Process
 from django.contrib import auth
 import sys
+import itertools
 
 class ssidForm(forms.ModelForm):
    class Meta:
@@ -55,6 +56,7 @@ def ssid_update(request):
             p.start()
             process_list.append(p)
             if ssid_objects_up:     #run disable thread only for ssid_objects_up
+                print('Creating disable thread')
                 d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors, 1))
                 d.start()
         for i in process_list:
@@ -100,11 +102,12 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
         child.sendline('logout')
         child.expect('(y/N)')
         child.sendline('y')
-        print('Cisco done')
+        print('Cisco {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         time.sleep(2)
         print(err)
@@ -143,11 +146,12 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
         child.sendline('commit apply\r')
         child.expect('#')
         child.sendline('logout')
-        print('Aruba done')
+        print('Aruba {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -176,11 +180,12 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
             if t==0:
                 ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
-        print('Unifi done')
+            print('Unifi {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -209,11 +214,12 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list
             ssid_status_list.append(m.name)
         child.expect('>')
         child.sendline('/quit\n\r')
-        print('Mikrotik done')
+        print('Mikrotik {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -222,6 +228,8 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
     #print('ruckus started', datetime.now())
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
+        fout = open('/home/bred/ssid/ssid/test.log', 'wb')
+        child.logfile = fout
         child.expect(':', timeout=pexp_timeout)
         child.sendline(ssh_username)
         child.expect('Password:')
@@ -230,20 +238,19 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         child.sendline('enable')
         child.expect('#')
         child.sendline('config')
+        child.expect('#')
         for m in ssid_objects:
-            child.expect('#')
             if (m.name in up_new) and t == 0:
                 child.sendline('wlan {}'.format(m.wlan_id))
                 child.expect('#')
                 child.sendline('type hotspot {}'.format(m.wlan_id))
+                child.sendline('end')
                 m.status = 1
                 print(m.name,' enabled')
             else:
                 child.sendline('no wlan {}'.format(m.wlan_id))
                 m.status = 0
                 print(m.name,' disabled')
-            child.expect('#')
-            child.sendline('end')
             child.expect('#')
             m.save()
             if t==0:
@@ -252,11 +259,12 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         child.sendline('end')
         child.expect('#')
         child.sendline('exit')
-        print('Ruckus done')
+        print('Rukcus {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -298,11 +306,12 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
         child.sendline('end')
         child.expect('#')
         child.sendline('logout')
-        print('Ruckusvsz done')
+        print('RuckusVSZ {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -329,11 +338,12 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list
             ssid_status_list.append(m.name)
         child.expect('#')
         child.sendline('exit')
-        print('Openwrt done')
+        print('OpenWRT {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -364,11 +374,12 @@ def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,e
             ssid_status_list.append(m.name)
         child.expect('#')
         child.sendline('exit')
-        print('ddwrt done')
+        print('DDWRT {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -407,11 +418,12 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         child.sendline('y')
         child.expect('>')
         child.sendline('quit')
-        print('Huawei done')
+        print('Huawei {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
         time.sleep(1)
@@ -437,11 +449,12 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
             if t==0:
                 ssids_busy.remove(m.name)
             ssid_status_list.append(m.name)
-        print('Meraki done')
+        print('Meraki {} done'.format(i))
         time.sleep(1)
     except requests.exceptions.ConnectionError as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)
+            ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
         print(err)
 
@@ -450,14 +463,41 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
 def index(request,args={}):
     all_list = list(ssid.objects.values_list('name', flat=True))
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
+    servers_with_up_ssids=list(ssid.objects.values_list('web', flat=True).distinct().filter(status='1'))
+    servers_with_down_ssids = list(ssid.objects.values_list('web', flat=True).distinct().filter(status='0').order_by('web'))
+    servers_ssids_sorted=[]+servers_with_up_ssids
+    for i in servers_with_down_ssids:
+        if i not in servers_with_up_ssids:
+            servers_ssids_sorted.append(i)
     errors=[]
     ctx = {}
     ctx.update(args)
+
+    #Index button position logic
+    div_1 = []
+    div_2 = []
+    div_3 = []
+    div=[div_1,div_2,div_3]
+    div_cycle = itertools.cycle([0,1,2])
+    for i in servers_ssids_sorted:
+        div[next(div_cycle)].append(i)
+    div_enum=enumerate(div)
+    # End of Index button position logic
+
     ctx['ssids_busy']=ssids_busy
     ctx['ssid_status_list']=ssid_status_list
     ctx['all_up_ssids']=all_up_ssids
+    ctx['servers_with_up_ssids']=servers_with_up_ssids
     ctx['latest'] = ssid.objects.order_by('-vendor')
-    ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
+    #ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
+    #ctx['servers'] = list(ssid.objects.values_list('web', flat=True).distinct().order_by('web'))
+    ctx['servers']=servers_ssids_sorted
+    ctx['servers_len']=len(servers_ssids_sorted)
+    ctx['servers_divide']=len(servers_ssids_sorted) % 3
+    ctx['servers_ipp']=len(servers_ssids_sorted) // 3
+    ctx['servers_ipp_range']=range(len(servers_ssids_sorted) // 3)
+    ctx['column_range']=range(3)
+    ctx['servers_enum']=div_enum
     ctx['ok']='Run'
     ctx['username']=auth.get_user(request).username
     if request.method == 'POST':

@@ -123,7 +123,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
         child.expect(':', timeout=pexp_timeout)
         child.sendline("{}\r".format(ssh_password))
         k=child.expect(["#",">"])
-        if k[0]=="0":
+        if k==0:
             child.sendline('conf\r')
             for m in ssid_objects:
                 child.expect('#')

@@ -4,14 +4,14 @@ from django.db import models
 
 
 class ssid(models.Model):
-    name=models.CharField(max_length=120,unique=True)
-    status=models.IntegerField()
-    vendor=models.CharField(max_length=120)
-    ip=models.CharField(max_length=120)
-    radius=models.CharField(max_length=120)
-    web=models.CharField(max_length=120)
-    acl=models.CharField(max_length=120,blank=True)
-    wlan_id=models.CharField(max_length=120,default="")
+    name=models.CharField(max_length=120,unique=True,verbose_name="SSID_NAME")
+    status=models.IntegerField(verbose_name="SSID_STATUS")
+    vendor=models.CharField(max_length=120,verbose_name="SSID_VENDOR")
+    ip=models.CharField(max_length=120,verbose_name="WIFI_DEVICE_IP")
+    radius=models.CharField(max_length=120,verbose_name="RADIUS_SERVER_IP")
+    web=models.CharField(max_length=120,verbose_name="WEB_SERVER_DNS")
+    acl=models.CharField(max_length=120,blank=True,verbose_name="ACL_ON_DEVICE")
+    wlan_id=models.CharField(max_length=120,default="",verbose_name="WLAN_ID")
 
     def __str__(self):
         return 'Name:{} Status:{}'.format(self.name, self.status)

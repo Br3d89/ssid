@@ -86,7 +86,7 @@
                       {% endif %}
                       <ul class="inside">
                             <li style="margin-bottom: 5px;"><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ n }}">http://{{ n }}</a></li>
-                            <li><input type="checkbox" onclick="SelectAll(this)"/>Select all</li>
+                            <li><input disabled="true" type="checkbox" onclick="SelectAll(this)"/>Select all</li>
                             {% for j in latest %}
                                 {% if j.web == n %}
                                     {% if j.status %}

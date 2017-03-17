@@ -538,6 +538,7 @@ def index(request,args={}):
         if user is not None:
             auth.login(request, user)
             return redirect('/')
+
         else:
             ctx['login_error'] = 'Пользователь не найден'
             return render(request, 'index.html', ctx)

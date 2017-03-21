@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 
 # Create your models here.
 
@@ -13,6 +13,9 @@ class ssid(models.Model):
     web=models.CharField(max_length=120,verbose_name="WEB_SERVER_DNS")
     acl=models.CharField(max_length=120,blank=True,verbose_name="ACL_ON_DEVICE")
     wlan_id=models.CharField(max_length=120,default="",verbose_name="WLAN_ID")
+    ap_mac=models.CharField(max_length=120,default="00:00:00:00:00:00",verbose_name="AP_MAC")
+    group=models.ForeignKey(Group, default=1, verbose_name="GROUP_NAME")
+
 
     def __str__(self):
         return 'Name:{} Status:{}'.format(self.name, self.status)

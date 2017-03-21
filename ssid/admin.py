@@ -11,4 +11,3 @@ class SsidAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ssid, SsidAdmin)
-admin.site.register(User)

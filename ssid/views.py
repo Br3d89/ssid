@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse, HttpResponse
-from .models import ssid
+from .models import ssid,vendor
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
 import copy
@@ -49,15 +49,15 @@ def ssid_update(request):
         ip_list = set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
         process_list = []
         for i in ip_list:
-            vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
+            vendor_name = str(vendor.objects.get(pk=list(set(ssid.objects.values_list('vendor_id', flat=True).filter(ip=i)))[0]))
             ssid_objects = ssid.objects.filter(ip=i, name__in=rcv_ssids)  # all ssids within device
             ssid_objects_up=ssid.objects.filter(ip=i, name__in=up_new)
-            p = (threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors)))
+            p = (threading.Thread(target=globals()['{}'.format(vendor_name)],args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors)))
             p.start()
             process_list.append(p)
             if ssid_objects_up:     #run disable thread only for ssid_objects_up
                 print('Creating disable thread')
-                d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors, 1))
+                d = threading.Timer(timeout_value, globals()['{}'.format(vendor_name)],args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors, 1))
                 d.start()
         for i in process_list:
             i.join()
@@ -519,7 +519,7 @@ def index(request,args={}):
     ctx['ssid_status_list']=ssid_status_list
     ctx['all_up_ssids']=all_up_ssids
     ctx['servers_with_up_ssids']=servers_with_up_ssids
-    ctx['latest'] = ssid.objects.order_by('-vendor')
+    ctx['latest'] = ssid.objects.order_by('-vendor_id')
     #ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
     #ctx['servers'] = list(ssid.objects.values_list('web', flat=True).distinct().order_by('web'))
     ctx['servers']=servers_ssids_sorted

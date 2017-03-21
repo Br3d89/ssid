@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 
-from .models import ssid,vendor,device_ip,auth_server_name
+from .models import ssid,vendor,device_ip,auth_server
 
 
 class SsidAdmin(admin.ModelAdmin):
@@ -11,4 +11,4 @@ class SsidAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ssid, SsidAdmin)
-admin.site.register([vendor,device_ip,auth_server_name])
+admin.site.register([vendor,device_ip,auth_server])

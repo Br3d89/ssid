@@ -17,8 +17,9 @@ class device_ip(models.Model):
         return '{}'.format(self.name)
 
 
-class auth_server_name(models.Model):
+class auth_server(models.Model):
     name=models.CharField(max_length=120, default="",unique=True,verbose_name="WEB_SERVER_DNS")
+    ip=models.CharField(max_length=120,default="", verbose_name="RADIUS_SERVER_IP")
     def __str__(self):
         return '{}'.format(self.name)
 
@@ -28,8 +29,8 @@ class ssid(models.Model):
     status=models.IntegerField(verbose_name="SSID_STATUS")
     vendor=models.ForeignKey(vendor)
     ip=models.ForeignKey(device_ip)
-    radius=models.CharField(max_length=120,verbose_name="RADIUS_SERVER_IP")
-    web=models.ForeignKey(auth_server_name)
+    #radius=models.CharField(max_length=120,verbose_name="RADIUS_SERVER_IP")
+    web=models.ForeignKey(auth_server)
     acl=models.CharField(max_length=120,blank=True,verbose_name="ACL_ON_DEVICE")
     wlan_id=models.CharField(max_length=120,default="",verbose_name="WLAN_ID")
     ap_mac=models.CharField(max_length=120,default="00:00:00:00:00:00",verbose_name="AP_MAC")

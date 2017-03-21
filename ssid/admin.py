@@ -10,5 +10,4 @@ class SsidAdmin(admin.ModelAdmin):
     search_fields = ('name','web','ip','vendor')
 
 
-admin.site.register(ssid, SsidAdmin,User)
-
+admin.site.register(ssid, SsidAdmin)

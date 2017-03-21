@@ -12,7 +12,7 @@ class vendor(models.Model):
 class device_ip(models.Model):
     name=models.CharField(max_length=120,default="",unique=True, verbose_name="WIFI_DEVICE_IP")
     vendor=models.ForeignKey(vendor,default="")
-    mac=models.CharField(max_length=120,default="00:00:00:00:00:00",unique=True,verbose_name="NETWORK_MAC_ADDRESS")
+    mac=models.CharField(max_length=120,default="00:00:00:00:00:00",unique=True,verbose_name="MAC_ADDRESS")
     def __str__(self):
         return '{}'.format(self.name)
 

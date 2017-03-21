@@ -7,7 +7,7 @@ class vendor(models.Model):
     vendor = models.CharField(max_length=120, default="",verbose_name="SSID_VENDOR")
 
     def __str__(self):
-        return 'Name:{}'.format(self.vendor)
+        return '{}'.format(self.vendor)
 
 
 class ssid(models.Model):

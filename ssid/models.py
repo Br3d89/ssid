@@ -10,13 +10,13 @@ class vendor(models.Model):
 
 
 class device_ip(models.Model):
-    name=models.CharField(max_length=120,default="", verbose_name="WIFI_DEVICE_IP")
+    name=models.CharField(max_length=120,default="",unique=True, verbose_name="WIFI_DEVICE_IP")
     def __str__(self):
         return '{}'.format(self.name)
 
 
 class auth_server_name(models.Model):
-    name=models.CharField(max_length=120, default="",verbose_name="WEB_SERVER_DNS")
+    name=models.CharField(max_length=120, default="",unique=True,verbose_name="WEB_SERVER_DNS")
     def __str__(self):
         return '{}'.format(self.name)
 

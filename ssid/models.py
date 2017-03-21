@@ -11,6 +11,7 @@ class vendor(models.Model):
 
 class device_ip(models.Model):
     name=models.CharField(max_length=120,default="",unique=True, verbose_name="WIFI_DEVICE_IP")
+    vendor=models.ForeignKey(vendor,default="")
     def __str__(self):
         return '{}'.format(self.name)
 

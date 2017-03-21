@@ -4,7 +4,10 @@ from django.contrib.auth.models import User,Group
 # Create your models here.
 
 class vendor(models.Model):
-    vendor = models.CharField(max_length=120, default=1,verbose_name="SSID_VENDOR")
+    vendor = models.CharField(max_length=120, default="",verbose_name="SSID_VENDOR")
+
+    def __str__(self):
+        return 'Name:{}'.format(self.vendor)
 
 
 class ssid(models.Model):

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
 
 from .models import ssid
 
@@ -9,5 +10,5 @@ class SsidAdmin(admin.ModelAdmin):
     search_fields = ('name','web','ip','vendor')
 
 
-admin.site.register(ssid, SsidAdmin)
+admin.site.register(ssid, SsidAdmin,User)
 

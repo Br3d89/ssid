@@ -38,7 +38,9 @@
 
 {{ perms.ssid }}
 <br>
-{{ user.groups.all }}
+{% if user|has_group:"qa"%}
+      <div> Admins can see everything </div>
+{% endif %}
 
 <!--Test-->
 <div class="big">

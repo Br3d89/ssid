@@ -3,11 +3,14 @@ from django.contrib.auth.models import User,Group
 
 # Create your models here.
 
+class vendor(models.Model):
+    vendor = models.CharField(max_length=120, default=1,verbose_name="SSID_VENDOR")
+
 
 class ssid(models.Model):
     name=models.CharField(max_length=120,unique=True,verbose_name="SSID_NAME")
     status=models.IntegerField(verbose_name="SSID_STATUS")
-    vendor=models.CharField(max_length=120,verbose_name="SSID_VENDOR")
+    vendor=models.ForeignKey(vendor)
     ip=models.CharField(max_length=120,verbose_name="WIFI_DEVICE_IP")
     radius=models.CharField(max_length=120,verbose_name="RADIUS_SERVER_IP")
     web=models.CharField(max_length=120,verbose_name="WEB_SERVER_DNS")

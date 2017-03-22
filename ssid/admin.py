@@ -4,7 +4,7 @@ from .models import ssid,vendor,device_ip,auth_server
 
 
 class SsidAdmin(admin.ModelAdmin):
-    fields = ('name', 'status', 'wlan_id', 'vendor_id', 'ip_id','web_id')
+    fields = ('name', 'status', 'wlan', 'vendor', 'ip','web')
     list_display = ('name', 'web.name','ip.name','status','vendor')
 
 

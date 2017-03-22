@@ -22,7 +22,7 @@ class auth_server(models.Model):
     name=models.CharField(max_length=120, default="",unique=True,verbose_name="WEB_SERVER_DNS")
     ip=models.CharField(max_length=120,default="", verbose_name="RADIUS_SERVER_IP")
     def __str__(self):
-        return '{}'.format(self.name)
+        return '{}'.format(self.ip)
 
 
 class ssid(models.Model):

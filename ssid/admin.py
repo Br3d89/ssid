@@ -11,8 +11,8 @@ from .models import ssid,vendor,device_ip,auth_server
 
 class SsidAdmin(admin.ModelAdmin):
     fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web','group')
-    #list_display = ('name', 'web','ip','status','vendor')
-    #search_fields = ('name', 'web', 'ip', 'vendor', 'group', 'ap_mac')
+    list_display = ('name', 'web','ip','status','vendor','group')
+    search_fields = ('name', 'web', 'ip', 'vendor', 'group', 'ap_mac')
 
 
 admin.site.register(ssid, SsidAdmin)

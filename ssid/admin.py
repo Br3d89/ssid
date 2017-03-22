@@ -14,7 +14,7 @@ class SsidAdmin(admin.ModelAdmin):
     list_display = ('name', 'web','ip','status','vendor','group')
     #list_filter = ('name','web')
     #search_fields = ('name', 'web', 'ip', 'vendor', 'group', 'ap_mac')
-    search_fields = ('web__name',)
+    search_fields = ('name','web__name','vendor__name','ip__name','ap_mac',)
 
 
 admin.site.register(ssid, SsidAdmin)

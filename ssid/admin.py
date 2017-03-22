@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ssid
+from .models import ssid,vendor,device_ip,auth_server
 
 
 class SsidAdmin(admin.ModelAdmin):
@@ -9,4 +9,4 @@ class SsidAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ssid, SsidAdmin)
-
+admin.site.register([vendor,device_ip,auth_server])

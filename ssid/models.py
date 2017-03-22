@@ -8,8 +8,7 @@ class vendor(models.Model):
     name = models.CharField(max_length=120,unique=True, default="")
     def __str__(self):
         return '{}'.format(self.name)
-    def __call__(self, *args, **kwargs):
-        return '{}'.format(self.name)
+
 
 
 class device_ip(models.Model):
@@ -18,8 +17,7 @@ class device_ip(models.Model):
     mac=models.CharField(max_length=120,default="00:00:00:00:00:00",unique=True,verbose_name="MAC_ADDRESS")
     def __str__(self):
         return '{}'.format(self.name)
-    def __call__(self, *args, **kwargs):
-        return '{}'.format(self.name)
+
 
 
 class auth_server(models.Model):
@@ -27,8 +25,8 @@ class auth_server(models.Model):
     ip=models.CharField(max_length=120,default="", verbose_name="RADIUS_SERVER_IP")
     def __str__(self):
         return '{}'.format(self.name)
-    def __call__(self, *args, **kwargs):
-        return '{}'.format(self.name)
+    def __unicode__(self):
+        return self.name
 
 
 class ssid(models.Model):

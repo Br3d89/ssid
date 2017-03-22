@@ -16,4 +16,3 @@ class ssid(models.Model):
     def __str__(self):
         return 'Name:{} Status:{}'.format(self.name, self.status)
 
-test

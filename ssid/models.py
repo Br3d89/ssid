@@ -5,13 +5,13 @@ from django.contrib.auth.models import User,Group
 
 
 class vendor(models.Model):
-    name = models.CharField(max_length=120,unique=True, default="",verbose_name="SSID_VENDOR")
+    name = models.CharField(max_length=120,unique=True, default="")
     def __str__(self):
         return '{}'.format(self.name)
 
 
 class device_ip(models.Model):
-    name=models.CharField(max_length=120,default="",unique=True, verbose_name="WIFI_DEVICE_IP")
+    name=models.CharField(max_length=120,default="",unique=True)
     vendor=models.ForeignKey(vendor,default="")
     mac=models.CharField(max_length=120,default="00:00:00:00:00:00",unique=True,verbose_name="MAC_ADDRESS")
     def __str__(self):
@@ -19,19 +19,19 @@ class device_ip(models.Model):
 
 
 class auth_server(models.Model):
-    name=models.CharField(max_length=120, default="",unique=True,verbose_name="WEB_SERVER_DNS")
+    name=models.CharField(max_length=120, default="",unique=True)
     ip=models.CharField(max_length=120,default="", verbose_name="RADIUS_SERVER_IP")
     def __str__(self):
-        return '{}'.format(self.ip)
+        return '{}'.format(self.name)
 
 
 class ssid(models.Model):
     name = models.CharField(max_length=120, unique=True, verbose_name="SSID_NAME")
     status = models.IntegerField(verbose_name="SSID_STATUS",default=0)
-    vendor = models.ForeignKey(vendor)
-    ip = models.ForeignKey(device_ip)
+    vendor = models.ForeignKey(vendor, verbose_name="SSID_VENDOR")
+    ip = models.ForeignKey(device_ip, verbose_name="WIFI_DEVICE_IP")
     #radius=models.CharField(max_length=120)
-    web = models.ForeignKey(auth_server)
+    web = models.ForeignKey(auth_server, verbose_name="WEB_SERVER_DNS")
     acl = models.CharField(max_length=120, blank=True, verbose_name="ACL_ON_DEVICE")
     wlan_id = models.CharField(max_length=120, default="", verbose_name="WLAN_ID")
     ap_mac = models.CharField(max_length=120, default="00:00:00:00:00:00", verbose_name="AP_MAC")

@@ -46,12 +46,12 @@ def ssid_update(request):
         timeout_value = int(json.loads(request.POST.get('timer')))*60
         rcv_ssids = up_new + down_new
         [ssids_busy.append(i) for i in rcv_ssids]
-        ip_list = set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
+        ip_list = list(ssid.objects.values_list('ip__name', flat=True).distinct().filter(name__in=rcv_ssids))
         process_list = []
         for i in ip_list:
-            vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
-            ssid_objects = ssid.objects.filter(ip=i, name__in=rcv_ssids)  # all ssids within device
-            ssid_objects_up=ssid.objects.filter(ip=i, name__in=up_new)
+            vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
+            ssid_objects = ssid.objects.filter(ip__name=i, name__in=rcv_ssids)  # all ssids within device
+            ssid_objects_up=ssid.objects.filter(ip__name=i, name__in=up_new)
             p = (threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors)))
             p.start()
             process_list.append(p)
@@ -463,8 +463,8 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
 def index(request,args={}):
     all_list = list(ssid.objects.values_list('name', flat=True))
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
-    servers_with_up_ssids=list(ssid.objects.values_list('web', flat=True).distinct().filter(status='1'))
-    servers_with_down_ssids = list(ssid.objects.values_list('web', flat=True).distinct().filter(status='0').order_by('web'))
+    servers_with_up_ssids=list(ssid.objects.values_list('web__name', flat=True).distinct().filter(status='1'))
+    servers_with_down_ssids = list(ssid.objects.values_list('web__name', flat=True).distinct().filter(status='0').order_by('web_id'))
     servers_ssids_sorted=[]+servers_with_up_ssids
     for i in servers_with_down_ssids:
         if i not in servers_with_up_ssids:
@@ -488,7 +488,7 @@ def index(request,args={}):
     ctx['ssid_status_list']=ssid_status_list
     ctx['all_up_ssids']=all_up_ssids
     ctx['servers_with_up_ssids']=servers_with_up_ssids
-    ctx['latest'] = ssid.objects.order_by('-vendor')
+    ctx['latest'] = ssid.objects.order_by('-vendor_id')
     #ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
     #ctx['servers'] = list(ssid.objects.values_list('web', flat=True).distinct().order_by('web'))
     ctx['servers']=servers_ssids_sorted

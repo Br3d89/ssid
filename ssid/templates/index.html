@@ -52,7 +52,7 @@
                             <li style="margin-bottom: 5px;"><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ n }}">http://{{ n }}</a></li>
                             <li><input type="checkbox" onclick="SelectAll(this)"/>Select all</li>
                             {% for j in latest %}
-                                {% if j.web == n %}
+                                {% if j.web.name == n %}
                                     {% if j.name in ssids_busy %}
                                         {% if j.status %}
                                             <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:red" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }} - Busy </span></a></li>
@@ -254,7 +254,7 @@ $(document).ready(function(){
         if (!ssidlist.includes(ssid.id)) {
             $('span.'+ssid.id).css({color:'green',opacity: 0.2}).animate({opacity: 1}, 700 );
             up_new.push(ssid.id)
-            ip.push(ssid.ip)
+            //ip.push(ssid.ip)
             $('#Run').css('display','block');
             $('#time_label,#timercheckbox').css('display','inline-block');
             //web_server=ssid.

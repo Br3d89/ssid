@@ -9,9 +9,10 @@
     <ul>
 <li>Name: {{ instance.name }}<br></li>
 <li>Radius server ip: {{ instance.radius }}</li>
-<li>WEB server: {{ instance.web }}</li>
-<li>Vendor: {{ instance.vendor }}</li>
-<li>Device ip: {{ instance.ip }}</li>
+<li>WEB server: {{ instance.web.name }}</li>
+<li>Vendor: {{ instance.vendor.name }}</li>
+<li>Device ip: {{ instance.ip.name }}</li>
+<li>Device mac: {{ instance.ap_mac }}</li>
         </ul>
 <a href="/">To Main</a>
 </div>

@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_python3_ldap'
+    'django_python3_ldap',
     'ssid'
 ]
 

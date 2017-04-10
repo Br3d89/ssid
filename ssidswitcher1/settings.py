@@ -130,7 +130,7 @@ AUTHENTICATION_BACKENDS = (
 #AUTH_PASSWORD_VALIDATORS=['django.contrib.auth.backends.ModelBackend','django_python3_ldap.auth.LDAPBackend']
 
 # The URL of the LDAP server.
-LDAP_AUTH_URL = "l0.1.16.250"
+LDAP_AUTH_URL = "ldap://localhost:389"
 
 # Initiate TLS on connection.
 LDAP_AUTH_USE_TLS = False

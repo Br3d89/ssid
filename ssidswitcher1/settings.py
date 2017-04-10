@@ -182,3 +182,20 @@ LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = "net.wi-fi-bar.com"
 # management command. Set to None if you allow anonymous queries.
 LDAP_AUTH_CONNECTION_USERNAME = "Administrator"
 LDAP_AUTH_CONNECTION_PASSWORD = "1DFl1H45"
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django_python3_ldap": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+    },
+}

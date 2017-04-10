@@ -123,7 +123,10 @@ STATIC_URL = '/static/'
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-AUTHENTICATION_BACKENDS=["django_python3_ldap.auth.LDAPBackend",]
+AUTHENTICATION_BACKENDS = (
+    'django_python3_ldap.auth.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 #AUTH_PASSWORD_VALIDATORS=['django.contrib.auth.backends.ModelBackend','django_python3_ldap.auth.LDAPBackend']
 
 # The URL of the LDAP server.

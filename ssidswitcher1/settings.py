@@ -195,7 +195,7 @@ LOGGING = {
     "loggers": {
         "django_python3_ldap": {
             "handlers": ["console"],
-            "level": "INFO",
+            "level": "DEBUG",
         },
     },
 }

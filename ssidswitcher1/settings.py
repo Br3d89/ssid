@@ -177,7 +177,7 @@ LDAP_AUTH_MEMBER_OF_ATTRIBUTE = "memberOf"
 
 LDAP_AUTH_GROUP_ATTRS = {
   "CN=ssidapp_staff,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "is_staff",
-  "CN=ssidapp_superuser,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "superuser",
+  "CN=ssidapp_superuser,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "is_superuser",
 }
 
 # Group memberships that map to the name of a group the user is a member of.

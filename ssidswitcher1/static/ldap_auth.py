@@ -49,7 +49,7 @@ from django_python3_ldap.utils import format_search_filters
 from my_django_project.settings import LDAP_AUTH_MEMBER_OF_ATTRIBUTE
 from my_django_project.settings import LDAP_AUTH_GROUP_MEMBER_OF
 from my_django_project.settings import LDAP_AUTH_SYNC_USER_RELATIONS_GROUPS
-
+from my_django_project.settings import LDAP_AUTH_GROUP_RELATIONS
 
 def custom_format_search_filters(ldap_fields):
     # custom search filter (e.g. check "memberOf" against configured value)

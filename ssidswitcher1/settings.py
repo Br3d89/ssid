@@ -162,16 +162,32 @@ LDAP_AUTH_CLEAN_USER_DATA = "django_python3_ldap.utils.clean_user_data"
 # and saves any additional user relationships based on the LDAP data.
 # Use this to customize how data loaded from LDAP is saved to User model relations.
 # For customizing non-related User model fields, use LDAP_AUTH_CLEAN_USER_DATA.
-LDAP_AUTH_SYNC_USER_RELATIONS = "django_python3_ldap.utils.sync_user_relations"
+#LDAP_AUTH_SYNC_USER_RELATIONS = "django_python3_ldap.utils.sync_user_relations"
+LDAP_AUTH_SYNC_USER_RELATIONS="ssidswitcher1.static.ldap_auth.custom_sync_user_relations"
 
 # Path to a callable that takes a dict of {ldap_field_name: value},
 # returning a list of [ldap_search_filter]. The search filters will then be AND'd
 # together when creating the final search filter.
 #LDAP_AUTH_FORMAT_SEARCH_FILTERS = "django_python3_ldap.utils.format_search_filters"
 
-LDAP_AUTH_FORMAT_SEARCH_FILTERS="ssidswitcher1.static.ldap-search-filter.custom_format_search_filters"
+#LDAP_AUTH_FORMAT_SEARCH_FILTERS="ssidswitcher1.static.ldap-search-filter.custom_format_search_filters"
+LDAP_AUTH_FORMAT_SEARCH_FILTERS="ssidswitcher1.static.ldap_auth.custom_format_search_filters"
 
+LDAP_AUTH_MEMBER_OF_ATTRIBUTE = "memberOf"
 
+LDAP_AUTH_GROUP_ATTRS = {
+  "cn=django_my_django_project_staff,ou=guest,ou=ua,ou=world,dc=net,dc=wi-fi-bar,dc=com": "is_staff",
+  "cn=django_my_django_project_superuser,ou=guest,ou=ua,ou=world,dc=net,dc=wi-fi-bar,dc=com": "superuser",
+}
+
+# Group memberships that map to the name of a group the user is a member of.
+# HACK: Group names are not unique in Django, but hardcoding group PKs seems wrong.
+LDAP_AUTH_GROUP_RELATIONS = {
+  "cn=dev,ou=groups,dc=net,dc=wi-fi-bar,dc=com": "dev",
+  "cn=noc,ou=groups,dc=net,dc=wi-fi-bar,dc=com": "noc",
+}
+
+LDAP_AUTH_GROUP_MEMBER_OF = "cn=django_my_django_project,ou=guest,ou=ua,ou=world,dc=net,dc=wi-fi-bar,dc=com"
 
 # Path to a callable that takes a dict of {model_field_name: value}, and returns
 # a string of the username to bind to the LDAP server.

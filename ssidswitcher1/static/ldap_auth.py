@@ -46,10 +46,11 @@ from django.contrib.auth.models import Group
 
 from django_python3_ldap.utils import format_search_filters
 
-from my_django_project.settings import LDAP_AUTH_MEMBER_OF_ATTRIBUTE
-from my_django_project.settings import LDAP_AUTH_GROUP_MEMBER_OF
-from my_django_project.settings import LDAP_AUTH_SYNC_USER_RELATIONS_GROUPS
-from my_django_project.settings import LDAP_AUTH_GROUP_RELATIONS
+from ssidswitcher1.settings import LDAP_AUTH_MEMBER_OF_ATTRIBUTE
+from ssidswitcher1.settings import LDAP_AUTH_GROUP_MEMBER_OF
+#from ssidswitcher1.settings import LDAP_AUTH_SYNC_USER_RELATIONS_GROUPS
+from ssidswitcher1.settings import LDAP_AUTH_GROUP_ATTRS
+from ssidswitcher1.settings import LDAP_AUTH_GROUP_RELATIONS
 
 def custom_format_search_filters(ldap_fields):
     # custom search filter (e.g. check "memberOf" against configured value)
@@ -66,18 +67,9 @@ def custom_sync_user_relations(user, ldap_attributes):
       setattr(user, attr_name, group_id in group_memberships)
     user.save()
     # Sync user model groups.
-    user.group_set.add(*Group.objects.filter(name__in=[
-        group_name
-        for group_id, group_name
-        in LDAP_AUTH_GROUP_RELATIONS.items():
-        if group_id in group_memberships
-    ])
-    user.group_set.remove(*Group.objects.filter(name__in=[
-        group_name
-        for group_id, group_name
-        in LDAP_AUTH_GROUP_RELATIONS.items():
-        if group_id not in group_memberships
-    ])
+    user.group_set.add(*Group.objects.filter(name__in=[group_name for group_id, group_name in LDAP_AUTH_GROUP_RELATIONS.items() if group_id in group_memberships]))
+
+    user.group_set.remove(*Group.objects.filter(name__in=[group_name for group_id, group_name in LDAP_AUTH_GROUP_RELATIONS.items() if group_id not in group_memberships]))
     # All done!
     return
 

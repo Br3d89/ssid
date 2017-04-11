@@ -66,7 +66,7 @@ def custom_sync_user_relations(user, ldap_attributes):
         setattr(user, attr_name, group_id in group_memberships)
     user.save()
     # Sync user model groups.
-    user.grous.add(*Group.objects.filter(name__in=[group_name for group_id, group_name in LDAP_AUTH_GROUP_RELATIONS.items() if group_id in group_memberships]))
+    user.groups.add(*Group.objects.filter(name__in=[group_name for group_id, group_name in LDAP_AUTH_GROUP_RELATIONS.items() if group_id in group_memberships]))
     user.groups.remove(*Group.objects.filter(name__in=[group_name for group_id, group_name in LDAP_AUTH_GROUP_RELATIONS.items() if group_id not in group_memberships]))
     # All done!
     return

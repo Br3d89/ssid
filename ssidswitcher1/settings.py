@@ -176,15 +176,15 @@ LDAP_AUTH_FORMAT_SEARCH_FILTERS="ssidswitcher1.static.ldap_auth.custom_format_se
 LDAP_AUTH_MEMBER_OF_ATTRIBUTE = "memberOf"
 
 LDAP_AUTH_GROUP_ATTRS = {
-  "cn=django_my_django_project_staff,ou=guest,ou=ua,ou=world,dc=net,dc=wi-fi-bar,dc=com": "is_staff",
-  "cn=django_my_django_project_superuser,ou=guest,ou=ua,ou=world,dc=net,dc=wi-fi-bar,dc=com": "superuser",
+  "CN=django_my_django_project_staff,OU=guest,OU=ua,OU=world,DC=net,DC=wi-fi-bar,DC=com": "is_staff",
+  "CN=django_my_django_project_superuser,OU=guest,OU=ua,OU=world,DC=net,DC=wi-fi-bar,DC=com": "superuser",
 }
 
 # Group memberships that map to the name of a group the user is a member of.
 # HACK: Group names are not unique in Django, but hardcoding group PKs seems wrong.
 LDAP_AUTH_GROUP_RELATIONS = {
-  "cn=dev,ou=groups,dc=net,dc=wi-fi-bar,dc=com": "dev",
-  "cn=noc,ou=groups,dc=net,dc=wi-fi-bar,dc=com": "noc",
+  "CN=dev,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "dev",
+  "CN=noc,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "noc",
 }
 
 LDAP_AUTH_GROUP_MEMBER_OF = "cn=django_my_django_project,ou=guest,ou=ua,ou=world,dc=net,dc=wi-fi-bar,dc=com"

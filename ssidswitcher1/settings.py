@@ -176,8 +176,8 @@ LDAP_AUTH_FORMAT_SEARCH_FILTERS="ssidswitcher1.static.ldap_auth.custom_format_se
 LDAP_AUTH_MEMBER_OF_ATTRIBUTE = "memberOf"
 
 LDAP_AUTH_GROUP_ATTRS = {
-  "CN=django_my_django_project_staff,OU=guest,OU=ua,OU=world,DC=net,DC=wi-fi-bar,DC=com": "is_staff",
-  "CN=django_my_django_project_superuser,OU=guest,OU=ua,OU=world,DC=net,DC=wi-fi-bar,DC=com": "superuser",
+  "CN=ssidapp_staff,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "is_staff",
+  "CN=ssidapp_superuser,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "superuser",
 }
 
 # Group memberships that map to the name of a group the user is a member of.
@@ -185,9 +185,11 @@ LDAP_AUTH_GROUP_ATTRS = {
 LDAP_AUTH_GROUP_RELATIONS = {
   "CN=dev,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "dev",
   "CN=noc,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "noc",
+  "CN=qa,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "qa",
+  "CN=soc,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "soc",
 }
 
-LDAP_AUTH_GROUP_MEMBER_OF = "cn=django_my_django_project,ou=guest,ou=ua,ou=world,dc=net,dc=wi-fi-bar,dc=com"
+LDAP_AUTH_GROUP_MEMBER_OF = "CN=ssidapp,OU=groups,DC=net,DC=wi-fi-bar,DC=com"
 
 # Path to a callable that takes a dict of {model_field_name: value}, and returns
 # a string of the username to bind to the LDAP server.

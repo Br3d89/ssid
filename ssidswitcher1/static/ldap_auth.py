@@ -60,12 +60,12 @@ def custom_format_search_filters(ldap_fields):
 
 
 def custom_sync_user_relations(user, ldap_attributes):
-    print('User={}/nLdap_attributes={}'.format(user,ldap_attributes))
+    #print('User={}/nLdap_attributes={}'.format(user,ldap_attributes))
     group_memberships = ldap_attributes[LDAP_AUTH_MEMBER_OF_ATTRIBUTE]
-    print(group_memberships)
+    #print(group_memberships)
     # Sync user model boolean attrs.
     for group_id, attr_name in LDAP_AUTH_GROUP_ATTRS.items():
-        print('Group id={},/n attr_name={}'.format(group_id,attr_name))
+        #print('Group id={},/n attr_name={}'.format(group_id,attr_name))
         setattr(user, attr_name, group_id in group_memberships)
     user.save()
     # Sync user model groups.

@@ -136,7 +136,7 @@ LDAP_AUTH_URL = "ldap://dc:389"
 LDAP_AUTH_USE_TLS = False
 
 # The LDAP search base for looking up users.
-LDAP_AUTH_SEARCH_BASE = "OU=guest,OU=ua,OU=world,DC=net,DC=wi-fi-bar,DC=com"
+LDAP_AUTH_SEARCH_BASE = "OU=ua,OU=world,DC=net,DC=wi-fi-bar,DC=com"
 
 # The LDAP class that represents a user.
 LDAP_AUTH_OBJECT_CLASS = "organizationalPerson"

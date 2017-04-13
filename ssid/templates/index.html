@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <link href="{% static 'stylesheet.css' %}" rel="stylesheet" type="text/css" >
     <link href="{% static 'bred.css' %}" rel="stylesheet" type="text/css" >
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
     <script src="{% static 'jquery-3.1.1.min.js'%}"></script>
  <!--   <script src="{% static 'main.js'%}"></script> -->
    <!-- <meta http-equiv="refresh" content="120"> -->
@@ -36,6 +37,13 @@
 
 
 {% if username %}
+ <div id="header">
+  <div class="login_form">
+    <a href="/auth/profile" style="color: black;text-decoration: none">Профиль ({{ username }})</a>
+    <button class="logout_btn" onclick="location.href='/auth/logout/'" type="button">Выйти</button>
+  </div>
+ </div>
+
 <div class="title"><p class="pulsate">Select server...</p></div>
 <div class="big">
 
@@ -73,8 +81,23 @@
               {% endfor %}
           </div>
      {% endfor %}
-   {% endif %}
 
+
+{% else %}
+<div id="login_container">
+	<div id="form_container">
+		<form method='POST' action="/auth/login/">
+            {% csrf_token %}
+		<input type='text' onFocus="if(this.value=='Login')this.value=''" onblur="if(this.value=='')this.value='Login'" name='username' value='Login' class='text_input' />
+		<input type='text' onFocus="if(this.value=='Password')this.value=''" onblur="if(this.value=='')this.value='Password'" name='password' value='Password' class='text_input' />
+         {% if login_error %}
+         <label class="error">{{login_error}}</label>
+         {% endif %}
+		<input type='submit' value='' id='login' name='login' />
+		</form>
+	</div>
+</div>
+{% endif %}
 
 <br>
 <!--Footer part -->

@@ -44,6 +44,7 @@ ul.inside {
     width: 780px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
   /*  -webkit-column-count: 3; /* Chrome, Safari, Opera */
 /*   -moz-column-count: 3; /* Firefox */
  /*  column-count: 3; */

@@ -479,13 +479,23 @@ def index(request,args={}):
     ctx.update(args)
     div = []
     iter_list = []
-    for i in range(len(servers_with_up_ssids + servers_with_down_ssids)):
-        div.append([])
-        iter_list.append(i)
-    div_cycle = itertools.cycle(iter_list)
-    for i in servers_ssids_sorted:
-        div[next(div_cycle)].append(i)
-    div_enum = enumerate(div)
+    server_list_len=len(servers_with_up_ssids + servers_with_down_ssids)
+    if server_list_len<=3:
+       for i in range(len(servers_with_up_ssids + servers_with_down_ssids)):
+           div.append([])
+           iter_list.append(i)
+       div_cycle = itertools.cycle(iter_list)
+       for i in servers_ssids_sorted:
+           div[next(div_cycle)].append(i)
+       div_enum = enumerate(div)
+    else:
+        for i in range(3):
+            div.append([])
+            iter_list.append(i)
+        div_cycle = itertools.cycle(iter_list)
+        for i in servers_ssids_sorted:
+            div[next(div_cycle)].append(i)
+        div_enum = enumerate(div)
 
     #Index button position logic
     #if len(servers_with_up_ssids+servers_with_down_ssids)>=3:

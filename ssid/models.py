@@ -23,7 +23,7 @@ class device_ip(models.Model):
 class auth_server(models.Model):
     name=models.CharField(max_length=120, default="",unique=True)
     ip=models.CharField(max_length=120,default="", verbose_name="RADIUS_SERVER_IP")
-    group = models.ManyToManyField(Group, verbose_name="GROUP_NAME")
+    group = models.ManyToManyField(Group,default="noc", verbose_name="GROUP_NAME")
     def __str__(self):
         return '{}'.format(self.name)
     def __unicode__(self):

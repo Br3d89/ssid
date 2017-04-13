@@ -33,14 +33,12 @@
  </div>
  </div>
 
-<!--Header part-->
- <div class="title"><p class="pulsate">Select server...</p></div>
 
 
-
-
+{% if username %}
+<div class="title"><p class="pulsate">Select server...</p></div>
 <div class="big">
- {% if username %}
+
      {% for i,k in servers_enum %}
           <div class="server_column">
               {% for n in k %}

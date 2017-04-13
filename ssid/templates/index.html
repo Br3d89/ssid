@@ -7,6 +7,8 @@
     <link href="{% static 'stylesheet.css' %}" rel="stylesheet" type="text/css" >
     <link href="{% static 'bred.css' %}" rel="stylesheet" type="text/css" >
     <script src="{% static 'jquery-3.1.1.min.js'%}"></script>
+	<link rel="icon" href="{% static 'images/wifi.png' %}" type="image/x-icon">
+	<link rel="shortcut icon" href="{% static 'images/wifi.png' %}" type="image/x-icon">
  <!--   <script src="{% static 'main.js'%}"></script> -->
    <!-- <meta http-equiv="refresh" content="120"> -->
 </head>
@@ -62,7 +64,7 @@
 {% else %}
 <div id="login_container">
 	<div id="form_container">
-        <p class="login-text">Welcome to SSID App.</p>
+        <p class="login-text">Welcome to SSID App <img src="{% static 'images/wifi.png' %}"></p>
 		<form method='POST' action="/auth/login/">
             {% csrf_token %}
 		<input type='text' onFocus="if(this.value=='Login')this.value=''" onblur="if(this.value=='')this.value='Login'" name='username' value='Login' class='text_input' />

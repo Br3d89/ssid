@@ -187,6 +187,7 @@ LDAP_AUTH_GROUP_RELATIONS = {
   "CN=noc,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "noc",
   "CN=qa,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "qa",
   "CN=soc,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "soc",
+  "CN=ssidapp,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "ssidapp",
 }
 
 LDAP_AUTH_GROUP_MEMBER_OF = "CN=ssidapp,OU=groups,DC=net,DC=wi-fi-bar,DC=com"

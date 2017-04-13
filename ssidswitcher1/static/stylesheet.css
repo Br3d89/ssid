@@ -144,7 +144,8 @@ ul.inside {
 }
 
 .text_input {
-	color: #c1c1c3;
+	/*color: #c1c1c3; */
+    color: gray;
 	border: 0;
 	margin: 5px 35px 0 34px;
 	padding: 0px 0px 0px 10px;
@@ -187,17 +188,4 @@ ul.inside {
     opacity: 10;
 
 }
-/*
-@-webkit-keyframes pulsate-led {
-    0% {
-        opacity: 0;
-    }
-/*    50% {
-        opacity: 0.5;
-    } */
-    100% {
-        opacity: 1;
-    }
-}
-
 /*Pulsate led of wifi device*/

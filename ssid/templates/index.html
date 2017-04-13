@@ -60,24 +60,6 @@
           </div>
      {% endfor %}
 
-
-{% else %}
-<div id="login_container">
-	<div id="form_container">
-        <div class="login-text"><img width="256px" height="256px" src="{% static 'images/wifi.png' %}"><div style="position: relative;right: -220px;top:-55px" class="pulsate-led"><img height=14px width=14px src="{% static 'images/wifi-led.png' %}"></div></div>
-		<form method='POST' action="/auth/login/">
-            {% csrf_token %}
-		<input type='text' onFocus="if(this.value=='Login')this.value=''" onblur="if(this.value=='')this.value='Login'" name='username' value='Login' class='text_input' />
-		<input type='password' onFocus="if(this.value=='Password')this.value=''" onblur="if(this.value=='')this.value='Password'" name='password' value='Password' class='text_input' />
-         {% if login_error %}
-         <label class="error">{{login_error}}</label>
-         {% endif %}
-		<input type='submit' value='' id='login' name='login' />
-		</form>
-	</div>
-</div>
-{% endif %}
-
 <br>
 <!--Footer part -->
 <div class="footer">
@@ -400,5 +382,24 @@ else {
 }
 
 </script>
+
+
+{% else %}
+<div id="login_container">
+	<div id="form_container">
+        <div class="login-text"><img width="256px" height="256px" src="{% static 'images/wifi.png' %}"><div style="position: relative;right: -220px;top:-55px" class="pulsate-led"><img height=14px width=14px src="{% static 'images/wifi-led.png' %}"></div></div>
+		<form method='POST' action="/auth/login/">
+            {% csrf_token %}
+		<input type='text' onFocus="if(this.value=='Login')this.value=''" onblur="if(this.value=='')this.value='Login'" name='username' value='Login' class='text_input' />
+		<input type='password' onFocus="if(this.value=='Password')this.value=''" onblur="if(this.value=='')this.value='Password'" name='password' value='Password' class='text_input' />
+         {% if login_error %}
+         <label class="error">{{login_error}}</label>
+         {% endif %}
+		<input type='submit' value='' id='login' name='login' />
+		</form>
+	</div>
+</div>
+{% endif %}
+
 </body>
 </html>

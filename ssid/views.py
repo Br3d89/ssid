@@ -463,11 +463,12 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
 def index(request,args={}):
     request_user_group=list(request.user.groups.values_list('name', flat=True))
     #print(request_user_group)
-    #all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))   #Сначала нужно выбрать все сервера относящиеся к пользователю
+    all_up_ssids = list(ssid.objects.filter(group__name__in=request_user_group).filter(status='1').distinct().values_list('name', flat=True))   #Сначала нужно выбрать все сервера относящиеся к пользователю
     request_user_servers =list(auth_server.objects.values_list('name', flat=True).filter(group__name=request_user_group))
     #servers_with_up_ssids=list(ssid.objects.values_list('web__name', flat=True).distinct().filter(status='1'))
-    servers_with_up_ssids = list(ssid.objects.filter(status=1).filter(web__name__in=request_user_group).distinct().values_list('web__name', flat=True))
-    servers_with_down_ssids = list(ssid.objects.values_list('web__name', flat=True).distinct().filter(status='0').order_by('web_id'))
+    servers_with_up_ssids = list(ssid.objects.filter(status=1).filter(group__name__in=request_user_group).distinct().values_list('web__name', flat=True))
+    #servers_with_down_ssids = list(ssid.objects.values_list('web__name', flat=True).distinct().filter(status='0').order_by('web_id'))
+    servers_with_down_ssids = list(ssid.objects.filter(status=0).filter(group__name__in=request_user_group).distinct().values_list('web__name',flat=True))
     servers_ssids_sorted=[]+servers_with_up_ssids
     for i in servers_with_down_ssids:
         if i not in servers_with_up_ssids:

@@ -18,4 +18,4 @@ class SsidAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ssid, SsidAdmin)
-#admin.site.register([vendor,device_ip,auth_server])
+admin.site.register([vendor,device_ip,auth_server])

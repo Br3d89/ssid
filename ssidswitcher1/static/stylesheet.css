@@ -178,7 +178,7 @@ ul.inside {
 /* Login form*/
 
 /*Pulsate led of wifi device*/
-.pulsate {
+.pulsate-led {
     -webkit-animation: pulsate 3s ease-out;
     -webkit-animation-iteration-count: infinite;
     opacity: 0.1;
@@ -186,7 +186,7 @@ ul.inside {
     font-weight: bold;
 
 }
-@-webkit-keyframes pulsate {
+@-webkit-keyframes pulsate-led {
     0% {
         opacity: 0.5;
     }

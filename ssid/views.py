@@ -507,7 +507,7 @@ def index(request,args={}):
             auth.login(request, user)
             return redirect('/')
         else:
-            ctx['login_error'] = 'Пользователь не найден'
+            ctx['login_error'] = 'Login failed'
             return render(request, 'index.html', ctx)
         #return HttpResponse('Index not for POSTs')
     else:

@@ -19,9 +19,9 @@ class SsidAdmin(admin.ModelAdmin):
     search_fields = ('name','web__name','vendor__name','ip__name','ap_mac',)
 
 class AuthServerAdmin(admin.ModelAdmin):
-    list_display=('name','ip','get_group')
+    list_display=('name','ip','server_group')
 
-    def get_group(self, obj):
+    def server_group(self, obj):
         return "\n".join([p.name for p in obj.group.all()])
 
 admin.site.register(ssid, SsidAdmin)

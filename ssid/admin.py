@@ -11,7 +11,7 @@ from .models import ssid,vendor,device_ip,auth_server
 
 class SsidAdmin(admin.ModelAdmin):
     #Shows fields that can be changed
-    fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web','group')
+    fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web')
     #Shows fields in admin pannel
     list_display = ('name', 'web','ip','status','vendor')
     #list_filter = ('name','web')

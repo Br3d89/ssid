@@ -13,29 +13,6 @@
 </head>
 
 <body>
-<!--Login part-->
- <div id="header">
-  <div class="login_form">
-       {% if username %}
-           <a href="/auth/profile" style="color: black;text-decoration: none">Профиль ({{ username }})</a>
-           <button class="logout_btn" onclick="location.href='/auth/logout/'" type="button">Выйти</button>
-          <!-- <a href="/auth/logout/">Выйти</a> -->
-       {% else %}
-       <form action="/auth/login/" method="POST">
-          {% csrf_token %}
-         <input type="text" name="username" id="username" placeholder="Логин">
-         <input type="password" name="password" id="password" placeholder="Пароль">
-         {% if login_error %}
-         <label class="error">{{login_error}}</label>
-         {% endif %}
-         <input type="submit" value="Войти">
-         </form>
-       {% endif %}
- </div>
- </div>
-
-
-
 {% if username %}
  <div id="header">
   <div class="login_form">

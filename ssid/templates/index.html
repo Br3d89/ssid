@@ -63,7 +63,6 @@
 <div id="login_container">
 	<div id="form_container">
         <p class="login-text">Welcome to SSID App.</p>
-        <p class="login-text">Please Login.</p>
 		<form method='POST' action="/auth/login/">
             {% csrf_token %}
 		<input type='text' onFocus="if(this.value=='Login')this.value=''" onblur="if(this.value=='')this.value='Login'" name='username' value='Login' class='text_input' />

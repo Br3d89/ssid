@@ -182,7 +182,7 @@ ul.inside {
 /*Pulsate led of wifi device*/
 .pulsate-led {
     width:20px;
-    -webkit-animation: pulsate 3s ease-out;
+    -webkit-animation: pulsate 2s ease;
     -webkit-animation-iteration-count: infinite;
     opacity: 10;
 

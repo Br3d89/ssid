@@ -57,19 +57,7 @@ float:left;
 }
 
 
-input[type=text],input[type=password] {
-background-color: lightgray;
-border: 1px solid darkgray;
-border-radius: 15px;
-padding-left:10px;
-width:80px;
 
-}
-input[type=submit] {
-    border-radius: 15px;
-    color:red;
-    font-weight: bold;
-}
 input[type=file] {
     cursor: pointer;
     border-radius: 15px;

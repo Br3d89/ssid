@@ -170,7 +170,8 @@ ul.inside {
 
 .login-text {
 	text-align:center;
-	margin:25px;
+	margin-left: auto;
+    margin-right: auto;
 	color:#515151;
     font-size: 18px;
 }

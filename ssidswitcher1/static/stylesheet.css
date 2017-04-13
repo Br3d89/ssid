@@ -129,7 +129,7 @@ ul.inside {
 	width: 357px;
 	height: 383px;
 	margin: 100px auto;
-	background: url('images/login_bg.png') top left no-repeat;
+ /*	background: url('images/login_bg.png') top left no-repeat; */
 }
 
 #form_container {

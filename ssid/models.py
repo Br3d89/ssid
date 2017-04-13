@@ -36,7 +36,7 @@ class ssid(models.Model):
     vendor = models.ForeignKey(vendor, verbose_name="SSID_VENDOR")
     ip = models.ForeignKey(device_ip, verbose_name="WIFI_DEVICE_IP")
     #radius=models.CharField(max_length=120)
-    web = models.ForeignKey(auth_server, verbose_name="WEB_SERVER_DNS")
+    web = models.ForeignKey(auth_server, verbose_name="AUTH_SERVER")
     acl = models.CharField(max_length=120, blank=True, verbose_name="ACL_ON_DEVICE")
     wlan_id = models.CharField(max_length=120, default="", verbose_name="WLAN_ID")
     ap_mac = models.CharField(max_length=120, default="00:00:00:00:00:00", verbose_name="AP_MAC")

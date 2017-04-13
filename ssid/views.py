@@ -461,7 +461,8 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
 
 #@csrf_exempt
 def index(request,args={}):
-    print(request.user.groups.values_list('name', flat=True))
+    request_user_group=list(request.user.groups.values_list('name', flat=True))
+    print(request_user_group)
     all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
     servers_with_up_ssids=list(ssid.objects.values_list('web__name', flat=True).distinct().filter(status='1'))
     servers_with_down_ssids = list(ssid.objects.values_list('web__name', flat=True).distinct().filter(status='0').order_by('web_id'))

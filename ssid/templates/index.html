@@ -37,7 +37,7 @@
                       <ul class="inside">
                             <li style="margin-bottom: 5px;"><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ n }}">http://{{ n }}</a></li>
                             <li><input type="checkbox" onclick="SelectAll(this)"/>Select all</li>
-                            {% for j in latest %}
+                            {% for j in all_group_ssids %}
                                 {% if j.web.name == n %}
                                     {% if j.name in ssids_busy %}
                                         {% if j.status %}

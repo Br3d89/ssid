@@ -181,7 +181,7 @@ ul.inside {
 .pulsate-led {
     -webkit-animation: pulsate 3s ease-out;
     -webkit-animation-iteration-count: infinite;
-    opacity: 0.1;
+    opacity: 0.5;
     font-size: 2em;
     font-weight: bold;
 

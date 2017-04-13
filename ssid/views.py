@@ -549,7 +549,7 @@ def login(request):
             auth.login(request,user)
             return redirect('/')
         else:
-            args['login_error']='Пользователь не найден'
+            args['login_error']='Login failed'
             #return render(request,'index.html', args)
             return index(request,args)
     else:

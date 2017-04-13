@@ -136,7 +136,7 @@ ul.inside {
 	/*height: 200px; */
 	/*margin: 0px auto;
 	padding-top: 80px; */
-    border: 1px solid black;
+
 }
 
 .text_input:focus {
@@ -173,15 +173,15 @@ ul.inside {
 	color:#515151;
     font-size: 18px;
   /*  margin-bottom: 10px; */
-    border: 1px solid red;
-    height:250px;
+
+    height:260px;
 }
 
 /* Login form*/
 
 /*Pulsate led of wifi device*/
 .pulsate-led {
-    border: 1px solid green;
+
     width:20px;
     -webkit-animation: pulsate 3s ease-out;
     -webkit-animation-iteration-count: infinite;

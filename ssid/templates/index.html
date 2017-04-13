@@ -64,7 +64,7 @@
 {% else %}
 <div id="login_container">
 	<div id="form_container">
-        <div class="login-text"><img width="256px" height="256px" src="{% static 'images/wifi.png' %}"><div style="position: relative;right: -220px;top:-55px" class="pulsate-led"><img height=16px width=16px src="{% static 'images/wifi-led.png' %}"></div></div>
+        <div class="login-text"><img width="256px" height="256px" src="{% static 'images/wifi.png' %}"><div style="position: relative;right: -220px;top:-55px" class="pulsate-led"><img height=14px width=14px src="{% static 'images/wifi-led.png' %}"></div></div>
 		<form method='POST' action="/auth/login/">
             {% csrf_token %}
 		<input type='text' onFocus="if(this.value=='Login')this.value=''" onblur="if(this.value=='')this.value='Login'" name='username' value='Login' class='text_input' />

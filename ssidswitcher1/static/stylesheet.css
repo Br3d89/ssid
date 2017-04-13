@@ -173,7 +173,7 @@ ul.inside {
 	text-align:center;
 	color:#515151;
     font-size: 18px;
-    margin-bottom: 10px;
+  /*  margin-bottom: 10px; */
     border: 1px solid black;
 }
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User,Group
+from datetime import datetime
 
 # Create your models here.
 
@@ -41,7 +42,12 @@ class ssid(models.Model):
     wlan_id = models.CharField(max_length=120, default="", verbose_name="WLAN_ID")
     ap_mac = models.CharField(max_length=120, default="00:00:00:00:00:00", verbose_name="AP_MAC")
     group = models.ManyToManyField(Group, verbose_name="GROUP_NAME")
+    start_date=models.DateTimeField(default=datetime.now)
+    end_date=models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return 'Name:{} Status:{}'.format(self.name, self.status)
 
+    @property
+    def remaining_time(self):
+        return self.end_date-datetime.now()

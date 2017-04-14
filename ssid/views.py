@@ -5,7 +5,7 @@ from django import forms
 from django.views.decorators.csrf import csrf_exempt
 import copy
 import paramiko,time,pexpect,requests,json,logging,threading
-from datetime import datetime
+from datetime import datetime,timedelta
 from multiprocessing import Process
 from django.contrib import auth
 import sys
@@ -52,12 +52,12 @@ def ssid_update(request):
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
             ssid_objects = ssid.objects.filter(ip__name=i, name__in=rcv_ssids)  # all ssids within device
             ssid_objects_up=ssid.objects.filter(ip__name=i, name__in=up_new)
-            p = (threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors)))
+            p = (threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors,timeout_value)))
             p.start()
             process_list.append(p)
             if ssid_objects_up:     #run disable thread only for ssid_objects_up
                 print('Creating disable thread')
-                d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors, 1))
+                d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors,timeout_value, 1))
                 d.start()
         for i in process_list:
             i.join()
@@ -67,7 +67,7 @@ def ssid_update(request):
         index(request)
 
 
-def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
+def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors,ssid_timeout, t=0):
     print('Working on Cisco {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
@@ -89,6 +89,8 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
             if (m.name in up_new) and t == 0:
                 child.sendline('config wlan enable {}'.format(m.wlan_id))
                 m.status = 1
+                m.start_date=datetime.now()
+                m.end_date=m.start_date+timedelta(0,ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('config wlan disable {}'.format(m.wlan_id))

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User,Group
-from datetime import datetime
+from datetime import datetime,timezone
 
 # Create your models here.
 
@@ -50,4 +50,4 @@ class ssid(models.Model):
 
     @property
     def remaining_time(self):
-        return self.end_date-datetime.now()
+        return self.end_date-datetime.now(timezone.utc)

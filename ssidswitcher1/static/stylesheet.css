@@ -195,7 +195,7 @@ ul.inside {
 /*SSID detail*/
 .ssid-detail-container {
     border:1px solid black;
-    width:200px;
+    width:300px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -203,5 +203,6 @@ ul.inside {
 .ssid-detail-list {
     list-style-type:none ;
     text-align: left;
+    border:1px solid green;
 }
 /*SSID detail*/

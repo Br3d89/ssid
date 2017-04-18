@@ -486,9 +486,9 @@ def index(request,args={}):
     ctx.update(args)
     div = []
     iter_list = []
-    server_list_len=len(servers_with_up_ssids + servers_with_down_ssids)
+    server_list_len=len(servers_ssids_sorted)
     if server_list_len<=3:
-       for i in range(len(servers_with_up_ssids + servers_with_down_ssids)):
+       for i in range(server_list_len):
            div.append([])
            iter_list.append(i)
        print('Printing servers list range', len(servers_with_up_ssids + servers_with_down_ssids))

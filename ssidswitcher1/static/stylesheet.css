@@ -204,6 +204,7 @@ ul.inside {
     list-style-type:none ;
     text-align: left;
     border:1px solid green;
+    margin-top:0;
 }
 
 

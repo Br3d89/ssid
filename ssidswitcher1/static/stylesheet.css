@@ -262,7 +262,7 @@ ul.inside {
 #Run:hover {opacity:0.9;}
 
 #Run:active {
-	/*background: url('images/start-button-hov.png'); */
+	background: url('images/start-button-hov.png');
 }
 
 /*Run button*/

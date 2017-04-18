@@ -194,6 +194,7 @@ ul.inside {
 
 /*SSID detail*/
 .ssid-detail-container {
+    margin-top: 150px;
     width:300px;
     margin-left: auto;
     margin-right: auto;

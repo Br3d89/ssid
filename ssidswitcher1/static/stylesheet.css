@@ -252,8 +252,8 @@ ul.inside {
     border: 0;
 	width: 100px;
 	height: 100px;
-	background-image: url('images/start-button.png');
-    background-position: center;
+	/*background-image: url('images/start-button.png');
+    background-position: center; */
 	cursor:pointer;
     margin-left:auto;
     margin-right:auto;
@@ -261,7 +261,7 @@ ul.inside {
 #Run:hover {opacity:0.9;}
 
 #Run:active {
-	background: url('images/start-button-hov.png');
+	/*background: url('images/start-button-hov.png'); */
 }
 
 /*Run button*/

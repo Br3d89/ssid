@@ -547,8 +547,10 @@ def index(request,args={}):
 
 
 def detail(request,name):
-    a = ssid.objects.get(name=name)
-    return render(request, 'detail.html', {'instance': a})
+    ctx={}
+    ctx['username'] = auth.get_user(request).username
+    ctx['instance']=ssid.objects.get(name=name)
+    return render(request, 'detail.html', ctx)
 
 
 def ssid_status(request):

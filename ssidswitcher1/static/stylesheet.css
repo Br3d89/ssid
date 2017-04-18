@@ -252,7 +252,7 @@ ul.inside {
     border: 0;
 	width: 100px;
 	height: 100px;
-	background-image: url('images/start-button-hov.png');
+	background-image: url('images/start-button.png');
     background-position: center;
     background-size: 100% 100%;
 	cursor:pointer;

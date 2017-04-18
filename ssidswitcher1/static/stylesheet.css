@@ -231,11 +231,14 @@ ul.inside {
 
 /*Run button*/
 #run {
+    display: none;
     border: 0;
 	width: 83px;
 	height: 30px;
 	background: url('images/run_btn.png') top left no-repeat;
 	cursor:pointer;
+    margin-left:auto;
+    margin-right:auto;
 }
 #login:hover {opacity:0.9;}
 

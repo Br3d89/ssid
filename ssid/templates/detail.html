@@ -3,6 +3,7 @@
 {% block content %}
 <div class="ssid-detail-container">
 <ul class="ssid-detail-list">
+<li><img width="256px" height="256px"  src="{% static 'images/wifidevice.png' %}"></li>
 <li>Name: {{ instance.name }}<br></li>
 <li>Radius server ip: {{ instance.web.ip }}</li>
 <li>WEB server: <a target="_blank" href="http://{{ instance.web.name }}">{{ instance.web.name }}</a></li>

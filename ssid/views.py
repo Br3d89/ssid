@@ -495,6 +495,7 @@ def index(request,args={}):
        for i in servers_ssids_sorted:
            div[next(div_cycle)].append(i)
        div_enum = enumerate(div)
+       print('Div_enum',div_enum)
     else:
         for i in range(3):
             div.append([])

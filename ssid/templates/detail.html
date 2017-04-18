@@ -13,7 +13,13 @@
 <li>Vendor: {{ instance.vendor.name }}</li>
 <li>Device ip: {{ instance.ip.name }}</li>
 <li>Device mac: {{ instance.ap_mac }}</li>
-        </ul>
+{% if instance.status %}
+<li>SSID status: UP</li>
+<li>Remaining UP time: {{ instance.remaining_time }}</li>
+{% else %}
+<li>SSID status: DOWN</li>
+{% endif %}
+</ul>
 <a href="/">To Main</a>
 </div>
 </body>

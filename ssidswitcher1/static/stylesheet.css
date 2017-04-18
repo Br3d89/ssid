@@ -127,8 +127,8 @@ ul.inside {
 /*Logout button*/
 .logout_btn {
     border: 0;
-	width: 75px;
-	height: 20px;
+	width: 83px;
+	height: 32px;
 	background: url('images/logout_btn.png') top left no-repeat;
 	cursor:pointer;
     margin-left:auto;

@@ -475,12 +475,10 @@ def index(request,args={}):
     servers_with_up_ssids = list(ssid.objects.filter(status=1).filter(group__name__in=request_user_group).distinct().values_list('web__name', flat=True))
     #servers_with_down_ssids = list(ssid.objects.values_list('web__name', flat=True).distinct().filter(status='0').order_by('web_id'))
     servers_with_down_ssids = list(ssid.objects.filter(status=0).filter(group__name__in=request_user_group).distinct().values_list('web__name',flat=True).order_by('web_id'))
-    print(servers_with_up_ssids,servers_with_down_ssids)
     servers_ssids_sorted=[]+servers_with_up_ssids
     for i in servers_with_down_ssids:
         if i not in servers_with_up_ssids:
             servers_ssids_sorted.append(i)
-    print('Sorted servers',servers_ssids_sorted)
     errors=[]
     ctx = {}
     ctx.update(args)
@@ -491,13 +489,10 @@ def index(request,args={}):
        for i in range(server_list_len):
            div.append([])
            iter_list.append(i)
-       print('Printing servers list range', len(servers_with_up_ssids + servers_with_down_ssids))
-       print('Printing div ',div)
        div_cycle = itertools.cycle(iter_list)
        for i in servers_ssids_sorted:
            div[next(div_cycle)].append(i)
        div_enum = enumerate(div)
-       print('Div_enum',div_enum)
     else:
         for i in range(3):
             div.append([])

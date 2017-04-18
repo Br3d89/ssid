@@ -13,7 +13,7 @@
 <li><span style="font-weight: bold">Device mac: </span>{{ instance.ap_mac }}</li>
 {% if instance.status %}
 <li><span style="font-weight: bold">SSID status: </span>up</li>
-<li id="r"><span style="font-weight: bold">Remaining UP time: </span></li>
+<li><span style="font-weight: bold">Remaining UP time: <span id="r"></span></span></li>
 {% else %}
 <li><span style="font-weight: bold">SSID status: </span>down</li>
 {% endif %}
@@ -29,7 +29,7 @@ time={{ instance.remaining_time }},
 r=document.getElementById('r'),tmp=time;
 countdown_timer = setInterval(function(){
 var c=time--,m=(c/60)>>0,s=(c-m*60)+'';
-r.textContent='Remaining UP time: '+m+':'+(s.length>1?'':'0')+s
+r.textContent=''+m+':'+(s.length>1?'':'0')+s
 tmp!=0||(tmp=time);
 if (time===0) {
 clearInterval(countdown_timer)

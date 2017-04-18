@@ -126,7 +126,6 @@ ul.inside {
 
 /*Logout button*/
 .logout_btn {
-    display: none;
     border: 0;
 	width: 83px;
 	height: 30px;
@@ -251,8 +250,8 @@ ul.inside {
 #Run {
     display: none;
     border: 0;
-	width: 83px;
-	height: 30px;
+	width: 100px;
+	height: 100px;
 	background: url('images/start-button.png') top left no-repeat;
 	cursor:pointer;
     margin-left:auto;

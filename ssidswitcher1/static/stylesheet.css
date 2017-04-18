@@ -127,17 +127,24 @@ ul.inside {
 /*Logout button*/
 .logout_btn {
     border: 0;
-	width: 83px;
-	height: 32px;
+	width: 75px;
+	height: 25px;
 	background: url('images/logout_btn.png') top left no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
 	cursor:pointer;
     margin-left:auto;
     margin-right:auto;
 }
-.logout_btn:hover {opacity:0.9;}
+.logout_btn:hover {
+    background: url('images/logout_btn_hov.png') top left no-repeat;
+    background-position: center;
+    background-size: 100% 100%; }
 
 .logout_btn:active {
 	background: url('images/logout_btn_hov.png') top left no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
 }
 /*Logout button*/
 

@@ -195,10 +195,11 @@ ul.inside {
 /*SSID detail*/
 .ssid-detail-container {
     border:1px solid black;
+    width:150px;
 }
 
 .ssid-detail-list {
     list-style-type:none ;
-    text-align: center;
+    text-align: left;
 }
 /*SSID detail*/

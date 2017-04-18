@@ -480,6 +480,7 @@ def index(request,args={}):
     for i in servers_with_down_ssids:
         if i not in servers_with_up_ssids:
             servers_ssids_sorted.append(i)
+    print('Sorted servers',servers_ssids_sorted)
     errors=[]
     ctx = {}
     ctx.update(args)

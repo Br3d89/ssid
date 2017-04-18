@@ -489,6 +489,7 @@ def index(request,args={}):
        for i in range(len(servers_with_up_ssids + servers_with_down_ssids)):
            div.append([])
            iter_list.append(i)
+       print('Printing div ',div)
        div_cycle = itertools.cycle(iter_list)
        for i in servers_ssids_sorted:
            div[next(div_cycle)].append(i)

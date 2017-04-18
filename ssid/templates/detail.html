@@ -5,17 +5,17 @@
 <div class="ssid-detail-container">
 <img width="256px" height="256px" src="{% static 'images/wifidevice.png' %}">
 <ul class="ssid-detail-list">
-<li>Name: {{ instance.name }}<br></li>
-<li>Radius server ip: {{ instance.web.ip }}</li>
-<li>WEB server: <a target="_blank" href="http://{{ instance.web.name }}">{{ instance.web.name }}</a></li>
-<li>Vendor: {{ instance.vendor.name }}</li>
-<li>Device ip: {{ instance.ip.name }}</li>
-<li>Device mac: {{ instance.ap_mac }}</li>
+<li><span style="font-weight: bold">Name: </span>{{ instance.name }}<br></li>
+<li><span style="font-weight: bold">Radius server ip: </span>{{ instance.web.ip }}</li>
+<li><span style="font-weight: bold">WEB server: </span><a target="_blank" href="http://{{ instance.web.name }}">{{ instance.web.name }}</a></li>
+<li><span style="font-weight: bold">Vendor: </span>{{ instance.vendor.name }}</li>
+<li><span style="font-weight: bold">Device ip: </span>{{ instance.ip.name }}</li>
+<li><span style="font-weight: bold">Device mac: </span>{{ instance.ap_mac }}</li>
 {% if instance.status %}
-<li>SSID status: up</li>
-<li id="r">Remaining UP time: </li>
+<li><span style="font-weight: bold">SSID status: </span>up</li>
+<li id="r"><span style="font-weight: bold">Remaining UP time: </span></li>
 {% else %}
-<li>SSID status: down</li>
+<li><span style="font-weight: bold">SSID status: </span>down</li>
 {% endif %}
 </ul>
 <a href="/">To Main</a>

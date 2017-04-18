@@ -50,4 +50,4 @@ class ssid(models.Model):
 
     @property
     def remaining_time(self):
-        return str(self.end_date-datetime.now(timezone.utc)).total_seconds().split(".")[0]
+        return str(self.end_date-datetime.now(timezone.utc).total_seconds()).split(".")[0]

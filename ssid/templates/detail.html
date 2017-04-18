@@ -15,12 +15,30 @@
 <li>Device mac: {{ instance.ap_mac }}</li>
 {% if instance.status %}
 <li>SSID status: up</li>
-<li>Remaining UP time: {{ instance.remaining_time }}</li>
+<li id="r">Remaining UP time: </li>
 {% else %}
 <li>SSID status: down</li>
 {% endif %}
 </ul>
 <a href="/">To Main</a>
 </div>
+
+
+<script language="JavaScript">
+{% autoescape off %}
+time={{ instance.remaining_time }},
+{% endautoescape %}
+r=document.getElementById('r'),tmp=time;
+countdown_timer = setInterval(function(){
+var c=time--,m=(c/60)>>0,s=(c-m*60)+'';
+r.textContent='Registration closes in '+m+':'+(s.length>1?'':'0')+s
+tmp!=0||(tmp=time);
+if (time===0) {
+clearInterval(countdown_timer)
+location.reload();
+}
+},1000);
+
+</script>
 </body>
 </html>

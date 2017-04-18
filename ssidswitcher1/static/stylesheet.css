@@ -204,6 +204,7 @@ ul.inside {
     list-style-type:none ;
     text-align: left;
     margin-top:0;
+    margin-bottom: 10px;
 }
 
 .ssid-detail-list li {

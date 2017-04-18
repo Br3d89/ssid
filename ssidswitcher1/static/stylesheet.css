@@ -261,10 +261,14 @@ ul.inside {
 }
 #Run:hover {
      background: url('images/start-button-hov.png');
+    background-position: center;
+    background-size: 100% 100%;
 }
 
 #Run:active {
 	background: url('images/start-button-hov.png');
+    background-position: center;
+    background-size: 100% 100%;
 }
 
 /*Run button*/

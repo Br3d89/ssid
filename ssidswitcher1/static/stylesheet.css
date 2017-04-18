@@ -197,6 +197,7 @@ ul.inside {
     width:400px;
     margin-left: auto;
     margin-right: auto;
+    text-align: left;
 }
 
 .ssid-detail-list {

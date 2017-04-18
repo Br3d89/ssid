@@ -227,3 +227,20 @@ ul.inside {
 }
 
 /*SSID detail*/
+
+
+/*Run button*/
+#run {
+    border: 0;
+	width: 83px;
+	height: 30px;
+	background: url('images/run_btn.png') top left no-repeat;
+	cursor:pointer;
+}
+#login:hover {opacity:0.9;}
+
+#login:active {
+	background: url('images/run_hov_btn.png') top left no-repeat;
+}
+
+/*Run button*/

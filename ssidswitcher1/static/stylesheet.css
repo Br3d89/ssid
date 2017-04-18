@@ -255,6 +255,7 @@ ul.inside {
 	background-image: url('images/start-button.png');
     background-position: center;
     background-size: 100% 100%;
+    background-color: white;
 	cursor:pointer;
     margin-left:auto;
     margin-right:auto;

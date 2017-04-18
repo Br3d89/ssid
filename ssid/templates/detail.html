@@ -31,7 +31,7 @@ time={{ instance.remaining_time }},
 r=document.getElementById('r'),tmp=time;
 countdown_timer = setInterval(function(){
 var c=time--,m=(c/60)>>0,s=(c-m*60)+'';
-r.textContent='Registration closes in '+m+':'+(s.length>1?'':'0')+s
+r.textContent='Remaining UP time: '+m+':'+(s.length>1?'':'0')+s
 tmp!=0||(tmp=time);
 if (time===0) {
 clearInterval(countdown_timer)

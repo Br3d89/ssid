@@ -207,5 +207,8 @@ ul.inside {
     margin-top:0;
 }
 
+.ssid-detail-list li {
+    margin-bottom: 2px;
+}
 
 /*SSID detail*/

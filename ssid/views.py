@@ -475,6 +475,7 @@ def index(request,args={}):
     servers_with_up_ssids = list(ssid.objects.filter(status=1).filter(group__name__in=request_user_group).distinct().values_list('web__name', flat=True))
     #servers_with_down_ssids = list(ssid.objects.values_list('web__name', flat=True).distinct().filter(status='0').order_by('web_id'))
     servers_with_down_ssids = list(ssid.objects.filter(status=0).filter(group__name__in=request_user_group).distinct().values_list('web__name',flat=True).order_by('web_id'))
+    print(servers_with_up_ssids,servers_with_down_ssids)
     servers_ssids_sorted=[]+servers_with_up_ssids
     for i in servers_with_down_ssids:
         if i not in servers_with_up_ssids:

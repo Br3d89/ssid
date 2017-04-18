@@ -116,13 +116,31 @@ ul.inside {
     margin-right:10px;
 }
 
-
+/*
 .logout_btn {
     color:red;
     font-weight: bold;
     border-radius: 15px;
 }
+*/
 
+/*Logout button*/
+.logout_btn {
+    display: none;
+    border: 0;
+	width: 83px;
+	height: 30px;
+	background: url('images/logout_btn.png') top left no-repeat;
+	cursor:pointer;
+    margin-left:auto;
+    margin-right:auto;
+}
+.logout_btn:hover {opacity:0.9;}
+
+.logout_btn:active {
+	background: url('images/logout_btn_hov.png') top left no-repeat;
+}
+/*Logout button*/
 
 
 /* Login form*/
@@ -235,7 +253,7 @@ ul.inside {
     border: 0;
 	width: 83px;
 	height: 30px;
-	background: url('images/run_btn.png') top left no-repeat;
+	background: url('images/start-button.png') top left no-repeat;
 	cursor:pointer;
     margin-left:auto;
     margin-right:auto;
@@ -243,7 +261,7 @@ ul.inside {
 #Run:hover {opacity:0.9;}
 
 #Run:active {
-	background: url('images/run_hov_btn.png') top left no-repeat;
+	background: url('images/start-button-hov.png') top left no-repeat;
 }
 
 /*Run button*/

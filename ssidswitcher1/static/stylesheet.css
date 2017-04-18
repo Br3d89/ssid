@@ -190,3 +190,15 @@ ul.inside {
 
 }
 /*Pulsate led of wifi device*/
+
+
+/*SSID detail*/
+.ssid-detail-container {
+    border:1px solid black;
+}
+
+.ssid-detail-list {
+    list-style-type:none ;
+    text-align: center;
+}
+/*SSID detail*/

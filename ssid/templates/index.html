@@ -21,7 +21,7 @@
     <button class="logout_btn" onclick="location.href='/auth/logout/'" type="button">Logout</button>
   </div>
  </div>
-
+{% block content %}
 <div class="title"><p class="pulsate">Select server...</p></div>
 <div class="big">
 
@@ -382,7 +382,7 @@ else {
 }
 
 </script>
-
+{% endblock %}
 
 {% else %}
 <div id="login_container">

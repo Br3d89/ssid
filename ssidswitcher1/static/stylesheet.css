@@ -211,4 +211,18 @@ ul.inside {
     margin-bottom: 2px;
 }
 
+.link-to-main {
+	margin: 20px 108px;
+	border: 0;
+	width: 83px;
+	height: 30px;
+	background: url('images/home_btn.png') top left no-repeat;
+	cursor:pointer;
+}
+.link-to-main:hover {opacity:0.9;}
+
+.link-to-main:active {
+	background: url('images/home_btn_hov.png') top left no-repeat;
+}
+
 /*SSID detail*/

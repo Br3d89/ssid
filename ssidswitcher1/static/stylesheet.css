@@ -259,7 +259,9 @@ ul.inside {
     margin-left:auto;
     margin-right:auto;
 }
-#Run:hover {opacity:0.9;}
+#Run:hover {
+     background: url('images/start-button-hov.png');
+}
 
 #Run:active {
 	background: url('images/start-button-hov.png');

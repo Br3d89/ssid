@@ -311,7 +311,7 @@ ul.inside {
 	width: 100px;
 	height: 30px;
 	padding: 3px;
-	margin: 0 10px 10px 10px;
+	margin: 0 10px 10px 0;
 	background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
 	background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
 	border-radius: 18px;
@@ -336,6 +336,7 @@ ul.inside {
 	border-radius: inherit;
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
 	box-sizing:content-box;
+	font-weight: bold;
 }
 .switch-label:before, .switch-label:after {
 	position: absolute;
@@ -352,7 +353,7 @@ ul.inside {
 	content: attr(data-off);
 	right: 11px;
 	color: #444;
-	/*text-shadow: 0 1px rgba(255, 255, 255, 0.5); */
+	<!--text-shadow: 0 1px rgba(255, 255, 255, 0.5);-->
 }
 .switch-label:after {
 	content: attr(data-on);
@@ -362,7 +363,7 @@ ul.inside {
 	opacity: 0;
 }
 .switch-input:checked ~ .switch-label {
-	background: #d1cfc8;
+	background: #eee;
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
 }
 .switch-input:checked ~ .switch-label:before {

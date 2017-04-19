@@ -428,3 +428,14 @@ ul.inside {
 }
 
 /* View toggle checkbox */
+
+
+/*Button pannel*/
+.button-pannel {
+    border:1px solid black;
+    width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+/*Button pannel */

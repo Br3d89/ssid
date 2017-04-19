@@ -303,25 +303,20 @@ ul.inside {
 
 
 /*Admin button*/
-.logout_btn {
+.admin_btn {
     border: 0;
 	width: 70px;
 	height: 23px;
 	background: url('images/admin_btn.png') top left no-repeat;
     background-position: center;
-    background-size: 100% 100%;
 	cursor:pointer;
-    padding-bottom: 3px;
 }
-.logout_btn:hover {
+.admin_btn:hover {
     background: url('images/admin_hov_btn.png') top left no-repeat;
-    background-position: center;
-    background-size: 100% 100%; }
+}
 
-.logout_btn:active {
+.admin_btn:active {
 	background: url('images/admin_hov_btn.png') top left no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
 }
 /*Admin button*/
 

@@ -24,12 +24,12 @@
 
 {% block content %}
 <div class="title"><p class="pulsate">Select server...</p></div>
-<div class="big">
- <label class="switch">
+<label class="switch">
 	<input class="switch-input" type="checkbox" onclick="change_view(this)"/>
 	<span class="switch-label" data-on="Server" data-off="Vendor"></span>
 	<span class="switch-handle"></span>
 </label>
+    <div class="big">
      {% for i,k in servers_enum %}
           <div class="server_column">
               {% for n in k %}

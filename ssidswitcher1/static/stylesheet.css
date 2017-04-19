@@ -135,13 +135,6 @@ ul.inside {
     margin-right:10px;
 }
 
-/*
-.logout_btn {
-    color:red;
-    font-weight: bold;
-    border-radius: 15px;
-}
-*/
 
 /*Logout button*/
 .logout_btn {
@@ -309,14 +302,19 @@ ul.inside {
 	height: 23px;
 	background: url('images/admin_btn.png') top left no-repeat;
     background-position: center;
+    background-size: 100% 100%;
 	cursor:pointer;
+    padding-bottom: 3px;
 }
 .admin_btn:hover {
     background: url('images/admin_hov_btn.png') top left no-repeat;
-}
+    background-position: center;
+    background-size: 100% 100%; }
 
 .admin_btn:active {
 	background: url('images/admin_hov_btn.png') top left no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
 }
 /*Admin button*/
 

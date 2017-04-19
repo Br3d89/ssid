@@ -243,7 +243,9 @@ ul.inside {
 	background: url('images/home_btn.png') top left no-repeat;
 	cursor:pointer;
 }
-.link-to-main:hover {opacity:0.9;}
+.link-to-main:hover {
+    background: url('images/home_btn_hov.png') top left no-repeat;
+}
 
 .link-to-main:active {
 	background: url('images/home_btn_hov.png') top left no-repeat;

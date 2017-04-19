@@ -466,22 +466,25 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
 
 #@csrf_exempt
 def index(request,args={}):
+    errors = []
+    ctx = {}
+    ctx.update(args)
     request_user_group=list(request.user.groups.values_list('name', flat=True))
-    #print(request_user_group)
     all_group_ssids=ssid.objects.filter(group__name__in=request_user_group).order_by('-vendor_id')
     all_up_ssids = list(ssid.objects.filter(group__name__in=request_user_group).filter(status='1').distinct().values_list('name', flat=True))   #Сначала нужно выбрать все сервера относящиеся к пользователю
     request_user_servers =list(auth_server.objects.values_list('name', flat=True).filter(group__name=request_user_group))
-    #servers_with_up_ssids=list(ssid.objects.values_list('web__name', flat=True).distinct().filter(status='1'))
     servers_with_up_ssids = list(ssid.objects.filter(status=1).filter(group__name__in=request_user_group).distinct().values_list('web__name', flat=True))
-    #servers_with_down_ssids = list(ssid.objects.values_list('web__name', flat=True).distinct().filter(status='0').order_by('web_id'))
+    vendors_with_up_ssids=list(ssid.objects.filter(status=1).filter(group__name__in=request_user_group).distinct().values_list('vendor__name',flat=True))
     servers_with_down_ssids = list(ssid.objects.filter(status=0).filter(group__name__in=request_user_group).distinct().values_list('web__name',flat=True).order_by('web_id'))
+    vendors_with_down_ssids=list(ssid.objects.filter(status=0).filter(group__name__in=request_user_group).distinct().values_list('vendor__name',flat=True).order_by('vendor_id'))
     servers_ssids_sorted=[]+servers_with_up_ssids
+    vendors_ssids_sorted=[]+vendors_with_up_ssids
+    vendors_ssids_sorted = [] + vendors_with_up_ssids
+
+    # Index button position logic for servers
     for i in servers_with_down_ssids:
         if i not in servers_with_up_ssids:
             servers_ssids_sorted.append(i)
-    errors=[]
-    ctx = {}
-    ctx.update(args)
     div = []
     iter_list = []
     server_list_len=len(servers_ssids_sorted)
@@ -501,23 +504,41 @@ def index(request,args={}):
         for i in servers_ssids_sorted:
             div[next(div_cycle)].append(i)
         div_enum = enumerate(div)
+    # End of Index button position logic for servers
 
-    #Index button position logic
-    #if len(servers_with_up_ssids+servers_with_down_ssids)>=3:
-    #   div_1 = []
-    #   div_2 = []
-    #   div_3 = []
-    #   div=[div_1,div_2,div_3]
-    #   div_cycle = itertools.cycle([0,1,2])
-    #   for i in servers_ssids_sorted:
-    #       div[next(div_cycle)].append(i)
-    #   div_enum=enumerate(div)
-    # End of Index button position logic
-    #else:
+    # Index button position logic for vendors
+    for i in vendors_with_down_ssids:
+        if i not in vendors_with_up_ssids:
+            vendors_ssids_sorted.append(i)
+    div_vendors = []
+    iter_list_vendors = []
+    vendor_list_len = len(vendors_ssids_sorted)
+    if vendor_list_len <= 3:
+        for i in range(vendor_list_len):
+            div_vendors.append([])
+            iter_list_vendors.append(i)
+        div_cycle_vendors = itertools.cycle(iter_list_vendors)
+        for i in vendors_ssids_sorted:
+            div[next(div_cycle_vendors)].append(i)
+        div_enum_vendors = enumerate(div_vendors)
+    else:
+        for i in range(3):
+            div_vendors.append([])
+            iter_list_vendors.append(i)
+        div_cycle_vendors = itertools.cycle(iter_list_vendors)
+        for i in vendors_ssids_sorted:
+            div[next(div_cycle_vendors)].append(i)
+        div_enum_vendors = enumerate(div_vendors)
+    # End of Index button position logic for vendors
+
+
+
+
     ctx['ssids_busy']=ssids_busy
     ctx['ssid_status_list']=ssid_status_list
     ctx['all_up_ssids']=all_up_ssids
     ctx['servers_with_up_ssids']=servers_with_up_ssids
+    ctx['vendors_with_up_ssids']=vendors_with_up_ssids         #for accordion logic
     #ctx['latest'] = ssid.objects.order_by('-vendor_id')
     ctx['all_group_ssids']=ssid.objects.filter(group__name__in=request_user_group).order_by('-vendor_id')
     #ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
@@ -529,6 +550,7 @@ def index(request,args={}):
     ctx['servers_ipp_range']=range(len(servers_ssids_sorted) // 3)
     #ctx['column_range']=range(3)
     ctx['servers_enum']=div_enum
+    ctx['vendors_enum']=div_enum_vendors             #for accordion logic
     ctx['ok']='Run'
     ctx['username']=auth.get_user(request).username
     if request.method == 'POST':

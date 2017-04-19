@@ -297,6 +297,7 @@ ul.inside {
 
 /*Admin button*/
 .admin_btn {
+    display: inline-block;
     border: 0;
 	width: 70px;
 	height: 23px;

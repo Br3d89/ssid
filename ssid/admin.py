@@ -28,6 +28,12 @@ class AuthServerAdmin(admin.ModelAdmin):
     def server_group(self, obj):
         return "\n".join([p.name for p in obj.group.all()])
 
+
+class NetworkDeviceAdmin(admin.ModelAdmin):
+    list_display = ('name', 'vendor__name', 'mac')
+
+
 admin.site.register(ssid, SsidAdmin)
 admin.site.register(auth_server,AuthServerAdmin)
-admin.site.register([vendor,device_ip])
+admin.site.register(device_ip, NetworkDeviceAdmin)
+admin.site.register([vendor,])

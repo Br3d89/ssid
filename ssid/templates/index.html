@@ -177,11 +177,11 @@ $('span').mouseleave(function(){
 //Toggle view
 function change_view(toggle) {
  if (toggle.checked){
-        $(".big").fadeOut("slow");
+        $(".big").fadeOut("slow").delay( 500 );
         $(".big-vendor").fadeIn("slow");
     }
     else {
-        $(".big-vendor").fadeOut("slow");
+        $(".big-vendor").fadeOut("slow").delay( 500 );
         $(".big").fadeIn("slow");
     }
 }

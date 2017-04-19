@@ -29,7 +29,6 @@
      {% for i,k in servers_enum %}
           <div class="server_column">
               {% for n in k %}
-              Auuu, N =    {{ n }}
                   <div class="panel">
                       {% if n in servers_with_up_ssids %}
                       <button class="accordion act">{{ n }}</button>
@@ -80,9 +79,7 @@
                       <ul class="inside">
                             <li><input type="checkbox" onclick="SelectAll(this)"/>Select all</li>
                             {% for j in all_group_ssids %}
-                              OLOLO:  {{ j.name }}
                                 {% if j.vendor.name == n %}
-                                    Da tvoyu mat: j.vendor.name={{ j.vendor.name }}  n={{ n }}
                                     {% if j.name in ssids_busy %}
                                         {% if j.status %}
                                             <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:red" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }} - Busy </span></a></li>

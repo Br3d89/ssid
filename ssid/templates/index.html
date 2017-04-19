@@ -26,14 +26,11 @@
 {% block content %}
  <div class="big-container">
 <!--<div class="title"><p class="pulsate">Select server...</p></div> -->
- <div class="button-pannel">
  <label class="switch">
 	<input class="switch-input" type="checkbox" onclick="change_view(this)"/>
 	<span class="switch-label" data-on="Server" data-off="Vendor"></span>
 	<span class="switch-handle"></span>
  </label>
- <button class="admin_btn" onclick="location.href='/admin/'" type="button"/>
- </div>
 
      <div class="big">
      {% for i,k in servers_enum %}

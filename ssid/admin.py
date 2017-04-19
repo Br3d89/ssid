@@ -30,10 +30,10 @@ class AuthServerAdmin(admin.ModelAdmin):
 
 
 class NetworkDeviceAdmin(admin.ModelAdmin):
-    list_display = ('name', 'vendor_name', 'mac')
+    list_display = ('name', 'vendor', 'mac')
 
     def vendor_name(self, obj):
-        return "\n".join([p.name for p in obj.vendor.all()])
+        return "\n".join([p.name for p in obj.vendor])
 
 
 admin.site.register(ssid, SsidAdmin)

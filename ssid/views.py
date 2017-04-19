@@ -473,13 +473,15 @@ def index(request,args={}):
     all_group_ssids=ssid.objects.filter(group__name__in=request_user_group).order_by('-vendor_id')
     all_up_ssids = list(ssid.objects.filter(group__name__in=request_user_group).filter(status='1').distinct().values_list('name', flat=True))   #Сначала нужно выбрать все сервера относящиеся к пользователю
     request_user_servers =list(auth_server.objects.values_list('name', flat=True).filter(group__name=request_user_group))
+
     servers_with_up_ssids = list(ssid.objects.filter(status=1).filter(group__name__in=request_user_group).distinct().values_list('web__name', flat=True))
     vendors_with_up_ssids=list(ssid.objects.filter(status=1).filter(group__name__in=request_user_group).distinct().values_list('vendor__name',flat=True))
+
     servers_with_down_ssids = list(ssid.objects.filter(status=0).filter(group__name__in=request_user_group).distinct().values_list('web__name',flat=True).order_by('web_id'))
     vendors_with_down_ssids=list(ssid.objects.filter(status=0).filter(group__name__in=request_user_group).distinct().values_list('vendor__name',flat=True).order_by('vendor_id'))
+
     servers_ssids_sorted=[]+servers_with_up_ssids
     vendors_ssids_sorted=[]+vendors_with_up_ssids
-    vendors_ssids_sorted = [] + vendors_with_up_ssids
 
     # Index button position logic for servers
     for i in servers_with_down_ssids:
@@ -505,6 +507,8 @@ def index(request,args={}):
             div[next(div_cycle)].append(i)
         div_enum = enumerate(div)
     # End of Index button position logic for servers
+
+
 
     # Index button position logic for vendors
     for i in vendors_with_down_ssids:

@@ -62,10 +62,11 @@
      {% endfor %}
 
 <br>
-
+<div>Eto zona servera suka!</div>
     <div class="big">
-
+          {{ vendors_enum }}
      {% for i,k in vendors_enum %}
+         i={{ i }} k={{ k }}
           <div class="server_column">
               {% for n in k %}
                   <div class="panel">

@@ -547,6 +547,7 @@ def index(request,args={}):
     ctx['vendors_enum']=div_enum_vendors             #for accordion logic
     ctx['ok']='Run'
     ctx['username']=auth.get_user(request).username
+    ctx['user_object']=auth.get_user(request)
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')

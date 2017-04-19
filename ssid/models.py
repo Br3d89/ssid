@@ -19,6 +19,10 @@ class device_ip(models.Model):
     def __str__(self):
         return '{}'.format(self.name)
 
+    class Meta:
+        verbose_name = 'Wi-Fi device'
+        verbose_name_plural = 'Wi-Fi devices'
+
 
 
 class auth_server(models.Model):

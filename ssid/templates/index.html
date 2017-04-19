@@ -25,7 +25,11 @@
 {% block content %}
 <div class="title"><p class="pulsate">Select server...</p></div>
 <div class="big">
-
+ <label class="switch">
+	<input class="switch-input" type="checkbox" />
+	<span class="switch-label" data-on="Server" data-off="Vendor"></span>
+	<span class="switch-handle"></span>
+</label>
      {% for i,k in servers_enum %}
           <div class="server_column">
               {% for n in k %}
@@ -60,10 +64,10 @@
               {% endfor %}
           </div>
      {% endfor %}
-
+</div>
 <br>
 
-    <div class="big-server">
+    <div class="big-vendor">
 
      {% for i,k in vendors_enum %}
           <div class="server_column">
@@ -116,7 +120,7 @@
 <div id="errors" style="display: none;color: red;font-size: 18px"></div>
 
 </div>
-</div>
+
 
 
 

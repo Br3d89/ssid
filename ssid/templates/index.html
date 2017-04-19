@@ -29,8 +29,9 @@
 	<input class="switch-input" type="checkbox" onclick="change_view(this)"/>
 	<span class="switch-label" data-on="Server" data-off="Vendor"></span>
 	<span class="switch-handle"></span>
+     <button class="admin_btn" onclick="location.href='/admin/'" type="button"/>
 </label>
- <button class="admin_btn" onclick="location.href='/admin/'" type="button"/>
+
     <div class="big">
      {% for i,k in servers_enum %}
           <div class="server_column">

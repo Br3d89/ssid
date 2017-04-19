@@ -508,23 +508,43 @@ def index(request,args={}):
         div_enum = enumerate(div)
     # End of Index button position logic for servers
 
+
+
+    # Index button position logic for vendors
+    for i in vendors_with_down_ssids:
+        if i not in vendors_with_up_ssids:
+            vendors_ssids_sorted.append(i)
+    div_vendors = []
+    iter_list_vendors = []
+    vendor_list_len = len(vendors_ssids_sorted)
+    if vendor_list_len <= 3:
+        for i in range(vendor_list_len):
+            div_vendors.append([])
+            iter_list_vendors.append(i)
+        div_cycle_vendors = itertools.cycle(iter_list_vendors)
+        for i in vendors_ssids_sorted:
+            div_vendors[next(div_cycle_vendors)].append(i)
+        div_enum_vendors = enumerate(div_vendors)
+    else:
+        for i in range(3):
+            div_vendors.append([])
+            iter_list_vendors.append(i)
+        div_cycle_vendors = itertools.cycle(iter_list_vendors)
+        for i in vendors_ssids_sorted:
+            div_vendors[next(div_cycle_vendors)].append(i)
+        div_enum_vendors = enumerate(div_vendors)
+    # End of Index button position logic for vendors
+
+
     ctx['ssids_busy']=ssids_busy
     ctx['ssid_status_list']=ssid_status_list
     ctx['all_up_ssids']=all_up_ssids
     ctx['servers_with_up_ssids']=servers_with_up_ssids
     ctx['vendors_with_up_ssids']=vendors_with_up_ssids         #for accordion logic
-    #ctx['latest'] = ssid.objects.order_by('-vendor_id')
     ctx['all_group_ssids']=ssid.objects.filter(group__name__in=request_user_group).order_by('-vendor_id')
-    #ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
-    #ctx['servers'] = list(ssid.objects.values_list('web', flat=True).distinct().order_by('web'))
     ctx['servers']=servers_ssids_sorted
-    ctx['servers_len']=len(servers_ssids_sorted)
-    ctx['servers_divide']=len(servers_ssids_sorted) % 3
-    ctx['servers_ipp']=len(servers_ssids_sorted) // 3
-    ctx['servers_ipp_range']=range(len(servers_ssids_sorted) // 3)
-    #ctx['column_range']=range(3)
     ctx['servers_enum']=div_enum
-    #ctx['vendors_enum']=div_enum_vendors             #for accordion logic
+    ctx['vendors_enum']=div_enum_vendors             #for accordion logic
     ctx['ok']='Run'
     ctx['username']=auth.get_user(request).username
     if request.method == 'POST':

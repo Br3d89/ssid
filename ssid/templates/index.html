@@ -88,7 +88,7 @@
                                         {% if j.status %}
                                             <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}</span></a></li>
                                         {% else %}
-                                        <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
+                                            <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
                                         {% endif %}
                                     {% endif %}
                                 {% endif %}

@@ -26,7 +26,7 @@
 <div class="title"><p class="pulsate">Select server...</p></div>
 <div class="big">
  <label class="switch">
-	<input class="switch-input" type="checkbox" />
+	<input class="switch-input" type="checkbox" onclick="change_view(this)"/>
 	<span class="switch-label" data-on="Server" data-off="Vendor"></span>
 	<span class="switch-handle"></span>
 </label>
@@ -173,6 +173,19 @@ $('span').mouseleave(function(){
         $(this).fadeTo('fast', 1);
     })
 });
+
+//Toggle view
+function change_view(toggle) {
+ if (timer.checked){
+        $(".big").fadeOut("slow");
+        $(".big-vendor").fadeIn("slow");
+    }
+    else {
+        $(".big-vendor").fadeOut("slow");
+        $(".big").fadeIn("slow");
+    }
+}
+
 
 
 //Timer settings

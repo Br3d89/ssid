@@ -615,6 +615,7 @@ def logout(request):
 
 def profile(request):
     args = {}
+    args['username'] = auth.get_user(request).username
     args['user_object']=auth.get_user(request)
     return render(request, 'profile.html', args)
 

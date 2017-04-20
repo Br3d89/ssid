@@ -146,8 +146,14 @@ ul.inside {
     background-size: 100% 100%;
 	cursor:pointer;
     vertical-align: top;
+    opacity: 0.1;
+}
+
+.logout_btn:hover {
+    opacity:1;
 }
 /*
+
 .logout_btn:hover {
     background: url('images/logout_btn_hov.png') top left no-repeat;
     background-position: center;

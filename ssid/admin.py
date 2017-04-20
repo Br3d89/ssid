@@ -37,8 +37,10 @@ class AuthSchemeAdmin(admin.ModelAdmin):
     list_display = ('name', 'desc')
 
 class VendorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'auth_scheme')
+    list_display = ('name', 'auth_scheme_list')
 
+    def auth_scheme_list(self, obj):
+        return "\n".join([p.name for p in obj.auth_scheme.all()])
 
 
 admin.site.register(ssid, SsidAdmin)

@@ -14,16 +14,20 @@
 </head>
 
 <body>
+
+
 {% if username %}
  <div id="header">
   <div class="login_form">
-    <a href="/profile" style="color: black;"><img width="30px" height="30px" src="{% static 'images/person.png' %}"></a>
+    <!--<a href="/profile" style="color: black;"><img width="30px" height="30px" src="{% static 'images/person.png' %}"></a> -->
+    <button class="profile_btn" onclick="location.href='/profile'" type="button"/>
     <button class="logout_btn" onclick="location.href='/auth/logout/'" type="button"/>
     {% if user_object.is_staff %}
      <button class="admin_btn" onclick="location.href='/admin/'" type="button"/>
     {% endif %}
   </div>
  </div>
+
 
 {% block content %}
  <div class="big-container">

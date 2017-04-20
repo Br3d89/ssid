@@ -160,6 +160,18 @@ ul.inside {
 } */
 /*Logout button*/
 
+/*profile button*/
+.profile_btn {
+    border: 0;
+	width: 30px;
+	height: 30px;
+	background: url('images/profile.png') top left no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+	cursor:pointer;
+    padding-bottom: 3px;
+}
+/*profile button*/
 
 /* Login form*/
 #login_container {
@@ -307,6 +319,7 @@ ul.inside {
     padding-bottom: 3px;
     margin-left: 5px;
 }
+/*
 .admin_btn:hover {
     background: url('images/admin_hov_btn.png') top left no-repeat;
     background-position: center;
@@ -316,7 +329,7 @@ ul.inside {
 	background: url('images/admin_hov_btn.png') top left no-repeat;
     background-position: center;
     background-size: 100% 100%;
-}
+}  */
 /*Admin button*/
 
 

@@ -139,24 +139,25 @@ ul.inside {
 /*Logout button*/
 .logout_btn {
     border: 0;
-	width: 70px;
-	height: 23px;
-	background: url('images/logout_btn.png') top left no-repeat;
+	width: 30px;
+	height: 30px;
+	background: url('images/logout.png') top left no-repeat;
     background-position: center;
     background-size: 100% 100%;
 	cursor:pointer;
     padding-bottom: 3px;
 }
+/*
 .logout_btn:hover {
     background: url('images/logout_btn_hov.png') top left no-repeat;
     background-position: center;
-    background-size: 100% 100%; }
-
+    background-size: 100% 100%; } */
+/*
 .logout_btn:active {
 	background: url('images/logout_btn_hov.png') top left no-repeat;
     background-position: center;
     background-size: 100% 100%;
-}
+} */
 /*Logout button*/
 
 

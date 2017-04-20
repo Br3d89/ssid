@@ -212,15 +212,7 @@ ul.inside {
   /*  margin-bottom: 10px; */
     height:270px;
 }
-input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
-     color: gray;
-	border: 0;
-	margin: 5px 35px 0 34px;
-	padding: 0px 0px 0px 10px;
-	width: 259px;
-	height: 32px;
-	background: url('images/text_input.png') top left no-repeat;
-}
+
 
 /* Login form*/
 

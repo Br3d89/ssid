@@ -212,7 +212,7 @@ ul.inside {
   /*  margin-bottom: 10px; */
     height:270px;
 }
-.text_input input:-webkit-autofill, .text_input textarea:-webkit-autofill, .text_input select:-webkit-autofill {
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
      color: gray;
 	border: 0;
 	margin: 5px 35px 0 34px;

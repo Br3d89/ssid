@@ -36,9 +36,12 @@ class NetworkDeviceAdmin(admin.ModelAdmin):
 class AuthSchemeAdmin(admin.ModelAdmin):
     list_display = ('name', 'desc')
 
+class VendorAdmin(admin.ModelAdmin):
+    list_display = ('name', 'auth_scheme')
 
 admin.site.register(ssid, SsidAdmin)
 admin.site.register(auth_server,AuthServerAdmin)
 admin.site.register(device_ip, NetworkDeviceAdmin)
 admin.site.register(auth_scheme,AuthSchemeAdmin)
-admin.site.register([vendor,])
+admin.site.register(vendor,VendorAdmin)
+#admin.site.register([vendor,])

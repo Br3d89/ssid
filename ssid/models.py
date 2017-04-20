@@ -18,6 +18,7 @@ class auth_scheme(models.Model):
 
 class vendor(models.Model):
     name = models.CharField(max_length=120,unique=True, default="")
+    auth_scheme = models.ManyToManyField(auth_scheme, null=True, blank=True, verbose_name="AUTH_SCHEME")
     def __str__(self):
         return '{}'.format(self.name)
 

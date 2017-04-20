@@ -116,7 +116,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
 
 
 
-def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors, t=0):
+def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors,ssid_timeout, t=0):
     print('Working on Aruba {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
@@ -133,6 +133,8 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
             if (m.name in up_new) and t == 0:
                 child.sendline('enable\r')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('disable\r')
@@ -158,7 +160,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
         print(err)
 
 
-def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
+def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors,ssid_timeout, t=0):
     print('Working on Unifi {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
@@ -171,6 +173,8 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
                 child.expect('#')
                 child.sendline('reboot')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('ifconfig wifi0 down')
@@ -192,7 +196,7 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
         print(err)
 
 
-def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
+def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors,ssid_timeout, t=0):
     print('Working on Mikrotik {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
@@ -204,6 +208,8 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list
                 child.sendline("/interface wireless enable {}\n\r".format(m.wlan_id))
                 time.sleep(1)
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline("/interface wireless disable {}\n\r".format(m.wlan_id))
@@ -226,7 +232,7 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list
         print(err)
 
 
-def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors,ssid_timeout, t=0):
     print('Working on Ruckus {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
@@ -251,6 +257,8 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
                 child.expect('#')
                 child.sendline('end')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('no wlan {}'.format(m.wlan_id))
@@ -274,7 +282,7 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         print(err)
 
 
-def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors,ssid_timeout, t=0):
     print('Working on RuckusVSZ {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l admin -o StrictHostKeyChecking=no {}'.format(i))
@@ -295,6 +303,8 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
             if (m.name in up_new) and t == 0:
                 child.sendline('enable-type Always-On')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('enable-type Always-Off')
@@ -321,7 +331,7 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
         print(err)
 
 
-def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors,ssid_timeout, t=0):
     print('Working on OpenWRT {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format('root', i))
@@ -332,6 +342,8 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list
             if (m.name in up_new) and t == 0:
                 child.sendline('uci set wireless.@wifi-device[0].disabled=0; uci commit wireless; wifi\n')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('uci set wireless.@wifi-device[0].disabled=1; uci commit wireless; wifi\n')
@@ -353,7 +365,7 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list
         print(err)
 
 
-def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors,ssid_timeout, t=0):
     print('Working on DDWRT {} '.format(i))
     try:
         child = pexpect.spawn('telnet {}'.format(i))
@@ -368,6 +380,8 @@ def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,e
                 child.expect('#')
                 child.sendline('reboot\n')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('ifconfig ath0 down\n')
@@ -389,7 +403,7 @@ def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,e
         print(err)
 
 
-def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors,ssid_timeout, t=0):
     print('Working on Huawei {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
@@ -406,6 +420,8 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
             if (m.name in up_new) and t == 0:
                 child.sendline('undo service-mode disable')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('service-mode disable')
@@ -434,7 +450,7 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         time.sleep(1)
 
 
-def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors,ssid_timeout, t=0):
     print('Working on Meraki {} '.format(i))
     try:
         murl = 'https://n150.meraki.com/api/v0/organizations/616518/networks/N_647392446434529213/ssids/'
@@ -444,6 +460,8 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
             if (m.name in up_new) and t == 0:
                 putdata = {'enabled': True}
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 putdata = {'enabled': False}

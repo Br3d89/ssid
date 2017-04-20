@@ -74,9 +74,9 @@ class ssid(models.Model):
     def remaining_time(self):
         return str((self.end_date-datetime.now(timezone.utc)).total_seconds()).split(".")[0]
 
-    @property
-    def ip_for_vendor(self):
-        return "\n".join([p for p in list(device_ip.objects.values_list('name', flat=True).filter(vendor__name=self.vendor))])
+    #@property
+    #def ip_for_vendor(self):
+    #    return "\n".join([p for p in list(device_ip.objects.values_list('name', flat=True).filter(vendor__name=self.vendor))])
 
 '''
     @classmethod

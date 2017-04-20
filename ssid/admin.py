@@ -23,8 +23,8 @@ class SsidAdmin(admin.ModelAdmin):
     def ssid_group(self, obj):
         return "\n".join([p.name for p in obj.group.all()])
 
-    #def ip_for_vendor(self,obj):
-    #    return "\n".join([ p for p in list(device_ip.objects.values_list('name', flat=True).filter(vendor__name=obj.vendor))])
+    def ip_for_vendor(self,obj):
+        return "\n".join([ p for p in list(device_ip.objects.values_list('name', flat=True).filter(vendor__name=obj.vendor))])
        #return "\n".join([p.name for p in obj.group.all()])
 
 

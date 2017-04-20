@@ -145,7 +145,6 @@ ul.inside {
     background-position: center;
     background-size: 100% 100%;
 	cursor:pointer;
-    padding-bottom: 3px;
 }
 /*
 .logout_btn:hover {
@@ -315,7 +314,6 @@ ul.inside {
     background-position: center;
     background-size: 100% 100%;
 	cursor:pointer;
-    padding-bottom: 3px;
     margin-left: 5px;
 }
 /*

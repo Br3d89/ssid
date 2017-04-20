@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ssid,vendor,device_ip,auth_server
+from .models import ssid,vendor,device_ip,auth_server,auth_scheme
 
 
 #class ProductAdmin(admin.ModelAdmin):
@@ -36,4 +36,4 @@ class NetworkDeviceAdmin(admin.ModelAdmin):
 admin.site.register(ssid, SsidAdmin)
 admin.site.register(auth_server,AuthServerAdmin)
 admin.site.register(device_ip, NetworkDeviceAdmin)
-admin.site.register([vendor,])
+admin.site.register([vendor,auth_scheme])

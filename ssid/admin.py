@@ -13,13 +13,17 @@ class SsidAdmin(admin.ModelAdmin):
     #Shows fields that can be changed
     fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web','group','auth_scheme')
     #Shows fields in admin pannel
-    list_display = ('name', 'web','ip','status','vendor','ssid_group','auth_scheme')
+    list_display = ('name', 'web','ip_for_vendor','status','vendor','ssid_group','auth_scheme')
     #list_filter = ('name','web')
     #search_fields = ('name', 'web', 'ip', 'vendor', 'group', 'ap_mac')
     search_fields = ('name','web__name','vendor__name','ip__name','ap_mac','auth_scheme__name')
 
     def ssid_group(self, obj):
         return "\n".join([p.name for p in obj.group.all()])
+
+    def ip_for_vendor(self,obj):
+        return "\n".join([ p for p in list(device_ip.objects.values_list('name', flat=True).filter(vendor__name=obj.vendor))])
+       #return "\n".join([p.name for p in obj.group.all()])
 
 
 class AuthServerAdmin(admin.ModelAdmin):

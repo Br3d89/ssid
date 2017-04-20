@@ -7,7 +7,7 @@ from datetime import datetime,timezone
 
 class auth_scheme(models.Model):
     name = models.CharField(max_length=120, default="")
-    desc=models.TextField(default="")
+    desc=models.TextField(default="", blank=True,)
     def __str__(self):
         return '{}'.format(self.name)
 

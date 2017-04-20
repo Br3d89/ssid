@@ -139,14 +139,14 @@ ul.inside {
 /*Logout button*/
 .logout_btn {
     border: 0;
-	width: 27px;
-	height: 27px;
+	width: 25px;
+	height: 25px;
 	background: url('images/logout.png') top left no-repeat;
     background-position: center;
     background-size: 100% 100%;
 	cursor:pointer;
     vertical-align: top;
-    opacity: 0.1;
+    opacity: 0.5;
 }
 
 .logout_btn:hover {
@@ -170,13 +170,17 @@ ul.inside {
 .profile_btn {
     border: 0;
     margin-top: 2px;
-	width: 25px;
-	height: 25px;
+	width: 23px;
+	height: 23px;
 	background: url('images/person.png') top left no-repeat;
     background-position: center;
     background-size: 100% 100%;
 	cursor:pointer;
     vertical-align: top;
+    opacity: 0.5;
+}
+.profile_btn:hover {
+    opacity:1;
 }
 /*profile button*/
 
@@ -324,8 +328,13 @@ ul.inside {
     background-size: 100% 100%;
 	cursor:pointer;
     vertical-align: top;
+    opacity: 0.5;
+}
+.admin_btn:hover {
+    opacity:1;
 }
 /*
+
 .admin_btn:hover {
     background: url('images/admin_hov_btn.png') top left no-repeat;
     background-position: center;

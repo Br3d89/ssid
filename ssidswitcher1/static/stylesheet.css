@@ -210,8 +210,16 @@ ul.inside {
 	color:#515151;
     font-size: 18px;
   /*  margin-bottom: 10px; */
-
     height:270px;
+}
+.text_input input:-webkit-autofill, .text_input textarea:-webkit-autofill, .text_input select:-webkit-autofill {
+     color: gray;
+	border: 0;
+	margin: 5px 35px 0 34px;
+	padding: 0px 0px 0px 10px;
+	width: 259px;
+	height: 32px;
+	background: url('images/text_input.png') top left no-repeat;
 }
 
 /* Login form*/

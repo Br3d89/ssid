@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ssid'
+    'ssid',
+    'django_python3_ldap'
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,102 @@ STATIC_URL = '/static/'
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+AUTHENTICATION_BACKENDS = (
+    'django_python3_ldap.auth.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+#AUTH_PASSWORD_VALIDATORS=['django.contrib.auth.backends.ModelBackend','django_python3_ldap.auth.LDAPBackend']
+
+# The URL of the LDAP server.
+LDAP_AUTH_URL = "ldap://dc:389"
+
+# Initiate TLS on connection.
+LDAP_AUTH_USE_TLS = False
+
+# The LDAP search base for looking up users.
+LDAP_AUTH_SEARCH_BASE = "OU=ua,OU=world,DC=net,DC=wi-fi-bar,DC=com"
+
+# The LDAP class that represents a user.
+LDAP_AUTH_OBJECT_CLASS = "organizationalPerson"
+
+# User model fields mapped to the LDAP
+# attributes that represent them.
+LDAP_AUTH_USER_FIELDS = {
+    "username": "sAMAccountName",
+    "first_name": "givenName",
+    "last_name": "sn",
+    "email": "mail",
+}
+
+# A tuple of django model fields used to uniquely identify a user.
+LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
+
+# Path to a callable that takes a dict of {model_field_name: value},
+# returning a dict of clean model data.
+# Use this to customize how data loaded from LDAP is saved to the User model.
+LDAP_AUTH_CLEAN_USER_DATA = "django_python3_ldap.utils.clean_user_data"
+
+# Path to a callable that takes a user model and a dict of {ldap_field_name: [value]},
+# and saves any additional user relationships based on the LDAP data.
+# Use this to customize how data loaded from LDAP is saved to User model relations.
+# For customizing non-related User model fields, use LDAP_AUTH_CLEAN_USER_DATA.
+#LDAP_AUTH_SYNC_USER_RELATIONS = "django_python3_ldap.utils.sync_user_relations"
+LDAP_AUTH_SYNC_USER_RELATIONS="ssidswitcher1.static.ldap_auth.custom_sync_user_relations"
+
+# Path to a callable that takes a dict of {ldap_field_name: value},
+# returning a list of [ldap_search_filter]. The search filters will then be AND'd
+# together when creating the final search filter.
+#LDAP_AUTH_FORMAT_SEARCH_FILTERS = "django_python3_ldap.utils.format_search_filters"
+
+#LDAP_AUTH_FORMAT_SEARCH_FILTERS="ssidswitcher1.static.ldap-search-filter.custom_format_search_filters"
+LDAP_AUTH_FORMAT_SEARCH_FILTERS="ssidswitcher1.static.ldap_auth.custom_format_search_filters"
+
+LDAP_AUTH_MEMBER_OF_ATTRIBUTE = "memberOf"
+
+LDAP_AUTH_GROUP_ATTRS = {
+  "CN=ssidapp_staff,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "is_staff",
+  "CN=ssidapp_superuser,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "is_superuser",
+}
+
+# Group memberships that map to the name of a group the user is a member of.
+# HACK: Group names are not unique in Django, but hardcoding group PKs seems wrong.
+LDAP_AUTH_GROUP_RELATIONS = {
+  "CN=dev,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "dev",
+  "CN=noc,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "noc",
+  "CN=qa,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "qa",
+  "CN=soc,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "soc",
+  "CN=ssidapp,OU=groups,DC=net,DC=wi-fi-bar,DC=com": "ssidapp",
+}
+
+LDAP_AUTH_GROUP_MEMBER_OF = "CN=ssidapp,OU=groups,DC=net,DC=wi-fi-bar,DC=com"
+
+# Path to a callable that takes a dict of {model_field_name: value}, and returns
+# a string of the username to bind to the LDAP server.
+# Use this to support different types of LDAP server.
+#LDAP_AUTH_FORMAT_USERNAME = "django_python3_ldap.utils.format_username_openldap"
+LDAP_AUTH_FORMAT_USERNAME = "django_python3_ldap.utils.format_username_active_directory"
+
+# Sets the login domain for Active Directory users.
+LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = "net.wi-fi-bar.com"
+
+# The LDAP username and password of a user for authenticating the `ldap_sync_users`
+# management command. Set to None if you allow anonymous queries.
+LDAP_AUTH_CONNECTION_USERNAME = "Administrator"
+LDAP_AUTH_CONNECTION_PASSWORD = "1DFl1H45"
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django_python3_ldap": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+        },
+    },
+}

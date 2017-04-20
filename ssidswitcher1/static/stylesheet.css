@@ -39,11 +39,31 @@ ul.inside {
     margin-top:0px;
 }
 
+.big-container {
+    width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding-top:50px;
+ }
+
 
 .big {
     width: 780px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+  /*  -webkit-column-count: 3; /* Chrome, Safari, Opera */
+/*   -moz-column-count: 3; /* Firefox */
+ /*  column-count: 3; */
+ }
+
+.big-vendor {
+    display: none;
+    width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
   /*  -webkit-column-count: 3; /* Chrome, Safari, Opera */
 /*   -moz-column-count: 3; /* Firefox */
  /*  column-count: 3; */
@@ -116,9 +136,334 @@ ul.inside {
 }
 
 
+/*Logout button*/
 .logout_btn {
-    color:red;
-    font-weight: bold;
-    border-radius: 15px;
+    border: 0;
+	width: 25px;
+	height: 25px;
+	background: url('images/logout.png') top left no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+	cursor:pointer;
+    vertical-align: top;
+    opacity: 0.5;
 }
 
+.logout_btn:hover {
+    opacity:1;
+}
+/*
+
+.logout_btn:hover {
+    background: url('images/logout_btn_hov.png') top left no-repeat;
+    background-position: center;
+    background-size: 100% 100%; } */
+/*
+.logout_btn:active {
+	background: url('images/logout_btn_hov.png') top left no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+} */
+/*Logout button*/
+
+/*profile button*/
+.profile_btn {
+    border: 0;
+    margin-top: 2px;
+	width: 23px;
+	height: 23px;
+	background: url('images/person.png') top left no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+	cursor:pointer;
+    vertical-align: top;
+    opacity: 0.5;
+}
+.profile_btn:hover {
+    opacity:1;
+}
+/*profile button*/
+
+/* Login form*/
+#login_container {
+	width: 357px;
+	margin: 100px auto;
+ /*	background: url('images/login_bg.png') top left no-repeat; */
+}
+
+#form_container {
+	width: 300px;
+	/*height: 200px; */
+	/*margin: 0px auto;
+	padding-top: 80px; */
+
+}
+
+.text_input:focus {
+	outline: 0;
+}
+
+.text_input {
+	/*color: #c1c1c3; */
+    color: gray;
+	border: 0;
+	margin: 5px 35px 0 34px;
+	padding: 0px 0px 0px 10px;
+	width: 259px;
+	height: 32px;
+	background: url('images/text_input.png') top left no-repeat;
+}
+
+#login {
+	margin: 20px 108px;
+	border: 0;
+	width: 83px;
+	height: 30px;
+	background: url('images/login_btn.png') top left no-repeat;
+	cursor:pointer;
+}
+
+#login:hover {opacity:0.9;}
+
+#login:active {
+	background: url('images/login_btn_hov.png') top left no-repeat;
+}
+
+.login-text {
+	text-align:center;
+	color:#515151;
+    font-size: 18px;
+  /*  margin-bottom: 10px; */
+    height:270px;
+}
+
+/* Login form*/
+
+/*Pulsate led of wifi device*/
+.pulsate-led {
+    width:20px;
+    -webkit-animation: pulsate 2s ease;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 10;
+
+}
+/*Pulsate led of wifi device*/
+
+
+/*SSID detail*/
+.ssid-detail-container {
+    margin-top: 100px;
+    width:300px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.ssid-detail-list {
+    list-style-type:none ;
+    text-align: left;
+    margin-top:0;
+    margin-bottom: 10px;
+}
+
+.ssid-detail-list li {
+    margin-bottom: 2px;
+}
+
+.link-to-main {
+	margin: 10px 108px;
+	border: 0;
+	width: 83px;
+	height: 30px;
+	background: url('images/home_btn.png') top left no-repeat;
+	cursor:pointer;
+}
+.link-to-main:hover {
+    background: url('images/home_btn_hov.png') top left no-repeat;
+}
+
+.link-to-main:active {
+	background: url('images/home_btn_hov.png') top left no-repeat;
+}
+
+/*SSID detail*/
+
+
+/*Run button*/
+#Run {
+    display: none;
+    border: 0;
+	width: 100px;
+	height: 100px;
+	background-image: url('images/start-button.png');
+    background-position: center;
+    background-size: 100% 100%;
+    background-color: white;
+	cursor:pointer;
+    margin-left:auto;
+    margin-right:auto;
+}
+#Run:hover {
+     background: url('images/start-button-hov.png');
+    background-position: center;
+    background-size: 100% 100%;
+}
+
+#Run:active {
+	background: url('images/start-button-hov.png');
+    background-position: center;
+    background-size: 100% 100%;
+}
+
+/*Run button*/
+
+
+/*Admin button*/
+.admin_btn {
+    border: 0;
+	width: 27px;
+	height: 27px;
+	background: url('images/settings1.png') top left no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+	cursor:pointer;
+    vertical-align: top;
+    opacity: 0.5;
+}
+.admin_btn:hover {
+    opacity:1;
+}
+/*
+
+.admin_btn:hover {
+    background: url('images/admin_hov_btn.png') top left no-repeat;
+    background-position: center;
+    background-size: 100% 100%; }
+
+.admin_btn:active {
+	background: url('images/admin_hov_btn.png') top left no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+}  */
+/*Admin button*/
+
+
+/* View toggle checkbox */
+.switch {
+	position: relative;
+	display: block;
+	vertical-align: top;
+	width: 100px;
+	height: 30px;
+	padding: 3px;
+	margin: 0 10px 10px 10px;
+	background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+	background-image: -webkit-linear-gradient(bottom, #eeeeee, #FFFFFF 25px);
+	border-radius: 18px;
+	box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	cursor: pointer;
+	box-sizing:content-box;
+}
+.switch-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	box-sizing:content-box;
+}
+.switch-label {
+	position: relative;
+	display: block;
+	height: inherit;
+	font-size: 12px;
+	text-transform: uppercase;
+	background: #eee;
+	border-radius: inherit;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+	box-sizing:content-box;
+	font-weight: bold;
+}
+.switch-label:before, .switch-label:after {
+	position: absolute;
+	top: 50%;
+	margin-top: -.5em;
+	line-height: 1;
+	-webkit-transition: inherit;
+	-moz-transition: inherit;
+	-o-transition: inherit;
+	transition: inherit;
+	box-sizing:content-box;
+}
+.switch-label:before {
+	content: attr(data-off);
+	right: 11px;
+	color: #444;
+	<!--text-shadow: 0 1px rgba(255, 255, 255, 0.5);-->
+}
+.switch-label:after {
+	content: attr(data-on);
+	left: 11px;
+	color: #444;
+	text-shadow: 0 1px rgba(0, 0, 0, 0);
+	opacity: 0;
+}
+.switch-input:checked ~ .switch-label {
+	background: #eee;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+.switch-input:checked ~ .switch-label:before {
+	opacity: 0;
+}
+.switch-input:checked ~ .switch-label:after {
+	opacity: 1;
+}
+.switch-handle {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 28px;
+	height: 28px;
+	background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+	background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+	border-radius: 100%;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+.switch-handle:before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -6px 0 0 -6px;
+	width: 12px;
+	height: 12px;
+	background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
+	background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
+	border-radius: 6px;
+	box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+}
+.switch-input:checked ~ .switch-handle {
+	left: 74px;
+	box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Transition
+========================== */
+.switch-label, .switch-handle {
+	transition: All 0.3s ease;
+	-webkit-transition: All 0.3s ease;
+	-moz-transition: All 0.3s ease;
+	-o-transition: All 0.3s ease;
+}
+
+/* View toggle checkbox */
+
+
+/*Button pannel*/
+.button-pannel {
+    border:1px solid black;
+    width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+/*Button pannel */

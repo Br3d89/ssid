@@ -162,6 +162,7 @@ ul.inside {
 /*profile button*/
 .profile_btn {
     border: 0;
+    margin-top: 2px;
 	width: 30px;
 	height: 30px;
 	background: url('images/person.png') top left no-repeat;
@@ -308,8 +309,8 @@ ul.inside {
 /*Admin button*/
 .admin_btn {
     border: 0;
-	width: 30px;
-	height: 30px;
+	width: 27px;
+	height: 27px;
 	background: url('images/settings.png') top left no-repeat;
     background-position: center;
     background-size: 100% 100%;

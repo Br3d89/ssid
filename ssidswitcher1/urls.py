@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^ssid_busy/', ssid_busy),
     url(r'^ssid_error/', ssid_error),
     url(r'^auth/login/',login),
-    url(r'^auth/profile/$', profile),
+    url(r'^profile', profile),
     url(r'^auth/logout/', logout),
     url(r'^', index)
 ]

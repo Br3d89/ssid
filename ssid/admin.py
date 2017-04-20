@@ -12,8 +12,8 @@ from .models import ssid,vendor,device_ip,auth_server,auth_scheme
 class SsidAdmin(admin.ModelAdmin):
     #Shows fields that can be changed
     #readonly_fields = ('ip_for_vendor',)
-    #fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web','group','auth_scheme')
-    fieldsets=('name', 'wlan_id', 'ap_mac', 'vendor', 'ip_for_vendor', 'web', 'group', 'auth_scheme')
+    fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web','group','auth_scheme')
+    #fieldsets=('name', 'wlan_id', 'ap_mac', 'vendor', ('ip_for_vendor', 'web'), 'group', 'auth_scheme')
     #Shows fields in admin pannel
     list_display = ('name', 'web','ip','status','vendor','ssid_group','auth_scheme')
     #list_filter = ('name','web')
@@ -23,8 +23,8 @@ class SsidAdmin(admin.ModelAdmin):
     def ssid_group(self, obj):
         return "\n".join([p.name for p in obj.group.all()])
 
-    def ip_for_vendor(self,obj):
-        return "\n".join([ p for p in list(device_ip.objects.values_list('name', flat=True).filter(vendor__name=obj.vendor))])
+    #def ip_for_vendor(self,obj):
+    #    return "\n".join([ p for p in list(device_ip.objects.values_list('name', flat=True).filter(vendor__name=obj.vendor))])
        #return "\n".join([p.name for p in obj.group.all()])
 
 

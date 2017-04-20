@@ -611,3 +611,10 @@ def logout(request):
     print('Logout is triggered')
     auth.logout(request)
     return redirect('/')
+
+
+def profile(request):
+    args = {}
+    args['user_object']=auth.get_user(request)
+    return render(request, 'profile.html', args)
+

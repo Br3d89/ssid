@@ -59,3 +59,11 @@ class ssid(models.Model):
     @property
     def remaining_time(self):
         return str((self.end_date-datetime.now(timezone.utc)).total_seconds()).split(".")[0]
+'''
+    @classmethod
+    def create(cls, img, desc, user=0):
+        obj, _ = cls.objects.get_or_create(img=img,
+                                           defaults={'key': key, 'desc': desc})
+        obj.usr.add(user)
+        return obj
+'''

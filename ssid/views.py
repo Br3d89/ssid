@@ -124,61 +124,32 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
         #child.logfile = fout
         child.expect(':', timeout=pexp_timeout)
         child.sendline("{}\r".format(ssh_password))
-        k=child.expect(["#",">"])
-        if k==0:
-            child.sendline('conf\r')
-            for m in ssid_objects:
-                child.expect('#')
-                child.sendline('wlan ssid-profile {}\r'.format(m.wlan_id))
-                child.expect('#')
-                if (m.name in up_new) and t == 0:
-                    child.sendline('enable\r')
-                    m.status = 1
-                    print(m.name,' enabled')
-                else:
-                    child.sendline('disable\r')
-                    m.status = 0
-                    print(m.name,' disabled')
-                m.save()
-                child.sendline('exit\r')
-                if t==0:
-                    ssids_busy.remove(m.name)
-                ssid_status_list.append(m.name)
-            child.sendline('end\r')
+        child.expect("#")
+        child.sendline('conf\r')
+        for m in ssid_objects:
             child.expect('#')
-            child.sendline('commit apply\r')
+            child.sendline('wlan ssid-profile {}\r'.format(m.wlan_id))
             child.expect('#')
-            child.sendline('logout')
-        else:
-            child.sendline('enable\r')
-            child.expect(':')
-            child.sendline("{}\r".format(ssh_password))
-            child.expect('#')
-            child.sendline('conf t\r')
-            for m in ssid_objects:
-                child.expect('#')
-                child.sendline('wlan virtual-ap {}\r'.format(m.wlan_id))
-                child.expect('#')
-                if (m.name in up_new) and t == 0:
-                    child.sendline('vap-enable\r')
-                    m.status = 1
-                    print(m.name, ' enabled')
-                else:
-                    child.sendline('no vap-enable\r')
-                    m.status = 0
-                    print(m.name, ' disabled')
-                m.save()
-                child.sendline('exit\r')
-                if t == 0:
-                    ssids_busy.remove(m.name)
-                ssid_status_list.append(m.name)
-            child.sendline('end\r')
-            child.expect('#')
-            child.sendline('write memory\r')
-            child.expect('#')
+            if (m.name in up_new) and t == 0:
+                child.sendline('enable\r')
+                m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
+                print(m.name,' enabled')
+            else:
+                child.sendline('disable\r')
+                m.status = 0
+                print(m.name,' disabled')
+            m.save()
             child.sendline('exit\r')
-            child.expect('>')
-            child.sendline('exit\r')
+            if t==0:
+                ssids_busy.remove(m.name)
+            ssid_status_list.append(m.name)
+        child.sendline('end\r')
+        child.expect('#')
+        child.sendline('commit apply\r')
+        child.expect('#')
+        child.sendline('logout')
         print('Aruba {} done'.format(i))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:

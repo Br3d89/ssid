@@ -213,25 +213,6 @@ ul.inside {
     height:270px;
 }
 
-.text_input:-webkit-autofill {
-    width: 100px;
-	height: 20px;
-}
-
-@-webkit-keyframes autofill {
-    to {
-        color: #666;
-        background: transparent;
-
-    }
-}
-
-input:-webkit-autofill {
-    -webkit-animation-name: autofill;
-    -webkit-animation-fill-mode: both;
-
-}
-
 /* Login form*/
 
 /*Pulsate led of wifi device*/

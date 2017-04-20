@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>SSID SWITCHER</title>
     <meta charset="utf-8">
     <link href="{% static 'stylesheet.css' %}" rel="stylesheet" type="text/css" >
     <link href="{% static 'bred.css' %}" rel="stylesheet" type="text/css" >
     <script src="{% static 'jquery-3.1.1.min.js'%}"></script>
+	<link rel="icon" href="{% static 'images/wifi.png' %}" type="image/x-icon">
+	<link rel="shortcut icon" href="{% static 'images/wifi.png' %}" type="image/x-icon">
  <!--   <script src="{% static 'main.js'%}"></script> -->
    <!-- <meta http-equiv="refresh" content="120"> -->
 </head>
 
 <body>
-<!--Login part-->
+
+
+{% if username %}
  <div id="header">
   <div class="login_form">
-       {% if username %}
-           <a href="/auth/profile" style="color: black;text-decoration: none">Профиль ({{ username }})</a>
-           <button class="logout_btn" onclick="location.href='/auth/logout/'" type="button">Выйти</button>
-          <!-- <a href="/auth/logout/">Выйти</a> -->
-       {% else %}
-       <form action="/auth/login/" method="POST">
-          {% csrf_token %}
-         <input type="text" name="username" id="username" placeholder="Логин">
-         <input type="password" name="password" id="password" placeholder="Пароль">
-         {% if login_error %}
-         <label class="error">{{login_error}}</label>
-         {% endif %}
-         <input type="submit" value="Войти">
-         </form>
-       {% endif %}
- </div>
+    <!--<a href="/profile" style="color: black;"><img width="30px" height="30px" src="{% static 'images/person.png' %}"></a> -->
+    <button class="profile_btn" onclick="location.href='/profile'" type="button" ></button>
+      {% if user_object.is_staff %}
+     <button class="admin_btn" onclick="location.href='/admin/'" type="button"></button>
+    {% endif %}
+    <button class="logout_btn" onclick="location.href='/auth/logout/'" type="button"></button>
+  </div>
  </div>
 
-<!--Header part-->
- <div class="title"><p class="pulsate">Select server...</p></div>
 
-<!--Test-->
-<div class="big">
- {% if username %}
+{% block content %}
+ <div class="big-container">
+<!--<div class="title"><p class="pulsate">Select server...</p></div> -->
+ <label class="switch">
+	<input class="switch-input" type="checkbox" onclick="change_view(this)"/>
+	<span class="switch-label" data-on="Server" data-off="Vendor"></span>
+	<span class="switch-handle"></span>
+ </label>
+
+     <div class="big">
      {% for i,k in servers_enum %}
           <div class="server_column">
               {% for n in k %}
@@ -51,8 +51,8 @@
                       <ul class="inside">
                             <li style="margin-bottom: 5px;"><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ n }}">http://{{ n }}</a></li>
                             <li><input type="checkbox" onclick="SelectAll(this)"/>Select all</li>
-                            {% for j in latest %}
-                                {% if j.web == n %}
+                            {% for j in all_group_ssids %}
+                                {% if j.web.name == n %}
                                     {% if j.name in ssids_busy %}
                                         {% if j.status %}
                                             <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:red" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }} - Busy </span></a></li>
@@ -61,7 +61,7 @@
                                         {% endif %}
                                     {% else %}
                                         {% if j.status %}
-                                            <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a></li>
+                                            <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}</span></a></li>
                                         {% else %}
                                         <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
                                         {% endif %}
@@ -73,26 +73,36 @@
               {% endfor %}
           </div>
      {% endfor %}
+</div>
 
-{% else %}
-   {% for i,k in servers_enum %}
+
+    <div class="big-vendor">
+
+     {% for i,k in vendors_enum %}
           <div class="server_column">
               {% for n in k %}
                   <div class="panel">
-                      {% if n in servers_with_up_ssids %}
+                      {% if n in vendors_with_up_ssids %}
                       <button class="accordion act">{{ n }}</button>
                       {% else %}
                       <button class="accordion pasv">{{ n }}</button>
                       {% endif %}
                       <ul class="inside">
-                            <li style="margin-bottom: 5px;"><a target="_blank" style="color:red;font-size: 14px;text-decoration: underline;" href="http://{{ n }}">http://{{ n }}</a></li>
-                            <li><input disabled="true" type="checkbox" onclick="SelectAll(this)"/>Select all</li>
-                            {% for j in latest %}
-                                {% if j.web == n %}
-                                    {% if j.status %}
-                                        <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled="true" checked onclick="update_ssidlist(this)"/><span class="{{ j.name }}">{{ j.name }}  </span></li>
+                            <li><input type="checkbox" onclick="SelectAll(this)"/>Select all</li>
+                            {% for j in all_group_ssids %}
+                                {% if j.vendor.name == n %}
+                                    {% if j.name in ssids_busy %}
+                                        {% if j.status %}
+                                            <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:red" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }} - Busy </span></a></li>
+                                        {% else %}
+                                            <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:red" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }} - Busy </span></a><br></li>
+                                        {% endif %}
                                     {% else %}
-                                        <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}" disabled="true" onclick="update_ssidlist(this)"/><span class="{{ j.name }}">{{ j.name }}  </span><br></li>
+                                        {% if j.status %}
+                                            <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  checked onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}</span></a></li>
+                                        {% else %}
+                                            <li><input type="checkbox" id="{{ j.name }}" name='ssid' value="{{ j.name }}"  onclick="update_ssidlist(this)"/><a style="text-decoration: none;color:black" href="/ssid/{{ j.name }}"><span class="{{ j.name }}">{{ j.name }}  </span></a><br></li>
+                                        {% endif %}
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
@@ -101,17 +111,17 @@
               {% endfor %}
           </div>
      {% endfor %}
-   {% endif %}
-<!--Test-->
 
-<br>
+
+</div>
 <!--Footer part -->
 <div class="footer">
 <input type="checkbox" name="Timer" style= "margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px; " id="timercheckbox" onclick="update_timer(this)">
 <label style="margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px;" id="time_label" for="timercheckbox">Timer (in minutes):</label>
 <input style="width:120px;margin-left:auto;margin-right:auto;display: none;text-align: center;margin-bottom:5px;" type="text" id="timer" placeholder="default 30 minutes" name="timer" maxlength="3" required>
-<input style="margin-left:auto;margin-right:auto;width:100px;color:red;font-size:18px;font-weight:bold;display:none;border-radius: 30px;text-align: center;" type="button" id="Run" onClick="run()" value="Run"/>
-{% csrf_token %}
+<!--<input style="margin-left:auto;margin-right:auto;width:100px;color:red;font-size:18px;font-weight:bold;display:none;border-radius: 30px;text-align: center;" type="button" id="Run" onClick="run()" value="Run"/<>-->
+<input type="button" id="Run" onClick="run()" />
+    {% csrf_token %}
 
 <img id="loading" src="{% static 'InternetSlowdown_Day.gif' %}" style="width:60px;height:60px;display: none;">
 <div id="success" style="display: none;color:green;font-size: 26px; ">Success</div>
@@ -119,6 +129,9 @@
 <div id="errors" style="display: none;color: red;font-size: 18px"></div>
 
 </div>
+</div>
+
+
 
 
 <script language="JavaScript">
@@ -163,13 +176,28 @@ for (i = 0; i < acc.length; i++) {
 
 //mouseleave
 $(document).ready(function(){
- $('span').mouseenter(function(){
+ $('span').not(".switch-label").mouseenter(function(){
         $(this).fadeTo('fast', 0.5);
    });
-$('span').mouseleave(function(){
+$('span').not(".switch-label").mouseleave(function(){
         $(this).fadeTo('fast', 1);
     })
 });
+
+//Toggle view
+function change_view(toggle) {
+ if (toggle.checked){
+        $(".big").css("display","none");
+        $(".big-vendor").css("display","block")
+        $("#Run,#time_label,#timercheckbox").css("display","none")
+    }
+    else {
+        $(".big-vendor").css("display","none");
+        $(".big").css("display","block");
+        $("#Run,#time_label,#timercheckbox").css("display","none")
+    }
+}
+
 
 
 //Timer settings
@@ -426,5 +454,24 @@ else {
 }
 
 </script>
+{% endblock %}
+
+{% else %}
+<div id="login_container">
+	<div id="form_container">
+        <div class="login-text"><img width="256px" height="256px" src="{% static 'images/wifi.png' %}"><div style="position: relative;right: -220px;top:-55px" class="pulsate-led"><img height=14px width=14px src="{% static 'images/wifi-led.png' %}"></div></div>
+		<form method='POST' action="/auth/login/" autocomplete="off">
+            {% csrf_token %}
+		<input type='text' onFocus="if(this.value=='Login')this.value=''" onblur="if(this.value=='')this.value='Login'" name='username' value='Login' class='text_input' />
+		<input type='password' onFocus="if(this.value=='Password')this.value=''" onblur="if(this.value=='')this.value='Password'" name='password' value='Password' class='text_input' />
+         {% if login_error %}
+         <label class="error">{{login_error}}</label>
+         {% endif %}
+		<input type='submit' value='' id='login' name='login' />
+		</form>
+	</div>
+</div>
+{% endif %}
+
 </body>
 </html>

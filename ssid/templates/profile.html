@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+<div class="ssid-detail-container">
+<img width="256px" height="256px" src="{% static 'images/profile.png' %}">
+<ul class="ssid-detail-list">
+<li><span style="font-weight: bold">Name:       </span>{{ user_object.first_name }} {{ user_object.last_name }}<br></li>
+<li><span style="font-weight: bold">Username:  </span>{{ user_object.username }}</li>
+<li><span style="font-weight: bold">Group(s):  </span>
+{% for i in user_object.groups.all %}
+{{ i }}
+{% endfor %}
+</li>
+<li><span style="font-weight: bold">Join date:  </span>{{ user_object.date_joined }}</li>
+{% if user_object.is_staff %}
+<li><span style="font-weight: bold">Is staff: </span>yes</li>
+{% else %}
+<li><span style="font-weight: bold">Is staff: </span>no</li>
+{% endif %}
+</ul>
+<input class="link-to-main" type="button" onclick="location.href='/';"/>
+</div>
+{% endblock %}

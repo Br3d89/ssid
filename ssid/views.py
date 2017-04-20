@@ -1,11 +1,11 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse, HttpResponse
-from .models import ssid
+from .models import ssid,auth_server,vendor,device_ip
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
 import copy
 import paramiko,time,pexpect,requests,json,logging,threading
-from datetime import datetime
+from datetime import datetime,timedelta
 from multiprocessing import Process
 from django.contrib import auth
 import sys
@@ -46,18 +46,18 @@ def ssid_update(request):
         timeout_value = int(json.loads(request.POST.get('timer')))*60
         rcv_ssids = up_new + down_new
         [ssids_busy.append(i) for i in rcv_ssids]
-        ip_list = set(ssid.objects.values_list('ip', flat=True).filter(name__in=rcv_ssids))
+        ip_list = list(ssid.objects.values_list('ip__name', flat=True).distinct().filter(name__in=rcv_ssids))
         process_list = []
         for i in ip_list:
-            vendor = list(set(ssid.objects.values_list('vendor', flat=True).filter(ip=i)))[0]
-            ssid_objects = ssid.objects.filter(ip=i, name__in=rcv_ssids)  # all ssids within device
-            ssid_objects_up=ssid.objects.filter(ip=i, name__in=up_new)
-            p = (threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors)))
+            vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
+            ssid_objects = ssid.objects.filter(ip__name=i, name__in=rcv_ssids)  # all ssids within device
+            ssid_objects_up=ssid.objects.filter(ip__name=i, name__in=up_new)
+            p = (threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors,timeout_value)))
             p.start()
             process_list.append(p)
             if ssid_objects_up:     #run disable thread only for ssid_objects_up
                 print('Creating disable thread')
-                d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors, 1))
+                d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors,timeout_value, 1))
                 d.start()
         for i in process_list:
             i.join()
@@ -67,7 +67,7 @@ def ssid_update(request):
         index(request)
 
 
-def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
+def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors,ssid_timeout, t=0):
     print('Working on Cisco {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
@@ -89,6 +89,8 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
             if (m.name in up_new) and t == 0:
                 child.sendline('config wlan enable {}'.format(m.wlan_id))
                 m.status = 1
+                m.start_date=datetime.now()
+                m.end_date=m.start_date+timedelta(0,ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('config wlan disable {}'.format(m.wlan_id))
@@ -114,7 +116,7 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
 
 
 
-def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors, t=0):
+def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors,ssid_timeout, t=0):
     print('Working on Aruba {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
@@ -187,7 +189,7 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
         print(err)
 
 
-def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
+def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors,ssid_timeout, t=0):
     print('Working on Unifi {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
@@ -200,6 +202,8 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
                 child.expect('#')
                 child.sendline('reboot')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('ifconfig wifi0 down')
@@ -221,7 +225,7 @@ def unifi(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
         print(err)
 
 
-def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors, t=0):
+def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors,ssid_timeout, t=0):
     print('Working on Mikrotik {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
@@ -233,6 +237,8 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list
                 child.sendline("/interface wireless enable {}\n\r".format(m.wlan_id))
                 time.sleep(1)
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline("/interface wireless disable {}\n\r".format(m.wlan_id))
@@ -255,7 +261,7 @@ def mikrotik(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list
         print(err)
 
 
-def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors,ssid_timeout, t=0):
     print('Working on Ruckus {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
@@ -275,8 +281,13 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
                 child.sendline('wlan {}'.format(m.wlan_id))
                 child.expect('#')
                 child.sendline('type hotspot {}'.format(m.wlan_id))
+                child.expect('#')
+                child.sendline('called-station-id-type ap-mac')
+                child.expect('#')
                 child.sendline('end')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('no wlan {}'.format(m.wlan_id))
@@ -300,7 +311,7 @@ def ruckus(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         print(err)
 
 
-def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors,ssid_timeout, t=0):
     print('Working on RuckusVSZ {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l admin -o StrictHostKeyChecking=no {}'.format(i))
@@ -321,6 +332,8 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
             if (m.name in up_new) and t == 0:
                 child.sendline('enable-type Always-On')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('enable-type Always-Off')
@@ -347,7 +360,7 @@ def ruckusvsz(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_li
         print(err)
 
 
-def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors,ssid_timeout, t=0):
     print('Working on OpenWRT {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format('root', i))
@@ -358,6 +371,8 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list
             if (m.name in up_new) and t == 0:
                 child.sendline('uci set wireless.@wifi-device[0].disabled=0; uci commit wireless; wifi\n')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('uci set wireless.@wifi-device[0].disabled=1; uci commit wireless; wifi\n')
@@ -379,7 +394,7 @@ def openwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list
         print(err)
 
 
-def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors,ssid_timeout, t=0):
     print('Working on DDWRT {} '.format(i))
     try:
         child = pexpect.spawn('telnet {}'.format(i))
@@ -394,6 +409,8 @@ def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,e
                 child.expect('#')
                 child.sendline('reboot\n')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('ifconfig ath0 down\n')
@@ -415,7 +432,7 @@ def ddwrt(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,e
         print(err)
 
 
-def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors,ssid_timeout, t=0):
     print('Working on Huawei {} '.format(i))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username,i))
@@ -432,6 +449,8 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
             if (m.name in up_new) and t == 0:
                 child.sendline('undo service-mode disable')
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 child.sendline('service-mode disable')
@@ -460,7 +479,7 @@ def huawei(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
         time.sleep(1)
 
 
-def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors, t=0):
+def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,errors,ssid_timeout, t=0):
     print('Working on Meraki {} '.format(i))
     try:
         murl = 'https://n150.meraki.com/api/v0/organizations/616518/networks/N_647392446434529213/ssids/'
@@ -470,6 +489,8 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
             if (m.name in up_new) and t == 0:
                 putdata = {'enabled': True}
                 m.status = 1
+                m.start_date = datetime.now()
+                m.end_date = m.start_date + timedelta(0, ssid_timeout)
                 print(m.name,' enabled')
             else:
                 putdata = {'enabled': False}
@@ -492,45 +513,88 @@ def meraki(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list,
 
 #@csrf_exempt
 def index(request,args={}):
-    all_list = list(ssid.objects.values_list('name', flat=True))
-    all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
-    servers_with_up_ssids=list(ssid.objects.values_list('web', flat=True).distinct().filter(status='1'))
-    servers_with_down_ssids = list(ssid.objects.values_list('web', flat=True).distinct().filter(status='0').order_by('web'))
+    errors = []
+    ctx = {}
+    ctx.update(args)
+    request_user_group=list(request.user.groups.values_list('name', flat=True))
+    all_group_ssids=ssid.objects.filter(group__name__in=request_user_group).order_by('-vendor_id')
+    all_up_ssids = list(ssid.objects.filter(group__name__in=request_user_group).filter(status='1').distinct().values_list('name', flat=True))   #Сначала нужно выбрать все сервера относящиеся к пользователю
+    request_user_servers =list(auth_server.objects.values_list('name', flat=True).filter(group__name=request_user_group))
+
+    servers_with_up_ssids = list(ssid.objects.filter(status=1).filter(group__name__in=request_user_group).distinct().values_list('web__name', flat=True))
+    vendors_with_up_ssids=list(ssid.objects.filter(status=1).filter(group__name__in=request_user_group).distinct().values_list('vendor__name',flat=True))
+
+    servers_with_down_ssids = list(ssid.objects.filter(status=0).filter(group__name__in=request_user_group).distinct().values_list('web__name',flat=True).order_by('web_id'))
+    vendors_with_down_ssids=list(ssid.objects.filter(status=0).filter(group__name__in=request_user_group).distinct().values_list('vendor__name',flat=True).order_by('vendor_id'))
+
     servers_ssids_sorted=[]+servers_with_up_ssids
+    vendors_ssids_sorted=[]+vendors_with_up_ssids
+
+    # Index button position logic for servers
     for i in servers_with_down_ssids:
         if i not in servers_with_up_ssids:
             servers_ssids_sorted.append(i)
-    errors=[]
-    ctx = {}
-    ctx.update(args)
+    div = []
+    iter_list = []
+    server_list_len=len(servers_ssids_sorted)
+    if server_list_len<=3:
+       for i in range(server_list_len):
+           div.append([])
+           iter_list.append(i)
+       div_cycle = itertools.cycle(iter_list)
+       for i in servers_ssids_sorted:
+           div[next(div_cycle)].append(i)
+       div_enum = enumerate(div)
+    else:
+        for i in range(3):
+            div.append([])
+            iter_list.append(i)
+        div_cycle = itertools.cycle(iter_list)
+        for i in servers_ssids_sorted:
+            div[next(div_cycle)].append(i)
+        div_enum = enumerate(div)
+    # End of Index button position logic for servers
 
-    #Index button position logic
-    div_1 = []
-    div_2 = []
-    div_3 = []
-    div=[div_1,div_2,div_3]
-    div_cycle = itertools.cycle([0,1,2])
-    for i in servers_ssids_sorted:
-        div[next(div_cycle)].append(i)
-    div_enum=enumerate(div)
-    # End of Index button position logic
+
+
+    # Index button position logic for vendors
+    for i in vendors_with_down_ssids:
+        if i not in vendors_with_up_ssids:
+            vendors_ssids_sorted.append(i)
+    div_vendors = []
+    iter_list_vendors = []
+    vendor_list_len = len(vendors_ssids_sorted)
+    if vendor_list_len <= 3:
+        for i in range(vendor_list_len):
+            div_vendors.append([])
+            iter_list_vendors.append(i)
+        div_cycle_vendors = itertools.cycle(iter_list_vendors)
+        for i in vendors_ssids_sorted:
+            div_vendors[next(div_cycle_vendors)].append(i)
+        div_enum_vendors = enumerate(div_vendors)
+    else:
+        for i in range(3):
+            div_vendors.append([])
+            iter_list_vendors.append(i)
+        div_cycle_vendors = itertools.cycle(iter_list_vendors)
+        for i in vendors_ssids_sorted:
+            div_vendors[next(div_cycle_vendors)].append(i)
+        div_enum_vendors = enumerate(div_vendors)
+    # End of Index button position logic for vendors
+
 
     ctx['ssids_busy']=ssids_busy
     ctx['ssid_status_list']=ssid_status_list
     ctx['all_up_ssids']=all_up_ssids
     ctx['servers_with_up_ssids']=servers_with_up_ssids
-    ctx['latest'] = ssid.objects.order_by('-vendor')
-    #ctx['servers']=enumerate(list(ssid.objects.values_list('web', flat=True).distinct().order_by('web')))
-    #ctx['servers'] = list(ssid.objects.values_list('web', flat=True).distinct().order_by('web'))
+    ctx['vendors_with_up_ssids']=vendors_with_up_ssids         #for accordion logic
+    ctx['all_group_ssids']=ssid.objects.filter(group__name__in=request_user_group).order_by('-vendor_id')
     ctx['servers']=servers_ssids_sorted
-    ctx['servers_len']=len(servers_ssids_sorted)
-    ctx['servers_divide']=len(servers_ssids_sorted) % 3
-    ctx['servers_ipp']=len(servers_ssids_sorted) // 3
-    ctx['servers_ipp_range']=range(len(servers_ssids_sorted) // 3)
-    ctx['column_range']=range(3)
     ctx['servers_enum']=div_enum
+    ctx['vendors_enum']=div_enum_vendors             #for accordion logic
     ctx['ok']='Run'
     ctx['username']=auth.get_user(request).username
+    ctx['user_object']=auth.get_user(request)
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -539,7 +603,7 @@ def index(request,args={}):
             auth.login(request, user)
             return redirect('/')
         else:
-            ctx['login_error'] = 'Пользователь не найден'
+            ctx['login_error'] = 'Login failed'
             return render(request, 'index.html', ctx)
         #return HttpResponse('Index not for POSTs')
     else:
@@ -547,8 +611,11 @@ def index(request,args={}):
 
 
 def detail(request,name):
-    a = ssid.objects.get(name=name)
-    return render(request, 'ssid/detail.html', {'instance': a})
+    ctx={}
+    ctx['user_object'] = auth.get_user(request)
+    ctx['username'] = auth.get_user(request).username
+    ctx['instance']=ssid.objects.get(name=name)
+    return render(request, 'detail.html', ctx)
 
 
 def ssid_status(request):
@@ -581,7 +648,7 @@ def login(request):
             auth.login(request,user)
             return redirect('/')
         else:
-            args['login_error']='Пользователь не найден'
+            args['login_error']='Login failed'
             #return render(request,'index.html', args)
             return index(request,args)
     else:
@@ -592,3 +659,11 @@ def logout(request):
     print('Logout is triggered')
     auth.logout(request)
     return redirect('/')
+
+
+def profile(request):
+    args = {}
+    args['username'] = auth.get_user(request).username
+    args['user_object']=auth.get_user(request)
+    return render(request, 'profile.html', args)
+

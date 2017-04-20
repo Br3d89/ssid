@@ -217,12 +217,16 @@ ul.inside {
     to {
         color: #666;
         background: transparent;
+        width: 240px;
+        height: 30px;
     }
 }
 
 input:-webkit-autofill {
     -webkit-animation-name: autofill;
     -webkit-animation-fill-mode: both;
+    width: 240px;
+    height: 30px;
 }
 
 /* Login form*/

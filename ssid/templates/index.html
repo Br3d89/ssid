@@ -17,7 +17,7 @@
 {% if username %}
  <div id="header">
   <div class="login_form">
-    <a href="/profile" style="color: black;text-decoration: none;">Profile ({{ username }})</a>
+    <a href="/profile" style="color: black;">Profile ({{ username }})</a>
     <button class="logout_btn" onclick="location.href='/auth/logout/'" type="button"/>
     {% if user_object.is_staff %}
      <button class="admin_btn" onclick="location.href='/admin/'" type="button"/>

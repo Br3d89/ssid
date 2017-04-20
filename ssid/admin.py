@@ -37,7 +37,7 @@ class AuthSchemeAdmin(admin.ModelAdmin):
     list_display = ('name', 'desc')
 
 class VendorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'auth_scheme__name')
+    list_display = ('name', 'auth_scheme')
 
 
 

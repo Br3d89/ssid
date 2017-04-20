@@ -565,6 +565,7 @@ def index(request,args={}):
 
 def detail(request,name):
     ctx={}
+    ctx['user_object'] = auth.get_user(request)
     ctx['username'] = auth.get_user(request).username
     ctx['instance']=ssid.objects.get(name=name)
     return render(request, 'detail.html', ctx)

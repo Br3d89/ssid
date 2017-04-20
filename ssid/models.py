@@ -5,6 +5,16 @@ from datetime import datetime,timezone
 # Create your models here.
 
 
+class auth_scheme(models.Model):
+    name = models.CharField(max_length=120, default="")
+    def __str__(self):
+        return '{}'.format(self.name)
+
+    class Meta:
+        verbose_name = 'Auth scheme'
+        verbose_name_plural = 'Auth schemes'
+
+
 class vendor(models.Model):
     name = models.CharField(max_length=120,unique=True, default="")
     def __str__(self):
@@ -52,6 +62,7 @@ class ssid(models.Model):
     group = models.ManyToManyField(Group, verbose_name="GROUP_NAME")
     start_date=models.DateTimeField(default=datetime.now)
     end_date=models.DateTimeField(default=datetime.now)
+    auth_scheme = models.ForeignKey(auth_scheme, null=True, blank=True,verbose_name="AUTH_SCHEME")
 
     def __str__(self):
         return 'Name:{} Status:{}'.format(self.name, self.status)

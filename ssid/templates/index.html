@@ -185,12 +185,12 @@ function change_view(toggle) {
  if (toggle.checked){
         $(".big").css("display","none");
         $(".big-vendor").css("display","block")
-        $("#Run").css("display","none")
+        $("#Run,#time_label,#timercheckbox").css("display","none")
     }
     else {
         $(".big-vendor").css("display","none");
         $(".big").css("display","block");
-        $("#Run").css("display","none")
+        $("#Run,#time_label,#timercheckbox").css("display","none")
     }
 }
 

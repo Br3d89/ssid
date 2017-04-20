@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User,Group
 from datetime import datetime,timezone
 
-# Create your models here.
-
 
 class auth_scheme(models.Model):
     name = models.CharField(max_length=120, default="")

@@ -169,6 +169,7 @@ ul.inside {
     background-position: center;
     background-size: 100% 100%;
 	cursor:pointer;
+    vertical-align: text-bottom;
 }
 /*profile button*/
 
@@ -315,7 +316,6 @@ ul.inside {
     background-position: center;
     background-size: 100% 100%;
 	cursor:pointer;
-    margin-left: 5px;
 }
 /*
 .admin_btn:hover {

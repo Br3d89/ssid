@@ -145,6 +145,7 @@ ul.inside {
     background-position: center;
     background-size: 100% 100%;
 	cursor:pointer;
+    vertical-align: top;
 }
 /*
 .logout_btn:hover {
@@ -169,7 +170,7 @@ ul.inside {
     background-position: center;
     background-size: 100% 100%;
 	cursor:pointer;
-    vertical-align: text-bottom;
+    vertical-align: top;
 }
 /*profile button*/
 
@@ -316,6 +317,7 @@ ul.inside {
     background-position: center;
     background-size: 100% 100%;
 	cursor:pointer;
+    vertical-align: top;
 }
 /*
 .admin_btn:hover {

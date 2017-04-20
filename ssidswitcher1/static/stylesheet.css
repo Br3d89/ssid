@@ -139,8 +139,8 @@ ul.inside {
 /*Logout button*/
 .logout_btn {
     border: 0;
-	width: 30px;
-	height: 30px;
+	width: 27px;
+	height: 27px;
 	background: url('images/logout.png') top left no-repeat;
     background-position: center;
     background-size: 100% 100%;
@@ -165,7 +165,7 @@ ul.inside {
     border: 0;
 	width: 30px;
 	height: 30px;
-	background: url('images/profile.png') top left no-repeat;
+	background: url('images/person.png') top left no-repeat;
     background-position: center;
     background-size: 100% 100%;
 	cursor:pointer;

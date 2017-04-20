@@ -8,7 +8,7 @@
 <ul class="ssid-detail-list">
 <li><span style="font-weight: bold">Name:       </span>{{ user_object.first_name }} {{ user_object.last_name }}<br></li>
 <li><span style="font-weight: bold">Username:  </span>{{ user_object.username }}</li>
-<li><span style="font-weight: bold">Group:     </span>{{ user_object.groups.all }}</li>
+<li><span style="font-weight: bold">Group(s):     </span>{{ user_object.groups.all }}</li>
 <li><span style="font-weight: bold">Join date:  </span>{{ user_object.date_joined }}</li>
 {% if user_object.is_staff %}
 <li><span style="font-weight: bold">Is staff: </span>yes</li>

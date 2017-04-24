@@ -7,7 +7,8 @@ from .models import ssid,vendor,device_ip,auth_server,auth_scheme
 #    list_display = ('name', 'category__level', 'category')
 
 #admin.site.register(Product, ProductAdmin)
-
+def server_group(obj):
+    return "\n".join([p.name for p in obj.group.all()])
 
 class SsidAdmin(admin.ModelAdmin):
     #Shows fields that can be changed
@@ -20,8 +21,8 @@ class SsidAdmin(admin.ModelAdmin):
     #search_fields = ('name', 'web', 'ip', 'vendor', 'group', 'ap_mac')
     search_fields = ('name','web__name','vendor__name','ip__name','ap_mac','auth_scheme__name')
 
-    def ssid_group(self, obj):
-        return "\n".join([p.name for p in obj.group.all()])
+    #def ssid_group(self, obj):
+    #    return "\n".join([p.name for p in obj.group.all()])
 
     #def ip_for_vendor(self,obj):
     #    return "\n".join([ p for p in list(device_ip.objects.values_list('name', flat=True).filter(vendor__name=obj.vendor))])
@@ -31,8 +32,6 @@ class SsidAdmin(admin.ModelAdmin):
 class AuthServerAdmin(admin.ModelAdmin):
     list_display=('name','ip','server_group')
 
-    def server_group(self, obj):
-        return "\n".join([p.name for p in obj.group.all()])
 
 
 class NetworkDeviceAdmin(admin.ModelAdmin):
@@ -41,6 +40,7 @@ class NetworkDeviceAdmin(admin.ModelAdmin):
 
 class AuthSchemeAdmin(admin.ModelAdmin):
     list_display = ('name', 'desc')
+
 
 class VendorAdmin(admin.ModelAdmin):
     list_display = ('name', 'auth_scheme_list')

@@ -16,7 +16,7 @@ class SsidAdmin(admin.ModelAdmin):
     fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web','group','auth_scheme')
     #fieldsets=('name', 'wlan_id', 'ap_mac', 'vendor', ('ip_for_vendor', 'web'), 'group', 'auth_scheme')
     #Shows fields in admin pannel
-    list_display = ('name', 'web','ip','status','vendor','group_func','auth_scheme')
+    list_display = ('name', 'web','ip','status','vendor',group_func,'auth_scheme')
     #list_filter = ('name','web')
     #search_fields = ('name', 'web', 'ip', 'vendor', 'group', 'ap_mac')
     search_fields = ('name','web__name','vendor__name','ip__name','ap_mac','auth_scheme__name')
@@ -30,7 +30,7 @@ class SsidAdmin(admin.ModelAdmin):
 
 
 class AuthServerAdmin(admin.ModelAdmin):
-    list_display=('name','ip','group_func')
+    list_display=('name','ip',group_func)
 
 
 

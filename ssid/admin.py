@@ -16,6 +16,7 @@ class SsidAdmin(admin.ModelAdmin):
     fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web','group','auth_scheme')
     #fieldsets=('name', 'wlan_id', 'ap_mac', 'vendor', ('ip_for_vendor', 'web'), 'group', 'auth_scheme')
     #Shows fields in admin pannel
+    group_func.short_description = 'SSID_GROUP'
     list_display = ('name', 'web','ip','status','vendor',group_func,'auth_scheme')
     #list_filter = ('name','web')
     #search_fields = ('name', 'web', 'ip', 'vendor', 'group', 'ap_mac')

@@ -20,12 +20,12 @@ class CustomUserAdminForm(forms.ModelForm):
 
 
 class SsidAdmin(admin.ModelAdmin):
-    def ip_for_vendor(self, obj):
-        return 'the_key'
+    #def ip_for_vendor(self, obj):
+    #    return 'the_key'
 
     #Shows fields that can be changed
     #readonly_fields = ('ip_for_vendor',)
-    fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web','group','auth_scheme','ip_for_vendor')
+    fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web','group','auth_scheme')
     #fieldsets=('name', 'wlan_id', 'ap_mac', 'vendor', ('ip_for_vendor', 'web'), 'group', 'auth_scheme')
     #Shows fields in admin pannel
     group_func.short_description = 'SSID_GROUP'

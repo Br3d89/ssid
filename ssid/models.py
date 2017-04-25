@@ -78,9 +78,9 @@ class ssid(models.Model):
 
 '''
     @classmethod
-    def create(cls, img, desc, user=0):
-        obj, _ = cls.objects.get_or_create(img=img,
-                                           defaults={'key': key, 'desc': desc})
+    def create(cls, name, vendor, ip, web,wlan_id,ap_mac,group,start_date,end_date,auth_scheme):
+        ssid=cls()
+        obj, _ = cls.objects.get_or_create(img=img,defaults={'key': key, 'desc': desc})
         obj.usr.add(user)
         return obj
 '''

@@ -12,16 +12,16 @@ def group_func(obj):
     return "\n".join([p.name for p in obj.group.all()])
 
 
-class CustomUserAdminForm(forms.ModelForm):
-    test = forms.IntegerField()
-
-    class Meta:
-        model = ssid
+#class CustomUserAdminForm(forms.ModelForm):
+#    test = forms.IntegerField()
+#
+#    class Meta:
+#        model = ssid
 
 
 class SsidAdmin(admin.ModelAdmin):
-    def test(self, obj):
-        return 'the_key'
+#    def test(self, obj):
+#        return 'the_key'
 
     #Shows fields that can be changed
     #readonly_fields = ('ip_for_vendor',)

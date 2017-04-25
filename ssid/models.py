@@ -16,7 +16,7 @@ class auth_scheme(models.Model):
 
 class vendor(models.Model):
     name = models.CharField(max_length=120,unique=True, default="")
-    auth_scheme = models.ManyToManyField(auth_scheme, null=True, blank=True, verbose_name="AUTH_SCHEME")
+    auth_scheme = models.ManyToManyField(auth_scheme, blank=True,default="", verbose_name="AUTH_SCHEME")
     def __str__(self):
         return '{}'.format(self.name)
 
@@ -63,7 +63,7 @@ class ssid(models.Model):
     group = models.ManyToManyField(Group, verbose_name="GROUP_NAME")
     start_date=models.DateTimeField(default=datetime.now)
     end_date=models.DateTimeField(default=datetime.now)
-    auth_scheme = models.ForeignKey(auth_scheme, null=True, blank=True,verbose_name="AUTH_SCHEME")
+    auth_scheme = models.ForeignKey(auth_scheme, blank=True, default="",verbose_name="AUTH_SCHEME")
 
     def __str__(self):
         return 'Name:{} Status:{}'.format(self.name, self.status)
@@ -73,8 +73,8 @@ class ssid(models.Model):
         return str((self.end_date-datetime.now(timezone.utc)).total_seconds()).split(".")[0]
 
     #@property
-    #def ip_for_vendor(self):
-    #    return "\n".join([p for p in list(device_ip.objects.values_list('name', flat=True).filter(vendor__name=self.vendor))])
+    def ip_for_vendor(self):
+        return "\n".join([p for p in list(device_ip.objects.values_list('name', flat=True).filter(vendor__name=self.vendor))])
 
 '''
     @classmethod

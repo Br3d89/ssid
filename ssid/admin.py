@@ -20,8 +20,8 @@ def group_func(obj):
 
 
 class SsidAdmin(admin.ModelAdmin):
-#    def test(self, obj):
-#        return 'the_key'
+    def test(self, obj):
+        return 'the_key'
 
     #Shows fields that can be changed
     #readonly_fields = ('ip_for_vendor',)

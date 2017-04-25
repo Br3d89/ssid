@@ -15,8 +15,8 @@ def group_func(obj):
 class CustomUserAdminForm(forms.ModelForm):
     ip_for_vendor = forms.CharField()
 #
-    class Meta:
-        model = ssid
+    #class Meta:
+    #    model = ssid
 
 
 class SsidAdmin(admin.ModelAdmin):

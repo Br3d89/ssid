@@ -12,20 +12,20 @@ def group_func(obj):
     return "\n".join([p.name for p in obj.group.all()])
 
 
-#class CustomUserAdminForm(forms.ModelForm):
-#    test = forms.IntegerField()
+class CustomUserAdminForm(forms.ModelForm):
+    ip_for_vendor = forms.CharField()
 #
-#    class Meta:
-#        model = ssid
+    class Meta:
+        model = ssid
 
 
 class SsidAdmin(admin.ModelAdmin):
-    def test(self, obj):
+    def ip_for_vendor(self, obj):
         return 'the_key'
 
     #Shows fields that can be changed
     #readonly_fields = ('ip_for_vendor',)
-    fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web','group','auth_scheme','test')
+    fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web','group','auth_scheme','ip_for_vendor')
     #fieldsets=('name', 'wlan_id', 'ap_mac', 'vendor', ('ip_for_vendor', 'web'), 'group', 'auth_scheme')
     #Shows fields in admin pannel
     group_func.short_description = 'SSID_GROUP'

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django import forms
 
 from .models import ssid,vendor,device_ip,auth_server,auth_scheme
 
@@ -10,10 +11,21 @@ from .models import ssid,vendor,device_ip,auth_server,auth_scheme
 def group_func(obj):
     return "\n".join([p.name for p in obj.group.all()])
 
+
+class CustomUserAdminForm(forms.ModelForm):
+    test = forms.IntegerField()
+
+    class Meta:
+        model = ssid
+
+
 class SsidAdmin(admin.ModelAdmin):
+    def test(self, obj):
+        return 'the_key'
+
     #Shows fields that can be changed
     #readonly_fields = ('ip_for_vendor',)
-    fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip_for_vendor','web','group','auth_scheme')
+    fields = ('name', 'wlan_id','ap_mac', 'vendor', 'ip','web','group','auth_scheme','test')
     #fieldsets=('name', 'wlan_id', 'ap_mac', 'vendor', ('ip_for_vendor', 'web'), 'group', 'auth_scheme')
     #Shows fields in admin pannel
     group_func.short_description = 'SSID_GROUP'

@@ -31,6 +31,7 @@ class SsidAdmin(admin.ModelAdmin):
 
 
 class AuthServerAdmin(admin.ModelAdmin):
+    group_func.short_description = 'SERVER_GROUP'
     list_display=('name','ip',group_func)
 
 

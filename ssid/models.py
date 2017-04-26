@@ -80,5 +80,5 @@ class ssid(models.Model):
     @classmethod
     def create(cls, name, vendor, ip, web, wlan_id, ap_mac, group, auth_scheme):
         print('We are creating ssid')
-        ssid=cls(name=name,vendor=vendor,ip=ip,web=web,wlan_id=wlan_id,ap_mac=ap_mac,group=group,auth_scheme=auth_scheme)
+        ssid=cls(name='bred_create_method_nameaaaad',vendor=vendor,ip=ip,web=web,wlan_id=wlan_id,ap_mac=ap_mac,group=group,auth_scheme=auth_scheme)
         return ssid

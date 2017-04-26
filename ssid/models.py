@@ -76,11 +76,9 @@ class ssid(models.Model):
     def ip_for_vendor(self):
         return "\n".join([p for p in list(device_ip.objects.values_list('name', flat=True).filter(vendor__name=self.vendor))])
 
-'''
+
     @classmethod
-    def create(cls, name, vendor, ip, web,wlan_id,ap_mac,group,start_date,end_date,auth_scheme):
-        ssid=cls()
-        obj, _ = cls.objects.get_or_create(img=img,defaults={'key': key, 'desc': desc})
-        obj.usr.add(user)
-        return obj
-'''
+    def create(cls, name, vendor, ip, web, wlan_id, ap_mac, group, auth_scheme):
+        ssid=cls(name=name,vendor=vendor,ip=ip,web=web,wlan_id=wlan_id,ap_mac=ap_mac,group=group,auth_scheme=auth_scheme)
+        print('We are creating ssid', ssid)
+        return ssid

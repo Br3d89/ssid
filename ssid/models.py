@@ -49,14 +49,20 @@ class auth_server(models.Model):
         verbose_name = 'Auth server'
         verbose_name_plural = 'Auth servers'
 
+def test_func():
+    return "acl_test"
 
 class ssid(models.Model):
     def acl_on_device(self):
-        if self.ip=='10.1.29.10':
-            print('First hook from models')
-            self.acl="inet2,inet3"
-        else:
-            self.acl = ""
+        pass
+
+    #def test_func(self):
+    #    return "test"
+        #if self.ip=='10.1.29.10':
+        #    print('First hook from models')
+        #    self.acl="inet2,inet3"
+        #else:
+        #    self.acl = ""
 
     name = models.CharField(max_length=120, unique=True, verbose_name="SSID_NAME")
     status = models.IntegerField(verbose_name="SSID_STATUS",default=0)
@@ -64,13 +70,14 @@ class ssid(models.Model):
     ip = models.ForeignKey(device_ip, verbose_name="WIFI_DEVICE_IP")
     #radius=models.CharField(max_length=120)
     web = models.ForeignKey(auth_server, verbose_name="AUTH_SERVER")
-    acl = models.CharField(max_length=120, blank=True, verbose_name="ACL_ON_DEVICE", default=acl_on_device)
+    acl = models.CharField(max_length=120, blank=True, verbose_name="ACL_ON_DEVICE")
     wlan_id = models.CharField(max_length=120, default="", verbose_name="WLAN_ID")
     ap_mac = models.CharField(max_length=120, default="00:00:00:00:00:00", verbose_name="AP_MAC")
     group = models.ManyToManyField(Group, verbose_name="GROUP_NAME")
     start_date=models.DateTimeField(default=datetime.now)
     end_date=models.DateTimeField(default=datetime.now)
     auth_scheme = models.ForeignKey(auth_scheme, blank=True, default="",verbose_name="AUTH_SCHEME")
+    test_field = models.CharField(max_length=120,default=test_func)
 
     def __str__(self):
         return 'Name:{} Status:{}'.format(self.name, self.status)

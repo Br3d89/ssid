@@ -35,7 +35,7 @@ class SsidAdmin(admin.ModelAdmin):
     search_fields = ('name','web__name','vendor__name','ip__name','ap_mac','auth_scheme__name')
 
     def get_changeform_initial_data(self, request):
-        return {'name': 'test_aaa'}
+        return {'name': self.test_aaa()}
 
     def test_aaa(self):
         return 'olololo'

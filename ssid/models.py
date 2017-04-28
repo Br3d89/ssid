@@ -52,12 +52,11 @@ class auth_server(models.Model):
 
 class ssid(models.Model):
     def acl_on_device(self):
-        return "inet2,inet3"
-        #if self.ip=='10.1.29.10':
-        #    print('First hook from models')
-         #   return "inet2,inet3"
-        #else:
-        #    return None
+        if self.ip=='10.1.29.10':
+            print('First hook from models')
+            self.acl="inet2,inet3"
+        else:
+            self.acl = ""
 
     name = models.CharField(max_length=120, unique=True, verbose_name="SSID_NAME")
     status = models.IntegerField(verbose_name="SSID_STATUS",default=0)

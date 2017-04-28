@@ -34,6 +34,8 @@ class SsidAdmin(admin.ModelAdmin):
     #search_fields = ('name', 'web', 'ip', 'vendor', 'group', 'ap_mac')
     search_fields = ('name','web__name','vendor__name','ip__name','ap_mac','auth_scheme__name')
 
+    def get_changeform_initial_data(self, request):
+        return {'name': 'Vasya_test_123'}
     #def ssid_group(self, obj):
     #    return "\n".join([p.name for p in obj.group.all()])
 

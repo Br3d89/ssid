@@ -51,13 +51,20 @@ class auth_server(models.Model):
 
 
 class ssid(models.Model):
+    def acl_on_device(self):
+        if self.ip=='10.1.29.10':
+            print('First hook from models')
+            return "inet2,inet3"
+        else:
+            return None
+
     name = models.CharField(max_length=120, unique=True, verbose_name="SSID_NAME")
     status = models.IntegerField(verbose_name="SSID_STATUS",default=0)
     vendor = models.ForeignKey(vendor, verbose_name="SSID_VENDOR")
     ip = models.ForeignKey(device_ip, verbose_name="WIFI_DEVICE_IP")
     #radius=models.CharField(max_length=120)
     web = models.ForeignKey(auth_server, verbose_name="AUTH_SERVER")
-    acl = models.CharField(max_length=120, blank=True, verbose_name="ACL_ON_DEVICE")
+    acl = models.CharField(max_length=120, blank=True, verbose_name="ACL_ON_DEVICE", default=acl_on_device)
     wlan_id = models.CharField(max_length=120, default="", verbose_name="WLAN_ID")
     ap_mac = models.CharField(max_length=120, default="00:00:00:00:00:00", verbose_name="AP_MAC")
     group = models.ManyToManyField(Group, verbose_name="GROUP_NAME")
@@ -83,3 +90,6 @@ class ssid(models.Model):
         obj=cls(name=name,vendor=vendor,ip=ip,web=web,wlan_id=wlan_id,group=group,auth_scheme=auth_scheme)
         #obj, _ = cls.objects.get_or_create(name='bred_create_method_nameaaaad', vendor=vendor, ip=ip, web=web,wlan_id=wlan_id, ap_mac=ap_mac, group=group, auth_scheme=auth_scheme)
         return obj
+
+
+

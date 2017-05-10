@@ -20,7 +20,13 @@ class CustomUserAdminForm(forms.ModelForm):
 
 def make_enabled(modeladmin,request,queryset):
     queryset.update(status="1")
+
+def make_disabled(modeladmin,request,queryset):
+    queryset.update(status="0")
+
 make_enabled.short_description = "Mark selected ssids as enabled"
+make_disabled.short_description = "Mark selected ssids as disabled"
+
 
 class SsidAdmin(admin.ModelAdmin):
     #def ip_for_vendor(self, obj):

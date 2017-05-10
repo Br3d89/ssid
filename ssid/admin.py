@@ -18,6 +18,9 @@ class CustomUserAdminForm(forms.ModelForm):
     #class Meta:
     #    model = ssid
 
+def make_enabled(modeladmin,request,queryset):
+    queryset.update(status="1")
+make_enabled.short_description = "Mark selected ssids as enabled"
 
 class SsidAdmin(admin.ModelAdmin):
     #def ip_for_vendor(self, obj):
@@ -33,6 +36,7 @@ class SsidAdmin(admin.ModelAdmin):
     #list_filter = ('name','web')
     #search_fields = ('name', 'web', 'ip', 'vendor', 'group', 'ap_mac')
     search_fields = ('name','web__name','vendor__name','ip__name','ap_mac','auth_scheme__name')
+    actions = [make_enabled]
 
     def get_changeform_initial_data(self, request):
         return {'name': self.test_aaa()}

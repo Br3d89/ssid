@@ -42,7 +42,7 @@ class SsidAdmin(admin.ModelAdmin):
     #list_filter = ('name','web')
     #search_fields = ('name', 'web', 'ip', 'vendor', 'group', 'ap_mac')
     search_fields = ('name','web__name','vendor__name','ip__name','ap_mac','auth_scheme__name')
-    actions = [make_enabled]
+    actions = [make_enabled,make_disabled]
 
     def get_changeform_initial_data(self, request):
         return {'name': self.test_aaa()}

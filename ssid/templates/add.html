@@ -4,6 +4,7 @@
 {% block content %}
 <div class="ssid-detail-container">
 <img width="256px" height="256px" src="{% static 'images/wifidevice.png' %}">
+<form action="/">
 <ul class="ssid-detail-list">
 <li><label for="name">Name: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="name" name="name"	 required></li>
 <li><label for="vendor">Vendor: </label>
@@ -30,6 +31,8 @@
 
   </li>
 </ul>
+<li><input type="submit" value="Add"></li>
+</form>
 <input class="link-to-main" type="button" onclick="location.href='/';"/>
 </div>
 

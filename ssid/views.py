@@ -616,10 +616,6 @@ def ssid_add(request):
     return render(request, 'add.html', ctx)
 
 
-
-
-
-
 def login(request):
     print('Login is triggered')
     args={}

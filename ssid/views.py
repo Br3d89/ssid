@@ -610,6 +610,7 @@ def ssid_add(request):
     server_queryset=auth_server.objects.all()
     device_queryset=device_ip.objects.all()
     vendor_queryset=vendor.objects.all()
+    ctx['username'] = auth.get_user(request).username
     ctx['server_queryset']=server_queryset
     ctx['device_queryset']=device_queryset
     ctx['vendor_queryset']=vendor_queryset

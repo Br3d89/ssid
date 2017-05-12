@@ -19,7 +19,7 @@ from ssid.views import index,detail,ssid_status,ssid_update,ssid_error,login,log
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'ssid_add/', ssid_add),
+    url(r'^ssid_add/', ssid_add),
     url(r'ssid_update/',ssid_update),
     url(r'^ssid/(.*)', detail),
     url(r'^ssid_status/', ssid_status),

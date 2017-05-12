@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="ssid-detail-container">
+<img width="256px" height="256px" src="{% static 'images/wifidevice.png' %}">
+<ul class="ssid-detail-list">
+<li><label for="name">Name: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="name" name="name"	 required></li>
+<li><label for="vendor">Vendor: </label>
+<select id='vendor' name="vendor" multiple>
+    {% for i in vendor_queryset %}
+          <option>{{ i.name }}</option>
+    {% endfor %}
+      </select>
+  </li>
+ <li style="display:inline"><label for="device">Device: </label>
+<select id='vendor' name="select2" multiple>
+    {% for i in device_queryset %}
+          <option>{{ i.hostname }} {{ i.name }}</option>
+    {% endfor %}
+      </select>
+ </li>
+
+  <li><label for="server">Server: </label>
+  <select id='server' name="select2">
+      {% for i in device_queryset %}
+          <option>{{ i.name }}</option>
+  {% endfor %}
+  </select>
+
+  </li>
+</ul>
+<input class="link-to-main" type="button" onclick="location.href='/';"/>
+</div>
+
+
+<script language="JavaScript">
+{% autoescape off %}
+time={{ instance.remaining_time }},
+{% endautoescape %}
+r=document.getElementById('r'),tmp=time;
+countdown_timer = setInterval(function(){
+var c=time--,m=(c/60)>>0,s=(c-m*60)+'';
+r.textContent=''+m+':'+(s.length>1?'':'0')+s
+tmp!=0||(tmp=time);
+if (time===0) {
+clearInterval(countdown_timer)
+location.reload();
+}
+},1000);
+
+</script>
+{% endblock %}

@@ -605,6 +605,21 @@ def ssid_error(request):
     return JsonResponse({'ssid_error_list': ssid_error_list})
 
 
+def ssid_add(request):
+    ctx={}
+    server_queryset=auth_server.objects.all()
+    device_queryset=device_ip.objects.all()
+    vendor_queryset=vendor.objects.all()
+    ctx['server_queryset']=server_queryset
+    ctx['device_queryset']=device_queryset
+    ctx['vendor_queryset']=vendor_queryset
+    return render(request, 'add.html', ctx)
+
+
+
+
+
+
 def login(request):
     print('Login is triggered')
     args={}

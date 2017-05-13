@@ -41,7 +41,11 @@
 function add() {
     name=document.getElementById('name').value;
     vendor = document.getElementById('vendor');
-    vendor_selected_values = vendor.options[vendor.selectedIndex].text;
+    vendor_selected_values = []
+    for ( var i = 0; i < vendor.selectedOptions.length; i++) {
+  console.log( vendor.selectedOptions[i].value);
+        vendor_selected_values.append(vendor.selectedOptions[i].value)
+}
     console.log('name='+name+' '+'vendor='+vendor_selected_values);
 }
 

@@ -20,7 +20,7 @@
 <li><label for="custom_device">Select custom devices</label><input type="checkbox" id="custom" name="custom" onclick="toggleCheckbox(this)"></li>
 
 <li id="device_li" style="display: none"><label for="device">Device: </label>
-<select id='device' name="device" multiple>
+<select size="7" id='device' name="device" multiple>
     {% for i in device_queryset %}
           <option value={{ i.name }}>{{ i.hostname }} ({{ i.name }})</option>
     {% endfor %}
@@ -28,7 +28,7 @@
  </li>
 
   <li><label for="server">Server: </label>
-  <select id='server' name="server">
+  <select size="7" id='server' name="server">
       {% for i in server_queryset %}
           <option>{{ i.name }}</option>
   {% endfor %}

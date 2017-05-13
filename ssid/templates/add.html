@@ -15,7 +15,7 @@
       </select>
   </li>
  <li><label for="custom_device">Select custom devices</label>
-<input type="checkbox" id="custom" name="custom" onchange="toggleCheckbox(this)">
+<input type="checkbox" id="custom" name="custom" onclick="toggleCheckbox(this)">
 </li>
  <li style="display:none"><label for="device">Device: </label>
 <select style="display:none" id='device' name="device" multiple>
@@ -80,10 +80,14 @@ function add() {
 }
 
 function toggleCheckbox(element) {
-    $('#device').css('display','block')
-    $('#vendor').css('display','none')
-
+    if (element.checked){
+        $("#device").css('display','block');
+    }
+    else {
+        $("#vendor").css("display","none")
+    }
 }
+
 
 //$('#custom').checkbox
 //function vendorlist(sel){

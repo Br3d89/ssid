@@ -620,7 +620,7 @@ def ssid_add(request):
         ssid_vendor = json.loads(request.POST.get('vendor'))
         ssid_device=json.loads(request.POST.get('device'))
         ssid_server=request.POST.get('server')
-        #print(ssid_name,ssid_vendor,ssid_device,ssid_server)
+        print(ssid_name,ssid_vendor,ssid_device,ssid_server)
     return render(request, 'add.html', ctx)
 
 

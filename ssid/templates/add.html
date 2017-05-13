@@ -57,7 +57,7 @@ function add() {
 }
     console.log('name='+name+' '+'vendor='+vendor_selected_values+'device='+device_selected_values+'server='+server);
     $.ajax({
-            url : "/",
+            url : "/ssid_add",
             type : "POST",
             data : { name : name, vendor:JSON.stringify(vendor),'csrfmiddlewaretoken': token,device:JSON.stringify(device),server:server }, // data sent with the post request
 

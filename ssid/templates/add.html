@@ -36,9 +36,14 @@
 <input class="link-to-main" type="button" onclick="location.href='/';"/>
 </div>
 
+{{ ssid_name }}
+{{ ssid_device }}
+{{ ssid_server }}
+{{ ssid_vendor }}
 
 <script language="JavaScript">
 function add() {
+    token = $('input[name="csrfmiddlewaretoken"]').prop('value');
     name=document.getElementById('name').value;
     vendor = document.getElementById('vendor');
     vendor_selected_values = []
@@ -51,7 +56,23 @@ function add() {
     device_selected_values.push(device.selectedOptions[i].value)
 }
     console.log('name='+name+' '+'vendor='+vendor_selected_values+'device='+device_selected_values+'server='+server);
+    $.ajax({
+            url : "ssid_update/",
+            type : "POST",
+            data : { name : name, vendor:JSON.stringify(vendor),'csrfmiddlewaretoken': token,device:JSON.stringify(device),server:server }, // data sent with the post request
 
+        // handle a successful response
+
+            success : function(json) {
+            console.log('Success')
+            location.reload()
+        },
+
+        // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    })
 }
 
 //function vendorlist(sel){

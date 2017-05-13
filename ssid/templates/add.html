@@ -7,7 +7,7 @@
 <form action="/">
 <ul class="ssid-detail-list">
 <li><label for="name">Name: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="name" name="name"	 required></li>
-<li><label for="vendor">Vendor: </label>
+<li id="vendor_li"><label for="vendor">Vendor: </label>
 <select id='vendor' name="vendor" multiple >
     {% for i in vendor_queryset %}
           <option>{{ i.name }}</option>
@@ -17,7 +17,7 @@
  <li><label for="custom_device">Select custom devices</label>
 <input type="checkbox" id="custom" name="custom" onclick="toggleCheckbox(this)">
 </li>
- <li style="display:none"><label for="device">Device: </label>
+ <li id="device_li"><label for="device">Device: </label>
 <select style="display:none" id='device' name="device" multiple>
     {% for i in device_queryset %}
           <option value={{ i.name }}>{{ i.hostname }} ({{ i.name }})</option>
@@ -81,10 +81,12 @@ function add() {
 
 function toggleCheckbox(element) {
     if (element.checked){
-        $("#device").css('display','block');
+        $("#vendor_li").css('display','none');
+        $("#device_li").css('display','block');
     }
     else {
-        $("#vendor").css("display","none")
+        $("#vendor_li").css('display','block');
+        $("#device_li").css('display','none');
     }
 }
 

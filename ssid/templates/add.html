@@ -43,7 +43,7 @@ function add() {
     vendor = document.getElementById('vendor');
     vendor_selected_values = []
     device_selected_values=[]
-    server=document.getElementById('server')
+    server=document.getElementById('server').value;
     for ( var i = 0; i < vendor.selectedOptions.length; i++) {
     vendor_selected_values.push(vendor.selectedOptions[i].value)
 }

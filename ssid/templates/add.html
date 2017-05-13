@@ -44,7 +44,7 @@ function add() {
     vendor_selected_values = []
     for ( var i = 0; i < vendor.selectedOptions.length; i++) {
   console.log( vendor.selectedOptions[i].value);
-        vendor_selected_values.append(vendor.selectedOptions[i].value)
+        vendor_selected_values.push(vendor.selectedOptions[i].value)
 }
     console.log('name='+name+' '+'vendor='+vendor_selected_values);
 }

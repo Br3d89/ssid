@@ -17,7 +17,7 @@
  <li style="display:inline"><label for="device">Device: </label>
 <select id='device' name="device" multiple>
     {% for i in device_queryset %}
-          <option>{{ i.hostname }} ({{ i.name }})</option>
+          <option value="bred">{{ i.hostname }} ({{ i.name }})</option>
     {% endfor %}
       </select>
  </li>

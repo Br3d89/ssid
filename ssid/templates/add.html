@@ -14,10 +14,10 @@
     {% endfor %}
       </select>
   </li>
- <li style="display:inline"><label for="device">Device: </label>
  <li><label for="custom_device">Select custom devices</label>
 <input type="checkbox" id="custom" name="custom">
 </li>
+ <li style="display:inline"><label for="device">Device: </label>
 <select id='device' name="device" multiple>
     {% for i in device_queryset %}
           <option value={{ i.name }}>{{ i.hostname }} ({{ i.name }})</option>

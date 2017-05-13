@@ -624,6 +624,7 @@ def ssid_add(request):
         ctx['ssid_vendor']=ssid_vendor
         ctx['ssid_device']=ssid_device
         ctx['ssid_server']=ssid_server
+        print(ssid_name,ssid_vendor,ssid_device,ssid_server)
     return render(request, 'add.html', ctx)
 
 

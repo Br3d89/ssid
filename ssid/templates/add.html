@@ -8,7 +8,7 @@
 <ul class="ssid-detail-list">
 <li><label for="name">Name: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="name" name="name"	 required></li>
 <li><label for="vendor">Vendor: </label>
-<select id='vendor' name="vendor" multiple>
+<select id='vendor' name="vendor" multiple onChange="vendorlist(this);">
     {% for i in vendor_queryset %}
           <option>{{ i.name }}</option>
     {% endfor %}
@@ -44,5 +44,10 @@ function add() {
     vendor_selected_values = vendor.options[vendor.selectedIndex].text;
     console.log('name='+name+' '+'vendor='+vendor_selected_values);
 }
+
+function vendorlist(sel){
+alert(sel.options[sel.selectedIndex].text);
+}
+
 </script>
 {% endblock %}

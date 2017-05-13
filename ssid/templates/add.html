@@ -32,6 +32,7 @@
   </li>
 </ul>
 <input type="button" value='add' id="Add" onClick="add()" />
+{% csrf_token %}
 </form>
 <input class="link-to-main" type="button" onclick="location.href='/';"/>
 </div>
@@ -43,7 +44,7 @@
 
 <script language="JavaScript">
 function add() {
-    token = $('input[name="csrfmiddlewaretoken"]').prop('value');
+    var token = $('input[name="csrfmiddlewaretoken"]').prop('value');
     name=document.getElementById('name').value;
     vendor = document.getElementById('vendor');
     vendor_selected_values = []

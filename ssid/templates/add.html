@@ -15,10 +15,10 @@
       </select>
   </li>
  <li><label for="custom_device">Select custom devices</label>
-<input type="checkbox" id="custom" name="custom">
+<input type="checkbox" id="custom" name="custom" onchange="toggleCheckbox(this)">
 </li>
- <li style="display:inline"><label for="device">Device: </label>
-<select id='device' name="device" multiple>
+ <li style="display:none"><label for="device">Device: </label>
+<select style="display:none" id='device' name="device" multiple>
     {% for i in device_queryset %}
           <option value={{ i.name }}>{{ i.hostname }} ({{ i.name }})</option>
     {% endfor %}
@@ -79,6 +79,13 @@ function add() {
     })
 }
 
+function toggleCheckbox(element) {
+    $('#device').css('display','block')
+    $('#vendor').css('display','none')
+
+}
+
+//$('#custom').checkbox
 //function vendorlist(sel){
 //alert(sel.options[sel.selectedIndex].text);
 //}

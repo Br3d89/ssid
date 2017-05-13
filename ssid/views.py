@@ -616,10 +616,10 @@ def ssid_add(request):
     ctx['device_queryset']=device_queryset
     ctx['vendor_queryset']=vendor_queryset
     if request.POST:
-        ssid_name = json.loads(request.POST.get('name'))
-        #ssid_vendor = json.loads(request.POST.get('vendor'))
-        #ssid_device=json.loads(request.POST.get('device'))
-        #ssid_server=json.loads(request.POST.get('server'))
+        ssid_name = request.POST.get('name')
+        ssid_vendor = json.loads(request.POST.get('vendor'))
+        ssid_device=json.loads(request.POST.get('device'))
+        ssid_server=request.POST.get('server')
         #ctx['ssid_name']=ssid_name
         #ctx['ssid_vendor']=ssid_vendor
         #ctx['ssid_device']=ssid_device

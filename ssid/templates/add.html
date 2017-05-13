@@ -24,7 +24,7 @@
 
   <li><label for="server">Server: </label>
   <select id='server' name="select2">
-      {% for i in device_queryset %}
+      {% for i in server_queryset %}
           <option>{{ i.name }}</option>
   {% endfor %}
   </select>

@@ -17,7 +17,7 @@
  <li style="display:inline"><label for="device">Device: </label>
 <select id='device' name="device" multiple>
     {% for i in device_queryset %}
-          <option value="bred">{{ i.hostname }} ({{ i.name }})</option>
+          <option value={{ i.name }}>{{ i.hostname }} ({{ i.name }})</option>
     {% endfor %}
       </select>
  </li>
@@ -40,7 +40,9 @@
 <script language="JavaScript">
 function add() {
     name=document.getElementById('name').value;
-    console.log('name='+name);
+    vendor = document.getElementById('vendor');
+    vendor_selected_values = vendor.options[vendor.selectedIndex].text;
+    console.log('name='+name+' '+'vendor='+vendor_selected_values);
 }
 </script>
 {% endblock %}

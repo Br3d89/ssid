@@ -42,11 +42,16 @@ function add() {
     name=document.getElementById('name').value;
     vendor = document.getElementById('vendor');
     vendor_selected_values = []
+    device_selected_values=[]
+    server=document.getElementById('server')
     for ( var i = 0; i < vendor.selectedOptions.length; i++) {
-  console.log( vendor.selectedOptions[i].value);
-        vendor_selected_values.push(vendor.selectedOptions[i].value)
+    vendor_selected_values.push(vendor.selectedOptions[i].value)
 }
-    console.log('name='+name+' '+'vendor='+vendor_selected_values);
+    for ( var i = 0; i < device.selectedOptions.length; i++) {
+    vendor_selected_values.push(device.selectedOptions[i].value)
+}
+    console.log('name='+name+' '+'vendor='+vendor_selected_values+'device='+device_selected_values+'server='+server);
+
 }
 
 //function vendorlist(sel){

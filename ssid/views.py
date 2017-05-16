@@ -106,7 +106,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
         elif action=='add':
             child.expect(">")
             child.sendline('show wlan summary')
-            child.expect("Number of WLANs")
+            child.expect(">")
             print(child.before)
         child.expect('>')
         child.sendline('logout')

@@ -636,7 +636,7 @@ def ssid_add(request):
         for i in ssid_device:
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
             action='add'
-            p = (threading.Thread(target=globals()['{}'.format(vendor)], args=(i,action,ssid_name)))
+            p = (threading.Thread(target=globals()['{}'.format(vendor)], kwargs={i:i,action:action,ssid_name:ssid_name}))
             p.start()
             process_list.append(p)
         for i in process_list:

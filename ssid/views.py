@@ -47,17 +47,18 @@ def ssid_update(request):
         rcv_ssids = up_new + down_new
         [ssids_busy.append(i) for i in rcv_ssids]
         ip_list = list(ssid.objects.values_list('ip__name', flat=True).distinct().filter(name__in=rcv_ssids))
+
         process_list = []
         for i in ip_list:
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
             ssid_objects = ssid.objects.filter(ip__name=i, name__in=rcv_ssids)  # all ssids within device
             ssid_objects_up=ssid.objects.filter(ip__name=i, name__in=up_new)
-            p = (threading.Thread(target=globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors,timeout_value)))
+            p = (threading.Thread(target=globals()['{}'.format(vendor)],args=(i, up_new, down_new, ssid_objects, ssid_status_list, ssid_error_list, errors,timeout_value)))   #поменял i
             p.start()
             process_list.append(p)
             if ssid_objects_up:     #run disable thread only for ssid_objects_up
                 print('Creating disable thread')
-                d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors,timeout_value, 1))
+                d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors,timeout_value, 1))  #нужно поменять i
                 d.start()
         for i in process_list:
             i.join()
@@ -67,8 +68,8 @@ def ssid_update(request):
         index(request)
 
 
-def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, errors,ssid_timeout, t=0):
-    print('Working on Cisco {} '.format(i))
+def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], t=0,action='',ssid_name=''):
+    print('Working on Cisco {}, action = {}'.format(i,action))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
         #fout = open('test.log', 'wb')
@@ -84,22 +85,28 @@ def cisco(up_new, down_new, ssid_objects, i, ssid_status_list,ssid_error_list, e
             child.expect(':')
             child.sendline(ssh_password)
         child.sendline('')
-        for m in ssid_objects:
+        if action=='up/down':
+            for m in ssid_objects:
+                child.expect(">")
+                if (m.name in up_new) and t == 0:
+                    child.sendline('config wlan enable {}'.format(m.wlan_id))
+                    m.status = 1
+                    m.start_date=datetime.now()
+                    m.end_date=m.start_date+timedelta(0,ssid_timeout)
+                    print(m.name,' enabled')
+                else:
+                    child.sendline('config wlan disable {}'.format(m.wlan_id))
+                    m.status = 0
+                    print(m.name,' disabled')
+                m.save()
+                if t==0:
+                    ssids_busy.remove(m.name)
+                ssid_status_list.append(m.name)
+        elif action=='add':
             child.expect(">")
-            if (m.name in up_new) and t == 0:
-                child.sendline('config wlan enable {}'.format(m.wlan_id))
-                m.status = 1
-                m.start_date=datetime.now()
-                m.end_date=m.start_date+timedelta(0,ssid_timeout)
-                print(m.name,' enabled')
-            else:
-                child.sendline('config wlan disable {}'.format(m.wlan_id))
-                m.status = 0
-                print(m.name,' disabled')
-            m.save()
-            if t==0:
-                ssids_busy.remove(m.name)
-            ssid_status_list.append(m.name)
+            child.sendline('show wlan summary')
+            child.expect("Number of WLANs")
+            print(child.before)
         child.expect('>')
         child.sendline('logout')
         child.expect('(y/N)')
@@ -619,7 +626,19 @@ def ssid_add(request):
         ssid_name = request.POST.get('name')
         ssid_vendor = json.loads(request.POST.get('vendor'))
         ssid_device=json.loads(request.POST.get('device'))
+        if ssid_device:
+            ssid_vendor=list(device_queryset.filter(name__in=ssid_device).values_list('vendor__name', flat=True))
         ssid_server=request.POST.get('server')
+        process_list = []
+        for i in ssid_device:
+            vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
+            action='add'
+            p = (threading.Thread(target=globals()['{}'.format(vendor)], args=(i,action,ssid_name)))
+            p.start()
+            process_list.append(p)
+        for i in process_list:
+            i.join()
+        #return JsonResponse({'all_up_ssids': all_up_ssids, 'errors': errors})
         print(ssid_name,ssid_vendor,ssid_device,ssid_server)
     return render(request, 'add.html', ctx)
 

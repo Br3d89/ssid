@@ -107,7 +107,9 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
             child.expect(">")
             child.sendline('show wlan summary')
             child.expect(">")
-            print(child.before.split(r'\\r\\n\\r\\'))
+            a=child.before.split
+            print(type(a))
+                #(r'\\r\\n\\r\\')
         child.expect('>')
         child.sendline('logout')
         child.expect('(y/N)')

@@ -70,6 +70,7 @@ def ssid_update(request):
 
 def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], t=0,action='',ssid_name=''):
     print('Working on Cisco {}, action = {}'.format(i,action))
+    print('Debug info:',ssid_name,action)
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
         #fout = open('test.log', 'wb')

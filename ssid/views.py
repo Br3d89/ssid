@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse, HttpResponse
-from .models import ssid,auth_server,vendor,device_ip
+from .models import ssid,auth_server,device_ip,vendor
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
 import copy
@@ -611,11 +611,12 @@ def ssid_error(request):
     #print('Backend ssid error ', ssid_error_list)
     return JsonResponse({'ssid_error_list': ssid_error_list})
 
-
+a=vendor.objects.all()
 def ssid_add(request):
     ctx={}
     server_queryset=auth_server.objects.all()
     device_queryset=device_ip.objects.all()
+    from ssid.models import vendor
     vendor_queryset=vendor.objects.all()
     ctx['user_object'] = auth.get_user(request)
     ctx['username'] = auth.get_user(request).username

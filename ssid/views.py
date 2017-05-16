@@ -114,7 +114,11 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 wlan_list=[]
                 for i in b:
                     wlan_list.append(i.split()[0])
-                print(wlan_list)
+                free_wlan_id=[]
+                for i in range(1,17):
+                    if str(i) not in wlan_list:
+                        free_wlan_id.append(str(i))
+                print(free_wlan_id)
             else:
                 print('Maximum number reached')
         child.expect('>')

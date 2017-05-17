@@ -668,6 +668,7 @@ def ssid_add(request):
             process_list.append(p)
         for i in process_list:
             i.join()
+            print('Join test')
 
         #new_ssid = ssid()
         #new_ssid.name = ssid_name

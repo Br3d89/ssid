@@ -659,6 +659,7 @@ def ssid_add(request):
         ssid_vendor = json.loads(request.POST.get('vendor'))
         ssid_device=json.loads(request.POST.get('device'))
         ssid_server = request.POST.get('server')
+        ssid_server_object=server_queryset.filter(name=ssid_server)
         ssid_device_objects = device_queryset.filter(name__in=ssid_device)
         if ssid_device:
             ssid_vendor=list(device_queryset.filter(name__in=ssid_device).values_list('vendor__name', flat=True))
@@ -673,7 +674,7 @@ def ssid_add(request):
             new_ssid.name = ssid_name+'_'+i.vendor.name
             new_ssid.vendor = i.vendor
             new_ssid.ip = i
-            new_ssid.web = ssid_server
+            new_ssid.web = ssid_server_object
             new_ssid.auth_scheme=None
             new_ssid.save()
             new_ssid.group.add(Group.objects.get(id=1))

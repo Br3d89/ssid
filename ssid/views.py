@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse, HttpResponse
-from .models import ssid,auth_server,device_ip,vendor
+from .models import ssid,auth_server,device_ip,vendor,auth_scheme
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
 import paramiko,time,pexpect,requests,json,logging,threading
@@ -675,7 +675,7 @@ def ssid_add(request):
             new_ssid.vendor = i.vendor
             new_ssid.ip = i
             new_ssid.web = ssid_server_object
-            new_ssid.auth_scheme=None
+            new_ssid.auth_scheme=auth_scheme.objects.get(pk=1)
             new_ssid.save()
             new_ssid.group.add(Group.objects.get(id=1))
             new_ssid.save()

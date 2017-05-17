@@ -109,6 +109,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
             a=str(child.before)
             print(a)
             number_of_wlans=int(a.split(r'\r\n')[2].split('.')[-1].split()[0])
+            print(number_of_wlans)
             if number_of_wlans < 16:
                 b=a.split(r'\r\n')[6:-2]
                 wlan_list=[]
@@ -134,7 +135,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
 
             else:
                 print('Maximum number reached')
-        child.expect('>')
+        #child.expect('>')
         child.sendline('logout')
         child.expect('(y/N)')
         child.sendline('y')

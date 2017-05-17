@@ -107,6 +107,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
             child.sendline('show wlan summary')
             child.expect(">")
             a=str(child.before)
+            print(a)
             number_of_wlans=int(a.split(r'\r\n')[2].split('.')[-1].split()[0])
             if number_of_wlans < 16:
                 b=a.split(r'\r\n')[6:-2]

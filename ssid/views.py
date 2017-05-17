@@ -67,7 +67,7 @@ def ssid_update(request):
         index(request)
 
 
-def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], t=0,action='',ssid_name=''):
+def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], t=0,action='',ssid_name='',ssid_server=''):
     print('Working on Cisco {}, action = {}'.format(i,action))
     #print('Debug info:',ssid_name,action)
     try:
@@ -125,6 +125,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 ssid_object.wlan_id=free_wlan_id[0]
                 ssid_object.save()
                 child.expect(">")
+                print(ssid_server.name)
                 #creating aaa server
                 #creating acl
                 #creating model
@@ -671,9 +672,10 @@ def ssid_add(request):
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i.name)[0]
             action='add'
             ssid_name=ssid_name + '_' + i.vendor.name
-            p = (threading.Thread(target=globals()['{}'.format(vendor)], kwargs={'i':i.name,'action':action,'ssid_name':ssid_name}))
+            p = (threading.Thread(target=globals()['{}'.format(vendor)], kwargs={'i':i.name,'action':action,'ssid_name':ssid_name,'ssid_server':ssid_server_object}))
             p.start()
             process_list.append(p)
+            #creating new ssid object
             new_ssid = ssid()
             new_ssid.name = ssid_name
             new_ssid.vendor = i.vendor

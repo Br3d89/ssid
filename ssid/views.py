@@ -3,13 +3,11 @@ from django.http import JsonResponse, HttpResponse
 from .models import ssid,auth_server,device_ip,vendor
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
-import copy
 import paramiko,time,pexpect,requests,json,logging,threading
 from datetime import datetime,timedelta
 from multiprocessing import Process
 from django.contrib import auth
-import sys
-import itertools
+import sys,itertools,inspect,copy
 
 class ssidForm(forms.ModelForm):
    class Meta:
@@ -105,6 +103,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 ssid_status_list.append(m.name)
         elif action=='add':
             child.expect(">")
+            #creating ssid
             child.sendline('show wlan summary')
             child.expect(">")
             a=str(child.before)
@@ -118,7 +117,19 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 for i in range(1,17):
                     if str(i) not in wlan_list:
                         free_wlan_id.append(str(i))
-                print(free_wlan_id)
+                #child.sendline('config wlan create {} {} {}'.format(free_wlan_id[0],ssid_name,ssid_name))
+                #child.expect(">")
+                #creating aaa server
+                #creating acl
+                #creating model
+                #new_ssid=ssid()
+                #new_ssid.name=ssid_name
+                #new_ssid.vendor=inspect.stack()[0][3]
+                #new_ssid.ip=i
+                #new_ssid.web=
+                print('Cisco finished')
+
+
             else:
                 print('Maximum number reached')
         child.expect('>')
@@ -654,8 +665,15 @@ def ssid_add(request):
             process_list.append(p)
         for i in process_list:
             i.join()
+
+        #new_ssid = ssid()
+        #new_ssid.name = ssid_name
+        #new_ssid.vendor = inspect.stack()[0][3]
+        #new_ssid.ip = i
+        #new_ssid.web =
         #return JsonResponse({'all_up_ssids': all_up_ssids, 'errors': errors})
-        print(ssid_name,ssid_vendor,ssid_device,ssid_server)
+        print('Finished')
+        #print(ssid_name,ssid_vendor,ssid_device,ssid_server)
     return render(request, 'add.html', ctx)
 
 

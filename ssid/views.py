@@ -121,6 +121,9 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     if str(i) not in wlan_list:
                         free_wlan_id.append(str(i))
                 child.sendline('config wlan create {} {} {}'.format(free_wlan_id[0],ssid_name,ssid_name))
+                ssid_object=ssid.objects.get(name=ssid_name)
+                ssid_object.wlan_id=free_wlan_id[0]
+                ssid_object.save()
                 child.expect(">")
                 #creating aaa server
                 #creating acl

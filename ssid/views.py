@@ -69,7 +69,7 @@ def ssid_update(request):
 
 def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], t=0,action='',ssid_name=''):
     print('Working on Cisco {}, action = {}'.format(i,action))
-    print('Debug info:',ssid_name,action)
+    #print('Debug info:',ssid_name,action)
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
         #fout = open('test.log', 'wb')
@@ -108,9 +108,9 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
             child.sendline('show wlan summary')
             child.expect(">")
             a=str(child.before)
-            print(a)
+            #print(a)
             number_of_wlans=int(a.split(r'\r\n')[2].split('.')[-1].split()[0])
-            print(number_of_wlans)
+            #print(number_of_wlans)
             if number_of_wlans < 16:
                 b=a.split(r'\r\n')[6:-2]
                 wlan_list=[]
@@ -134,13 +134,13 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 #new_ssid.ip=i
                 #new_ssid.web=
                 #print('Cisco finished')
-                print('Cisco finished')
+                #print('Cisco finished')
 
 
             else:
                 print('Maximum number reached')
         #child.expect('>')
-        print('Logout from Cisco')
+        #print('Logout from Cisco')
         child.sendline('logout')
         child.expect('(y/N)')
         child.sendline('y')
@@ -670,11 +670,12 @@ def ssid_add(request):
         for i in ssid_device_objects:
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i.name)[0]
             action='add'
+            ssid_name=ssid_name + '_' + i.vendor.name
             p = (threading.Thread(target=globals()['{}'.format(vendor)], kwargs={'i':i.name,'action':action,'ssid_name':ssid_name}))
             p.start()
             process_list.append(p)
             new_ssid = ssid()
-            new_ssid.name = ssid_name+'_'+i.vendor.name
+            new_ssid.name = ssid_name
             new_ssid.vendor = i.vendor
             new_ssid.ip = i
             new_ssid.web = ssid_server_object

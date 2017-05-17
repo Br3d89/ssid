@@ -670,7 +670,7 @@ def ssid_add(request):
             p.start()
             process_list.append(p)
             new_ssid = ssid()
-            new_ssid.name = ssid_name+'_'+i.vendor
+            new_ssid.name = ssid_name+'_'+i.vendor.name
             new_ssid.vendor = i.vendor
             new_ssid.ip = i.name
             new_ssid.web = ssid_server

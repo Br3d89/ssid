@@ -127,6 +127,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 #new_ssid.vendor=inspect.stack()[0][3]
                 #new_ssid.ip=i
                 #new_ssid.web=
+                #print('Cisco finished')
                 print('Cisco finished')
 
 

@@ -7,6 +7,7 @@ import paramiko,time,pexpect,requests,json,logging,threading
 from datetime import datetime,timedelta
 from multiprocessing import Process
 from django.contrib import auth
+from django.contrib.auth.models import Group
 import sys,itertools,inspect,copy
 
 class ssidForm(forms.ModelForm):
@@ -119,8 +120,8 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 for i in range(1,17):
                     if str(i) not in wlan_list:
                         free_wlan_id.append(str(i))
-                #child.sendline('config wlan create {} {} {}'.format(free_wlan_id[0],ssid_name,ssid_name))
-                #child.expect(">")
+                child.sendline('config wlan create {} {} {}'.format(free_wlan_id[0],ssid_name,ssid_name))
+                child.expect(">")
                 #creating aaa server
                 #creating acl
                 #creating model
@@ -136,6 +137,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
             else:
                 print('Maximum number reached')
         #child.expect('>')
+        print('Logout from Cisco')
         child.sendline('logout')
         child.expect('(y/N)')
         child.sendline('y')
@@ -656,25 +658,31 @@ def ssid_add(request):
         ssid_name = request.POST.get('name')
         ssid_vendor = json.loads(request.POST.get('vendor'))
         ssid_device=json.loads(request.POST.get('device'))
+        ssid_server = request.POST.get('server')
+        ssid_device_objects = device_queryset.filter(name__in=ssid_device)
         if ssid_device:
             ssid_vendor=list(device_queryset.filter(name__in=ssid_device).values_list('vendor__name', flat=True))
-        ssid_server=request.POST.get('server')
         process_list = []
-        for i in ssid_device:
-            vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
+        for i in ssid_device_objects:
+            vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i.name)[0]
             action='add'
-            p = (threading.Thread(target=globals()['{}'.format(vendor)], kwargs={'i':i,'action':action,'ssid_name':ssid_name}))
+            p = (threading.Thread(target=globals()['{}'.format(vendor)], kwargs={'i':i.name,'action':action,'ssid_name':ssid_name}))
             p.start()
             process_list.append(p)
+            new_ssid = ssid()
+            new_ssid.name = ssid_name+'_'+i.vendor
+            new_ssid.vendor = i.vendor
+            new_ssid.ip = i.name
+            new_ssid.web = ssid_server
+            new_ssid.auth_scheme=None
+            new_ssid.save()
+            new_ssid.group.add(Group.objects.get(id=1))
+            new_ssid.save()
         for i in process_list:
             i.join()
             print('Join test')
 
-        #new_ssid = ssid()
-        #new_ssid.name = ssid_name
-        #new_ssid.vendor = inspect.stack()[0][3]
-        #new_ssid.ip = i
-        #new_ssid.web =
+
         #return JsonResponse({'all_up_ssids': all_up_ssids, 'errors': errors})
         print('Finished')
         #print(ssid_name,ssid_vendor,ssid_device,ssid_server)

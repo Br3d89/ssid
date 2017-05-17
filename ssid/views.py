@@ -672,7 +672,7 @@ def ssid_add(request):
             new_ssid = ssid()
             new_ssid.name = ssid_name+'_'+i.vendor.name
             new_ssid.vendor = i.vendor
-            new_ssid.ip = i.name
+            new_ssid.ip = i
             new_ssid.web = ssid_server
             new_ssid.auth_scheme=None
             new_ssid.save()

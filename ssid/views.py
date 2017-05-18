@@ -127,14 +127,14 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 ssid_object.wlan_id=free_wlan_id[0]
                 ssid_object.save()
                 child.expect(">")
-                print(ssid_server.name)
+                #print(ssid_server.name)
                 child.sendline('show radius summary')
                 child.expect(">")
                 r = str(child.before)
-                print(r)
-                if ssid_server.name in r:
+                #print(r)
+                if ssid_server.ip in r:
                     #getting server id
-                    server_id=r.split(ssid_server.name)[0].split(r'\r\n')[-1].split()[0]
+                    server_id=r.split(ssid_server.ip)[0].split(r'\r\n')[-1].split()[0]
                     print(server_id)
                 #creating aaa server
                 #creating acl

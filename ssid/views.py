@@ -123,10 +123,18 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     if str(i) not in wlan_list:
                         free_wlan_id.append(str(i))
                 child.sendline('config wlan create {} {} {}'.format(free_wlan_id[0],ssid_name,ssid_name))
+                child.expect(">")
+                child.sendline('config wlan mac-filtering enable {}'.format(free_wlan_id[0]))
+                child.expect(">")
+                child.sendline('config wlan security wpa disable {}'.format(free_wlan_id[0]))
+                child.expect(">")
+                child.sendline('config wlan aaa-override enable {}'.format(free_wlan_id[0]))
+                child.expect(">")
+                child.sendline('config wlan nac radius enable {}'.format(free_wlan_id[0]))
+                child.expect(">")
                 ssid_object=ssid.objects.get(name=ssid_name)
                 ssid_object.wlan_id=free_wlan_id[0]
                 ssid_object.save()
-                child.expect(">")
                 #print(ssid_server.name)
                 child.sendline('show radius summary')
                 child.expect(">")
@@ -135,8 +143,13 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 print('ssid_server_ip=',ssid_server.ip)
                 if ssid_server.ip in r:
                     #getting server id
-                    server_id=r.split(ssid_server.ip)[0].split(r'\r\n')[-1].split()[0]
-                    print(server_id)
+                    auth_server_id=r.split(ssid_server.ip)[0].split(r'\r\n')[-1].split()[0]
+                    acct_server_id = r.split(ssid_server.ip)[1].split(r'\r\n')[-1].split()[0]
+                    child.sendline('config wlan radius_server auth add {} {}'.format(free_wlan_id[0],auth_server_id))
+                    child.expect(">")
+                    child.sendline('config wlan radius_server auth add {} {}'.format(free_wlan_id[0], acct_server_id))
+                    child.expect(">")
+                    print('SSID {} was added'.format(ssid_name))
                 #creating aaa server
                 #creating acl
                 #creating model

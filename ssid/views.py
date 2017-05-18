@@ -129,7 +129,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 child.expect(">")
                 print(ssid_server.name)
                 child.send('show radius summary')
-                child.expect(">")
+                child.expect("uit")
                 #child.expect(">")
                 #r = str(child.before)
                 #print(r)

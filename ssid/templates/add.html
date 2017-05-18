@@ -62,13 +62,9 @@ function add() {
     vendor = document.getElementById('vendor');
     vendor_selected_values = []
     device_selected_values=[]
-    if (document.getElementById('server').value) {
-        server=document.getElementById('server').value;
-    }
-    else {
-        server=document.getElementById('custom_server_name').value;
-        custom_server_ip=document.getElementById('custom_server_ip').value;
-    }
+    server=document.getElementById('server').value;
+    custom_server_name=document.getElementById('custom_server_name').value;
+    custom_server_ip=document.getElementById('custom_server_ip').value;
     for ( var i = 0; i < vendor.selectedOptions.length; i++) {
     vendor_selected_values.push(vendor.selectedOptions[i].value)
 }
@@ -79,7 +75,7 @@ function add() {
     $.ajax({
             url : "/ssid_add/",
             type : "POST",
-            data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,device:JSON.stringify(device_selected_values),server:server,custom_server_ip:custom_server_ip }, // data sent with the post request
+            data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,device:JSON.stringify(device_selected_values),server:server,custom_server_ip:custom_server_ip,custom_server_name:custom_server_name }, // data sent with the post request
 
         // handle a successful response
 

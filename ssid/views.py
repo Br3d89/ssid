@@ -132,6 +132,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 child.expect(">")
                 r = str(child.before)
                 #print(r)
+                print('ssid_server_ip=',ssid_server.ip)
                 if ssid_server.ip in r:
                     #getting server id
                     server_id=r.split(ssid_server.ip)[0].split(r'\r\n')[-1].split()[0]

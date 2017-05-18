@@ -39,7 +39,10 @@
 
   </li>
 <li><label for="custom_server">Custom server</label><input type="checkbox" id="custom_server" name="custom" onclick="customServer(this)"></li>
-
+<ul id="custom_server_ul" style="display: none; list-style-type:none ;text-align: left;">
+<li><label for="name">Hostname: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_name" name="custom_server_name"	 required></li>
+<li><label for="name">IP: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_ip" name="custom_server_ip"	 required></li>
+</ul>
 </ul>
 <input type="button" value='add' id="Add" onClick="add()" />
 {% csrf_token %}
@@ -101,12 +104,12 @@ function customDevice(element) {
 
 function customServer(element) {
     if (element.checked){
-        $("#vendor_li").css('display','none');
-        $("#device_li").css('display','block');
+        $("#server > option").attr('disabled',true);
+        $("#custom_server_ul").css('display','block');
     }
     else {
-        $("#vendor_li").css('display','block');
-        $("#device_li").css('display','none');
+        $("#server > option").attr('disabled',false);
+        $("#custom_server_ul").css('display','none');
     }
 }
 

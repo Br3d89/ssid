@@ -130,8 +130,8 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 print(ssid_server.name)
                 child.send('show radius summary')
                 child.expect(">")
-                r = str(child.before)
-                print(r)
+                #r = str(child.before)
+                #print(r)
                 #creating aaa server
                 #creating acl
                 #creating model

@@ -132,6 +132,10 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 child.expect(">")
                 child.sendline('config wlan nac radius enable {}'.format(free_wlan_id[0]))
                 child.expect(">")
+                child.sendline('config wlan exclusionlist {} disabled'.format(free_wlan_id[0]))
+                child.expect(">")
+                child.sendline('config wlan security ft disable {}'.format(free_wlan_id[0]))
+                child.expect(">")
                 ssid_object=ssid.objects.get(name=ssid_name)
                 ssid_object.wlan_id=free_wlan_id[0]
                 ssid_object.save()
@@ -150,6 +154,8 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     child.sendline('config wlan radius_server acct add {} {}'.format(free_wlan_id[0], acct_server_id))
                     child.expect(">")
                     print('SSID {} was added'.format(ssid_name))
+                else:
+
                 #creating aaa server
                 #creating acl
                 #creating model

@@ -84,11 +84,13 @@ function add() {
 
 function toggleCheckbox(element) {
     if (element.checked){
-        $("#vendor_li").css('display','none');
+        //$("#vendor_li").css('display','none');
+        $("#vendor_li").attr('disabled','disabled');
         $("#device_li").css('display','block');
     }
     else {
-        $("#vendor_li").css('display','block');
+        //$("#vendor_li").css('display','block');
+        $("#vendor_li").removeAttr('disabled');
         $("#device_li").css('display','none');
     }
 }

@@ -72,8 +72,8 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
     #print('Debug info:',ssid_name,action)
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
-        #fout = open('test.log', 'wb')
-        #child.logfile = fout
+        fout = open('test.log', 'wb')
+        child.logfile = fout
         child.expect(':',timeout=pexp_timeout)
         child.sendline(ssh_username)
         child.expect(':')
@@ -129,7 +129,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 child.expect(">")
                 print(ssid_server.name)
                 child.send('show radius summary')
-                child.expect(".*")
+                child.expect(">")
                 #child.expect(">")
                 #r = str(child.before)
                 #print(r)

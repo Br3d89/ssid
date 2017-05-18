@@ -132,6 +132,10 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 child.expect(">")
                 r = str(child.before)
                 print(r)
+                if ssid_server.name in r:
+                    #getting server id
+                    server_id=r.split(ssid_server.name)[0].split(r'\r\n')[-1].split()[0]
+                    print(server_id)
                 #creating aaa server
                 #creating acl
                 #creating model

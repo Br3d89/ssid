@@ -154,7 +154,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     child.sendline('config wlan radius_server acct add {} {}'.format(free_wlan_id[0], acct_server_id))
                     child.expect(">")
                     print('SSID {} was added'.format(ssid_name))
-                else:
+                #else:
 
                 #creating aaa server
                 #creating acl

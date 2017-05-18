@@ -11,6 +11,7 @@
 
 <li id="vendor_li"><label for="vendor">Vendor: </label>
 <select size="7" id='vendor' name="vendor" multiple >
+    <option selected>None</option>
     {% for i in vendor_queryset %}
           <option>{{ i.name }}</option>
     {% endfor %}
@@ -21,6 +22,7 @@
 
 <li id="device_li" style="display: none"><label for="device">Device: </label>
 <select size="7" id='device' name="device" multiple>
+    <option selected>None</option>
     {% for i in device_queryset %}
           <option value={{ i.name }}>{{ i.hostname }} ({{ i.name }})</option>
     {% endfor %}
@@ -29,6 +31,7 @@
 
   <li><label for="server">Server: </label>
   <select id='server' name="server">
+  <option selected>None</option>
       {% for i in server_queryset %}
           <option value={{ i.name }}>{{ i.name }} ({{ i.ip }})</option>
   {% endfor %}
@@ -84,13 +87,11 @@ function add() {
 
 function toggleCheckbox(element) {
     if (element.checked){
-        //$("#vendor_li").css('display','none');
-        $("#vendor_li").siblings().attr('disabled','disabled');
+        $("#vendor_li").css('display','none');
         $("#device_li").css('display','block');
     }
     else {
-        //$("#vendor_li").css('display','block');
-        $("#vendor_li").siblings().removeAttr('disabled');
+        $("#vendor_li").css('display','block');
         $("#device_li").css('display','none');
     }
 }

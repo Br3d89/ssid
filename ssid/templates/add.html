@@ -11,18 +11,18 @@
 
 <li id="vendor_li"><label for="vendor">Vendor: </label>
 <select size="7" id='vendor' name="vendor" multiple >
-    <option selected>None</option>
+    <option disabled selected value>None</option>
     {% for i in vendor_queryset %}
           <option>{{ i.name }}</option>
     {% endfor %}
       </select>
   </li>
 
-<li><label for="custom_device">Select custom devices</label><input type="checkbox" id="custom" name="custom" onclick="toggleCheckbox(this)"></li>
+<li><label for="custom_device">Select custom devices</label><input type="checkbox" id="custom_device" name="custom" onclick="customDevice(this)"></li>
 
 <li id="device_li" style="display: none"><label for="device">Device: </label>
 <select size="7" id='device' name="device" multiple>
-    <option selected>None</option>
+    <option disabled selected value>None</option>
     {% for i in device_queryset %}
           <option value={{ i.name }}>{{ i.hostname }} ({{ i.name }})</option>
     {% endfor %}
@@ -38,6 +38,7 @@
   </select>
 
   </li>
+<li><label for="custom_server">Custom server</label><input type="checkbox" id="custom_server" name="custom" onclick="customServer(this)"></li>
 
 </ul>
 <input type="button" value='add' id="Add" onClick="add()" />
@@ -85,7 +86,20 @@ function add() {
     })
 }
 
-function toggleCheckbox(element) {
+function customDevice(element) {
+    if (element.checked){
+        //$("#vendor_li").css('display','none');
+        $("#vendor > option").attr('disabled',true);
+        $("#device_li").css('display','block');
+    }
+    else {
+        //$("#vendor_li").css('display','block');
+        $("#vendor > option").attr('disabled',false);
+        $("#device_li").css('display','none');
+    }
+}
+
+function customServer(element) {
     if (element.checked){
         $("#vendor_li").css('display','none');
         $("#device_li").css('display','block');

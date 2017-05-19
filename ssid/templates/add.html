@@ -127,7 +127,7 @@ function customServer(element) {
 function validateName(){
     var TCode = document.getElementById('name').value;
 
-    if( /[^a-zA-Z0-9\-\/]/.test( TCode ) ) {
+    if( /[^a-zA-Z0-9\,\-\/]/.test( TCode ) ) {
         alert('Input is not alphanumeric');
         return false;
     }

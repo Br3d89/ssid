@@ -57,6 +57,7 @@
 
 <script language="JavaScript">
 function add() {
+    validateName()
     var token = $('input[name="csrfmiddlewaretoken"]').prop('value');
     name=document.getElementById('name').value;
     vendor = document.getElementById('vendor');
@@ -72,7 +73,7 @@ function add() {
     device_selected_values.push(device.selectedOptions[i].value)
 }
     console.log('name='+name+' '+'vendor='+vendor_selected_values+'device='+device_selected_values+'server='+server);
-  $.ajax({
+ /* $.ajax({
             url : "/ssid_add/",
             type : "POST",
             data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,device:JSON.stringify(device_selected_values),server:server,custom_server_ip:custom_server_ip }, // data sent with the post request
@@ -88,7 +89,7 @@ function add() {
             error : function(xhr,errmsg,err) {
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
-    })
+    }) */
 }
 
 function customDevice(element) {
@@ -121,6 +122,17 @@ function customServer(element) {
         $("#server > option").attr('disabled',false);
         $("#custom_server_ul").css('display','none');
     }
+}
+
+function validateName(){
+    var TCode = document.getElementById('name').value;
+
+    if( /[^a-zA-Z0-9\-\/]/.test( TCode ) ) {
+        alert('Input is not alphanumeric');
+        return false;
+    }
+
+    return true;
 }
 
 

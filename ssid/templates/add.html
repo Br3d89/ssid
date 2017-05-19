@@ -108,7 +108,7 @@ function customDevice(element) {
 function customServer(element) {
     if (element.checked){
         $("#server > option").attr('disabled',true);
-        $("#server > option").prop("selected", false);
+        $("#server > option:first-child").prop("selected", true);
         $("#custom_server_ul").css('display','block');
     }
     else {

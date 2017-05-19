@@ -167,7 +167,11 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     if len(free_radius_auth_id):
                         child.sendline('config radius auth add {} {} 1812 ascii dfqAFQhekbn!'.format(free_radius_auth_id[0], ssid_server.ip))
                         child.expect(">")
+                        child.sendline('config radius auth disable {}'.format(free_radius_auth_id[0]))
+                        child.expect(">")
                         child.sendline('config radius auth rfc3576 enable {}'.format(free_radius_auth_id[0]))
+                        child.expect(">")
+                        child.sendline('config radius auth enable {}'.format(free_radius_auth_id[0]))
                         child.expect(">")
                         child.sendline('config radius auth management {} disable'.format(free_radius_auth_id[0]))
                         child.expect(">")

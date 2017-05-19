@@ -187,15 +187,15 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     else:
                         print('There is no free IDs for acct server')
                     #creating acl
-                else:
-                    # getting server id
-                    auth_server_id = r.split(ssid_server.ip)[0].split(r'\r\n')[-1].split()[0]
-                    acct_server_id = r.split(ssid_server.ip)[1].split(r'\r\n')[-1].split()[0]
-                    child.sendline('config wlan radius_server auth add {} {}'.format(free_wlan_id[0], auth_server_id))
-                    child.expect(">")
-                    child.sendline('config wlan radius_server acct add {} {}'.format(free_wlan_id[0], acct_server_id))
-                    child.expect(">")
-                    print('SSID {} was added'.format(ssid_name))
+
+                # getting server id
+                auth_server_id = r.split(ssid_server.ip)[0].split(r'\r\n')[-1].split()[0]
+                acct_server_id = r.split(ssid_server.ip)[1].split(r'\r\n')[-1].split()[0]
+                child.sendline('config wlan radius_server auth add {} {}'.format(free_wlan_id[0], auth_server_id))
+                child.expect(">")
+                child.sendline('config wlan radius_server acct add {} {}'.format(free_wlan_id[0], acct_server_id))
+                child.expect(">")
+                print('SSID {} was added'.format(ssid_name))
 
             else:
                 print('Maximum number reached')

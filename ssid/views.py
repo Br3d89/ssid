@@ -152,17 +152,8 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 r = str(child.before)
                 #print(r)
                 print('ssid_server_ip=',ssid_server.ip)
-                if ssid_server.ip in r:
-                    #getting server id
-                    auth_server_id=r.split(ssid_server.ip)[0].split(r'\r\n')[-1].split()[0]
-                    acct_server_id = r.split(ssid_server.ip)[1].split(r'\r\n')[-1].split()[0]
-                    child.sendline('config wlan radius_server auth add {} {}'.format(free_wlan_id[0],auth_server_id))
-                    child.expect(">")
-                    child.sendline('config wlan radius_server acct add {} {}'.format(free_wlan_id[0], acct_server_id))
-                    child.expect(">")
-                    print('SSID {} was added'.format(ssid_name))
-                # creating aaa server
-                else:
+                if ssid_server.ip not in r:
+                    # creating aaa server
                     #Auth server id
                     c=r.split('Accounting Servers')[0].split(r'\r\n')[21:-1]
                     radius_auth_list=[]
@@ -174,13 +165,15 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                             free_radius_auth_id.append(i)
                     if len(free_radius_auth_id):
                         child.sendline('config radius auth add {} {} 1812 ascii dfqAFQhekbn!'.format(free_radius_auth_id[0], ssid_server.ip))
+                        child.expect(">")
+                        child.sendline('config radius auth rfc3576 enable {}'.format(free_radius_auth_id[0]))
+                        child.expect(">")
+                        child.sendline('config radius auth management {} disable'.format(free_radius_auth_id[0]))
+                        child.expect(">")
                     else:
                         print('There is no free IDs for auth server')
                     #Acct server id
                     c = r.split('Accounting Servers')[1].split(r'\r\n')[4:-2]
-                    print(c)
-                    '''
-                    c.pop(-1)
                     radius_acct_list = []
                     for i in c:
                         radius_acct_list.append(i.split()[0])
@@ -190,13 +183,19 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                             free_radius_acct_id.append(i)
                     if len(free_radius_acct_id):
                         child.sendline('config radius acct add {} {} 1812 ascii dfqAFQhekbn!'.format(free_radius_acct_id[0], ssid_server.ip))
+                        child.expect(">")
                     else:
                         print('There is no free IDs for acct server')
-                    print(radius_acct_list,free_radius_acct_id)
-                #creating acl
-
-                #print('Cisco finished')
-'''
+                    #creating acl
+                else:
+                    # getting server id
+                    auth_server_id = r.split(ssid_server.ip)[0].split(r'\r\n')[-1].split()[0]
+                    acct_server_id = r.split(ssid_server.ip)[1].split(r'\r\n')[-1].split()[0]
+                    child.sendline('config wlan radius_server auth add {} {}'.format(free_wlan_id[0], auth_server_id))
+                    child.expect(">")
+                    child.sendline('config wlan radius_server acct add {} {}'.format(free_wlan_id[0], acct_server_id))
+                    child.expect(">")
+                    print('SSID {} was added'.format(ssid_name))
 
             else:
                 print('Maximum number reached')

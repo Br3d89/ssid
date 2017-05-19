@@ -86,6 +86,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
             child.sendline(ssh_password)
         child.sendline('')
         child.expect_exact(">")
+        print('logged in')
         child.sendline('config paging disable')
         if action=='up/down':
             for m in ssid_objects:

@@ -157,14 +157,16 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     print('SSID {} was added'.format(ssid_name))
                 else:
                     c=r.split('Accounting Servers')[0].split(r'\r\n')[19:]
+                    c.pop(-1)
                     radius_auth_list=[]
                     for i in c:
                         radius_auth_list.append(i.split()[0])
+                    print(radius_auth_list)
                     free_radius_auth_id=[]
                     for i in range(1, 33):
                         if str(i) not in wlan_list:
                             free_radius_auth_id.append(i)
-                    print(radius_auth_list,free_radius_auth_id)
+                    print(free_radius_auth_id)
                 #creating aaa server
                 #creating acl
                 #creating model

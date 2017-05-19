@@ -161,27 +161,39 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     child.sendline('config wlan radius_server acct add {} {}'.format(free_wlan_id[0], acct_server_id))
                     child.expect(">")
                     print('SSID {} was added'.format(ssid_name))
+                # creating aaa server
                 else:
+                    #Auth server id
                     c=r.split('Accounting Servers')[0].split(r'\r\n')[21:]
                     c.pop(-1)
                     radius_auth_list=[]
                     for i in c:
                         radius_auth_list.append(i.split()[0])
-                    print(radius_auth_list)
                     free_radius_auth_id=[]
                     for i in range(1, 33):
                         if str(i) not in radius_auth_list:
                             free_radius_auth_id.append(i)
-                    print(free_radius_auth_id)
-                #creating aaa server
+                    if len(free_radius_auth_id):
+                        child.sendline('config radius auth add {} {} 1812 ascii dfqAFQhekbn!'.format(free_radius_auth_id[0], ssid_server.ip))
+                    else:
+                        print('There is no free IDs for auth server')
+                    #Acct server id
+                    c = r.split('Accounting Servers')[1].split(r'\r\n')[21:]
+                    c.pop(-1)
+                    radius_acct_list = []
+                    for i in c:
+                        radius_acct_list.append(i.split()[0])
+                    free_radius_acct_id = []
+                    for i in range(1, 33):
+                        if str(i) not in radius_acct_list:
+                            free_radius_acct_id.append(i)
+                    if len(free_radius_acct_id):
+                        child.sendline('config radius acct add {} {} 1812 ascii dfqAFQhekbn!'.format(free_radius_acct_id[0], ssid_server.ip))
+                    else:
+                        print('There is no free IDs for acct server')
+                    print(radius_acct_list,free_radius_acct_id)
                 #creating acl
-                #creating model
-                #new_ssid=ssid()
-                #new_ssid.name=ssid_name
-                #new_ssid.vendor=inspect.stack()[0][3]
-                #new_ssid.ip=i
-                #new_ssid.web=
-                #print('Cisco finished')
+
                 #print('Cisco finished')
 
 

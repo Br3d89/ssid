@@ -95,6 +95,7 @@ function customDevice(element) {
     if (element.checked){
         //$("#vendor_li").css('display','none');
         $("#vendor > option").attr('disabled',true);
+        $("#vendor > option").prop("selected", false);
         $("#vendor > option:first-child").prop("selected", true);
         $("#device_li").css('display','block');
     }

@@ -146,6 +146,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 ssid_object=ssid.objects.get(name=ssid_name)
                 ssid_object.wlan_id=free_wlan_id[0]
                 ssid_object.save()
+                free_wlan_id.pop(0)
                 #print(ssid_server.name)
                 child.sendline('show radius summary')
                 child.expect(">")
@@ -191,6 +192,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                         child.expect(">")
                     else:
                         print('There is no free IDs for acct server')
+                    free_radius_acct_id.pop(0)
                     #creating acl
                 acl_shortcut=ssid_server.name.split('.')[0]
                 child.sendline('config acl create {}_limited'.format(acl_shortcut))
@@ -223,6 +225,8 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 child.expect(">")
                 child.sendline('config acl url-domain add akamaitechnologies.com {}_apple'.format(acl_shortcut))
                 child.expect(">")
+                ssid_object.acl="{}_limited,{}_social,{}_apple".format(acl_shortcut,acl_shortcut,acl_shortcut)
+                ssid_object.save()
                 #mapping auth acct to wlan
                 child.sendline('show radius summary')
                 child.expect(">")
@@ -235,6 +239,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 child.expect(">")
                 child.sendline('config wlan radius_server acct add {} {}'.format(free_wlan_id[0], acct_server_id))
                 child.expect(">")
+                free_wlan_id.pop(0)
                 print('SSID {} was added'.format(ssid_name))
 
             else:

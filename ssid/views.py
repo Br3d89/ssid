@@ -162,7 +162,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     child.expect(">")
                     print('SSID {} was added'.format(ssid_name))
                 else:
-                    c=r.split('Accounting Servers')[0].split(r'\r\n')[19:]
+                    c=r.split('Accounting Servers')[0].split(r'\r\n')[21:]
                     c.pop(-1)
                     radius_auth_list=[]
                     for i in c:

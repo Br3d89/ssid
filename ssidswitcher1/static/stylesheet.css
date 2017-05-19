@@ -250,6 +250,17 @@ ul.inside {
 /*Pulsate led of wifi device*/
 
 
+/*SSID add*/
+.ssid-detail-container {
+    margin-top: 100px;
+    width:350px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+/*SSID add*/
+
 /*SSID detail*/
 .ssid-detail-container {
     margin-top: 100px;

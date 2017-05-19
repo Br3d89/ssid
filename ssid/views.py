@@ -79,11 +79,17 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
         child.expect(':')
         child.sendline(ssh_password)
         k=child.expect([">",":"])
-        if k==1:
+        retry_count = 5
+        while (k==1 and retry_count):
             print('Wrong login/password')
             child.sendline(ssh_username)
             child.expect(':')
             child.sendline(ssh_password)
+            k = child.expect([">", ":"])
+            retry_count -= 1
+        if k==1:
+            print('Cant connect to device {}'.format(i))
+            return False
         child.sendline('')
         child.expect_exact(">")
         print('logged in')

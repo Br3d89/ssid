@@ -63,6 +63,7 @@ function add() {
     vendor_selected_values = []
     device_selected_values=[]
     server=document.getElementById('server').value;
+    console.log('Server='+server)
     console.log(typeof(server))
     custom_server_name=document.getElementById('custom_server_name').value;
     custom_server_ip=document.getElementById('custom_server_ip').value;
@@ -110,9 +111,14 @@ function customServer(element) {
     if (element.checked){
         $("#server > option").attr('disabled',true);
         $("#server > option:first-child").prop("selected", true);
+        $("#server").prop('id','server1');
         $("#custom_server_ul").css('display','block');
+        $("#custom_server_name").prop('id','server');
+
     }
     else {
+        $("#server").prop('id','custom_server_name');
+        $("#server1").prop('id','server');
         $("#server > option").attr('disabled',false);
         $("#custom_server_ul").css('display','none');
     }

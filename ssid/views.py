@@ -170,7 +170,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     print(radius_auth_list)
                     free_radius_auth_id=[]
                     for i in range(1, 33):
-                        if str(i) not in wlan_list:
+                        if str(i) not in radius_auth_list:
                             free_radius_auth_id.append(i)
                     print(free_radius_auth_id)
                 #creating aaa server

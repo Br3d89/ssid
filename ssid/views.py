@@ -232,7 +232,6 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 r = str(child.before)
                 print('getting auth and acct server ids')
                 # getting server id
-                print(free_wlan_id)
                 auth_server_id = r.split(ssid_server.ip)[0].split(r'\r\n')[-1].split()[0]
                 acct_server_id = r.split(ssid_server.ip)[1].split(r'\r\n')[-1].split()[0]
                 child.sendline('config wlan radius_server auth add {} {}'.format(free_wlan_id[0], auth_server_id))

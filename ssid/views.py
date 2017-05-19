@@ -164,8 +164,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 # creating aaa server
                 else:
                     #Auth server id
-                    c=r.split('Accounting Servers')[0].split(r'\r\n')[21:]
-                    c.pop(-1)
+                    c=r.split('Accounting Servers')[0].split(r'\r\n')[21:-1]
                     radius_auth_list=[]
                     for i in c:
                         radius_auth_list.append(i.split()[0])
@@ -178,7 +177,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     else:
                         print('There is no free IDs for auth server')
                     #Acct server id
-                    c = r.split('Accounting Servers')[1].split(r'\r\n')[4:]
+                    c = r.split('Accounting Servers')[1].split(r'\r\n')[4:-2]
                     print(c)
                     '''
                     c.pop(-1)

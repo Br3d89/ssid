@@ -30,7 +30,7 @@
  </li>
 
   <li><label for="server">Server: </label>
-  <select id='server' name="server">
+  <select id='server' name="server" style="display:inline-block">
   <option disabled selected value>None</option>
       {% for i in server_queryset %}
           <option value={{ i.name }}>{{ i.name }} ({{ i.ip }})</option>

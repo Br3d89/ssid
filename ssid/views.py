@@ -153,6 +153,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 #print(r)
                 print('ssid_server_ip=',ssid_server.ip)
                 if ssid_server.ip not in r:
+                    print('{} not detected on controller'.format(ssid_server.ip))
                     # creating aaa server
                     #Auth server id
                     c=r.split('Accounting Servers')[0].split(r'\r\n')[21:-1]
@@ -187,7 +188,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     else:
                         print('There is no free IDs for acct server')
                     #creating acl
-
+                print('getting auth and acct server ids')
                 # getting server id
                 auth_server_id = r.split(ssid_server.ip)[0].split(r'\r\n')[-1].split()[0]
                 acct_server_id = r.split(ssid_server.ip)[1].split(r'\r\n')[-1].split()[0]

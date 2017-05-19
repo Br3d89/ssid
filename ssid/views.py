@@ -188,6 +188,9 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     else:
                         print('There is no free IDs for acct server')
                     #creating acl
+                child.sendline('show radius summary')
+                child.expect(">")
+                r = str(child.before)
                 print('getting auth and acct server ids')
                 # getting server id
                 auth_server_id = r.split(ssid_server.ip)[0].split(r'\r\n')[-1].split()[0]

@@ -178,7 +178,9 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     else:
                         print('There is no free IDs for auth server')
                     #Acct server id
-                    c = r.split('Accounting Servers')[1].split(r'\r\n')[21:]
+                    c = r.split('Accounting Servers')[1].split(r'\r\n')[4:]
+                    print(c)
+                    '''
                     c.pop(-1)
                     radius_acct_list = []
                     for i in c:
@@ -195,7 +197,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 #creating acl
 
                 #print('Cisco finished')
-
+'''
 
             else:
                 print('Maximum number reached')

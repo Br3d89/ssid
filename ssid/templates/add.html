@@ -156,10 +156,10 @@ function validateCustomServerName() {
         $('#custom_server_name').css('border','red solid 1px ');
         $("#wrcharhostname").fadeIn("slow").delay( 2000 ).fadeOut("slow");
        // $('#name').css('border','');
-        return false;
+        return '';
     }
 
-    return true;
+    return TCode;
 
 
 }
@@ -167,14 +167,14 @@ function validateCustomServerName() {
 function validateCustomServerIP() {
 
     var TCode = document.getElementById('custom_server_ip').value;
-    if( /[^a-zA-Z0-9\,\.\_\-\/]/.test( TCode ) ) {
+    if( /[^0-9\.]/.test( TCode ) ) {
         $('#custom_server_ip').css('border','red solid 1px ');
         $("#wrcharip").fadeIn("slow").delay( 2000 ).fadeOut("slow");
        // $('#name').css('border','');
-        return false;
+        return '';
     }
 
-    return true;
+    return TCode;
 
 
 }

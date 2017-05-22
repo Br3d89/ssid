@@ -19,7 +19,7 @@
    {% for i in vendor_queryset %}
     <optgroup label={{ i.name }}>
         {% for j in device_queryset %}
-             {% if j.vendor == i.name %}
+             {% if j.vendor == 'cisco' %}
                  Hello
                   <option value={{ j.name }}>{{ j.hostname }} ({{ j.name }})</option>
              {% endif %}

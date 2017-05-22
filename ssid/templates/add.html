@@ -10,14 +10,24 @@
 <li><label for="name">Name: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" pattern="[A-Za-z1-9]+" type="text" id="name" name="name"	 required></li>
 <li><span id="wrchar" style="display:none;color:red;">Enter correct ssid name: ssid1,ssid2</span></li>
 
+
+
+
+
 <li id="vendor_li"><label for="vendor">Vendor: </label>
 <select size="7" id='vendor' name="vendor" multiple >
-    <option disabled selected value>None</option>
-    {% for i in vendor_queryset %}
-          <option>{{ i.name }}</option>
+   {% for i in vendor_queryset %}
+    <optgroup label={{ i.name }}>
+        {% for j in device_queryset %}
+             {% if j.vendor == i.name %}
+                  <option value={{ j.name }}>{{ j.hostname }} ({{ j.name }})</option>
+             {% endif %}
+    </optgroup>
     {% endfor %}
-      </select>
-  </li>
+{% endfor %}
+</select>
+</li>
+
 
 <li><label for="custom_device">Select custom devices</label><input type="checkbox" id="custom_device" name="custom" onclick="customDevice(this)"></li>
 

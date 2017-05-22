@@ -767,6 +767,7 @@ def ssid_add(request):
         ssid_vendor = json.loads(request.POST.get('vendor'))
         print('SSID VENDOR LIST',ssid_vendor)
         ssid_device=json.loads(request.POST.get('device'))
+        print('SSID DEVICE',ssid_device)
         ssid_server = request.POST.get('server')
         #ssid_server_ip = request.POST.get('custom_server_ip')
         try:

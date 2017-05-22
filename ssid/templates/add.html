@@ -14,7 +14,7 @@
 
 
 
-<li id="vendor_li"><label for="vendor">Vendor: </label>
+<li id="vendor_li"><label for="vendor">Devices: </label>
 <select size="7" id='vendor' name="vendor" multiple >
    {% for i in vendor_queryset %}
     <optgroup label={{ i.name }}>
@@ -29,6 +29,7 @@
 </select>
 </li>
 
+<!--
 
 <li><label for="custom_device">Select custom devices</label><input type="checkbox" id="custom_device" name="custom" onclick="customDevice(this)"></li>
 
@@ -41,6 +42,7 @@
       </select>
  </li>
 
+-->
   <li><label for="server">Server: </label>
   <select id='server' name="server">
   <option disabled selected value>None</option>

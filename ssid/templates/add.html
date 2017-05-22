@@ -48,6 +48,7 @@
 </ul>
 </ul>
 <input type="button" value='add' id="Add" onClick="add()" />
+<li><span id="novalues" style="display:none;color:red;">Please select required values: Name,Vendor(or device),Server</span></li>
 {% csrf_token %}
 </form>
 <input class="link-to-main" type="button" onclick="location.href='/';"/>
@@ -98,6 +99,8 @@ function add() {
 }
 else {
         console.log('Enter correct name or server values')
+        $('#novalues').fadeIn("slow").delay( 2000 ).fadeOut("slow");
+
     }
 }
 

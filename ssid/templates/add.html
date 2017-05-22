@@ -67,7 +67,8 @@ function add() {
     vendor = document.getElementById('vendor');
     vendor_selected_values = []
     device_selected_values = []
-    server = document.getElementById('server').value;
+    server=validateCustomServerName()
+    //server = document.getElementById('server').value;
     //custom_server_name=document.getElementById('custom_server_name').value;
     custom_server_ip = document.getElementById('custom_server_ip').value;
     for (var i = 0; i < vendor.selectedOptions.length; i++) {
@@ -151,7 +152,7 @@ function validateName(){
 
 function validateCustomServerName() {
 
-    var TCode = document.getElementById('custom_server_name').value;
+    var TCode = document.getElementById('server').value;
     if( /[^a-zA-Z0-9\,\.\_\-\/]/.test( TCode ) ) {
         $('#custom_server_name').css('border','red solid 1px ');
         $("#wrcharhostname").fadeIn("slow").delay( 2000 ).fadeOut("slow");

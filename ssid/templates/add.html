@@ -42,7 +42,9 @@
 <li><label for="custom_server">Custom server</label><input type="checkbox" id="custom_server" name="custom" onclick="customServer(this)"></li>
 <ul id="custom_server_ul" style="display: none; padding-left: 0; list-style-type:none ;">
 <li><label for="name">Hostname: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_name" name="custom_server_name"	 required></li>
+<li><span id="wrcharhostname" style="display:none;color:red;">Enter correct ssid name: ssid1,ssid2</span></li>
 <li><label for="name">IP: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_ip" name="custom_server_ip"	 required></li>
+<li><span id="wrcharip" style="display:none;color:red;">Enter correct ssid name: ssid1,ssid2</span></li>
 </ul>
 </ul>
 <input type="button" value='add' id="Add" onClick="add()" />
@@ -58,9 +60,9 @@
 
 <script language="JavaScript">
 function add() {
-    validateName()
     var token = $('input[name="csrfmiddlewaretoken"]').prop('value');
-    name=document.getElementById('name').value;
+    name=validateName()
+    //name=document.getElementById('name').value;
     vendor = document.getElementById('vendor');
     vendor_selected_values = []
     device_selected_values=[]
@@ -135,7 +137,37 @@ function validateName(){
         return false;
     }
 
+    return TCode;
+}
+
+function validateCustomServerName() {
+
+    var TCode = document.getElementById('custom_server_name').value;
+    if( /[^a-zA-Z0-9\,\.\_\-\/]/.test( TCode ) ) {
+        $('#custom_server_name').css('border','red solid 1px ');
+        $("#wrcharhostname").fadeIn("slow").delay( 2000 ).fadeOut("slow");
+       // $('#name').css('border','');
+        return false;
+    }
+
     return true;
+
+
+}
+
+function validateCustomServerIP() {
+
+    var TCode = document.getElementById('custom_server_ip').value;
+    if( /[^a-zA-Z0-9\,\.\_\-\/]/.test( TCode ) ) {
+        $('#custom_server_ip').css('border','red solid 1px ');
+        $("#wrcharip").fadeIn("slow").delay( 2000 ).fadeOut("slow");
+       // $('#name').css('border','');
+        return false;
+    }
+
+    return true;
+
+
 }
 
 

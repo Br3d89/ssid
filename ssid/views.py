@@ -753,7 +753,7 @@ a=vendor.objects.all()
 def ssid_add(request):
     ctx={}
     server_queryset=auth_server.objects.all()
-    device_queryset=device_ip.objects.all()
+    device_queryset=device_ip.objects.all().order_by('vendor')
     from ssid.models import vendor
     vendor_queryset=vendor.objects.filter(name__in=['cisco', 'aruba', 'huawei', 'meraki', 'mikrotik', 'ruckus', 'ruckusvsz'])
     ctx['user_object'] = auth.get_user(request)
@@ -778,9 +778,11 @@ def ssid_add(request):
         ssid_server_object=auth_server.objects.get_or_create(name=ssid_server,defaults={'ip':ssid_server_ip})[0]
         ssid_server_object.group.add(Group.objects.get(id=1))
         ssid_server_object.save()
-        ssid_device_objects = device_queryset.filter(name__in=ssid_device)
         if ssid_device:
             ssid_vendor=list(device_queryset.filter(name__in=ssid_device).values_list('vendor__name', flat=True))
+        else:
+            ssid_device=list(device_queryset.filter(vendor__name__in=ssid_vendor).values_list('name', flat=True))
+        ssid_device_objects = device_queryset.filter(name__in=ssid_device)
         process_list = []
         for i in ssid_device_objects:
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i.name)[0]

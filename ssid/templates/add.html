@@ -25,7 +25,7 @@
 <select size="7" id='device' name="device" multiple>
     <option disabled selected value>None</option>
     {% for i in device_queryset %}
-          <option value={{ i.name }}>{{ i.hostname }} ({{ i.name }})</option>
+          <option value={{ i.name }}>{{ i.vendor }} - {{ i.hostname }} ({{ i.name }})</option>
     {% endfor %}
       </select>
  </li>

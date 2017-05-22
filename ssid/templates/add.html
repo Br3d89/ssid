@@ -76,7 +76,7 @@ function add() {
     for (var i = 0; i < device.selectedOptions.length; i++) {
         device_selected_values.push(device.selectedOptions[i].value)
     }
-    console.log('name=' + name.length + ' ' + 'vendor=' + vendor_selected_values + 'device=' + device_selected_values + 'server=' + server.length);
+    console.log('name=' + name + ' ' + 'vendor=' + vendor_selected_values + 'device=' + device_selected_values + 'server=' + server);
     if (name.length > null && server.length > null) {
         console.log('Sending ajax')
     /* $.ajax({

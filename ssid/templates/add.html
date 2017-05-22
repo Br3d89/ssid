@@ -153,7 +153,7 @@ function validateName(){
 function validateCustomServerName() {
 
     var TCode = document.getElementById('server').value;
-    if( /^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$/.test( TCode )) {
+    if( /^[^a-zA-Z0-9\.]/.test( TCode )) {
         $('#custom_server_name').css('border','red solid 1px ');
         $("#wrcharhostname").fadeIn("slow").delay( 2000 ).fadeOut("slow");
        // $('#name').css('border','');

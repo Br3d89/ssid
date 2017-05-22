@@ -89,8 +89,11 @@ function add() {
 
             success : function(json) {
             console.log(json.ssid_server_ip)
-            if (json.ssid_server_ip.length>null) {
+            if (json.ssid_server_ip !== undefined) {
                 $("#wrcharhostname").fadeIn("slow").delay( 2000 ).fadeOut("slow");
+            }
+            else {
+                console.log('Success')
             }
 
             //location.reload()

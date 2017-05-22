@@ -80,7 +80,7 @@ function add() {
     console.log('name=' + name + ' ' + 'vendor=' + vendor_selected_values + 'device=' + device_selected_values + 'server=' + server);
     if (name.length > null && server.length > null) {
         console.log('Sending ajax')
-    /* $.ajax({
+     $.ajax({
             url : "/ssid_add/",
             type : "POST",
             data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,device:JSON.stringify(device_selected_values),server:server }, // data sent with the post request
@@ -88,7 +88,7 @@ function add() {
         // handle a successful response
 
             success : function(json) {
-            console.log('Success')
+            console.log(json.ssid_server_ip)
             location.reload()
         },
 
@@ -96,7 +96,7 @@ function add() {
             error : function(xhr,errmsg,err) {
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
-    }) */
+    })
 }
 else {
         console.log('Enter correct name or server values')
@@ -153,7 +153,7 @@ function validateName(){
 function validateCustomServerName() {
 
     var TCode = document.getElementById('server').value;
-    if( /[^a-zA-Z0-9\,\.\_\-\/]/.test( TCode ) ) {
+    if( /^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$/.test( TCode )) {
         $('#custom_server_name').css('border','red solid 1px ');
         $("#wrcharhostname").fadeIn("slow").delay( 2000 ).fadeOut("slow");
        // $('#name').css('border','');

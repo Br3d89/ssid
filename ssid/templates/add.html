@@ -43,8 +43,8 @@
 <ul id="custom_server_ul" style="display: none; padding-left: 0; list-style-type:none ;">
 <li><label for="name">Hostname: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_name" name="custom_server_name"	 required></li>
 <li><span id="wrcharhostname" style="display:none;color:red;">Enter correct ssid name: ssid1,ssid2</span></li>
-<li><label for="name">IP: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_ip" name="custom_server_ip"	 required></li>
-<li><span id="wrcharip" style="display:none;color:red;">Enter correct ssid name: ssid1,ssid2</span></li>
+<!--<li><label for="name">IP: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_ip" name="custom_server_ip"	 required></li>
+<li><span id="wrcharip" style="display:none;color:red;">Enter correct ssid name: ssid1,ssid2</span></li> -->
 </ul>
 </ul>
 <input type="button" value='add' id="Add" onClick="add()" /> <br>
@@ -70,7 +70,7 @@ function add() {
     server=validateCustomServerName()
     //server = document.getElementById('server').value;
     //custom_server_name=document.getElementById('custom_server_name').value;
-    custom_server_ip = document.getElementById('custom_server_ip').value;
+    //custom_server_ip = document.getElementById('custom_server_ip').value;
     for (var i = 0; i < vendor.selectedOptions.length; i++) {
         vendor_selected_values.push(vendor.selectedOptions[i].value)
     }
@@ -83,7 +83,7 @@ function add() {
     /* $.ajax({
             url : "/ssid_add/",
             type : "POST",
-            data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,device:JSON.stringify(device_selected_values),server:server,custom_server_ip:custom_server_ip }, // data sent with the post request
+            data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,device:JSON.stringify(device_selected_values),server:server }, // data sent with the post request
 
         // handle a successful response
 

@@ -61,22 +61,24 @@
 <script language="JavaScript">
 function add() {
     var token = $('input[name="csrfmiddlewaretoken"]').prop('value');
-    name=validateName()
+    name = validateName()
     //name=document.getElementById('name').value;
     vendor = document.getElementById('vendor');
     vendor_selected_values = []
-    device_selected_values=[]
-    server=document.getElementById('server').value;
+    device_selected_values = []
+    server = document.getElementById('server').value;
     //custom_server_name=document.getElementById('custom_server_name').value;
-    custom_server_ip=document.getElementById('custom_server_ip').value;
-    for ( var i = 0; i < vendor.selectedOptions.length; i++) {
-    vendor_selected_values.push(vendor.selectedOptions[i].value)
-}
-    for ( var i = 0; i < device.selectedOptions.length; i++) {
-    device_selected_values.push(device.selectedOptions[i].value)
-}
-    console.log('name='+name+' '+'vendor='+vendor_selected_values+'device='+device_selected_values+'server='+server);
- /* $.ajax({
+    custom_server_ip = document.getElementById('custom_server_ip').value;
+    for (var i = 0; i < vendor.selectedOptions.length; i++) {
+        vendor_selected_values.push(vendor.selectedOptions[i].value)
+    }
+    for (var i = 0; i < device.selectedOptions.length; i++) {
+        device_selected_values.push(device.selectedOptions[i].value)
+    }
+    console.log('name=' + name + ' ' + 'vendor=' + vendor_selected_values + 'device=' + device_selected_values + 'server=' + server);
+    if (name.length > null && server.length > null) {
+        console.log('Sending ajax')
+    /* $.ajax({
             url : "/ssid_add/",
             type : "POST",
             data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,device:JSON.stringify(device_selected_values),server:server,custom_server_ip:custom_server_ip }, // data sent with the post request
@@ -94,6 +96,7 @@ function add() {
         }
     }) */
 }
+    }
 
 function customDevice(element) {
     if (element.checked){
@@ -134,7 +137,7 @@ function validateName(){
         $('#name').css('border','red solid 1px ');
         $("#wrchar").fadeIn("slow").delay( 2000 ).fadeOut("slow");
        // $('#name').css('border','');
-        return false;
+        return '';
     }
 
     return TCode;

@@ -755,7 +755,7 @@ def ssid_add(request):
     server_queryset=auth_server.objects.all()
     device_queryset=device_ip.objects.all()
     from ssid.models import vendor
-    vendor_queryset=vendor.objects.all()
+    vendor_queryset=vendor.objects.filter(name__in=['cisco', 'aruba', 'huawei', 'meraki', 'mikrotik', 'ruckus', 'ruckusvsz'])
     ctx['user_object'] = auth.get_user(request)
     ctx['username'] = auth.get_user(request).username
     ctx['server_queryset']=server_queryset
@@ -765,6 +765,7 @@ def ssid_add(request):
         print('received POST')
         ssid_name = request.POST.get('name')
         ssid_vendor = json.loads(request.POST.get('vendor'))
+        print('SSID VENDOR LIST',ssid_vendor)
         ssid_device=json.loads(request.POST.get('device'))
         ssid_server = request.POST.get('server')
         #ssid_server_ip = request.POST.get('custom_server_ip')

@@ -128,7 +128,7 @@ function customServer(element) {
 function validateName(){
     var TCode = document.getElementById('name').value;
 
-    if( /[^a-zA-Z0-9\,\-\/]/.test( TCode ) ) {
+    if( /[^a-zA-Z0-9\,\_\-\/]/.test( TCode ) ) {
         $('#name').css('border','red solid 1px ');
         $("#wrchar").fadeIn("slow").delay( 2000 ).fadeOut("slow");
        // $('#name').css('border','');

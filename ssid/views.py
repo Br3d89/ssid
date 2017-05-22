@@ -769,6 +769,7 @@ def ssid_add(request):
         ssid_server = request.POST.get('server')
         #ssid_server_ip = request.POST.get('custom_server_ip')
         ssid_server_ip=socket.gethostbyname(ssid_server)
+        print('SSID server hostname',ssid_server)
         if not ssid_server_ip:
             return JsonResponse({'ssid_server_ip': 'server name is not resolvable'})
         ssid_server_object=auth_server.objects.get_or_create(name=ssid_server,defaults={'ip':ssid_server_ip})[0]

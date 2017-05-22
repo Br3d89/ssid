@@ -80,7 +80,7 @@ function add() {
     console.log('name=' + name + ' ' + 'vendor=' + vendor_selected_values + 'device=' + device_selected_values + 'server=' + server);
     if (name.length > null && server.length > null) {
         console.log('Sending ajax')
-     $.ajax({
+    /* $.ajax({
             url : "/ssid_add/",
             type : "POST",
             data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,device:JSON.stringify(device_selected_values),server:server }, // data sent with the post request
@@ -96,7 +96,7 @@ function add() {
             error : function(xhr,errmsg,err) {
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
-    })
+    }) */
 }
 else {
         console.log('Enter correct name or server values')

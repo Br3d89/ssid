@@ -768,9 +768,10 @@ def ssid_add(request):
         ssid_device=json.loads(request.POST.get('device'))
         ssid_server = request.POST.get('server')
         #ssid_server_ip = request.POST.get('custom_server_ip')
-        ssid_server_ip=socket.gethostbyname(ssid_server)
-        print('SSID server hostname',ssid_server)
-        if not ssid_server_ip:
+        try:
+            ssid_server_ip=socket.gethostbyname(ssid_server)
+        except socket.gaierror:
+            print("Couldn't resolve hostname")
             return JsonResponse({'ssid_server_ip': 'server name is not resolvable'})
         ssid_server_object=auth_server.objects.get_or_create(name=ssid_server,defaults={'ip':ssid_server_ip})[0]
         ssid_server_object.group.add(Group.objects.get(id=1))

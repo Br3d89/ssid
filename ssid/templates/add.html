@@ -42,7 +42,7 @@
 <li><label for="custom_server">Custom server</label><input type="checkbox" id="custom_server" name="custom" onclick="customServer(this)"></li>
 <ul id="custom_server_ul" style="display: none; padding-left: 0; list-style-type:none ;">
 <li><label for="name">Hostname: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_name" name="custom_server_name"	 required></li>
-<li><span id="wrcharhostname" style="display:none;color:red;">Enter correct server hostname</span></li>
+<li><span id="wrcharhostname" style="display:none;color:red;">Server name is not resolvable or incorrect</span></li>
 <!--<li><label for="name">IP: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_ip" name="custom_server_ip"	 required></li>
 <li><span id="wrcharip" style="display:none;color:red;">Enter correct ssid name: ssid1,ssid2</span></li> -->
 </ul>
@@ -89,7 +89,11 @@ function add() {
 
             success : function(json) {
             console.log(json.ssid_server_ip)
-            location.reload()
+            if (json.ssid_server_ip.length>nulll) {
+                $("#wrcharhostname").fadeIn("slow").delay( 2000 ).fadeOut("slow");
+            }
+
+            //location.reload()
         },
 
         // handle a non-successful response

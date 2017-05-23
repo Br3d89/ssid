@@ -71,7 +71,7 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
     print('Working on Cisco {}, action = {}'.format(i,action))
     pass
     #print('Debug info:',ssid_name,action)
-    #Testing git
+    #Git test2
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
         fout = open('/home/bred/ssid/test.log', 'wb')

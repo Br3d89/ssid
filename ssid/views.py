@@ -52,13 +52,19 @@ def ssid_update(request):
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
             ssid_objects = ssid.objects.filter(ip__name=i, name__in=rcv_ssids)  # all ssids within device
             ssid_objects_up=ssid.objects.filter(ip__name=i, name__in=up_new)
-            p = (threading.Thread(target=globals()['{}'.format(vendor)],args=(i, up_new, down_new, ssid_objects, ssid_status_list, ssid_error_list, errors,timeout_value)))   #поменял i
-            p.start()
-            process_list.append(p)
-            if ssid_objects_up:     #run disable thread only for ssid_objects_up
-                print('Creating disable thread')
-                d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],args=(up_new, down_new, ssid_objects_up, i, ssid_status_list, ssid_error_list, errors,timeout_value, 1))  #нужно поменять i
+            ssid_objects_down=ssid.objects.filter(ip__name=i,name__in=down_new)
+            if ssid_objects_up:
+                p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'i': i,'ssid_objects': ssid_objects_up, 'ssid_status_list': ssid_status_list,'ssid_error_list': ssid_error_list, 'errors': errors,'timeout_value': timeout_value, 'action': 'enable'}))  # поменял i
+                p.start()
+                process_list.append(p)
+                d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],kwargs={'i': i, 'ssid_objects': ssid_objects_up, 'ssid_status_list': ssid_status_list,'ssid_error_list': ssid_error_list, 'errors': errors,'timeout_value': timeout_value, 'action': 'disable'})  # нужно поменять i
                 d.start()
+            if ssid_objects_down:
+                p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'i': i, 'ssid_objects': ssid_objects_down, 'ssid_status_list': ssid_status_list, 'ssid_error_list': ssid_error_list,'errors': errors, 'timeout_value': timeout_value,'action': 'disable'}))  # поменял i
+                p.start()
+                process_list.append(p)
+            else:
+                print('There are no ssid objects for {}'.format(i))
         for i in process_list:
             i.join()
         all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
@@ -67,11 +73,10 @@ def ssid_update(request):
         index(request)
 
 
-def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], t=0,action='',ssid_name='',ssid_server=''):
+def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], action=''):
     print('Working on Cisco {}, action = {}'.format(i,action))
     pass
     #print('Debug info:',ssid_name,action)
-    #Git test2
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
         fout = open('/home/bred/ssid/test.log', 'wb')
@@ -96,25 +101,11 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
         child.expect_exact(">")
         print('logged in')
         child.sendline('config paging disable')
-        if action=='up/down':
-            for m in ssid_objects:
-                child.expect(">")
-                if (m.name in up_new) and t == 0:
-                    child.sendline('config wlan enable {}'.format(m.wlan_id))
-                    m.status = 1
-                    m.start_date=datetime.now()
-                    m.end_date=m.start_date+timedelta(0,ssid_timeout)
-                    print(m.name,' enabled')
-                else:
-                    child.sendline('config wlan disable {}'.format(m.wlan_id))
-                    m.status = 0
-                    print(m.name,' disabled')
-                m.save()
-                if t==0:
-                    ssids_busy.remove(m.name)
-                ssid_status_list.append(m.name)
-        elif action=='add':
-            child.expect(">")
+        child.expect(">")
+
+        wlan_radius_id_mapping={}
+        if action=='enable':
+            print('Enabling action')
             #creating ssid
             child.sendline('show wlan summary')
             child.expect(">")
@@ -123,6 +114,8 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
             number_of_wlans=int(a.split(r'\r\n')[2].split('.')[-1].split()[0])
             #print(number_of_wlans)
             if number_of_wlans < 16:
+
+                #Looking for free wlan id
                 b=a.split(r'\r\n')[6:-2]
                 wlan_list=[]
                 for i in b:
@@ -131,43 +124,56 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                 for i in range(1,17):
                     if str(i) not in wlan_list:
                         free_wlan_id.append(str(i))
-                child.sendline('config wlan create {} {} {}'.format(free_wlan_id[0],ssid_name,ssid_name))
-                child.expect(">")
-                child.sendline('config wlan mac-filtering enable {}'.format(free_wlan_id[0]))
-                child.expect(">")
-                child.sendline('config wlan security wpa disable {}'.format(free_wlan_id[0]))
-                child.expect(">")
-                child.sendline('config wlan aaa-override enable {}'.format(free_wlan_id[0]))
-                child.expect(">")
-                child.sendline('config wlan nac radius enable {}'.format(free_wlan_id[0]))
-                child.expect(">")
-                child.sendline('config wlan exclusionlist {} disabled'.format(free_wlan_id[0]))
-                child.expect(">")
-                child.sendline('config wlan security ft disable {}'.format(free_wlan_id[0]))
-                child.expect(">")
-                ssid_object=ssid.objects.get(name=ssid_name)
-                ssid_object.wlan_id=free_wlan_id[0]
-                ssid_object.save()
-                #print(ssid_server.name)
+
+                # Looking for free radius server id
                 child.sendline('show radius summary')
                 child.expect(">")
                 r = str(child.before)
-                #print(r)
-                print('ssid_server_ip=',ssid_server.ip)
-                if ssid_server.ip not in r:
-                    print('{} not detected on controller'.format(ssid_server.ip))
-                    # creating aaa server
-                    #Auth server id
-                    c=r.split('Accounting Servers')[0].split(r'\r\n')[21:-1]
-                    radius_auth_list=[]
-                    for i in c:
-                        radius_auth_list.append(i.split()[0])
-                    free_radius_auth_id=[]
-                    for i in range(1, 33):
-                        if str(i) not in radius_auth_list:
-                            free_radius_auth_id.append(i)
+
+                # Auth server id
+                c = r.split('Accounting Servers')[0].split(r'\r\n')[21:-1]
+                radius_auth_list = []
+                for i in c:
+                    radius_auth_list.append(i.split()[0])
+                free_radius_auth_id = []
+                for i in range(1, 33):
+                    if str(i) not in radius_auth_list:
+                        free_radius_auth_id.append(i)
+
+                # Acct server id
+                #c = r.split('Accounting Servers')[1].split(r'\r\n')[4:-2]
+                #radius_acct_list = []
+                #for i in c:
+                #    radius_acct_list.append(i.split()[0])
+                #free_radius_acct_id = []
+                #for i in range(1, 33):
+                #    if str(i) not in radius_acct_list:
+                #        free_radius_acct_id.append(i)
+
+
+                for i in ssid_objects:
+                    child.expect(">")
+                    child.sendline('config wlan create {} {} {}'.format(free_wlan_id[0],i.name,i.name))
+                    child.expect(">")
+                    child.sendline('config wlan mac-filtering enable {}'.format(free_wlan_id[0]))
+                    child.expect(">")
+                    child.sendline('config wlan security wpa disable {}'.format(free_wlan_id[0]))
+                    child.expect(">")
+                    child.sendline('config wlan aaa-override enable {}'.format(free_wlan_id[0]))
+                    child.expect(">")
+                    child.sendline('config wlan nac radius enable {}'.format(free_wlan_id[0]))
+                    child.expect(">")
+                    child.sendline('config wlan exclusionlist {} disabled'.format(free_wlan_id[0]))
+                    child.expect(">")
+                    child.sendline('config wlan security ft disable {}'.format(free_wlan_id[0]))
+                    child.expect(">")
+                    #add wlan to ap-group wcm_private
+                    child.sendline('config wlan apgroup interface-mapping add wcm_private {} management'.format(free_wlan_id[0]))
+                    child.expect(">")
+
+
                     if len(free_radius_auth_id):
-                        child.sendline('config radius auth add {} {} 1812 ascii dfqAFQhekbn!'.format(free_radius_auth_id[0], ssid_server.ip))
+                        child.sendline('config radius auth add {} {} 1812 ascii dfqAFQhekbn!'.format(free_radius_auth_id[0], i.web.ip))
                         child.expect(">")
                         child.sendline('config radius auth disable {}'.format(free_radius_auth_id[0]))
                         child.expect(">")
@@ -177,35 +183,37 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                         child.expect(">")
                         child.sendline('config radius auth management {} disable'.format(free_radius_auth_id[0]))
                         child.expect(">")
-                    else:
-                        print('There is no free IDs for auth server')
-                    #Acct server id
-                    c = r.split('Accounting Servers')[1].split(r'\r\n')[4:-2]
-                    radius_acct_list = []
-                    for i in c:
-                        radius_acct_list.append(i.split()[0])
-                    free_radius_acct_id = []
-                    for i in range(1, 33):
-                        if str(i) not in radius_acct_list:
-                            free_radius_acct_id.append(i)
-                    if len(free_radius_acct_id):
-                        child.sendline('config radius acct add {} {} 1812 ascii dfqAFQhekbn!'.format(free_radius_acct_id[0], ssid_server.ip))
+
+                    #if len(free_radius_acct_id):
+                        child.sendline('config radius acct add {} {} 1812 ascii dfqAFQhekbn!'.format(free_radius_auth_id[0],i.web.ip))
                         child.expect(">")
                     else:
-                        print('There is no free IDs for acct server')
-                    free_radius_acct_id.pop(0)
+                         print('There is no free IDs for radius server')
+
+                    # mapping radius to wlan
+                    child.sendline('config wlan radius_server auth add {} {}'.format(free_wlan_id[0],free_radius_auth_id[0]))
+                    child.expect(">")
+                    child.sendline('config wlan radius_server acct add {} {}'.format(free_wlan_id[0],free_radius_auth_id[0]))
+                    child.expect(">")
+
                     #creating acl
-                    acl_shortcut=ssid_server.name.split('.')[0]
+                    acl_shortcut=i.web.name.split('.')[0]
                     child.sendline('config acl create {}_limited'.format(acl_shortcut))
                     child.expect(">")
                     child.sendline('config acl create {}_social'.format(acl_shortcut))
                     child.expect(">")
                     child.sendline('config acl create {}_apple'.format(acl_shortcut))
                     child.expect(">")
-                    child.sendline('config acl url-domain add {} {}_limited'.format(ssid_server.name,acl_shortcut))
+
+                    #populating acl with server domain
+                    child.sendline('config acl url-domain add {} {}_limited'.format(i.web.name,acl_shortcut))
                     child.expect(">")
-                    child.sendline('config acl url-domain add {} {}_social'.format(ssid_server.name,acl_shortcut))
+                    child.sendline('config acl url-domain add {} {}_social'.format(i.web.name,acl_shortcut))
                     child.expect(">")
+                    child.sendline('config acl url-domain add {} {}_apple'.format(i.web.name, acl_shortcut))
+                    child.expect(">")
+
+                    #populating acl with hotspot domains
                     child.sendline('config acl url-domain add fbcdn.net {}_social'.format(acl_shortcut))
                     child.expect(">")
                     child.sendline('config acl url-domain add facebook.com {}_social'.format(acl_shortcut))
@@ -226,25 +234,50 @@ def cisco(i,up_new=[], down_new=[], ssid_objects=[], ssid_status_list=[],ssid_er
                     child.expect(">")
                     child.sendline('config acl url-domain add akamaitechnologies.com {}_apple'.format(acl_shortcut))
                     child.expect(">")
-                    ssid_object.acl="{}_limited,{}_social,{}_apple".format(acl_shortcut,acl_shortcut,acl_shortcut)
-                    ssid_object.save()
-                #mapping auth acct to wlan
-                child.sendline('show radius summary')
-                child.expect(">")
-                r = str(child.before)
-                print('getting auth and acct server ids')
-                # getting server id
-                auth_server_id = r.split(ssid_server.ip)[0].split(r'\r\n')[-1].split()[0]
-                acct_server_id = r.split(ssid_server.ip)[1].split(r'\r\n')[-1].split()[0]
-                child.sendline('config wlan radius_server auth add {} {}'.format(free_wlan_id[0], auth_server_id))
-                child.expect(">")
-                child.sendline('config wlan radius_server acct add {} {}'.format(free_wlan_id[0], acct_server_id))
-                child.expect(">")
-                free_wlan_id.pop(0)
-                print('SSID {} was added'.format(ssid_name))
 
+                    #enable wlan
+                    child.sendline('config wlan enable {}'.format(free_wlan_id[0]))
+
+                    i.status = 1
+                    i.wlan_id=free_wlan_id[0]
+                    #i.acl="{}_limited,{}_social,{}_apple".format(acl_shortcut,acl_shortcut,acl_shortcut)
+                    i.start_date = datetime.now()
+                    i.end_date = i.start_date + timedelta(0, ssid_timeout)
+                    i.save()
+
+                    #delete id fro free list
+                    wlan_radius_id_mapping[free_wlan_id[0]]=free_radius_auth_id
+                    free_wlan_id.pop(0)
+                    free_radius_auth_id.pop(0)
+                    #free_radius_acct_id.pop(0)
+                    ssids_busy.remove(i.name)
+                    ssid_status_list.append(i.name)
+                    print('SSID {} enabled'.format(i.name))
+
+            #number of wlans >= 16
             else:
-                print('Maximum number reached')
+                print('Maximum number of wlans reached')
+
+        if action=='disable':
+            print('Disabling action')
+            for i in ssid_objects:
+                child.sendline('config wlan delete {}'.format(i.wlan_id))
+                child.expect('>')
+                child.sendline('config radius auth delete {}'.format(wlan_radius_id_mapping[i.wlan_id]))
+                child.expect('>')
+                child.sendline('config radius acct delete {}'.format(wlan_radius_id_mapping[i.wlan_id]))
+                child.expect('>')
+                for k in i.acl.split(','):
+                    child.sendline('config acl delete {}'.format(k))
+                    child.expect('>')
+                ssids_busy.remove(i.name)
+                ssid_status_list.append(i.name)
+                i.status=0
+                i.wlan_id = ''
+                i.save()
+                print('SSID {} disabled'.format(i.name))
+
+
         #child.expect('>')
         #print('Logout from Cisco')
         child.sendline('logout')

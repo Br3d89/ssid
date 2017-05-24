@@ -22,6 +22,7 @@ class vendor(models.Model):
 
 
 
+
 class device_ip(models.Model):
     name=models.CharField(max_length=120,default="",unique=True)
     vendor=models.ForeignKey(vendor,default="")

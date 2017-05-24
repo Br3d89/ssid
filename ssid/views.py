@@ -268,8 +268,8 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
             for i in ssid_objects:
                 print('Deleting wlan')
                 child.sendline('config wlan delete {}'.format(i.wlan_id))
-                child.expect('(y/n)')
                 child.sendline('y')
+                child.expect('>')
                 print('Deleting radius auth')
                 child.sendline('config radius auth delete {}'.format(wlan_radius_id_mapping[i.wlan_id]))
                 child.expect('>')

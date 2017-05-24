@@ -53,7 +53,6 @@ def ssid_update(request):
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
             ssid_objects = ssid.objects.filter(ip__name=i, name__in=rcv_ssids)  # all ssids within device
             ssid_objects_up=ssid.objects.filter(ip__name=i, name__in=up_new)
-            print('ssid objects up = ',ssid_objects_up,'ssid objects down = ',ssid_objects_down)
             ssid_objects_down=ssid.objects.filter(ip__name=i,name__in=down_new)
             print(ssid_objects_down)
             if ssid_objects_up:

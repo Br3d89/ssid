@@ -70,6 +70,7 @@ def ssid_update(request):
             else:
                 print('There are no ssid objects for {}'.format(i))
         for i in process_list:
+            print('Working with process_list, starting join process')
             i.join()
         all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
         return JsonResponse({'all_up_ssids': all_up_ssids, 'errors': errors})
@@ -157,7 +158,6 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
 
                 for i in ssid_objects:
                     print('Working with {} ssid object'.format(i))
-                    child.expect(">")
                     child.sendline('config wlan create {} {} {}'.format(free_wlan_id[0],i.name,i.name))
                     child.expect(">")
                     child.sendline('config wlan mac-filtering enable {}'.format(free_wlan_id[0]))

@@ -275,6 +275,7 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
                 child.sendline('show radius summary')
                 child.expect(">")
                 r = str(child.before)
+                print(r)
                 radius_server_id=r.split(i.web.ip)[0].split(r'\r\n')[-1].split()[0]
                 child.sendline('config radius auth delete {}'.format(radius_server_id))
                 child.expect('>')

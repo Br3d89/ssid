@@ -52,7 +52,9 @@ def ssid_update(request):
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
             ssid_objects = ssid.objects.filter(ip__name=i, name__in=rcv_ssids)  # all ssids within device
             ssid_objects_up=ssid.objects.filter(ip__name=i, name__in=up_new)
+            print(ssid_objects_up)
             ssid_objects_down=ssid.objects.filter(ip__name=i,name__in=down_new)
+            print(ssid_objects_down)
             if ssid_objects_up:
                 p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'i': i,'ssid_objects': ssid_objects_up, 'ssid_status_list': ssid_status_list,'ssid_error_list': ssid_error_list, 'errors': errors,'timeout_value': timeout_value, 'action': 'enable'}))  # поменял i
                 p.start()

@@ -108,7 +108,7 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
         child.sendline('config paging disable')
         child.expect(">")
 
-        wlan_radius_id_mapping={}
+        #wlan_radius_id_mapping={}
         if action=='enable':
             print('Enabling action')
             #creating ssid
@@ -252,7 +252,7 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
                     i.save()
 
                     #delete id fro free list
-                    wlan_radius_id_mapping[free_wlan_id[0]]=free_radius_auth_id
+                    #wlan_radius_id_mapping[free_wlan_id[0]]=free_radius_auth_id
                     free_wlan_id.pop(0)
                     free_radius_auth_id.pop(0)
                     #free_radius_acct_id.pop(0)

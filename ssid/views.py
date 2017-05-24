@@ -49,11 +49,11 @@ def ssid_update(request):
 
         process_list = []
         for i in ip_list:
-            print('Working on {} process_list_length = {}'.format(i,len(process_list)))
+            print('Working on {} ip_list_length = {}'.format(i,len(ip_list)))
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
             ssid_objects = ssid.objects.filter(ip__name=i, name__in=rcv_ssids)  # all ssids within device
             ssid_objects_up=ssid.objects.filter(ip__name=i, name__in=up_new)
-            print(ssid_objects_up)
+            print('ssid objects up = ',ssid_objects_up,'ssid objects down = ',ssid_objects_down)
             ssid_objects_down=ssid.objects.filter(ip__name=i,name__in=down_new)
             print(ssid_objects_down)
             if ssid_objects_up:
@@ -177,7 +177,7 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
                     child.sendline('config wlan apgroup interface-mapping add wcm_private {} management'.format(free_wlan_id[0]))
                     child.expect(">")
 
-
+                    print('Radius server creation')
                     if len(free_radius_auth_id):
                         child.sendline('config radius auth add {} {} 1812 ascii dfqAFQhekbn!'.format(free_radius_auth_id[0], i.web.ip))
                         child.expect(">")
@@ -195,13 +195,13 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
                         child.expect(">")
                     else:
                          print('There is no free IDs for radius server')
-
+                    print('Mapping radius to wlan')
                     # mapping radius to wlan
                     child.sendline('config wlan radius_server auth add {} {}'.format(free_wlan_id[0],free_radius_auth_id[0]))
                     child.expect(">")
                     child.sendline('config wlan radius_server acct add {} {}'.format(free_wlan_id[0],free_radius_auth_id[0]))
                     child.expect(">")
-
+                    print('creating acl')
                     #creating acl
                     acl_shortcut=i.web.name.split('.')[0]
                     child.sendline('config acl create {}_limited'.format(acl_shortcut))

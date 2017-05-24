@@ -266,19 +266,17 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
 
         if action=='disable':
             print('Disabling action')
+            child.sendline('show radius summary')
+            child.expect(">")
+            r = str(child.before)
             for i in ssid_objects:
                 print('Deleting wlan')
                 child.sendline('config wlan delete {}'.format(i.wlan_id))
                 child.sendline('y')
                 child.expect('>')
                 print('Deleting radius auth')
-                child.sendline('show radius summary')
-                child.expect(">")
-                child.sendline('show radius summary')
-                child.expect(">")
-                r = str(child.before)
-                print(r)
                 radius_server_id=r.split(i.web.ip)[0].split(r'\r\n')[-1].split()[0]
+                print('radius server id = {}'.format(radius_server_id))
                 child.sendline('config radius auth delete {}'.format(radius_server_id))
                 child.expect('>')
                 print('Deleting radius acct')

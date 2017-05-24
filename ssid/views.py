@@ -49,6 +49,7 @@ def ssid_update(request):
 
         process_list = []
         for i in ip_list:
+            print('Working on {} process_list_length = {}'.format(i,len(process_list)))
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
             ssid_objects = ssid.objects.filter(ip__name=i, name__in=rcv_ssids)  # all ssids within device
             ssid_objects_up=ssid.objects.filter(ip__name=i, name__in=up_new)
@@ -56,12 +57,14 @@ def ssid_update(request):
             ssid_objects_down=ssid.objects.filter(ip__name=i,name__in=down_new)
             print(ssid_objects_down)
             if ssid_objects_up:
+                print('if ssid_object_up = True')
                 p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'i': i,'ssid_objects': ssid_objects_up, 'ssid_status_list': ssid_status_list,'ssid_error_list': ssid_error_list, 'errors': errors,'ssid_timeout': timeout_value, 'action': 'enable'}))  # поменял i
                 p.start()
                 process_list.append(p)
                 d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],kwargs={'i': i, 'ssid_objects': ssid_objects_up, 'ssid_status_list': ssid_status_list,'ssid_error_list': ssid_error_list, 'errors': errors,'ssid_timeout': timeout_value, 'action': 'disable'})  # нужно поменять i
                 d.start()
             if ssid_objects_down:
+                print('if ssid_object_down = True')
                 p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'i': i, 'ssid_objects': ssid_objects_down, 'ssid_status_list': ssid_status_list, 'ssid_error_list': ssid_error_list,'errors': errors, 'ssid_timeout': timeout_value,'action': 'disable'}))  # поменял i
                 p.start()
                 process_list.append(p)
@@ -116,7 +119,7 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
             number_of_wlans=int(a.split(r'\r\n')[2].split('.')[-1].split()[0])
             #print(number_of_wlans)
             if number_of_wlans < 16:
-
+                print('Number of wlans < 16 ')
                 #Looking for free wlan id
                 b=a.split(r'\r\n')[6:-2]
                 wlan_list=[]
@@ -126,7 +129,7 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
                 for i in range(1,17):
                     if str(i) not in wlan_list:
                         free_wlan_id.append(str(i))
-
+                print('free_wlan_id = {}'.format(free_wlan_id))
                 # Looking for free radius server id
                 child.sendline('show radius summary')
                 child.expect(">")
@@ -141,7 +144,7 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
                 for i in range(1, 33):
                     if str(i) not in radius_auth_list:
                         free_radius_auth_id.append(i)
-
+                print('free radius auth id = {}'.format(free_radius_auth_id))
                 # Acct server id
                 #c = r.split('Accounting Servers')[1].split(r'\r\n')[4:-2]
                 #radius_acct_list = []
@@ -154,6 +157,7 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
 
 
                 for i in ssid_objects:
+                    print('Working with {} ssid object'.format(i))
                     child.expect(">")
                     child.sendline('config wlan create {} {} {}'.format(free_wlan_id[0],i.name,i.name))
                     child.expect(">")

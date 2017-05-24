@@ -119,7 +119,7 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
             number_of_wlans=int(a.split(r'\r\n')[2].split('.')[-1].split()[0])
             #print(number_of_wlans)
             if number_of_wlans < 16:
-                print('Number of wlans < 16 ')
+                print('Number of wlans < 16')
                 #Looking for free wlan id
                 b=a.split(r'\r\n')[6:-2]
                 wlan_list=[]
@@ -134,6 +134,8 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
                 child.sendline('show radius summary')
                 child.expect(">")
                 r = str(child.before)
+                print(r)
+
 
                 # Auth server id
                 c = r.split('Accounting Servers')[0].split(r'\r\n')[21:-1]

@@ -72,21 +72,22 @@ function add() {
     //server = document.getElementById('server').value;
     //custom_server_name=document.getElementById('custom_server_name').value;
     //custom_server_ip = document.getElementById('custom_server_ip').value;
+   //All selected devices for specified vendor
     for (var i = 0; i < vendor.selectedOptions.length; i++) {
-        vendor_selected_values.push(vendor.selectedOptions[i].value)
+        device_selected_values.push(vendor.selectedOptions[i].value)
     }
-    for (var i = 0; i < device.selectedOptions.length; i++) {
-        device_selected_values.push(device.selectedOptions[i].value)
-    }
+  //  for (var i = 0; i < device.selectedOptions.length; i++) {
+  //      device_selected_values.push(device.selectedOptions[i].value)
+  //  }
 
 
     console.log('name=' + name + ' ' + 'vendor=' + vendor_selected_values + 'device=' + device_selected_values + 'server=' + server);
-    if (name.length > null && server.length > null && group.length > null) {
+    if (name.length > null && server.length > null) {
         console.log('Sending ajax')
-     $.ajax({
+  /*   $.ajax({
             url : "/ssid_add/",
             type : "POST",
-            data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,server:server }, // data sent with the post request
+            data : { name : name, device:JSON.stringify(device_selected_values),'csrfmiddlewaretoken': token,server:server }, // data sent with the post request
 
         // handle a successful response
 
@@ -106,7 +107,7 @@ function add() {
             error : function(xhr,errmsg,err) {
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
-    })
+    }) */
 }
      else {
         console.log('Enter correct name or server values')

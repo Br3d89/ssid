@@ -815,7 +815,7 @@ def ssid_add(request):
         ssid_name_list=[s.strip() for s in re.split(",|;/", ssid_name)]
         ssid_vendor = json.loads(request.POST.get('vendor'))
         #print('SSID VENDOR LIST',ssid_vendor)
-        #ssid_device=json.loads(request.POST.get('device'))
+        ssid_device=json.loads(request.POST.get('device'))
         #print('SSID DEVICE',ssid_device)
         ssid_server = request.POST.get('server')
         #ssid_auth_scheme=request.POST.get('auth_scheme')
@@ -835,22 +835,23 @@ def ssid_add(request):
         process_list = []
         for i in ssid_device_objects:
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i.name)[0]
-            ssid_name=ssid_name + '_' + i.vendor.name
-            #p = (threading.Thread(target=globals()['{}'.format(vendor)], kwargs={'i':i.name,'action':'add','ssid_name':ssid_name,'ssid_server':ssid_server_object}))
-            #p.start()
-            #process_list.append(p)
-            #creating new ssid object
-            new_ssid = ssid()
-            new_ssid.name = ssid_name
-            new_ssid.vendor = i.vendor
-            new_ssid.ip = i
-            new_ssid.web = ssid_server_object
-            ssid_auth_scheme_object=auth_scheme.objects.get(name=list(vendor.objects.get(name=vendor).auth_scheme.values_list('name',flat=True))[0])
-            new_ssid.auth_scheme=ssid_auth_scheme_object
-            new_ssid.save()
-            #default mapping to ssidapp group
-            new_ssid.group.add(Group.objects.get(id=11))
-            new_ssid.save()
+            for j in ssid_name_list:
+                ssid_name_name=j + '_' + i.vendor.name
+                #p = (threading.Thread(target=globals()['{}'.format(vendor)], kwargs={'i':i.name,'action':'add','ssid_name':ssid_name,'ssid_server':ssid_server_object}))
+                #p.start()
+                #process_list.append(p)
+                #creating new ssid object
+                new_ssid = ssid()
+                new_ssid.name = ssid_name
+                new_ssid.vendor = i.vendor
+                new_ssid.ip = i
+                new_ssid.web = ssid_server_object
+                ssid_auth_scheme_object=auth_scheme.objects.get(name=list(vendor.objects.get(name=vendor).auth_scheme.values_list('name',flat=True))[0])
+                new_ssid.auth_scheme=ssid_auth_scheme_object
+                new_ssid.save()
+                #default mapping to ssidapp group
+                new_ssid.group.add(Group.objects.get(id=11))
+                new_ssid.save()
         #for i in process_list:
         #    i.join()
         #    print('Join test')

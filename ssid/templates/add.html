@@ -100,7 +100,7 @@ function add() {
      $.ajax({
             url : "/ssid_add/",
             type : "POST",
-            data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,device:JSON.stringify(device_selected_values),server:server }, // data sent with the post request
+            data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,server:server }, // data sent with the post request
 
         // handle a successful response
 

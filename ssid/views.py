@@ -798,6 +798,7 @@ def ssid_add(request):
     server_queryset=auth_server.objects.all()
     device_queryset=device_ip.objects.all().order_by('vendor')
     auth_scheme_queryset=auth_scheme.objects.all()
+    group_queryset=Group.objects.all()
     from ssid.models import vendor
     vendor_queryset=vendor.objects.filter(name__in=['cisco', 'aruba', 'huawei', 'meraki', 'mikrotik', 'ruckus', 'ruckusvsz'])
     ctx['user_object'] = auth.get_user(request)
@@ -806,6 +807,7 @@ def ssid_add(request):
     ctx['device_queryset']=device_queryset
     ctx['vendor_queryset']=vendor_queryset
     ctx['auth_scheme_queryset'] = auth_scheme_queryset
+    ctx['group_queryset'] = group_queryset
     if request.POST:
         print('received add POST')
         ssid_name = request.POST.get('name')
@@ -816,6 +818,7 @@ def ssid_add(request):
         ssid_device=json.loads(request.POST.get('device'))
         #print('SSID DEVICE',ssid_device)
         ssid_server = request.POST.get('server')
+        ssid_auth_scheme=request.POST.get('auth_scheme')
         #ssid_server_ip = request.POST.get('custom_server_ip')
         try:
             ssid_server_ip=socket.gethostbyname(ssid_server)
@@ -825,6 +828,7 @@ def ssid_add(request):
         ssid_server_object=auth_server.objects.get_or_create(name=ssid_server,defaults={'ip':ssid_server_ip})[0]
         ssid_server_object.group.add(Group.objects.get(id=1))
         ssid_server_object.save()
+        #ssid_auth_scheme_object=auth_scheme.objects.get(name=ssid_auth_scheme)
         ssid_vendor=list(device_queryset.filter(name__in=ssid_device).values_list('vendor__name', flat=True))
         ssid_device_objects = device_queryset.filter(name__in=ssid_device)
         process_list = []
@@ -840,7 +844,8 @@ def ssid_add(request):
             new_ssid.vendor = i.vendor
             new_ssid.ip = i
             new_ssid.web = ssid_server_object
-            new_ssid.auth_scheme=auth_scheme.objects.get(pk=1)
+            ssid_auth_scheme_object=auth_scheme.objects.get(name=list(vendor.objects.get(name=vendor).auth_scheme.values_list('name',flat=True))[0])
+            new_ssid.auth_scheme=ssid_auth_scheme_object
             new_ssid.save()
             new_ssid.group.add(Group.objects.get(id=1))
             new_ssid.save()

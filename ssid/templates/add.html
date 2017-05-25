@@ -59,17 +59,17 @@
 <!--<li><label for="name">IP: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_ip" name="custom_server_ip"	 required></li>
 <li><span id="wrcharip" style="display:none;color:red;">Enter correct ssid name: ssid1,ssid2</span></li> -->
 </ul>
-  <li><label for="auth_scheme">Auth scheme: </label>
-  <select id='auth_scheme' name="auth_scheme">
+  <li><label for="group">Group: </label>
+  <select id='group' name="group">
   <option disabled selected value></option>
-      {% for i in auth_scheme_queryset %}
+      {% for i in group_queryset %}
           <option value={{ i.name }}>{{ i.name }}</option>
       {% endfor %}
   </select>
 
 </ul>
 <input type="button" value='add' id="Add" onClick="add()" /> <br>
-<span id="novalues" style="display:none;color:red;list-style-type: none">Please select required values: Name,Vendor(or device),Server</span>
+<span id="novalues" style="display:none;color:red;list-style-type: none">Please select required values: Name,Vendor(or device),Server,Group</span>
 {% csrf_token %}
 </form>
 <input class="link-to-main" type="button" onclick="location.href='/';"/>
@@ -86,6 +86,7 @@ function add() {
     name = validateName()
     //name=document.getElementById('name').value;
     vendor = document.getElementById('vendor');
+    group=document.getElementById('group');
     vendor_selected_values = []
     device_selected_values = []
     server=validateCustomServerName()
@@ -99,12 +100,12 @@ function add() {
         device_selected_values.push(device.selectedOptions[i].value)
     }
     console.log('name=' + name + ' ' + 'vendor=' + vendor_selected_values + 'device=' + device_selected_values + 'server=' + server);
-    if (name.length > null && server.length > null) {
+    if (name.length > null && server.length > null && group.length > null) {
         console.log('Sending ajax')
      $.ajax({
             url : "/ssid_add/",
             type : "POST",
-            data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,device:JSON.stringify(device_selected_values),server:server }, // data sent with the post request
+            data : { name : name, vendor:JSON.stringify(vendor_selected_values),'csrfmiddlewaretoken': token,device:JSON.stringify(device_selected_values),server:server,auth_scheme:auth_scheme }, // data sent with the post request
 
         // handle a successful response
 
@@ -126,7 +127,7 @@ function add() {
         }
     })
 }
-else {
+     else {
         console.log('Enter correct name or server values')
         $('#novalues').fadeIn("slow").delay( 2000 ).fadeOut("slow");
 

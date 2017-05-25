@@ -72,7 +72,7 @@ class ssid(models.Model):
     #radius=models.CharField(max_length=120)
     web = models.ForeignKey(auth_server, verbose_name="AUTH_SERVER")
     acl = models.CharField(max_length=120, blank=True, verbose_name="ACL_ON_DEVICE")
-    wlan_id = models.CharField(max_length=120, default="", verbose_name="WLAN_ID")
+    wlan_id = models.CharField(max_length=120, default="" , verbose_name="WLAN_ID")
     ap_mac = models.CharField(max_length=120, default="00:00:00:00:00:00", verbose_name="AP_MAC")
     group = models.ManyToManyField(Group, verbose_name="GROUP_NAME")
     start_date=models.DateTimeField(default=datetime.now)

@@ -847,6 +847,11 @@ def ssid_add(request):
                 auth_scheme_name =list(i.vendor.auth_scheme.values_list('name', flat=True))[0]
                 ssid_auth_scheme_object=auth_scheme.objects.get(name=auth_scheme_name)
                 new_ssid.auth_scheme=ssid_auth_scheme_object
+                server_shortname=new_ssid.web.name.split('.')[0]
+                if new_ssid.vendor.name == 'cisco':
+                    new_ssid.acl='{}_limited,{}_apple,{}_social'.format(server_shortname,server_shortname,server_shortname)
+                elif new_ssid.vendor.name == 'aruba':
+                    new_ssid.acl = '{}_limited,{}_apple,{}_social,{}_full'.format(server_shortname,server_shortname,server_shortname,server_shortname)
                 new_ssid.save()
                 #default mapping to ssidapp group
                 new_ssid.group.add(Group.objects.get(id=11))

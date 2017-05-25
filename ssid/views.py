@@ -818,7 +818,8 @@ def ssid_add(request):
         ssid_device=json.loads(request.POST.get('device'))
         #print('SSID DEVICE',ssid_device)
         ssid_server = request.POST.get('server')
-        ssid_auth_scheme=request.POST.get('auth_scheme')
+        #ssid_auth_scheme=request.POST.get('auth_scheme')
+        #ssid_group_list=json.loads(request.POST.get('group'))
         #ssid_server_ip = request.POST.get('custom_server_ip')
         try:
             ssid_server_ip=socket.gethostbyname(ssid_server)
@@ -847,15 +848,14 @@ def ssid_add(request):
             ssid_auth_scheme_object=auth_scheme.objects.get(name=list(vendor.objects.get(name=vendor).auth_scheme.values_list('name',flat=True))[0])
             new_ssid.auth_scheme=ssid_auth_scheme_object
             new_ssid.save()
-            new_ssid.group.add(Group.objects.get(id=1))
+            #default mapping to ssidapp group
+            new_ssid.group.add(Group.objects.get(id=11))
             new_ssid.save()
-        for i in process_list:
-            i.join()
-            print('Join test')
-
-
-        #return JsonResponse({'all_up_ssids': all_up_ssids, 'errors': errors})
-        print('Finished')
+        #for i in process_list:
+        #    i.join()
+        #    print('Join test')
+        return JsonResponse({'created_ssids': ssid_name})
+        print('SSID objects created')
         #print(ssid_name,ssid_vendor,ssid_device,ssid_server)
     return render(request, 'add.html', ctx)
 

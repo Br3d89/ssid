@@ -26,6 +26,7 @@
 
 </select>
 </li>
+<span id="nodevice" style="display:none;color:red;list-style-type: none">Please select device</span>
 
   <li><label for="server">Server: </label>
   <select id='server' name="server">
@@ -87,6 +88,11 @@ function add() {
     if (name.length === 0 ) {
         console.log('please enter ssid name')
       $('#noname').fadeIn("slow").delay( 2000 ).fadeOut("slow");
+    }
+
+    else if (device_selected_values.length === 0 ) {
+       console.log('please choose server')
+      $('#nodevice').fadeIn("slow").delay( 2000 ).fadeOut("slow");
     }
 
      else if (server.length === 0 ) {

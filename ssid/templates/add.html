@@ -60,7 +60,7 @@
 <li><span id="wrcharip" style="display:none;color:red;">Enter correct ssid name: ssid1,ssid2</span></li> -->
 </ul>
   <li><label for="group">Group: </label>
-  <select id='group' name="group">
+<select size="4" id='group' name="group" multiple >
   <option disabled selected value></option>
       {% for i in group_queryset %}
           <option value={{ i.name }}>{{ i.name }}</option>

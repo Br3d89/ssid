@@ -819,19 +819,19 @@ def ssid_add(request):
         ssid_name = request.POST.get('name')
         # getting values from name field
         ssid_name_list = [s.strip() for s in re.split(",|;/", ssid_name)]
+        print(ssid_name_list)
         ssid_device = json.loads(request.POST.get('device'))
         #ssid_auth_scheme=request.POST.get('auth_scheme')
         #ssid_group_list=json.loads(request.POST.get('group'))
         #ssid_server_ip = request.POST.get('custom_server_ip')
-
         ssid_server_object=auth_server.objects.get_or_create(name=ssid_server,defaults={'ip':ssid_server_ip})[0]
         ssid_server_object.group.add(Group.objects.get(id=1))
         ssid_server_object.save()
         #ssid_auth_scheme_object=auth_scheme.objects.get(name=ssid_auth_scheme)
         ssid_vendor=list(device_queryset.filter(name__in=ssid_device).values_list('vendor__name', flat=True))
         ssid_device_objects = device_queryset.filter(name__in=ssid_device)
-        process_list = []
-        for i in ssid_device_objects:
+        #process_list = []
+      '''  for i in ssid_device_objects:
             #vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i.name)[0]
             for j in ssid_name_list:
                 ssid_name_name=j + '_' + i.vendor.name
@@ -857,7 +857,7 @@ def ssid_add(request):
         return JsonResponse({'created_ssids': ssid_name})
         print('SSID objects created')
         #print(ssid_name,ssid_vendor,ssid_device,ssid_server)
-    return render(request, 'add.html', ctx)
+    return render(request, 'add.html', ctx) '''
 
 
 def login(request):

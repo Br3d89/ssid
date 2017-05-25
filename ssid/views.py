@@ -805,6 +805,7 @@ def ssid_add(request):
     ctx['server_queryset']=server_queryset
     ctx['device_queryset']=device_queryset
     ctx['vendor_queryset']=vendor_queryset
+    ctx['auth_scheme_queryset'] = auth_scheme_queryset
     if request.POST:
         print('received add POST')
         ssid_name = request.POST.get('name')

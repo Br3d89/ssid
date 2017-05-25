@@ -59,6 +59,14 @@
 <!--<li><label for="name">IP: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_ip" name="custom_server_ip"	 required></li>
 <li><span id="wrcharip" style="display:none;color:red;">Enter correct ssid name: ssid1,ssid2</span></li> -->
 </ul>
+  <li><label for="auth_scheme">Auth scheme: </label>
+  <select id='auth_scheme' name="auth_scheme">
+  <option disabled selected value></option>
+      {% for i in auth_scheme_queryset %}
+          <option value={{ i.name }}>{{ i.name }}</option>
+      {% endfor %}
+  </select>
+
 </ul>
 <input type="button" value='add' id="Add" onClick="add()" /> <br>
 <span id="novalues" style="display:none;color:red;list-style-type: none">Please select required values: Name,Vendor(or device),Server</span>
@@ -160,7 +168,7 @@ function customServer(element) {
 function validateName(){
     var TCode = document.getElementById('name').value;
 
-    if( /[^a-zA-Z0-9\,\_\-\/]/.test( TCode ) ) {
+    if( /[^a-zA-Z0-9\,\_\-\;\|\/]/.test( TCode ) ) {
         $('#name').css('border','red solid 1px ');
         $("#wrchar").fadeIn("slow").delay( 2000 ).fadeOut("slow");
        // $('#name').css('border','');

@@ -8,7 +8,7 @@ from datetime import datetime,timedelta
 from multiprocessing import Process
 from django.contrib import auth
 from django.contrib.auth.models import Group
-import sys,itertools,inspect,copy,socket
+import sys,itertools,inspect,copy,socket,re
 
 class ssidForm(forms.ModelForm):
    class Meta:
@@ -797,6 +797,7 @@ def ssid_add(request):
     ctx={}
     server_queryset=auth_server.objects.all()
     device_queryset=device_ip.objects.all().order_by('vendor')
+    auth_scheme_queryset=auth_scheme.objects.all()
     from ssid.models import vendor
     vendor_queryset=vendor.objects.filter(name__in=['cisco', 'aruba', 'huawei', 'meraki', 'mikrotik', 'ruckus', 'ruckusvsz'])
     ctx['user_object'] = auth.get_user(request)
@@ -805,12 +806,14 @@ def ssid_add(request):
     ctx['device_queryset']=device_queryset
     ctx['vendor_queryset']=vendor_queryset
     if request.POST:
-        print('received POST')
+        print('received add POST')
         ssid_name = request.POST.get('name')
+        #getting values from name field
+        ssid_name_list=[s.strip() for s in re.split(",|;/", ssid_name)]
         ssid_vendor = json.loads(request.POST.get('vendor'))
-        print('SSID VENDOR LIST',ssid_vendor)
+        #print('SSID VENDOR LIST',ssid_vendor)
         ssid_device=json.loads(request.POST.get('device'))
-        print('SSID DEVICE',ssid_device)
+        #print('SSID DEVICE',ssid_device)
         ssid_server = request.POST.get('server')
         #ssid_server_ip = request.POST.get('custom_server_ip')
         try:
@@ -826,11 +829,10 @@ def ssid_add(request):
         process_list = []
         for i in ssid_device_objects:
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i.name)[0]
-            action='add'
             ssid_name=ssid_name + '_' + i.vendor.name
-            p = (threading.Thread(target=globals()['{}'.format(vendor)], kwargs={'i':i.name,'action':action,'ssid_name':ssid_name,'ssid_server':ssid_server_object}))
-            p.start()
-            process_list.append(p)
+            #p = (threading.Thread(target=globals()['{}'.format(vendor)], kwargs={'i':i.name,'action':'add','ssid_name':ssid_name,'ssid_server':ssid_server_object}))
+            #p.start()
+            #process_list.append(p)
             #creating new ssid object
             new_ssid = ssid()
             new_ssid.name = ssid_name

@@ -80,7 +80,7 @@ function add() {
   //  }
 
 
-    console.log('name=' + name + ' ' + 'vendor=' + vendor_selected_values + 'device=' + device_selected_values + 'server=' + server);
+    //console.log('name=' + name + ' ' + 'vendor=' + vendor_selected_values + 'device=' + device_selected_values + 'server=' + server);
     if (name.length > null && server.length > null) {
         console.log('Sending ajax')
      $.ajax({
@@ -91,7 +91,6 @@ function add() {
         // handle a successful response
 
             success : function(json) {
-            console.log(json.ssid_server_ip)
             if (json.ssid_server_ip !== undefined) {
                 $("#wrcharhostname").fadeIn("slow").delay( 2000 ).fadeOut("slow");
             }
@@ -100,7 +99,7 @@ function add() {
             }
             else {
                 $("#success").fadeIn("slow").delay( 2000 ).fadeOut("slow");
-                console.log(json.created_ssids)
+                console.log('created ssids: '+json.created_ssids)
             }
 
             //location.reload()

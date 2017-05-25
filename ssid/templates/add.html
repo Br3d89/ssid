@@ -46,6 +46,7 @@
 
 
 </ul>
+<div id="success" style="display: none;color:green;font-size: 26px; ">Success</div>
 <input type="button" value='add' id="Add" onClick="add()" /> <br>
 <span id="novalues" style="display:none;color:red;list-style-type: none">Please select required values: Name,Vendor(or device),Server,Group</span>
 {% csrf_token %}
@@ -98,6 +99,7 @@ function add() {
                 $("#wrchar").fadeIn("slow").delay( 2000 ).fadeOut("slow");
             }
             else {
+                $("#success").fadeIn("slow").delay( 2000 ).fadeOut("slow");
                 console.log(json.created_ssids)
             }
 

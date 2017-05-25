@@ -809,14 +809,11 @@ def ssid_add(request):
     ctx['auth_scheme_queryset'] = auth_scheme_queryset
     ctx['group_queryset'] = group_queryset
     if request.POST:
-        print('received add POST')
         ssid_name = request.POST.get('name')
         #getting values from name field
         ssid_name_list=[s.strip() for s in re.split(",|;/", ssid_name)]
-        ssid_vendor = json.loads(request.POST.get('vendor'))
-        #print('SSID VENDOR LIST',ssid_vendor)
+        #ssid_vendor = json.loads(request.POST.get('vendor'))
         ssid_device=json.loads(request.POST.get('device'))
-        #print('SSID DEVICE',ssid_device)
         ssid_server = request.POST.get('server')
         #ssid_auth_scheme=request.POST.get('auth_scheme')
         #ssid_group_list=json.loads(request.POST.get('group'))

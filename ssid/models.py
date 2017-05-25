@@ -78,7 +78,7 @@ class ssid(models.Model):
     start_date=models.DateTimeField(default=datetime.now)
     end_date=models.DateTimeField(default=datetime.now)
     auth_scheme = models.ForeignKey(auth_scheme, blank=True, default="",verbose_name="AUTH_SCHEME")
-    test_field = models.CharField(max_length=120,default=test_func)
+    #test_field = models.CharField(max_length=120,default=test_func)
 
     def __str__(self):
         return 'Name:{} Status:{}'.format(self.name, self.status)

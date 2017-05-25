@@ -832,7 +832,7 @@ def ssid_add(request):
         ssid_device_objects = device_queryset.filter(name__in=ssid_device)
         process_list = []
         for i in ssid_device_objects:
-            vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i.name)[0]
+            #vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i.name)[0]
             for j in ssid_name_list:
                 ssid_name_name=j + '_' + i.vendor.name
                 #p = (threading.Thread(target=globals()['{}'.format(vendor)], kwargs={'i':i.name,'action':'add','ssid_name':ssid_name,'ssid_server':ssid_server_object}))
@@ -844,7 +844,8 @@ def ssid_add(request):
                 new_ssid.vendor = i.vendor
                 new_ssid.ip = i
                 new_ssid.web = ssid_server_object
-                ssid_auth_scheme_object=auth_scheme.objects.get(name=list(vendor.objects.get(name=vendor).auth_scheme.values_list('name',flat=True))[0])
+                auth_scheme_name =list(i.vendor.auth_scheme.values_list('name', flat=True))[0]
+                ssid_auth_scheme_object=auth_scheme.objects.get(name=auth_scheme_name)
                 new_ssid.auth_scheme=ssid_auth_scheme_object
                 new_ssid.save()
                 #default mapping to ssidapp group

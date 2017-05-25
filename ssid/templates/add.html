@@ -82,13 +82,13 @@ function add() {
 
 
     //console.log('name=' + name + ' ' + 'vendor=' + vendor_selected_values + 'device=' + device_selected_values + 'server=' + server);
-    console.log(name.length, server.length)
-    if (name.length === null ) {
+    //console.log(name.length, server.length)
+    if (name.length === 0 ) {
         console.log('please enter ssid name')
       $('#noname').fadeIn("slow").delay( 2000 ).fadeOut("slow");
     }
 
-     if (server.length === null ) {
+     if (server.length === 0 ) {
          console.log('please choose server')
       $('#noserver').fadeIn("slow").delay( 2000 ).fadeOut("slow");
     }

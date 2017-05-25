@@ -840,7 +840,7 @@ def ssid_add(request):
                 #process_list.append(p)
                 #creating new ssid object
                 new_ssid = ssid()
-                new_ssid.name = ssid_name
+                new_ssid.name = ssid_name_name
                 new_ssid.vendor = i.vendor
                 new_ssid.ip = i
                 new_ssid.web = ssid_server_object

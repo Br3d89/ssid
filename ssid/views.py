@@ -809,20 +809,21 @@ def ssid_add(request):
     ctx['auth_scheme_queryset'] = auth_scheme_queryset
     ctx['group_queryset'] = group_queryset
     if request.POST:
-        ssid_name = request.POST.get('name')
-        #getting values from name field
-        ssid_name_list=[s.strip() for s in re.split(",|;/", ssid_name)]
         #ssid_vendor = json.loads(request.POST.get('vendor'))
-        ssid_device=json.loads(request.POST.get('device'))
         ssid_server = request.POST.get('server')
-        #ssid_auth_scheme=request.POST.get('auth_scheme')
-        #ssid_group_list=json.loads(request.POST.get('group'))
-        #ssid_server_ip = request.POST.get('custom_server_ip')
         try:
-            ssid_server_ip=socket.gethostbyname(ssid_server)
+            ssid_server_ip = socket.gethostbyname(ssid_server)
         except socket.gaierror:
             print("Couldn't resolve hostname")
             return JsonResponse({'ssid_server_ip': 'server name is not resolvable'})
+        ssid_name = request.POST.get('name')
+        # getting values from name field
+        ssid_name_list = [s.strip() for s in re.split(",|;/", ssid_name)]
+        ssid_device = json.loads(request.POST.get('device'))
+        #ssid_auth_scheme=request.POST.get('auth_scheme')
+        #ssid_group_list=json.loads(request.POST.get('group'))
+        #ssid_server_ip = request.POST.get('custom_server_ip')
+
         ssid_server_object=auth_server.objects.get_or_create(name=ssid_server,defaults={'ip':ssid_server_ip})[0]
         ssid_server_object.group.add(Group.objects.get(id=1))
         ssid_server_object.save()

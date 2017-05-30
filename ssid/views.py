@@ -822,7 +822,7 @@ def ssid_add(request):
             return JsonResponse({'ssid_name_not_unique': 'SSID name is not unique'})
         ssid_name = request.POST.get('name')
         # getting values from name field
-        ssid_name_list = [s.strip() for s in re.split(",|;/", ssid_name)]
+        ssid_name_list = [s.strip() for s in re.split(r"[,|;/\s]", ssid_name)]
         #ssid_auth_scheme=request.POST.get('auth_scheme')
         #ssid_group_list=json.loads(request.POST.get('group'))
         #ssid_server_ip = request.POST.get('custom_server_ip')

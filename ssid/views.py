@@ -27,6 +27,7 @@ ssh_password = 'Ve7petrU'
 radius_psk='dfqAFQhekbn!'
 ssid_status_list=[]
 ssid_error_list=[]
+ssid_error_dict={}
 down_status=[]
 ssids_busy=[]
 pexp_timeout=6
@@ -57,21 +58,21 @@ def ssid_update(request):
             ssid_objects_down=ssid.objects.filter(ip__name=i,name__in=down_new)
             print(ssid_objects_down)
             if ssid_objects_up:
-                print('if ssid_object_up = True')
+                #print('if ssid_object_up = True')
                 p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'i': i,'ssid_objects': ssid_objects_up, 'ssid_status_list': ssid_status_list,'ssid_error_list': ssid_error_list, 'errors': errors,'ssid_timeout': timeout_value, 'action': 'enable'}))  # поменял i
                 p.start()
                 process_list.append(p)
                 d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],kwargs={'i': i, 'ssid_objects': ssid_objects_up, 'ssid_status_list': ssid_status_list,'ssid_error_list': ssid_error_list, 'errors': errors,'ssid_timeout': timeout_value, 'action': 'disable'})  # нужно поменять i
                 d.start()
             if ssid_objects_down:
-                print('if ssid_object_down = True')
+                #print('if ssid_object_down = True')
                 p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'i': i, 'ssid_objects': ssid_objects_down, 'ssid_status_list': ssid_status_list, 'ssid_error_list': ssid_error_list,'errors': errors, 'ssid_timeout': timeout_value,'action': 'disable'}))  # поменял i
                 p.start()
                 process_list.append(p)
             else:
                 print('There are no ssid objects for {}'.format(i))
         for i in process_list:
-            print('Working with process_list, starting join process')
+            #print('Working with process_list, starting join process')
             i.join()
         all_up_ssids = list(ssid.objects.values_list('name', flat=True).filter(status='1'))
         return JsonResponse({'all_up_ssids': all_up_ssids, 'errors': errors})
@@ -79,10 +80,10 @@ def ssid_update(request):
         index(request)
 
 
-def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], action=''):
-    print('Working on {} {}, action = {}'.format((inspect.stack()[0][3]),i,action))
+def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], action=''):
+    print('Working on {} {}, action: {}'.format((inspect.stack()[0][3]),device_ip,action))
     try:
-        child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
+        child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format('123', device_ip))
         #fout = open('/home/bred/ssid/test.log', 'wb')
         #child.logfile = fout
         child.expect(':',timeout=pexp_timeout)
@@ -99,7 +100,9 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
             k = child.expect([">", ":"])
             retry_count -= 1
         if k==1:
-            print('Cant connect to device {}'.format(i))
+            print('Cant connect to device {}'.format(device_ip))
+            for i in ssid_objects:
+                ssid_error_dict[i]='Cant connect to device'
             return False
         child.sendline('')
         child.expect_exact(">")
@@ -303,10 +306,10 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
 
 
 
-def aruba(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], action=''):
-    print('Working on {} {}, action = {}'.format((inspect.stack()[0][3]), i, action))
+def aruba(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], action=''):
+    print('Working on {} {}, action: {}'.format((inspect.stack()[0][3]), device_ip, action))
     try:
-        child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
+        child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, device_ip))
         #fout = open('/home/bred/ssid/ssid/test.log', 'wb')
         #child.logfile = fout
         child.expect(':', timeout=pexp_timeout)
@@ -428,7 +431,7 @@ def aruba(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
 
                 ssids_busy.remove(i.name)
                 ssid_status_list.append(i.name)
-                print('SSID {} enabled'.format(i.name))
+                print('SSID {} was enabled'.format(i.name))
 
         if action == 'disable':
             print('Disabling action')
@@ -456,7 +459,7 @@ def aruba(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
         child.sendline('commit apply\r')
         child.expect('#')
         child.sendline('logout')
-        print('Aruba {} done'.format(i))
+        print('Aruba {} done'.format(device_ip))
         time.sleep(1)
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
@@ -908,7 +911,8 @@ def ssid_busy(request):
 def ssid_error(request):
     #print('Error request')
     #print('Backend ssid error ', ssid_error_list)
-    return JsonResponse({'ssid_error_list': ssid_error_list})
+    #return JsonResponse({'ssid_error_list': ssid_error_list})
+    return JsonResponse(ssid_error_dict)
 
 a=vendor.objects.all()
 def ssid_add(request):

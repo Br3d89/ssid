@@ -8,7 +8,7 @@ from datetime import datetime,timedelta
 from multiprocessing import Process
 from django.contrib import auth
 from django.contrib.auth.models import Group
-import sys,itertools,inspect,copy,socket,re
+import sys,itertools,inspect,copy,socket,re,inspect
 
 class ssidForm(forms.ModelForm):
    class Meta:
@@ -24,6 +24,7 @@ class ssidForm(forms.ModelForm):
 
 ssh_username = 'mgmt'
 ssh_password = 'Ve7petrU'
+radius_psk='dfqAFQhekbn!'
 ssid_status_list=[]
 ssid_error_list=[]
 down_status=[]
@@ -79,13 +80,11 @@ def ssid_update(request):
 
 
 def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], action=''):
-    print('Working on Cisco {}, action = {}'.format(i,action))
-    pass
-    #print('Debug info:',ssid_name,action)
+    print('Working on {} {}, action = {}'.format((inspect.stack()[0][3]),i,action))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
-        fout = open('/home/bred/ssid/test.log', 'wb')
-        child.logfile = fout
+        #fout = open('/home/bred/ssid/test.log', 'wb')
+        #child.logfile = fout
         child.expect(':',timeout=pexp_timeout)
         child.sendline(ssh_username)
         child.expect(':')
@@ -179,7 +178,7 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
 
                     print('Radius server creation')
                     if len(free_radius_auth_id):
-                        child.sendline('config radius auth add {} {} 1812 ascii dfqAFQhekbn!'.format(free_radius_auth_id[0], i.web.ip))
+                        child.sendline('config radius auth add {} {} 1812 ascii {}'.format(free_radius_auth_id[0], i.web.ip,radius_psk))
                         child.expect(">")
                         child.sendline('config radius auth disable {}'.format(free_radius_auth_id[0]))
                         child.expect(">")
@@ -191,7 +190,7 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
                         child.expect(">")
 
                     #if len(free_radius_acct_id):
-                        child.sendline('config radius acct add {} {} 1812 ascii dfqAFQhekbn!'.format(free_radius_auth_id[0],i.web.ip))
+                        child.sendline('config radius acct add {} {} 1812 ascii {}'.format(free_radius_auth_id[0],i.web.ip,radius_psk))
                         child.expect(">")
                     else:
                          print('There is no free IDs for radius server')
@@ -304,8 +303,8 @@ def cisco(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
 
 
 
-def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, errors,ssid_timeout, t=0):
-    print('Working on Aruba {} '.format(i))
+def aruba(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],ssid_timeout=[], action=''):
+    print('Working on {} {}, action = {}'.format((inspect.stack()[0][3]), i, action))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format(ssh_username, i))
         #fout = open('/home/bred/ssid/ssid/test.log', 'wb')
@@ -314,25 +313,140 @@ def aruba(up_new, down_new, ssid_objects, i, ssid_status_list, ssid_error_list, 
         child.sendline("{}\r".format(ssh_password))
         child.expect("#")
         child.sendline('conf\r')
-        for m in ssid_objects:
-            child.expect('#')
-            child.sendline('wlan ssid-profile {}\r'.format(m.wlan_id))
-            child.expect('#')
-            if (m.name in up_new) and t == 0:
-                child.sendline('enable\r')
-                m.status = 1
-                m.start_date = datetime.now()
-                m.end_date = m.start_date + timedelta(0, ssid_timeout)
-                print(m.name,' enabled')
-            else:
-                child.sendline('disable\r')
-                m.status = 0
-                print(m.name,' disabled')
-            m.save()
-            child.sendline('exit\r')
-            if t==0:
-                ssids_busy.remove(m.name)
-            ssid_status_list.append(m.name)
+        if action == 'enable':
+            for i in ssid_objects:
+
+                # radius server creation
+                name_shortcut = i.web.name.split('.')[0]
+                child.sendline("wlan auth-server {}\r".format(name_shortcut))
+                child.expect("#")
+                child.sendline("ip {}\r".format(i.web.ip))
+                child.expect("#")
+                child.sendline("key {}\r".format(radius_psk))
+                child.expect("#")
+                child.sendline("rfc3576\r")
+                child.expect("#")
+                child.sendline("exit\r")
+                child.expect("#")
+
+                # external captive portal creation
+                child.sendline("wlan external-captive-portal {}\r".format(name_shortcut))
+                child.expect("#")
+                child.sendline("server {}\r".format(i.web.name))
+                child.expect("#")
+                child.sendline("port 80\r")
+                child.expect("#")
+                child.sendline('url "/access"\r')
+                child.expect("#")
+                child.sendline("exit\r")
+                child.expect("#")
+
+                #acl creation
+
+                #limited
+                child.sendline("wlan access-rule {}_limited\r".format(name_shortcut))
+                child.expect("#")
+                child.sendline("captive-portal external profile {}\r".format(name_shortcut))
+                child.expect("#")
+                child.sendline("rule alias ad.adriver.ru match any any any permit\r")
+                child.expect("#")
+                child.sendline("rule any any match any any any deny\r")
+                child.expect("#")
+                child.sendline("exit\r")
+                child.expect("#")
+
+                #apple
+                child.sendline("wlan access-rule {}_apple\r".format(name_shortcut))
+                child.expect("#")
+                child.sendline("captive-portal external profile {}\r".format(name_shortcut))
+                child.expect("#")
+                child.sendline("rule alias apple.com match any any any permit\r")
+                child.expect("#")
+                child.sendline("rule alias clients3.google.com match any any any permit\r")
+                child.expect("#")
+                child.sendline("rule alias connectivitycheck.android.com match any any any permit\r")
+                child.expect("#")
+                child.sendline("rule alias www.msftncsi.com match any any any permit\r")
+                child.expect("#")
+                child.sendline("rule any any match any any any deny\r")
+                child.expect("#")
+                child.sendline("exit\r")
+                child.expect("#")
+
+                #social
+                child.sendline("wlan access-rule {}_social\r".format(name_shortcut))
+                child.expect("#")
+                child.sendline("captive-portal external profile {}\r".format(name_shortcut))
+                child.expect("#")
+                child.sendline("rule alias fbcdn.net match any any any permit\r")
+                child.expect("#")
+                child.sendline("rule alias vk.com match any any any permit\r")
+                child.expect("#")
+                child.sendline("rule alias facebook.com match any any any permit\r")
+                child.expect("#")
+                child.sendline("rule alias facebook.net match any any any permit\r")
+                child.expect("#")
+                child.sendline("rule any any match any any any deny\r")
+                child.expect("#")
+                child.sendline("exit\r")
+                child.expect("#")
+
+                #full
+                child.sendline("wlan access-rule {}_full\r".format(name_shortcut))
+                child.expect("#")
+                child.sendline("rule any any match any any any permit\r")
+                child.expect("#")
+                child.sendline("exit\r")
+                child.expect("#")
+
+                # wlan creation
+                child.sendline("wlan ssid-profile {}\r".format(i.name))
+                child.expect("#")
+                child.sendline("enable\r")
+                child.expect("#")
+                child.sendline("type guest\r")
+                child.expect("#")
+                child.sendline("auth-server {}\r".format(name_shortcut))
+                child.expect("#")
+                child.sendline("captive-portal external profile {}\r".format(name_shortcut))
+                child.expect("#")
+                child.sendline("mac-authentication\r")
+                child.expect("#")
+                child.sendline("radius-accounting\r")
+                child.expect("#")
+                child.sendline("exit\r")
+                child.expect("#")
+
+                i.status = 1
+                i.start_date = datetime.now()
+                i.end_date = i.start_date + timedelta(0, ssid_timeout)
+                i.save()
+
+                ssids_busy.remove(i.name)
+                ssid_status_list.append(i.name)
+                print('SSID {} enabled'.format(i.name))
+
+        if action == 'disable':
+            print('Disabling action')
+            for i in ssid_objects:
+                name_shortcut = i.web.name.split('.')[0]
+                child.sendline('no wlan ssid-profile {}\r'.format(i.name))
+                child.expect("#")
+                child.sendline('no wlan external-captive-portal {}\r'.format(name_shortcut))
+                child.expect("#")
+                child.sendline('no wlan auth-server {}\r'.format(name_shortcut))
+                child.expect("#")
+                child.sendline('no wlan access-rule {}\r'.format(name_shortcut))
+                child.expect("#")
+                for k in i.acl.split(','):
+                    child.sendline('no wlan access-rule {}\r'.format(k))
+                    child.expect('#')
+                ssids_busy.remove(i.name)
+                ssid_status_list.append(i.name)
+                i.status = 0
+                i.save()
+                print('SSID {} disabled'.format(i.name))
+
         child.sendline('end\r')
         child.expect('#')
         child.sendline('commit apply\r')

@@ -87,7 +87,7 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
         #fout = open('/home/bred/ssid/test.log', 'wb')
         #child.logfile = fout
         child.expect(':',timeout=pexp_timeout)
-        child.sendline(ssh_username)
+        child.sendline('test')
         child.expect(':')
         child.sendline(ssh_password)
         k=child.expect([">",":"])

@@ -59,14 +59,14 @@ def ssid_update(request):
             print(ssid_objects_down)
             if ssid_objects_up:
                 #print('if ssid_object_up = True')
-                p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'i': i,'ssid_objects': ssid_objects_up, 'ssid_status_list': ssid_status_list,'ssid_error_list': ssid_error_list, 'errors': errors,'ssid_timeout': timeout_value, 'action': 'enable'}))  # поменял i
+                p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'device_ip': i,'ssid_objects': ssid_objects_up, 'ssid_status_list': ssid_status_list,'ssid_error_list': ssid_error_list, 'errors': errors,'ssid_timeout': timeout_value, 'action': 'enable'}))  # поменял i
                 p.start()
                 process_list.append(p)
-                d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],kwargs={'i': i, 'ssid_objects': ssid_objects_up, 'ssid_status_list': ssid_status_list,'ssid_error_list': ssid_error_list, 'errors': errors,'ssid_timeout': timeout_value, 'action': 'disable'})  # нужно поменять i
+                d = threading.Timer(timeout_value, globals()['{}'.format(vendor)],kwargs={'device_ip': i, 'ssid_objects': ssid_objects_up, 'ssid_status_list': ssid_status_list,'ssid_error_list': ssid_error_list, 'errors': errors,'ssid_timeout': timeout_value, 'action': 'disable'})  # нужно поменять i
                 d.start()
             if ssid_objects_down:
                 #print('if ssid_object_down = True')
-                p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'i': i, 'ssid_objects': ssid_objects_down, 'ssid_status_list': ssid_status_list, 'ssid_error_list': ssid_error_list,'errors': errors, 'ssid_timeout': timeout_value,'action': 'disable'}))  # поменял i
+                p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'device_ip': i, 'ssid_objects': ssid_objects_down, 'ssid_status_list': ssid_status_list, 'ssid_error_list': ssid_error_list,'errors': errors, 'ssid_timeout': timeout_value,'action': 'disable'}))  # поменял i
                 p.start()
                 process_list.append(p)
             else:

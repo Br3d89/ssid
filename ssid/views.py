@@ -414,6 +414,10 @@ def aruba(i,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], errors=[],s
                 child.expect("#")
                 child.sendline("radius-accounting\r")
                 child.expect("#")
+                child.sendline("radius-interim-accounting-interval 10\r")
+                child.expect("#")
+                child.sendline("set-role-unrestricted\r")
+                child.expect("#")
                 child.sendline("exit\r")
                 child.expect("#")
 

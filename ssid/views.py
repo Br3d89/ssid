@@ -107,6 +107,14 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
         child.sendline('')
         child.expect_exact(">")
         print('logged in')
+    except pexpect.exceptions.TIMEOUT as err:
+        for i in list(ssid_objects.values_list('name', flat=True)):
+            ssid_error_list.append(i)
+            ssids_busy.remove(i)
+        errors.append(list(ssid_objects.values_list('name', flat=True)))
+    time.sleep(2)
+    print(err)
+    try:
         child.sendline('config paging disable')
         child.expect(">")
 

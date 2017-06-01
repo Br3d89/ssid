@@ -559,7 +559,7 @@ def index(request,args={}):
     ctx['all_up_ssids']=all_up_ssids
     ctx['servers_with_up_ssids']=servers_with_up_ssids
     ctx['vendors_with_up_ssids']=vendors_with_up_ssids         #for accordion logic
-    ctx['all_group_ssids']=ssid.objects.filter(group__name__in=request_user_group).order_by('-vendor_id')
+    ctx['all_group_ssids']=ssid.objects.filter(group__name__in=request_user_group).distinct().order_by('-vendor_id')
     ctx['servers']=servers_ssids_sorted
     ctx['servers_enum']=div_enum
     ctx['vendors_enum']=div_enum_vendors             #for accordion logic

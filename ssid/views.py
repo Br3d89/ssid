@@ -102,7 +102,7 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
         if k==1:
             print('Cant connect to device {}'.format(device_ip))
             for i in ssid_objects:
-                ssid_error_dict[i]='Cant connect to device'
+                ssid_error_dict[i]='Cant connect to device {}'.format(device_ip)
             return False
         child.sendline('')
         child.expect_exact(">")

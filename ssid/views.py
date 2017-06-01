@@ -51,12 +51,12 @@ def ssid_update(request):
 
         process_list = []
         for i in ip_list:
-            print('Working on {} ip_list_length = {}'.format(i,len(ip_list)))
+            #print('Working on {} ip_list_length = {}'.format(i,len(ip_list)))
             vendor = ssid.objects.values_list('vendor__name', flat=True).distinct().filter(ip__name=i)[0]
             ssid_objects = ssid.objects.filter(ip__name=i, name__in=rcv_ssids)  # all ssids within device
             ssid_objects_up=ssid.objects.filter(ip__name=i, name__in=up_new)
             ssid_objects_down=ssid.objects.filter(ip__name=i,name__in=down_new)
-            print(ssid_objects_down)
+            #print(ssid_objects_down)
             if ssid_objects_up:
                 #print('if ssid_object_up = True')
                 p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'device_ip': i,'ssid_objects': ssid_objects_up, 'ssid_status_list': ssid_status_list,'ssid_error_list': ssid_error_list, 'errors': errors,'ssid_timeout': timeout_value, 'action': 'enable'}))  # поменял i
@@ -112,8 +112,8 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
             ssid_error_list.append(i)
             ssids_busy.remove(i)
         errors.append(list(ssid_objects.values_list('name', flat=True)))
-    time.sleep(2)
-    print(err)
+        time.sleep(2)
+        print(err)
     try:
         child.sendline('config paging disable')
         child.expect(">")

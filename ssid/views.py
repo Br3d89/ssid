@@ -89,14 +89,14 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
         child.expect(':',timeout=pexp_timeout)
         child.sendline('test')
         child.expect(':')
-        child.sendline(ssh_password)
+        child.sendline('123')
         k=child.expect([">",":"])
         retry_count = 5
         while (k==1 and retry_count):
             print('Wrong login/password')
-            child.sendline(ssh_username)
+            child.sendline('123')
             child.expect(':')
-            child.sendline(ssh_password)
+            child.sendline('123')
             k = child.expect([">", ":"])
             retry_count -= 1
         if k==1:

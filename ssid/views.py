@@ -925,7 +925,7 @@ def ssid_error(request):
     #print('Error request')
     #print('Backend ssid error ', ssid_error_list)
     #return JsonResponse({'ssid_error_list': ssid_error_list})
-    print('SSID error dict: ',ssid_error_dict)
+    #print('SSID error dict: ',ssid_error_dict)
     return JsonResponse(ssid_error_dict)
 
 a=vendor.objects.all()

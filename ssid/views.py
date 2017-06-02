@@ -90,7 +90,6 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
         child.sendline('test')
         child.expect(':')
         child.sendline('123')
-        print('Calculationg K')
         k=child.expect([">", ":"])
         #k=child.expect([">",":"])
         print('k=',k)
@@ -102,13 +101,13 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
             child.sendline('123')
             k = child.expect([">", ":"])
             retry_count -= 1
-        #if k==1:
-        #    print('Cant connect to device {}'.format(device_ip))
-        #    for i in ssid_objects:
-        #        ssid_error_dict[i]='Cant connect to device {}'.format(device_ip)
-        #    return False
-        #child.sendline('')
-        #child.expect_exact(">")
+        if k==1:
+            print('Cant connect to device {}'.format(device_ip))
+            for i in ssid_objects:
+                ssid_error_dict[i]='Cant connect to device {}'.format(device_ip)
+            return False
+        child.sendline('')
+        child.expect_exact(">")
         print('logged in and stopped function')
         return False
     except pexpect.exceptions.TIMEOUT as err:

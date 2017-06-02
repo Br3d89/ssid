@@ -448,7 +448,7 @@ function run() {
 
                check_error =  setInterval( function(){
                $.get("/ssid_error/", function(data) {
-                   if (Object.keys(obj).length === 0) {
+                   if (Object.keys(data).length === 0) {
                        console.log('Empty')
                    }
                    else {console.log(data)}

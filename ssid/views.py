@@ -92,6 +92,7 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
         child.sendline('123')
         child.expect([">", ":"])
         k=child.expect([">",":"])
+        print('k=',k)
         retry_count = 3
         while (k==1 and retry_count):
             print('Wrong login/password, retry count = {}'.format(retry_count))

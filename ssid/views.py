@@ -91,6 +91,7 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
         child.expect(':')
         child.sendline('123')
         child.expect([">", ":"])
+        print('Calculationg K')
         k=child.expect([">",":"])
         print('k=',k)
         retry_count = 3

@@ -451,8 +451,9 @@ function run() {
                    if (Object.keys(data).length > 0) {
                        result = data.errors
                        console.log(result)
-                   }
-                     /*  for(var i in result) {
+
+                       for(var i in result) {
+                           console.log(i)
                           if (!ssid_error.includes(result[i].name)) {
                               $('#errors').fadeIn("slow").html(result[i].name+"<span style='color:red'>    " + result[i].error + "fail  </span>").delay(5000).fadeOut("slow")
                           $( "span."+result[i].name ).html(result[i].name+"<span style='color:red'>  fail  </span>").fadeIn("slow");
@@ -467,7 +468,7 @@ function run() {
                    //for(var i=0, n=data.length;i<n;i++) {
                    //    console.log(data[i])}
 
- */
+
             });
  } , 1000)
 

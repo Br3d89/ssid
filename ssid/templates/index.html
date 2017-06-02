@@ -448,10 +448,10 @@ function run() {
 
                check_error =  setInterval( function(){
                $.get("/ssid_error/", function(data) {
+                   data=JSON.parse(data)
                    console.log('Some errors:'+data)
-               //    data=data.ssid_error_list
-                   console.log(data.length)
-                   if (data.length > null){
+                   console.log(Object.keys(data).length )
+                   if (Object.keys(data).length > null){
                    for(var i=0, n=data.length;i<n;i++) {
                        console.log(data[i])}
 

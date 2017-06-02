@@ -106,7 +106,7 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
             print('Cant connect to device {}'.format(device_ip))
             ssid_error_dict['errors'] = []
             for i in ssid_objects:
-                ssid_error_dict['errors'].append({'name': i.name, 'error': 'cant connect to device {}, wrong login/pass'.format(device_ip)})
+                ssid_error_dict['errors'].append({'name': i.name, 'error': 'conection to device {} failed, wrong login/pass'.format(device_ip)})
             time.sleep(2)
             return False
         child.sendline('')

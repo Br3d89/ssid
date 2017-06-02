@@ -452,7 +452,7 @@ function run() {
                        result=data.errors
                        for(var i in result) {
                           if (!ssid_error.includes(result[i].name)) {
-                          $( "span."+result[i].name ).html(result[i].name+"<span style='color:red'>" + result[i].error + "fail  </span>").fadeIn("slow");}
+                          $( "span."+result[i].name ).html(result[i].name+"<span style='color:red'>    " + result[i].error + "fail  </span>").fadeIn("slow");}
                        ssid_error.push(result[i].name)
                        }}
                    //result = JSON.parse(data)

@@ -90,10 +90,11 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
         child.sendline('test')
         child.expect(':')
         child.sendline('123')
+        child.expect([">", ":"])
         k=child.expect([">",":"])
-        retry_count = 5
+        retry_count = 3
         while (k==1 and retry_count):
-            print('Wrong login/password')
+            print('Wrong login/password, retry count = {}'.format(retry_count))
             child.sendline('123')
             child.expect(':')
             child.sendline('123')
@@ -106,7 +107,8 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
             return False
         child.sendline('')
         child.expect_exact(">")
-        print('logged in')
+        print('logged in and stopped function')
+        pass
     except pexpect.exceptions.TIMEOUT as err:
         for i in list(ssid_objects.values_list('name', flat=True)):
             ssid_error_list.append(i)

@@ -448,7 +448,7 @@ function run() {
 
                check_error =  setInterval( function(){
                $.get("/ssid_error/", function(data) {
-                   //console.log('Some errors:'+data.wcm_bred1_cisco)
+                   console.log('Some errors:'+data)
                //    data=data.ssid_error_list
                    console.log(data.length)
                    if (data.length > null){

@@ -449,7 +449,7 @@ function run() {
                check_error =  setInterval( function(){
                $.get("/ssid_error/", function(data) {
                    if (Object.keys(data).length > 0) {
-                       result = data.errors.name
+                       result = data.errors
                        console.log(result)
                    }
                      /*  for(var i in result) {

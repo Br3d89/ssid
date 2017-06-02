@@ -448,17 +448,14 @@ function run() {
 
                check_error =  setInterval( function(){
                $.get("/ssid_error/", function(data) {
-                   console.log('Some errors:'+data.wcm_bred1_cisco)
+                   //console.log('Some errors:'+data.wcm_bred1_cisco)
                //    data=data.ssid_error_list
-               // if (data.length > null){
-               //    for(var i=0, n=data.length;i<n;i++) {
-               //        if (!ssid_error.includes(data[i])) {
-               //        $( "span."+data[i] ).html(data[i]+"<span style='color:red'>  fail  </span>").fadeIn("slow");
-               //        ssid_error.push(data[i])
-               //        }
-               //      }}
+               if (data.length > null){
+                   for(var i=0, n=data.length;i<n;i++) {
+                       console.log(data[i])}
 
-            });
+
+            }});
  } , 1000)
 
 

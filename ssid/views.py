@@ -69,8 +69,8 @@ def ssid_update(request):
                 p = (threading.Thread(target=globals()['{}'.format(vendor)],kwargs={'device_ip': i, 'ssid_objects': ssid_objects_down, 'ssid_status_list': ssid_status_list, 'ssid_error_list': ssid_error_list,'errors': errors, 'ssid_timeout': timeout_value,'action': 'disable'}))  # поменял i
                 p.start()
                 process_list.append(p)
-            else:
-                print('There are no ssid objects for {}'.format(i))
+            #else:
+            #    print('There are no ssid objects for {}'.format(i))
         for i in process_list:
             #print('Working with process_list, starting join process')
             i.join()
@@ -84,8 +84,8 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
     print('Working on {} {}, action: {}'.format((inspect.stack()[0][3]),device_ip,action))
     try:
         child = pexpect.spawn('ssh -l {} -o StrictHostKeyChecking=no {}'.format('123', device_ip))
-        #fout = open('/home/bred/ssid/test.log', 'wb')
-        #child.logfile = fout
+        fout = open('/home/bred/ssid/test.log', 'wb')
+        child.logfile = fout
         child.expect(':',timeout=pexp_timeout)
         child.sendline('test')
         child.expect(':')

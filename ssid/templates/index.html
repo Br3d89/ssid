@@ -450,7 +450,8 @@ function run() {
                $.get("/ssid_error/", function(data) {
                    //console.log('Some errors:'+data.wcm_bred1_cisco)
                //    data=data.ssid_error_list
-               if (data.length > null){
+                   console.log(data.length)
+                   if (data.length > null){
                    for(var i=0, n=data.length;i<n;i++) {
                        console.log(data[i])}
 

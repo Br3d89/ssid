@@ -451,7 +451,10 @@ function run() {
                    if (Object.keys(data).length === 0) {
                        console.log('Empty')
                    }
-                   else {console.log(data)}
+                   else {
+                       result=data.errors
+                       for(var i in result) {
+                       console.log('name='+result[i].name+'error'+result[i].error)}}
                    //result = JSON.parse(data)
                    //console.log(typeof(result)+result)
                    //length = data.length();

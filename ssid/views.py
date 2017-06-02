@@ -27,7 +27,7 @@ ssh_password = 'Ve7petrU'
 radius_psk='dfqAFQhekbn!'
 ssid_status_list=[]
 ssid_error_list=[]
-ssid_error_dict={'errors':[]}
+ssid_error_dict={}
 down_status=[]
 ssids_busy=[]
 pexp_timeout=6
@@ -104,6 +104,7 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
             retry_count -= 1
         if k==1:
             print('Cant connect to device {}'.format(device_ip))
+            ssid_error_dict['errors'] = []
             for i in ssid_objects:
                 ssid_error_dict['errors'].append({'name': i.name, 'error': 'cant connect to device {}, wrong login/pass'.format(device_ip)})
             time.sleep(2)

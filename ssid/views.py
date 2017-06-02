@@ -107,7 +107,7 @@ def cisco(device_ip,ssid_objects=[], ssid_status_list=[],ssid_error_list=[], err
             ssid_error_dict['errors'] = []
             for i in ssid_objects:
                 ssid_error_dict['errors'].append({'name': i.name, 'error': 'Failed to change ssid: {} conection to device {} failed, wrong login/pass'.format(i.name,device_ip)})
-            time.sleep(2)
+            #time.sleep(2)
             return False
         child.sendline('')
         child.expect_exact(">")

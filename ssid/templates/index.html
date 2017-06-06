@@ -456,7 +456,7 @@ function run() {
                               for (j=0;j<result[i].name.length;j++ ) {
                                console.log(result[i].name[j])
                               //$('#errors').fadeIn("slow").html(result[i].name[j] + "<span style='color:red'>    " + result[i].error + "fail  </span>").delay(5000).fadeOut("slow")
-                              $("span." + result[i].name[j]).html(result[i].name[j] + "<span style='color:red'>  fail  </span>").fadeIn("slow");
+                              $("span." + result[i].name[j]).html(result[i].name[j] + "<span style='color:red'>  fail  </span>").delay(5000).fadeIn("slow");
                           ssid_error.push(result[i].name[j])
                               }}
                           //window.setTimeout(function(){location.reload()},7000)}

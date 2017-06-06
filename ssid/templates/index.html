@@ -449,12 +449,12 @@ function run() {
                        for(var i in result) {
                            console.log(result[i].name)
                           if (!ssid_error.includes(result[i].name)) {
-                              $('#errors').fadeIn("slow").html(result[i].name+"<span style='color:red'>    " + result[i].error + "fail  </span>").delay(5000).fadeOut("slow")
-                              $( "span."+result[i].name ).html(result[i].name+"<span style='color:red'>  fail  </span>").fadeIn("slow");
-
-                          //window.setTimeout(function(){location.reload()}
+                              $('#errors').fadeIn("slow").html(result[i].name + "<span style='color:red'>    " + result[i].error + "fail  </span>").delay(5000).fadeOut("slow")
+                              $("span." + result[i].name).html(result[i].name + "<span style='color:red'>  fail  </span>").fadeIn("slow");
+                          }
+                          //window.setTimeout(function(){location.reload()},7000)}
                        ssid_error.push(result[i].name)
-                       }}}})},7000)
+                       }}
                    //result = JSON.parse(data)
                    //console.log(typeof(result)+result)
                    //length = data.length();

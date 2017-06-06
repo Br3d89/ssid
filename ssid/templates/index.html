@@ -368,12 +368,13 @@ function run() {
             clearInterval(check_status)
             clearInterval(check_error)
             //clearInterval(check_busy)
-                console.log('ssid_error=',ssid_error)
+
             ssidlist=JSON.stringify(json.all_up_ssids)   //all this array is one string element
             for (var i=0, n=ssid_status.length;i<n;i++) {
                 $( "span."+ssid_status[i] ).html(ssid_status[i]);
             }
             for (var i=0, n=ssid_error.length;i<n;i++) {
+                console.log('ssid_error=',ssid_error[i])
                 $( "span."+ssid_error[i] ).html(ssid_error[i]);
             }
             timer=30

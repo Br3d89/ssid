@@ -17,6 +17,7 @@
 
 
 {% if username %}
+ ssid_busy:    {{ ssids_busy }}
  <div id="header">
   <div class="login_form">
     <!--<a href="/profile" style="color: black;"><img width="30px" height="30px" src="{% static 'images/person.png' %}"></a> -->
@@ -365,7 +366,7 @@ function run() {
 
             success : function(json) {
             clearInterval(check_status)
-            //clearInterval(check_error)
+            clearInterval(check_error)
             //clearInterval(check_busy)
             ssidlist=JSON.stringify(json.all_up_ssids)   //all this array is one string element
             for (var i=0, n=ssid_status.length;i<n;i++) {
@@ -439,7 +440,7 @@ function run() {
             });
  } , 1000)   */
 
-/*
+
                check_error =  setInterval( function(){
                $.get("/ssid_error/", function(data) {
                    if (Object.keys(data).length > 0) {
@@ -450,7 +451,7 @@ function run() {
                            //console.log(result[i].name)
                           if (!ssid_error.includes(result[i].name)) {
                               for (j=0;j<result[i].name.length;j++ ) {
-                               //console.log(result[i].name[j])
+                               console.log(result[i].name[j])
                               //$('#errors').fadeIn("slow").html(result[i].name[j] + "<span style='color:red'>    " + result[i].error + "fail  </span>").delay(5000).fadeOut("slow")
                               //$("span." + result[i].name[j]).html(result[i].name[j] + "<span style='color:red'>  fail  </span>").fadeIn("slow");
                           }}
@@ -467,7 +468,7 @@ function run() {
 
 
             });
- } , 1000)   */
+ } , 1000)
 
 
                //console.log('Next one')

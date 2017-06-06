@@ -447,14 +447,14 @@ function run() {
                        console.log(result)
 
                        for(var i in result) {
-                           console.log(result[i].name)
+                           //console.log(result[i].name)
                           if (!ssid_error.includes(result[i].name)) {
                               for (j=0;j<result[i].name.length;j++ ) {
                                   console.log(result[i].name[j])
-                              }
-                              //$('#errors').fadeIn("slow").html(result[i].name + "<span style='color:red'>    " + result[i].error + "fail  </span>").delay(5000).fadeOut("slow")
-                              //$("span." + result[i].name).html(result[i].name + "<span style='color:red'>  fail  </span>").fadeIn("slow");
-                          }
+
+                              $('#errors').fadeIn("slow").html(result[i].name[j] + "<span style='color:red'>    " + result[i].error + "fail  </span>").delay(5000).fadeOut("slow")
+                              $("span." + result[i].name[j]).html(result[i].name[j] + "<span style='color:red'>  fail  </span>").fadeIn("slow");
+                          }}
                           //window.setTimeout(function(){location.reload()},7000)}
                        ssid_error.push(result[i].name)
                        }}

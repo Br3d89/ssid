@@ -373,7 +373,8 @@ function run() {
             for (var i=0, n=ssid_status.length;i<n;i++) {
                 $( "span."+ssid_status[i] ).html(ssid_status[i]);
             }
-            for (var i=0, n=ssid_error.length;i<n;i++) {
+            console.log('length=',ssid_error.length)
+                for (var i=0, n=ssid_error.length;i<n;i++) {
                 console.log('ssid_error=',ssid_error[i],i)
                 $( "span."+ssid_error[i] ).html(ssid_error[i]);
             }

@@ -373,9 +373,9 @@ function run() {
             for (var i=0, n=ssid_status.length;i<n;i++) {
                 $( "span."+ssid_status[i] ).html(ssid_status[i]);
             }
-            console.log('length=',ssid_error.length)
+            //console.log('length=',ssid_error.length)
                 for (var i=0, n=ssid_error.length;i<n;i++) {
-                console.log('ssid_error=',ssid_error[i],i)
+                //console.log('ssid_error=',ssid_error[i],i)
                 $( "span."+ssid_error[i] ).html(ssid_error[i]);
             }
             timer=30
@@ -460,7 +460,9 @@ function run() {
                           }}
                           //window.setTimeout(function(){location.reload()},7000)}
                        ssid_error.push(result[i].name)
-                       }}
+                       }
+                   console.log('ssid_error',ssid_error.length)
+                   }
                    //result = JSON.parse(data)
                    //console.log(typeof(result)+result)
                    //length = data.length();

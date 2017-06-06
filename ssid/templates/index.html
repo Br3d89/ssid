@@ -459,7 +459,7 @@ function run() {
                               //$("span." + result[i].name[j]).html(result[i].name[j] + "<span style='color:red'>  fail  </span>").fadeIn("slow");
                           }}
                           //window.setTimeout(function(){location.reload()},7000)}
-                       ssid_error.push(result[i].name)
+                       ssid_error.push(result[i].name[j])
                        }
                    console.log('ssid_error',ssid_error.length,ssid_error)
                    }

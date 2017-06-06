@@ -449,8 +449,8 @@ function run() {
                        for(var i in result) {
                            console.log(result[i].name)
                           if (!ssid_error.includes(result[i].name)) {
-                              for (j in result[i].name ) {
-                                  console.log('j='+j)
+                              for (j=0;j<result[i].name.length;j++ ) {
+                                  console.log(result[i].name[j])
                               }
                               //$('#errors').fadeIn("slow").html(result[i].name + "<span style='color:red'>    " + result[i].error + "fail  </span>").delay(5000).fadeOut("slow")
                               //$("span." + result[i].name).html(result[i].name + "<span style='color:red'>  fail  </span>").fadeIn("slow");

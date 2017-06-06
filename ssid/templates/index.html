@@ -260,10 +260,11 @@ $(document).ready(function(){
     {% autoescape off %}
     c={{ ssids_busy }}
     {% endautoescape %}
-console.log(c)
+  console.log(c)
   if (c.length > null){
+      console.log('Really c.lenght > null')
     console.log(c,typeof(c),c.length)
-  check_busy()
+    check_busy()
   }})
 
 

@@ -25,7 +25,8 @@
 
 <script language="JavaScript">
 {% autoescape off %}
-let time={{ instance.remaining_time }},
+let time={{ instance.remaining_time }}
+    console.log('Remaining time =',time)
 {% endautoescape %}
 r=document.getElementById('r');
 let countdown_timer = setInterval(function(){

@@ -32,7 +32,7 @@ r=document.getElementById('r');
 let countdown_timer = setInterval(function(){
     let c=(time>=1)?--time:(clearInterval(countdown_timer),location.reload());
     let m=(c/60)>>0;
-    let s=(c-m*60);
+    let s=(c-m*60)+'';
     r.textContent=''+m+':'+(s.length>1?'':'0')+s;
 },1000);
 

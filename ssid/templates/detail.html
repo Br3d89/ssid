@@ -14,7 +14,7 @@
 <li><span style="font-weight: bold">Auth scheme: </span>{{ instance.auth_scheme.name }}</li>
 {% if instance.status %}
 <li><span style="font-weight: bold">SSID status: </span>up</li>
-<li><span style="font-weight: bold">Remaining UP time: </span><span id="r"></span></li>
+<li id="rTime"><span style="font-weight: bold">Remaining UP time: </span><span id="r"></span></li>
 {% else %}
 <li><span style="font-weight: bold">SSID status: </span>down</li>
 {% endif %}
@@ -31,13 +31,13 @@ let time={{ instance.remaining_time }}
 r=document.getElementById('r');
 if (time > 1) {
 let countdown_timer = setInterval(function(){
-    let c=(time>1)?--time:(console.log('Finished1'),clearInterval(countdown_timer),location.reload());
+    let c=--time;
     let m=(c/60)>>0;
     let s=(c-m*60)+'';
-    console.log('Finished2')
     r.textContent=''+m+':'+(s.length>1?'':'0')+s;
+    time<1?(console.log('Finished2'),clearInterval(countdown_timer),location.reload()):console.log('Finished1');
 },1000)}
-   else {r.textContent=0};
+   else {document.getElementById('rTime').remove()};
 
 
 {#let countdown_timer = setInterval(function(){#}

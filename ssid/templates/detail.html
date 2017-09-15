@@ -30,10 +30,12 @@ let time={{ instance.remaining_time }}
 {% endautoescape %}
 r=document.getElementById('r');
 let countdown_timer = setInterval(function(){
-    let c=(time--)>0?time--:(clearInterval(countdown_timer),location.reload());
+    let c=(--time)>0?time--:(console.log('--time<=0, clearing interval'),clearInterval(countdown_timer),location.reload());
     let m=(c/60)>>0;
     let s=(c-m*60)+'';
-    r.textContent=''+m+':'+(s.length>1?'':'0')+s
+    console.log(`c=${c} m=${m}, s=${s}`);
+    r.textContent=`${m}:${s.length>1?'':s}`;
+{#            ''+m+':'+(s.length>1?'':'0')+s#}
 },1000);
 
 {#let countdown_timer = setInterval(function(){#}

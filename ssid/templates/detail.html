@@ -26,7 +26,6 @@
 <script language="JavaScript">
 {% autoescape off %}
 let time={{ instance.remaining_time }}
-    console.log('Remaining time =',time)
 {% endautoescape %}
 r=document.getElementById('r');
 if (time > 1) {
@@ -35,21 +34,10 @@ let countdown_timer = setInterval(function(){
     let m=(c/60)>>0;
     let s=(c-m*60)+'';
     r.textContent=''+m+':'+(s.length>1?'':'0')+s;
-    time<1?(console.log('Finished2'),clearInterval(countdown_timer),location.reload()):console.log('Finished1');
+    time<1?(clearInterval(countdown_timer),location.reload()):'';
 },1000)}
    else {document.getElementById('rTime').remove()};
 
-
-{#let countdown_timer = setInterval(function(){#}
-{#    let c=time--;#}
-{#    let m=(c/60)>>0;#}
-{#    let s=(c-m*60)+'';#}
-{#    r.textContent=''+m+':'+(s.length>1?'':'0')+s#}
-{#    tmp!=0||(tmp=time);#}
-{#    if (time===0) {#}
-{#        clearInterval(countdown_timer)#}
-{#        location.reload();#}
-{#    }#}
 
 
 </script>

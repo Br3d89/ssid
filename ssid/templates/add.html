@@ -1,0 +1,218 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="ssid-add-container">
+<img width="256px" height="256px" src="{% static 'images/wifidevice.png' %}">
+<form action="/">
+
+<ul class="ssid-detail-list">
+<li><label for="name">Name: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" pattern="[A-Za-z1-9]+" type="text" id="name" name="name"	maxlength="50" required></li>
+<li><span id="wrchar" style="display:none;color:red;">Enter correct(unique per vendor) ssid name: ssid1,ssid2</span></li>
+<span id="noname" style="display:none;color:red;list-style-type: none">Please enter ssid name</span>
+
+
+<li id="vendor_li"><label for="vendor">Devices: </label>
+<select size="7" id='vendor' name="vendor" multiple >
+   {% for i in vendor_queryset %}
+    <optgroup label={{ i.name }}>
+        {% for j in device_queryset %}
+             {% if j.vendor.name == i.name %}
+                 <option value={{ j.name }}>{{ j.hostname }} ({{ j.name }})</option>
+             {% endif %}
+        {% endfor %}
+    </optgroup>
+    {% endfor %}
+
+</select>
+</li>
+<span id="nodevice" style="display:none;color:red;list-style-type: none">Please select device</span>
+
+  <li><label for="server">Server: </label>
+  <select id='server' name="server">
+  <option disabled selected value></option>
+      {% for i in server_queryset %}
+          <option value={{ i.name }}>{{ i.name }} ({{ i.ip }})</option>
+      {% endfor %}
+  </select>
+
+  </li>
+
+<li><label for="custom_server">Custom server</label><input type="checkbox" id="custom_server" name="custom" onclick="customServer(this)"></li>
+<ul id="custom_server_ul" style="display: none; padding-left: 0; list-style-type:none ;">
+<li><label for="name">Hostname: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_name" name="custom_server_name"	 required></li>
+<li><span id="wrcharhostname" style="display:none;color:red;">Server name is not resolvable or incorrect</span></li>
+<!--<li><label for="name">IP: </label><input style="width:120px;margin-left:auto;margin-right:auto;margin-bottom:5px;" type="text" id="custom_server_ip" name="custom_server_ip"	 required></li>
+<li><span id="wrcharip" style="display:none;color:red;">Enter correct ssid name: ssid1,ssid2</span></li> -->
+</ul>
+<span id="noserver" style="display:none;color:red;list-style-type: none">Please select or add server</span>
+
+
+</ul>
+<div id="success" style="display: none;color:green;font-size: 26px; ">Success</div>
+<input type="button" value='add' id="Add" onClick="add()" /> <br>
+
+{% csrf_token %}
+</form>
+<input class="link-to-main" type="button" onclick="location.href='/';"/>
+</div>
+
+{{ ssid_name }}
+{{ ssid_device }}
+{{ ssid_server }}
+{{ ssid_vendor }}
+
+<script language="JavaScript">
+function add() {
+    var token = $('input[name="csrfmiddlewaretoken"]').prop('value');
+    name = validateName()
+    //name=document.getElementById('name').value;
+    vendor = document.getElementById('vendor');
+    vendor_selected_values = []
+    device_selected_values = []
+    server=validateCustomServerName()
+    //server = document.getElementById('server').value;
+    //custom_server_name=document.getElementById('custom_server_name').value;
+    //custom_server_ip = document.getElementById('custom_server_ip').value;
+   //All selected devices for specified vendor
+    for (var i = 0; i < vendor.selectedOptions.length; i++) {
+        device_selected_values.push(vendor.selectedOptions[i].value)
+    }
+  //  for (var i = 0; i < device.selectedOptions.length; i++) {
+  //      device_selected_values.push(device.selectedOptions[i].value)
+  //  }
+
+
+    //console.log('name=' + name + ' ' + 'vendor=' + vendor_selected_values + 'device=' + device_selected_values + 'server=' + server);
+    //console.log(name.length, server.length)
+    if (name.length === 0 ) {
+        console.log('please enter ssid name')
+      $('#noname').fadeIn("slow").delay( 2000 ).fadeOut("slow");
+    }
+
+    else if (device_selected_values.length === 0 ) {
+       console.log('please choose server')
+      $('#nodevice').fadeIn("slow").delay( 2000 ).fadeOut("slow");
+    }
+
+     else if (server.length === 0 ) {
+         console.log('please choose server')
+      $('#noserver').fadeIn("slow").delay( 2000 ).fadeOut("slow");
+    }
+
+    else {
+        console.log('Sending ajax')
+     $.ajax({
+            url : "/ssid_add/",
+            type : "POST",
+            data : { name : name, device:JSON.stringify(device_selected_values),'csrfmiddlewaretoken': token,server:server }, // data sent with the post request
+
+        // handle a successful response
+
+            success : function(json) {
+            if (json.ssid_server_ip !== undefined) {
+                $("#wrcharhostname").fadeIn("slow").delay( 2000 ).fadeOut("slow");
+            }
+            if (json.ssid_name_not_unique != undefined) {
+                $("#wrchar").fadeIn("slow").delay( 2000 ).fadeOut("slow");
+            }
+            else {
+                $("#success").fadeIn("slow").delay( 2000 ).fadeOut("slow");
+                console.log('created ssids: '+json.created_ssids)
+            }
+
+            //location.reload()
+        },
+
+        // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    })
+}
+
+}
+
+function customDevice(element) {
+    if (element.checked){
+        //$("#vendor_li").css('display','none');
+        $("#vendor > option").attr('disabled',true);
+        $("#vendor > option").prop("selected", false);
+        $("#vendor > option:first-child").prop("selected", true);
+        $("#device_li").css('display','block');
+    }
+    else {
+        //$("#vendor_li").css('display','block');
+        $("#vendor > option").attr('disabled',false);
+        $("#device_li").css('display','none');
+    }
+}
+
+function customServer(element) {
+    if (element.checked){
+        $("#server > option").attr('disabled',true);
+        $("#server > option:first-child").prop("selected", true);
+        $("#server").prop('id','server1');
+        $("#custom_server_ul").css('display','block');
+        $("#custom_server_name").prop('id','server');
+
+    }
+    else {
+        $("#server").prop('id','custom_server_name');
+        $("#server1").prop('id','server');
+        $("#server > option").attr('disabled',false);
+        $("#custom_server_ul").css('display','none');
+    }
+}
+
+function validateName(){
+    var TCode = document.getElementById('name').value;
+
+    if( /[^a-zA-Z0-9\,\_\s\-\;\|\/]/.test( TCode ) ) {
+        $('#name').css('border','red solid 1px ');
+        $("#wrchar").fadeIn("slow").delay( 2000 ).fadeOut("slow");
+       // $('#name').css('border','');
+        return '';
+    }
+
+    return TCode;
+}
+
+function validateCustomServerName() {
+
+    var TCode = document.getElementById('server').value;
+    if( /^[^a-zA-Z0-9\.]/.test( TCode )) {
+        $('#custom_server_name').css('border','red solid 1px ');
+        $("#wrcharhostname").fadeIn("slow").delay( 2000 ).fadeOut("slow");
+       // $('#name').css('border','');
+        return '';
+    }
+
+    return TCode;
+
+
+}
+
+function validateCustomServerIP() {
+
+    var TCode = document.getElementById('custom_server_ip').value;
+    if( /[^0-9\.]/.test( TCode ) ) {
+        $('#custom_server_ip').css('border','red solid 1px ');
+        $("#wrcharip").fadeIn("slow").delay( 2000 ).fadeOut("slow");
+       // $('#name').css('border','');
+        return '';
+    }
+
+    return TCode;
+
+
+}
+
+
+//$('#custom').checkbox
+//function vendorlist(sel){
+//alert(sel.options[sel.selectedIndex].text);
+//}
+
+</script>
+{% endblock %}
